@@ -22,11 +22,11 @@
     "prettier"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
-    "@typescript-eslint/camelcase": "off",
-    "import/extensions": ["error", "ignorePackages"],
-    "no-console": "error"
+    "react/react-in-jsx-scope": "off"
+    // "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
+    // "@typescript-eslint/camelcase": "off",
+    // "import/extensions": ["error", "ignorePackages"],
+    // "no-console": "error"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -36,6 +36,12 @@
       "jsx": true
     },
     "project": "./tsconfig.json"
+  },
+  "settings": {
+    "import/resolver": {
+      //절대경로 사용을 위한 설정 이게 없으면 eslint 에러가 남
+      "typescript": {}
+    }
   },
   "ignorePatterns": ["build", "dist", "public"]
 }

@@ -6,14 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.56.2",
+    "@vanilla-extract/css": "^1.15.5",
+    "@vanilla-extract/next-plugin": "^2.4.5",
     "next": "14.2.11",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.9.0",
+    "@storybook/addon-essentials": "^8.3.0",
+    "@storybook/addon-interactions": "^8.3.0",
+    "@storybook/addon-links": "^8.3.0",
+    "@storybook/addon-onboarding": "^8.3.0",
+    "@storybook/blocks": "^8.3.0",
+    "@storybook/nextjs": "^8.3.0",
+    "@storybook/react": "^8.3.0",
+    "@storybook/test": "^8.3.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -29,7 +44,10 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.36.1",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-storybook": "^0.8.0",
+    "mini-css-extract-plugin": "^2.9.1",
     "prettier": "^3.3.3",
+    "storybook": "^8.3.0",
     "typescript": "^5"
   }
 }
