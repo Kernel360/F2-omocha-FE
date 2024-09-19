@@ -1,26 +1,13 @@
-import ItemCard from '../ItemCard';
 import * as S from './ListLayout.css';
 
-function ListLayout() {
+interface ListLayoutProps {
+  children: React.ReactNode;
+}
+
+function ListLayout({ children }: ListLayoutProps) {
   return (
-    <div className={S.test}>
-      <div className={S.ResponsiveLayoutWrapper}>
-        <div className={S.tteesstt}>
-          <ItemCard />
-        </div>
-        <div className={S.tteesstt}>
-          <ItemCard />
-        </div>
-        <div className={S.tteesstt}>
-          <ItemCard />
-        </div>
-        <div className={S.tteesstt}>
-          <ItemCard />
-        </div>
-        <div className={S.tteesstt}>
-          <ItemCard />
-        </div>
-      </div>
+    <div className={S.layout}>
+      <div className={S.responsiveLayoutWrapper}>{children}</div>
     </div>
   );
 }

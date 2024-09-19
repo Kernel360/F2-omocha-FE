@@ -15,7 +15,6 @@ interface AuctionCardProps {
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
   const { isExpired, image, title, isLike, startPrice, startTime, endTime, nowPrice } = SAMPLE;
-  // time 어떻게 들어오는지 확인하고 validation 주어야함.
 
   return (
     <div className={S.cardWrapper}>
