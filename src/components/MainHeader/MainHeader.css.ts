@@ -19,7 +19,12 @@ export const topCategory = style({
 
 export const bottomHeader = style({
   display: 'flex',
-  padding: '0 40px',
+  padding: '10px 40px',
   fontSize: '25px',
   gap: '27px',
+});
+
+export const categoryLink = style({
+  textDecoration: 'none',
+  color: 'rgb(0,0,0)',
 });

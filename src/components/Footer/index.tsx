@@ -1,4 +1,8 @@
+'use client';
+
 import * as S from '@/components/Footer/Footer.css';
+import { MAIN_CATEGORY } from '@/static/category';
+import Link from 'next/link';
 
 function Footer() {
   return (
@@ -6,10 +10,13 @@ function Footer() {
       <div className={S.topFooter}>
         <h2>LOGO</h2>
         <ul className={S.categoryList}>
-          <li className={S.category}>Home</li>
-          <li className={S.category}>Normal</li>
-          {/* <li className={S.category}>Live</li> */}
-          <li className={S.category}>How To</li>
+          {MAIN_CATEGORY.map(category => (
+            <li className={S.category} key={category.id}>
+              <Link className={S.categoryLink} href={category.path}>
+                {category.name}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
       <div className={S.bottomFooter}>Copyright ⓒ Omocha. All Rights Reserved</div>

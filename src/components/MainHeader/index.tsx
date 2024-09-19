@@ -1,23 +1,41 @@
+'use client';
+
 import * as S from '@/components/MainHeader/MainHeader.css';
+import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 function MainHeader() {
+  const pathname = usePathname();
+
   return (
     <div className={S.container}>
       <section className={S.topHeader}>
         <h1>LOGO</h1>
         <div className={S.topCategory}>
-          <span>게시물 업로드</span>
-          <span>마이페이지</span>
-          <span>찜</span>
-          {/* <span>알림</span> */}
-          <span>로그인</span>
+          {SUB_CATEGORY.map(category => (
+            <Link
+              className={S.categoryLink}
+              key={category.id}
+              href={category.path}
+              style={{ color: category.path === pathname ? 'red' : 'black' }}
+            >
+              {category.name}
+            </Link>
+          ))}
         </div>
       </section>
       <section className={S.bottomHeader}>
-        <span>Home</span>
-        <span>Normal</span>
-        {/* <span>Live</span> */}
-        <span>How To</span>
+        {MAIN_CATEGORY.map(category => (
+          <Link
+            className={S.categoryLink}
+            key={category.id}
+            href={category.path}
+            style={{ color: category.path === pathname ? 'red' : 'black' }}
+          >
+            {category.name}
+          </Link>
+        ))}
       </section>
     </div>
   );

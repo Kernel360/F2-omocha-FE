@@ -32,3 +32,8 @@ export const bottomFooter = style({
   justifyContent: 'center',
   fontSize: '12px',
 });
+
+export const categoryLink = style({
+  textDecoration: 'none',
+  color: 'rgb(256, 256, 256)',
+});
