@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import HeartIcon from '@/assets/svg/heart.svg';
+import Link from 'next/link';
 import * as S from './AuctionCard.css';
 
 interface AuctionCardProps {
+  id: number;
   isExpired: boolean;
   image: string;
   title: string;
@@ -14,10 +16,10 @@ interface AuctionCardProps {
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
-  const { isExpired, image, title, isLike, startPrice, startTime, endTime, nowPrice } = SAMPLE;
+  const { id, isExpired, image, title, isLike, startPrice, startTime, endTime, nowPrice } = SAMPLE;
 
   return (
-    <div className={S.cardWrapper}>
+    <Link className={S.cardWrapper} href={`basicauction/${id}`}>
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
       <HeartIcon className={S.heartStyle} stroke="red" fill={isLike ? 'red' : 'none'} />
       <Image
@@ -55,7 +57,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

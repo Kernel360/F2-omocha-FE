@@ -60,6 +60,7 @@ export default function Home() {
       {auctionItems.map(item => (
         <AuctionCard
           key={item.id}
+          id={item.id}
           isExpired={item.isExpired}
           image={item.image}
           title={item.title}
