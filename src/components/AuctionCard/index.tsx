@@ -31,7 +31,8 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
         <hr className={S.division} />
         <div className={S.cardFlex}>
           <span>시작가(KRW)</span>
-          <span>{startPrice.toLocaleString('ko-KR')}원</span>
+          <span>{startPrice ? startPrice.toLocaleString('ko-KR') : '3,000'}원</span>
+          {/* 위 삼항연산자는 startPrice가 없을 경우 3,000원으로 표시하도록 함. 나중에 없어질 것임. */}
         </div>
         <hr className={S.division} />
         <div className={S.cardTimeWrapper}>
