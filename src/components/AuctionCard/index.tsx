@@ -10,10 +10,11 @@ interface AuctionCardProps {
   startPrice: number;
   startTime: string;
   endTime: string;
+  nowPrice?: number;
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
-  const { isExpired, image, title, isLike, startPrice, startTime, endTime } = SAMPLE;
+  const { isExpired, image, title, isLike, startPrice, startTime, endTime, nowPrice } = SAMPLE;
   // time 어떻게 들어오는지 확인하고 validation 주어야함.
 
   return (
@@ -30,10 +31,18 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       <div className={S.cardContent}>
         <span className={S.cardTitle}>{title}</span>
         <hr className={S.division} />
-        <div className={S.cardFlex}>
-          <span>시작가(KRW)</span>
-          <span>{startPrice ? startPrice.toLocaleString('ko-KR') : '3,000'}원</span>
-          {/* 위 삼항연산자는 startPrice가 없을 경우 3,000원으로 표시하도록 함. 나중에 없어질 것임. */}
+        <div className={S.cardTimeWrapper}>
+          <div className={S.cardFlex}>
+            <span>시작가(KRW)</span>
+            <span>{startPrice ? startPrice.toLocaleString('ko-KR') : '3,000'}원</span>
+            {/* 위 삼항연산자는 startPrice가 없을 경우 3,000원으로 표시하도록 함. 나중에 없어질 것임. */}
+          </div>
+          {nowPrice && (
+            <div className={S.cardFlexColor}>
+              <span>현재가(KRW)</span>
+              <span>{nowPrice.toLocaleString('ko-KR')}원</span>
+            </div>
+          )}
         </div>
         <hr className={S.division} />
         <div className={S.cardTimeWrapper}>

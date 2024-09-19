@@ -6,7 +6,7 @@ export const cardWrapper = style({
   flexDirection: 'column',
   width: '280px',
   borderRadius: '12px',
-  border: '1px solid #e5e5e5',
+  border: '1px solid rgba(229, 229, 229, 1)',
   cursor: 'pointer',
   ':hover': {
     boxShadow: '0 0 8px rgba(0, 0, 0, 0.1)',
@@ -44,13 +44,20 @@ export const cardTitle = style({
 });
 
 export const division = style({
-  color: 'e5e5e5',
+  color: 'rgba(229, 229, 229, 1)',
 });
 
 export const cardFlex = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+});
+
+export const cardFlexColor = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  color: 'rgba(200, 0, 0, 1)',
 });
 
 export const cardTimeWrapper = style({
@@ -70,7 +77,7 @@ export const dim = style({
   justifyContent: 'center',
   alignItems: 'center',
   fontSize: '24px',
-  color: 'white',
+  color: 'rgba(255, 255, 255, 1)',
   fontWeight: 'bold',
   borderRadius: '12px',
   zIndex: 1,
