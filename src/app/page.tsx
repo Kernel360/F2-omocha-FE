@@ -1,12 +1,10 @@
-// import Footer from '@/components/Footer';
-// import MainHeader from '@/components/MainHeader';
+import ListLayout from '@/components/ListLayout';
 
 export default function Home() {
   return (
     <>
-      {/* <MainHeader /> */}
       <div>test</div>
-      {/* <Footer /> */}
+      <ListLayout />
     </>
   );
 }
