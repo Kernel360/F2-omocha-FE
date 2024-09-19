@@ -4,6 +4,7 @@ import * as S from './AuctionCard.css';
 
 interface AuctionCardProps {
   isExpired: boolean;
+  image: string;
   title: string;
   isLike: boolean;
   startPrice: number;
@@ -12,7 +13,7 @@ interface AuctionCardProps {
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
-  const { isExpired, title, isLike, startPrice, startTime, endTime } = SAMPLE;
+  const { isExpired, image, title, isLike, startPrice, startTime, endTime } = SAMPLE;
   // time 어떻게 들어오는지 확인하고 validation 주어야함.
 
   return (
@@ -20,7 +21,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
       <HeartIcon className={S.heartStyle} stroke="red" fill={isLike ? 'red' : 'none'} />
       <Image
-        src="https://via.placeholder.com/280x200"
+        src={image || 'https://via.placeholder.com/280x200'}
         alt="Auction Image"
         width={280}
         height={200}
