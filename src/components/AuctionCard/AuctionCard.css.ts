@@ -8,6 +8,9 @@ export const cardWrapper = style({
   borderRadius: '12px',
   border: '1px solid #e5e5e5',
   cursor: 'pointer',
+  ':hover': {
+    boxShadow: '0 0 8px rgba(0, 0, 0, 0.1)',
+  },
 });
 
 export const heartStyle = style({
