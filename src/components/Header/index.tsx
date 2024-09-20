@@ -1,11 +1,11 @@
 'use client';
 
-import * as S from '@/components/MainHeader/MainHeader.css';
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import * as S from '@/components/Header/Header.css';
 
-function MainHeader() {
+function Header() {
   const pathname = usePathname();
 
   return (
@@ -41,4 +41,4 @@ function MainHeader() {
   );
 }
 
-export default MainHeader;
+export default Header;
