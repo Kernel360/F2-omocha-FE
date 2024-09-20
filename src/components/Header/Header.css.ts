@@ -8,7 +8,12 @@ export const container = style({
 export const topHeader = style({
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   padding: '16px 40px 0',
+});
+
+export const logoButton = style({
+  fontSize: '32px',
 });
 
 export const topCategory = style({

@@ -7,12 +7,16 @@ export const container = style({
   height: '130px',
   padding: '0 30px',
   backgroundColor: 'rgb(0, 0, 0, 0.9)',
-  color: 'white',
 });
 
 export const topFooter = style({
   display: 'flex',
   justifyContent: 'space-around',
+});
+
+export const logoButton = style({
+  color: 'white',
+  fontSize: '32px',
 });
 
 export const categoryList = style({
@@ -21,10 +25,11 @@ export const categoryList = style({
   fontSize: '15px',
   fontWeight: 'bold',
   alignItems: 'center',
+  gap: '50px',
 });
 
 export const category = style({
-  width: '100px',
+  width: 'fit-content',
 });
 
 export const bottomFooter = style({
