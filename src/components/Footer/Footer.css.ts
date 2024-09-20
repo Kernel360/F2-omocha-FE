@@ -1,17 +1,23 @@
 import { style } from '@vanilla-extract/css';
 
-export const container = style({
+export const footer = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-around',
   height: '130px',
-  padding: '0 30px',
   backgroundColor: 'rgb(0, 0, 0, 0.9)',
+  color: 'white',
+});
+
+export const container = style({
+  maxWidth: '1280px',
+  margin: '0 auto',
 });
 
 export const topFooter = style({
   display: 'flex',
-  justifyContent: 'space-around',
+  gap: '100px',
+  paddingBottom: '20px',
 });
 
 export const logoButton = style({
