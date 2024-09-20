@@ -3,12 +3,16 @@
 import * as S from '@/components/Footer/Footer.css';
 import { MAIN_CATEGORY } from '@/static/category';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 function Footer() {
+  const router = useRouter();
   return (
     <div className={S.container}>
       <div className={S.topFooter}>
-        <h2>LOGO</h2>
+        <button className={S.logoButton} type="button" onClick={() => router.push('/')}>
+          LOGO
+        </button>
         <ul className={S.categoryList}>
           {MAIN_CATEGORY.map(category => (
             <li className={S.category} key={category.id}>

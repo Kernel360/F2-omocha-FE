@@ -2,16 +2,19 @@
 
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import * as S from '@/components/Header/Header.css';
 
 function Header() {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <div className={S.container}>
       <section className={S.topHeader}>
-        <h1>LOGO</h1>
+        <button className={S.logoButton} type="button" onClick={() => router.push('/')}>
+          LOGO
+        </button>
         <div className={S.topCategory}>
           {SUB_CATEGORY.map(category => (
             <Link
