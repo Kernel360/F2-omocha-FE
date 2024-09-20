@@ -22,11 +22,8 @@
     "prettier"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "off"
-    // "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
-    // "@typescript-eslint/camelcase": "off",
-    // "import/extensions": ["error", "ignorePackages"],
-    // "no-console": "error"
+    "react/react-in-jsx-scope": "off",
+    "import/prefer-default-export": "off"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

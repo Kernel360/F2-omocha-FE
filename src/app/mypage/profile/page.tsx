@@ -1,6 +1,6 @@
 'use client';
 
-import MYPAGE_CATEGORY from '@/static/category';
+import { MYPAGE_CATEGORY } from '@/static/category';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
