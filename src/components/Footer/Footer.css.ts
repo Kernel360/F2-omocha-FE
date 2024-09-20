@@ -7,16 +7,18 @@ export const footer = style({
   height: '130px',
   backgroundColor: 'rgb(0, 0, 0, 0.9)',
   color: 'white',
+  padding: '0 16px',
 });
 
 export const container = style({
   maxWidth: '1280px',
+  width: '100%',
   margin: '0 auto',
 });
 
 export const topFooter = style({
   display: 'flex',
-  gap: '100px',
+  justifyContent: 'space-between',
   paddingBottom: '20px',
 });
 
