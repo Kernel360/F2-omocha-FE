@@ -2,12 +2,13 @@ import { style } from '@vanilla-extract/css';
 
 export const cardWrapper = style({
   position: 'relative',
+  textDecoration: 'none',
+  color: 'rgba(0, 0, 0, 1)',
   display: 'flex',
   flexDirection: 'column',
   width: '280px',
   borderRadius: '12px',
   border: '1px solid rgba(229, 229, 229, 1)',
-  cursor: 'pointer',
   ':hover': {
     boxShadow: '0 0 8px rgba(0, 0, 0, 0.1)',
   },
