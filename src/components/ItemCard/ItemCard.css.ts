@@ -1,10 +1,16 @@
 import { style } from '@vanilla-extract/css';
 
 export const iconButton = style({
-  backgroundColor: 'red',
-  width: 'fit-content',
+  position: 'absolute',
+  top: '0',
+  left: '0',
+  height: '100%',
+  backgroundColor: 'lightblue',
+  border: '1px solid black',
+  width: '100%',
 });
 
 export const test = style({
-  backgroundColor: 'red',
+  backgroundColor: 'pink',
+  height: '300px',
 });
