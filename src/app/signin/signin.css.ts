@@ -39,7 +39,6 @@ export const optionSection = style({
 
 export const inputSection = style({
   paddingTop: '50px',
-
   display: 'flex',
   flexDirection: 'column',
   gap: '16px',
