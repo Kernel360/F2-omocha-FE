@@ -1,5 +1,17 @@
-import { style } from '@vanilla-extract/css';
+import { createVar, style } from '@vanilla-extract/css';
 
+export const accentVar = createVar();
+export const blue = style({
+  vars: {
+    [accentVar]: 'black',
+  },
+});
+
+export const pink = style({
+  vars: {
+    [accentVar]: 'red',
+  },
+});
 export const infoWrapper = style({
   display: 'flex',
   flexDirection: 'column',
@@ -21,13 +33,37 @@ export const infoRow = style({
   padding: '12px 0',
 });
 
+export const nowPrice = style({
+  color: 'red',
+});
+
+export const infoRowTitle = style({
+  fontSize: '18px',
+  fontWeight: '40px',
+});
+
 export const infoRight = style({
   display: 'flex',
   alignItems: 'center',
+  gap: '8px',
 });
 
 export const division = style({
   width: '100%',
   height: '1px',
   backgroundColor: 'rgba(229, 229, 229, 1)',
+});
+
+export const infoButton = style({
+  backgroundColor: 'rgba(0, 0, 0, 1)',
+  color: 'white',
+  padding: '8px 12px',
+  borderRadius: '4px',
+  border: 'none',
+  cursor: 'pointer',
+});
+
+export const bidButton = style({
+  fontSize: '14px',
+  padding: '24px 24px',
 });
