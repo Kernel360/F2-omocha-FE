@@ -17,18 +17,7 @@ function Header() {
         </button>
         <div className={S.topCategory}>
           {SUB_CATEGORY.map(category => (
-            <Link
-              className={S.categoryLink}
-              key={category.id}
-              href={category.path}
-              style={{
-                color:
-                  category.path === pathname ||
-                  (category.path === '/mypage' && pathname.startsWith('/mypage'))
-                    ? 'red'
-                    : 'black',
-              }}
-            >
+            <Link className={S.categoryLink} key={category.id} href={category.path}>
               {category.name}
             </Link>
           ))}
