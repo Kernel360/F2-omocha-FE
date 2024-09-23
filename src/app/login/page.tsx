@@ -8,7 +8,7 @@ import GoggleIcon from '@/assets/svg/goggleIcon.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import * as S from './Login';
+import * as S from './Login.css';
 
 type Inputs = {
   idRequired: string;
