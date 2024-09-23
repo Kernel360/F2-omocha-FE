@@ -21,7 +21,7 @@ function Home() {
         <hr className={S.division} />
         <li className={S.option}>비밀번호 찾기</li>
         <hr className={S.division} />
-        <Link className={S.link} href="join" rel="stylesheet">
+        <Link href="join" rel="stylesheet">
           <li className={S.option}>회원가입 하기</li>
         </Link>
       </ul>
