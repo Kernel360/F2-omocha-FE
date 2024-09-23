@@ -21,7 +21,13 @@ function Header() {
               className={S.categoryLink}
               key={category.id}
               href={category.path}
-              style={{ color: category.path === pathname ? 'red' : 'black' }}
+              style={{
+                color:
+                  category.path === pathname ||
+                  (category.path === '/mypage' && pathname.startsWith('/mypage'))
+                    ? 'red'
+                    : 'black',
+              }}
             >
               {category.name}
             </Link>
