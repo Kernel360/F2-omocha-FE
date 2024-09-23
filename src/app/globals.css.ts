@@ -1,4 +1,4 @@
-import { globalStyle } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 globalStyle('html, body, h1, h2, h3, h4, button, p, ul, ol, li', {
   margin: 0,
@@ -19,4 +19,11 @@ globalStyle('::-webkit-scrollbar', {
 globalStyle('button', {
   border: 'none',
   backgroundColor: 'transparent',
+});
+
+export const container = style({
+  maxWidth: '1280px',
+  margin: '0 auto',
+  padding: '0 16px',
+  minHeight: 'calc(100vh - 294px)',
 });

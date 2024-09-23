@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
-import '@/app/globals.css';
+import * as S from '@/app/globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -33,10 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 16px' }}>
-          <Header />
-          {children}
-        </div>
+        <Header />
+        <div className={S.container}>{children}</div>
         <Footer />
       </body>
     </html>
