@@ -12,6 +12,7 @@ export const infoTitle = style({
   fontSize: '24px',
   lineHeight: '24px',
   fontWeight: '24px',
+  wordBreak: 'break-all',
 });
 
 export const infoRow = style({
