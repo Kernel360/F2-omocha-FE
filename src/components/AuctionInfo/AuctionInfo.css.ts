@@ -1,17 +1,5 @@
-import { createVar, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
-export const accentVar = createVar();
-export const blue = style({
-  vars: {
-    [accentVar]: 'black',
-  },
-});
-
-export const pink = style({
-  vars: {
-    [accentVar]: 'red',
-  },
-});
 export const infoWrapper = style({
   display: 'flex',
   flexDirection: 'column',
