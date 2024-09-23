@@ -5,10 +5,6 @@ export const breadcrumb = style({
   alignItems: 'center',
 });
 
-export const link = style({
-  textDecoration: 'none',
-});
-
 export const breadcrumbItem = style({
   color: 'rgba(200, 200, 200, 1)',
   padding: '4px 8px',

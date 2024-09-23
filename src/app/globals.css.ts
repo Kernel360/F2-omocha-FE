@@ -21,6 +21,11 @@ globalStyle('button', {
   backgroundColor: 'transparent',
 });
 
+globalStyle('a', {
+  textDecoration: 'none',
+  color: 'black',
+});
+
 export const container = style({
   maxWidth: '1280px',
   margin: '0 auto',

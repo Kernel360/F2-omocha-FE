@@ -48,6 +48,5 @@ export const bottomFooter = style({
 });
 
 export const categoryLink = style({
-  textDecoration: 'none',
   color: 'rgb(256, 256, 256)',
 });
