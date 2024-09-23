@@ -9,7 +9,6 @@ export const container = style({
 export const categoryList = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
   listStyle: 'none',
   gap: '50px',
   padding: '50px',
