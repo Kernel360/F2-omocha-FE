@@ -3,13 +3,16 @@ import { style } from '@vanilla-extract/css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
+  maxWidth: '1280px',
+  width: '100%',
+  margin: '0 auto',
 });
 
 export const topHeader = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '16px 0 0',
+  padding: '16px 0',
 });
 
 export const logo = style({
@@ -24,7 +27,7 @@ export const topCategory = style({
 
 export const bottomHeader = style({
   display: 'flex',
-  padding: '10px 0',
+  padding: '0 0 32px',
   fontSize: '25px',
   gap: '27px',
 });
