@@ -1,21 +1,71 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
+'use client';
+
+/* eslint-disable react/jsx-props-no-spreading */
+
 import Link from 'next/link';
 import GoggleIcon from '@/assets/svg/goggleIcon.svg';
+import ErrorIcon from '@/assets/svg/error.svg';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
 import * as S from './login.css';
 
+type Inputs = {
+  idRequired: string;
+  passwordRequired: string;
+};
+
 function Home() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+
   return (
     <div className={S.container}>
       <span className={S.title}>로그인하기</span>
       <span className={S.welcomeTitle}>
         <span className={S.hightLightTitle}>Omocha</span>에서 다양한 상품을 만나보세요!
       </span>
-      <div className={S.inputSection}>
-        <input className={S.loginInput} type="text" placeholder="아이디" />
-        <input className={S.loginInput} type="password" placeholder="비밀번호" />
-      </div>
-      <button className={S.submitButton} type="submit">
-        로그인
-      </button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={S.inputSection}>
+          <label className={S.inputLabel}>
+            아이디
+            <input
+              className={S.loginInput}
+              placeholder="아이디"
+              type="text"
+              {...register('idRequired', { required: true })}
+            />
+            {errors.idRequired && (
+              <span className={S.inputError}>
+                <ErrorIcon />
+                id field is required
+              </span>
+            )}
+          </label>
+          <label className={S.inputLabel}>
+            비밀번호
+            <input
+              className={S.loginInput}
+              placeholder="비밀번호"
+              type="password"
+              {...register('passwordRequired', { required: true })}
+            />
+            {errors.passwordRequired && (
+              <span className={S.inputError}>
+                <ErrorIcon />
+                password field is required
+              </span>
+            )}
+          </label>
+        </div>
+        <input className={S.submitButton} type="submit" value="로그인" />
+      </form>
       <ul className={S.optionSection}>
         <li className={S.option}>아이디 찾기</li>
         <hr className={S.division} />
@@ -38,5 +88,3 @@ function Home() {
 }
 
 export default Home;
-
-// hook form 도입하면 바뀔지도 그냥 영역만 보기..

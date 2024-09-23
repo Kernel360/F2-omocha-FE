@@ -39,14 +39,14 @@ export const optionSection = style({
 
 export const inputSection = style({
   paddingTop: '50px',
-  height: '150px',
+
   display: 'flex',
   flexDirection: 'column',
-  gap: '12px',
-  alignItems: 'center',
+  gap: '16px',
 });
 
 export const submitButton = style({
+  marginTop: '30px',
   width: '402px',
   padding: '15px 62px',
   background: 'black ',
@@ -106,6 +106,20 @@ export const snsLoginButton = style({
   alignItems: 'center',
   background: '#FFF',
   filter: 'drop-shadow(2px 3px 12px rgba(0, 0, 0, 0.10))',
-  // filter: drop-shadow(2px 3px 12px rgba(0, 0, 0, 0.10));
   ':hover': {},
+});
+
+export const inputLabel = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4px',
+});
+
+export const inputError = style({
+  display: 'flex',
+  gap: '4px',
+  alignItems: 'center',
+  color: '#FF0000',
+  fontSize: '14px',
+  marginLeft: '8px',
 });
