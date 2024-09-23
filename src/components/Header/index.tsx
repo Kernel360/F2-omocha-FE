@@ -17,7 +17,6 @@ function Header() {
         <div className={S.topCategory}>
           {SUB_CATEGORY.map(category => (
             <Link
-              className={S.categoryLink}
               key={category.id}
               href={category.path}
               style={{ color: category.path === pathname ? 'red' : 'black' }}
@@ -30,7 +29,6 @@ function Header() {
       <section className={S.bottomHeader}>
         {MAIN_CATEGORY.map(category => (
           <Link
-            className={S.categoryLink}
             key={category.id}
             href={category.path}
             style={{ color: category.path === pathname ? 'red' : 'black' }}

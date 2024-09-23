@@ -1,10 +1,5 @@
 import { style } from '@vanilla-extract/css';
 
-export const link = style({
-  textDecoration: 'none',
-  color: 'black',
-});
-
 export const container = style({
   display: 'flex',
   flexDirection: 'column',

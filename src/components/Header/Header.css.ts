@@ -28,8 +28,3 @@ export const bottomHeader = style({
   fontSize: '25px',
   gap: '27px',
 });
-
-export const categoryLink = style({
-  textDecoration: 'none',
-  color: 'rgb(0,0,0)',
-});
