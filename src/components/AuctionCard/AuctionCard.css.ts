@@ -2,7 +2,6 @@ import { style } from '@vanilla-extract/css';
 
 export const cardWrapper = style({
   position: 'relative',
-  textDecoration: 'none',
   color: 'rgba(0, 0, 0, 1)',
   display: 'flex',
   flexDirection: 'column',

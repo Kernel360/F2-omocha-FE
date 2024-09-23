@@ -12,7 +12,7 @@ export const topHeader = style({
   padding: '16px 0 0',
 });
 
-export const logoButton = style({
+export const logo = style({
   fontSize: '32px',
 });
 
@@ -27,9 +27,4 @@ export const bottomHeader = style({
   padding: '10px 0',
   fontSize: '25px',
   gap: '27px',
-});
-
-export const categoryLink = style({
-  textDecoration: 'none',
-  color: 'rgb(0,0,0)',
 });
