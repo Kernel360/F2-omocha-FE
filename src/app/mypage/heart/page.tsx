@@ -1,7 +1,7 @@
 function Home() {
   return (
     <div>
-      <span>마이페이지</span>
+      <span>찜</span>
     </div>
   );
 }
