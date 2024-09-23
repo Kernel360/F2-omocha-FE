@@ -12,7 +12,7 @@ export const topHeader = style({
   padding: '16px 0 0',
 });
 
-export const logoButton = style({
+export const logo = style({
   fontSize: '32px',
 });
 

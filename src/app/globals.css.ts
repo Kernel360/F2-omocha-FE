@@ -20,3 +20,8 @@ globalStyle('button', {
   border: 'none',
   backgroundColor: 'transparent',
 });
+
+globalStyle('a', {
+  textDecoration: 'none',
+  color: 'black',
+});
