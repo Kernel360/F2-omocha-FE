@@ -21,6 +21,7 @@ export const tabsTrigger = style({
 
   selectors: {
     '&[data-state="active"]': {
+      color: 'red',
       borderBottom: '2px solid red',
     },
   },
