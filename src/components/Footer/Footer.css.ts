@@ -7,7 +7,7 @@ export const footer = style({
   height: '130px',
   backgroundColor: 'rgb(0, 0, 0, 0.9)',
   color: 'white',
-  marginTop: '32px',
+  // marginTop: '32px',
   padding: '0 16px',
 });
 
