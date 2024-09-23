@@ -55,4 +55,5 @@ export const infoButton = style({
 export const bidButton = style({
   fontSize: '14px',
   padding: '24px 24px',
+  marginTop: '12px',
 });

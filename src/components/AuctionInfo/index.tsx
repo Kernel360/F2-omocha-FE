@@ -42,7 +42,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         </div>
       </div>
       <div className={S.infoRow}>
-        <span className={S.infoRowTitle}>입찰 의망가</span>
+        <span className={S.infoRowTitle}>입찰 희망가</span>
         <div className={S.infoRight}>
           <input type="number" />
           <span>원</span>
