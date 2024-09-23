@@ -1,15 +1,14 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 'use client';
-
-/* eslint-disable react/jsx-props-no-spreading */
 
 import Link from 'next/link';
 import GoggleIcon from '@/assets/svg/goggleIcon.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import * as S from './signin.css';
+import * as S from './Login';
 
 type Inputs = {
   idRequired: string;
