@@ -17,6 +17,7 @@ type Inputs = {
 };
 
 function Home() {
+
   const {
     register,
     handleSubmit,
@@ -48,7 +49,6 @@ function Home() {
     const emailExists = false; // 실제 API를 통해 중복 여부 확인
 
     if (emailExists) {
-      // 중복된 이메일이면 에러 설정
       setError('emailRequired', { type: 'manual', message: '중복된 이메일이 있습니다.' });
     } else {
       setEmailCheck(true);
@@ -63,6 +63,7 @@ function Home() {
     }
 
     console.log(data);
+    
   };
 
   return (

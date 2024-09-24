@@ -19,7 +19,7 @@ export const inputSection = style({
   paddingTop: '50px',
   display: 'flex',
   flexDirection: 'column',
-  gap: '16px',
+  gap: '24px',
 });
 
 export const inputLabel = style({ display: 'flex', flexDirection: 'column', gap: '6px' });
