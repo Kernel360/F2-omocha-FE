@@ -4,7 +4,7 @@
 'use client';
 
 import Link from 'next/link';
-import GoggleIcon from '@/assets/svg/goggleIcon.svg';
+import GoggleIcon from '@/assets/svg/goggle.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
