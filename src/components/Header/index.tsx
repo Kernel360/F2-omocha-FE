@@ -16,11 +16,7 @@ function Header() {
         </Link>
         <div className={S.topCategory}>
           {SUB_CATEGORY.map(category => (
-            <Link
-              key={category.id}
-              href={category.path}
-              style={{ color: category.path === pathname ? 'red' : 'black' }}
-            >
+            <Link key={category.id} href={category.path}>
               {category.name}
             </Link>
           ))}
