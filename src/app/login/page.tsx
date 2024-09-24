@@ -22,7 +22,9 @@ function Home() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    console.log(data); // 임시 console
+  };
 
   return (
     <div className={S.container}>

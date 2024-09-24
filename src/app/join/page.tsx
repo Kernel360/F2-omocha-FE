@@ -17,7 +17,6 @@ type Inputs = {
 };
 
 function Home() {
-
   const {
     register,
     handleSubmit,
@@ -45,7 +44,6 @@ function Home() {
       return;
     }
 
-    console.log('emailValue', emailValue);
     const emailExists = false; // 실제 API를 통해 중복 여부 확인
 
     if (emailExists) {
@@ -62,8 +60,7 @@ function Home() {
       return;
     }
 
-    console.log(data);
-    
+    console.log(data); // 임시 console
   };
 
   return (
