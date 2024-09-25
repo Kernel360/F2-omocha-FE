@@ -23,7 +23,6 @@ function Home() {
     watch,
     setError,
     clearErrors,
-
     formState: { errors },
   } = useForm<Inputs>({
     mode: 'onChange',
@@ -63,6 +62,20 @@ function Home() {
     console.log(data); // 임시 console
   };
 
+  const isEmailValid = !errors.emailRequired;
+
+  const getButtonStyle = () => {
+    if (!isEmailValid) {
+      return S.checkButton.disabled;
+    }
+    if (emailCheck) {
+      return S.checkButton.confirm;
+    }
+    return S.checkButton.default;
+  };
+
+  const buttonStyle = getButtonStyle();
+
   return (
     <div className={S.container}>
       <span className={S.title}>회원가입하기</span>
@@ -76,14 +89,18 @@ function Home() {
                 placeholder="이메일을 입력하세요."
                 type="email"
                 {...register('emailRequired', {
-                  required: true,
+                  required: '이메일을 입력해 주세요',
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: '올바른 이메일 형식이 아니에요',
+                  },
                   onChange: () => setEmailCheck(false),
                 })}
               />
               <button
                 type="button"
-                disabled={emailCheck}
-                className={emailCheck ? S.checkButton.confirm : S.checkButton.default}
+                disabled={!isEmailValid || emailCheck}
+                className={buttonStyle}
                 onClick={() => checkEmail()}
               >
                 {emailCheck ? '확인완료' : ' 중복확인'}
@@ -92,9 +109,7 @@ function Home() {
             {errors.emailRequired && (
               <span className={`${S.inputValidation} ${S.error}`}>
                 <ErrorIcon />
-                {errors.emailRequired.type === 'required'
-                  ? '이메일을 입력하세요.'
-                  : errors.emailRequired.message}
+                {errors.emailRequired.message}
               </span>
             )}
             {emailCheck && (
@@ -126,9 +141,7 @@ function Home() {
             {errors.passwordRequired && (
               <span className={`${S.inputValidation} ${S.error}`}>
                 <ErrorIcon />
-                {errors.passwordRequired.type === 'required'
-                  ? '비밀번호를 입력하세요.'
-                  : errors.passwordRequired.message}
+                {errors.passwordRequired.message}
               </span>
             )}
           </label>

@@ -65,28 +65,38 @@ export const submitButton = style({
   cursor: 'pointer',
 });
 
+const buttonBase = style({
+  display: 'flex',
+  color: '#FFF',
+  fontSize: '14px',
+  width: '80px',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '4px',
+  cursor: 'pointer',
+});
+
 export const checkButton = styleVariants({
-  default: {
-    display: 'flex',
-    background: 'black',
-    color: '#FFF',
-    fontSize: '14px',
-    width: '80px',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
-  confirm: {
-    display: 'flex',
-    background: '#C4C4C4',
-    color: '#FFF',
-    fontSize: '14px',
-    width: '80px',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '4px',
-  },
+  default: [
+    buttonBase,
+    {
+      background: 'black',
+    },
+  ],
+  disabled: [
+    buttonBase,
+    {
+      background: '#C4C4C4',
+      cursor: 'not-allowed',
+    },
+  ],
+  confirm: [
+    buttonBase,
+    {
+      background: '#C4C4C4',
+      cursor: 'not-allowed',
+    },
+  ],
 });
 
 export const checkInputWrapper = style({
