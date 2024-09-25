@@ -35,7 +35,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>남은 시간</span>
         <AuctionCountdown
-          endTime={endTime ? endTime : '2024-09-29 12:56:50'}
+          endTime={endTime ? endTime : '2024-09-25 12:56:50'}
           setExpired={setExpired}
         />
       </div>
@@ -58,7 +58,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       <button
         disabled={expired}
         type="button"
-        className={`${S.infoButton} ${S.bidButton}`}
+        className={expired ? S.bidButton.disabled : S.bidButton.default}
         onClick={() => {
           console.log('입찰하기');
         }}
