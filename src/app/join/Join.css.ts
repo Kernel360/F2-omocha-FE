@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
@@ -65,15 +65,28 @@ export const submitButton = style({
   cursor: 'pointer',
 });
 
-export const checkButton = style({
-  display: 'flex',
-  background: 'black',
-  color: '#FFF',
-  fontSize: '14px',
-  width: '80px',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: '4px',
+export const checkButton = styleVariants({
+  default: {
+    display: 'flex',
+    background: 'black',
+    color: '#FFF',
+    fontSize: '14px',
+    width: '80px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  confirm: {
+    display: 'flex',
+    background: '#C4C4C4',
+    color: '#FFF',
+    fontSize: '14px',
+    width: '80px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '4px',
+  },
 });
 
 export const checkInputWrapper = style({

@@ -80,8 +80,13 @@ function Home() {
                   onChange: () => setEmailCheck(false),
                 })}
               />
-              <button type="button" className={S.checkButton} onClick={() => checkEmail()}>
-                중복확인
+              <button
+                type="button"
+                disabled={emailCheck}
+                className={emailCheck ? S.checkButton.confirm : S.checkButton.default}
+                onClick={() => checkEmail()}
+              >
+                {emailCheck ? '확인완료' : ' 중복확인'}
               </button>
             </div>
             {errors.emailRequired && (
