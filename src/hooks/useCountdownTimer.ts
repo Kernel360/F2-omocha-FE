@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-interface useCountdownTimerProps {
+interface UseCountdownTimerProps {
   endTime: Date | string;
 }
 
@@ -8,14 +8,14 @@ const MINUTE_IN_MILLIS = 1000 * 60;
 const HOUR_IN_MILLIS = MINUTE_IN_MILLIS * 60;
 const DAY_IN_MILLIS = HOUR_IN_MILLIS * 24;
 
-function useCountdownTimer({ endTime }: useCountdownTimerProps) {
-  const countRemainingTime = (endTime: Date) => {
+function useCountdownTimer({ endTime }: UseCountdownTimerProps) {
+  const countRemainingTime = (endTimeInCountRemainingTime: Date) => {
     const nowTime = new Date();
-    if (endTime.getTime() < nowTime.getTime()) {
+    if (endTimeInCountRemainingTime.getTime() < nowTime.getTime()) {
       return 0;
     }
 
-    return endTime.getTime() - nowTime.getTime();
+    return endTimeInCountRemainingTime.getTime() - nowTime.getTime();
   };
 
   const [remainingTime, setRemainingTime] = useState<number>(() =>
@@ -24,8 +24,8 @@ function useCountdownTimer({ endTime }: useCountdownTimerProps) {
 
   useEffect(() => {
     const intervalID = setInterval(() => {
-      const remainingTime = countRemainingTime(new Date(endTime));
-      if (remainingTime <= 0) {
+      const remainingTimeInUseEffect = countRemainingTime(new Date(endTime));
+      if (remainingTimeInUseEffect <= 0) {
         clearInterval(intervalID);
         setRemainingTime(0);
 

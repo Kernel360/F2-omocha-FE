@@ -16,11 +16,7 @@ function AuctionCountdown({ endTime, setExpired }: AuctionCountdownProps) {
     }
   }, [isTimeout]);
 
-  return (
-    <>
-      <div className={S.countdownStyle}>{`${day}일 ${hour}시간 ${minute}분 ${second}초`}</div>
-    </>
-  );
+  return <div className={S.countdownStyle}>{`${day}일 ${hour}시간 ${minute}분 ${second}초`}</div>;
 }
 
 export default AuctionCountdown;
