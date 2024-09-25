@@ -1,5 +1,6 @@
 import useCountdownTimer from '@/hooks/useCountdownTimer';
 import { Dispatch, SetStateAction, useEffect } from 'react';
+import * as S from './AuctionCountdown.css';
 
 interface AuctionCountdownProps {
   endTime: Date | string;
@@ -17,7 +18,7 @@ function AuctionCountdown({ endTime, setExpired }: AuctionCountdownProps) {
 
   return (
     <>
-      <div>{`${day}일 ${hour}H ${minute}M ${second}S`}</div>
+      <div className={S.countdownStyle}>{`${day}일 ${hour}시간 ${minute}분 ${second}초`}</div>
     </>
   );
 }
