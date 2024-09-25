@@ -3,9 +3,11 @@
 'use client';
 
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
-import * as S from '@/app/create/basicauction/Basicauction.css';
 import DeleteIcon from '@/assets/svg/delete.svg';
+import ErrorIcon from '@/assets/svg/error.svg';
 import { useRef } from 'react';
+
+import * as S from '@/app/create/basicauction/Basicauction.css';
 
 type ImageUpload = {
   file: File;
@@ -21,12 +23,21 @@ type AuctionInputs = {
 };
 
 export default function Home() {
-  const { register, control, handleSubmit, watch } = useForm<AuctionInputs>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<AuctionInputs>();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'imageRequired',
     keyName: 'imageRequiredId',
+    rules: {
+      required: '이미지를 업로드해 주세요.',
+    },
   });
 
   const inputFile = useRef(null);
@@ -38,6 +49,7 @@ export default function Home() {
       append(files);
     }
   };
+  console.log(errors);
 
   const onSubmit: SubmitHandler<AuctionInputs> = data => console.log(data);
 
@@ -50,8 +62,14 @@ export default function Home() {
           id="name"
           type="text"
           placeholder="상품명"
-          {...register('nameRequired', { required: true })}
+          {...register('nameRequired', { required: '상품명을 입력해 주세요.' })}
         />
+        {errors.nameRequired && (
+          <span className={S.error}>
+            <ErrorIcon />
+            {errors.nameRequired.message}
+          </span>
+        )}
       </label>
       <label htmlFor="startPrice" className={S.auctionLabel}>
         <div className={S.title}>시작가</div>
@@ -61,10 +79,19 @@ export default function Home() {
           type="number"
           placeholder="원"
           {...register('startPriceRequired', {
-            required: true,
-            pattern: /^(0|[1-9]\d*)$/,
+            required: '시작가를 입력해 주세요.',
+            pattern: {
+              value: /^(0|[1-9]\d*)$/,
+              message: '올바른 금액이 아닙니다.',
+            },
           })}
         />
+        {errors.startPriceRequired && (
+          <span className={S.error}>
+            <ErrorIcon />
+            {errors.startPriceRequired.message}
+          </span>
+        )}
       </label>
       <div className={S.auctionLabel}>
         <div className={S.title}>사진</div>
@@ -95,6 +122,12 @@ export default function Home() {
             </label>
           </div>
         </div>
+        {errors.imageRequired && (
+          <span className={S.error}>
+            <ErrorIcon />
+            {errors.imageRequired.root?.message}
+          </span>
+        )}
       </div>
       <label htmlFor="info" className={S.auctionLabel}>
         <span className={S.title}>상품 정보</span>
@@ -104,8 +137,20 @@ export default function Home() {
         <textarea
           id="info"
           className={S.info}
-          {...register('infoRequired', { required: true, minLength: 10, maxLength: 500 })}
+          maxLength={500}
+          {...register('infoRequired', {
+            required: '상품 정보를 입력해 주세요.',
+            validate: {
+              minLength: value => value.length >= 10 || '최소 10글자 이상 작성해야 합니다.',
+            },
+          })}
         />
+        {errors.infoRequired && (
+          <span className={S.error}>
+            <ErrorIcon />
+            {errors.infoRequired?.message}
+          </span>
+        )}
       </label>
       <div className={S.auctionLabel}>
         <div className={S.title}>경매 기간</div>
@@ -113,26 +158,42 @@ export default function Home() {
           <label htmlFor="endDate" className={S.subTitle}>
             종료일
             <input
-              className={S.endPeriod}
               id="endDate"
               type="date"
               {...register('dateRequried', {
-                required: true,
-                min: new Date().toISOString().split('T')[0], // 현재 날짜 추출
+                required: '종료일을 입력해 주세요.',
+                validate: value => {
+                  const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜 추출
+                  return value >= currentDate || '종료일은 현재 현재 날짜 이후여야 합니다.';
+                },
               })}
             />
+            {errors.dateRequried && (
+              <span className={S.error}>
+                <ErrorIcon />
+                {errors.dateRequried?.message}
+              </span>
+            )}
           </label>
           <label htmlFor="endTime" className={S.subTitle}>
-            종료시간
+            종료 시간
             <input
-              className={S.endPeriod}
               id="endTime"
               type="time"
               {...register('timeRequried', {
-                required: true,
-                min: new Date().toTimeString().split(' ')[0], // 현재 시간 추출
+                required: '종료 시간을 입력해 주세요.',
+                validate: value => {
+                  const currentTime = new Date().toTimeString().split(' ')[0]; // 현재 시간 추출
+                  return value > currentTime || '종료 시간은 현재 시간 이후여야 합니다.';
+                },
               })}
             />
+            {errors.timeRequried && (
+              <span className={S.error}>
+                <ErrorIcon />
+                {errors.timeRequried?.message}
+              </span>
+            )}
           </label>
         </div>
       </div>

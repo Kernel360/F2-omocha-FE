@@ -97,15 +97,15 @@ export const info = style({
 export const period = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(2,1fr)',
+  gap: '30px',
 });
 
 export const subTitle = style({
+  display: 'flex',
+  flexDirection: 'column',
   fontSize: '16px',
   fontWeight: 'bold',
-});
-
-export const endPeriod = style({
-  marginLeft: '20px',
+  gap: '10px',
 });
 
 export const buttonContainer = style({
@@ -122,6 +122,15 @@ export const button = style({
   fontWeight: 'bold',
   fontSize: '16px',
   borderRadius: '4px',
-  border: 'none',
   cursor: 'pointer',
+});
+
+export const error = style({
+  display: 'flex',
+  gap: '4px',
+  alignItems: 'center',
+  color: '#FF0000',
+  fontSize: '14px',
+  marginLeft: '8px',
+  fontWeight: 'normal',
 });
