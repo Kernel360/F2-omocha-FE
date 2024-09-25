@@ -25,8 +25,7 @@ function useCountdownTimer({ endTime }: useCountdownTimerProps) {
   useEffect(() => {
     const intervalID = setInterval(() => {
       const remainingTime = countRemainingTime(new Date(endTime));
-      const isTimeout = remainingTime <= 0;
-      if (isTimeout) {
+      if (remainingTime <= 0) {
         clearInterval(intervalID);
         setRemainingTime(0);
 
