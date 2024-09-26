@@ -7,7 +7,7 @@ export const auctionForm = style({
 export const auctionLabel = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '10px',
+  gap: '20px',
   marginBottom: '30px',
 });
 

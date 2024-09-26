@@ -18,8 +18,8 @@ type AuctionInputs = {
   startPriceRequired: number;
   imageRequired: ImageUpload[];
   infoRequired: string;
-  dateRequried: string;
-  timeRequried: string;
+  dateRequired: string;
+  timeRequired: string;
 };
 
 export default function Home() {
@@ -160,7 +160,7 @@ export default function Home() {
             <input
               id="endDate"
               type="date"
-              {...register('dateRequried', {
+              {...register('dateRequired', {
                 required: '종료일을 입력해 주세요.',
                 validate: value => {
                   const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜 추출
@@ -168,10 +168,10 @@ export default function Home() {
                 },
               })}
             />
-            {errors.dateRequried && (
+            {errors.dateRequired && (
               <span className={S.error}>
                 <ErrorIcon />
-                {errors.dateRequried?.message}
+                {errors.dateRequired?.message}
               </span>
             )}
           </label>
@@ -180,7 +180,7 @@ export default function Home() {
             <input
               id="endTime"
               type="time"
-              {...register('timeRequried', {
+              {...register('timeRequired', {
                 required: '종료 시간을 입력해 주세요.',
                 validate: value => {
                   const currentTime = new Date().toTimeString().split(' ')[0]; // 현재 시간 추출
@@ -188,10 +188,10 @@ export default function Home() {
                 },
               })}
             />
-            {errors.timeRequried && (
+            {errors.timeRequired && (
               <span className={S.error}>
                 <ErrorIcon />
-                {errors.timeRequried?.message}
+                {errors.timeRequired?.message}
               </span>
             )}
           </label>

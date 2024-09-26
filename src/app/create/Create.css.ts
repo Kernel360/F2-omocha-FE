@@ -6,12 +6,11 @@ export const container = style({
   justifyItems: 'center',
   maxWidth: '1200px',
   width: '100%',
-  gap: '25px',
   margin: '0 auto',
   marginTop: '50px',
 });
 
-export const conatinerBox = style({
+export const containerBox = style({
   maxWidth: '300px',
   width: '100%',
   maxHeight: '400px',

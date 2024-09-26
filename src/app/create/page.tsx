@@ -7,7 +7,7 @@ export default function Home() {
   const isActive = true;
   return (
     <div className={S.container}>
-      <div className={S.conatinerBox}>
+      <div className={S.containerBox}>
         <Link className={S.categoryLink} href="/create/basicauction">
           <div className={S.title}>일반 경매</div>
           <div>
@@ -19,7 +19,7 @@ export default function Home() {
           </div>
         </Link>
       </div>
-      <div className={S.conatinerBox}>
+      <div className={S.containerBox}>
         <Link className={S.categoryLink} href="/create/liveauction">
           {isActive && <div className={S.dim}>준비중입니다.</div>}
           <div className={S.title}>라이브 경매</div>
