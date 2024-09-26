@@ -39,7 +39,7 @@ function Home() {
   const [emailCheck, setEmailCheck] = useState(false);
 
   const checkEmail = () => {
-    if (emailValue === '') {
+    if (emailValue === '' || emailValue === null || emailValue === undefined) {
       return;
     }
 
@@ -65,12 +65,16 @@ function Home() {
   const isEmailValid = !errors.emailRequired;
 
   const getButtonStyle = () => {
+    if (emailValue === '') {
+      return S.checkButton.disabled;
+    }
     if (!isEmailValid) {
       return S.checkButton.disabled;
     }
     if (emailCheck) {
       return S.checkButton.confirm;
     }
+
     return S.checkButton.default;
   };
 
@@ -99,7 +103,7 @@ function Home() {
               />
               <button
                 type="button"
-                disabled={!isEmailValid || emailCheck}
+                disabled={!isEmailValid || emailCheck || emailValue === ''}
                 className={buttonStyle}
                 onClick={() => checkEmail()}
               >
