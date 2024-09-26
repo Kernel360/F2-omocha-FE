@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 export const infoWrapper = style({
   display: 'flex',
@@ -52,8 +52,25 @@ export const infoButton = style({
   cursor: 'pointer',
 });
 
-export const bidButton = style({
-  fontSize: '14px',
-  padding: '24px 24px',
-  marginTop: '12px',
+export const bidButton = styleVariants({
+  default: {
+    fontSize: '14px',
+    padding: '24px 24px',
+    marginTop: '12px',
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    color: 'white',
+    borderRadius: '4px',
+    border: 'none',
+    cursor: 'pointer',
+  },
+  disabled: {
+    fontSize: '14px',
+    padding: '24px 24px',
+    marginTop: '12px',
+    borderRadius: '4px',
+    border: 'none',
+    backgroundColor: 'gray',
+    color: 'darkgray',
+    cursor: 'not-allowed',
+  },
 });
