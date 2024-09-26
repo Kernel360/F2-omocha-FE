@@ -3,9 +3,9 @@ import { style } from '@vanilla-extract/css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  height: 'calc(100vh - 233px)', // 공백 추가
+  height: 'calc(100vh - 262px)',
   boxSizing: 'border-box',
-  paddingTop: '70px',
+  paddingTop: '50px',
   alignItems: 'center',
 });
 

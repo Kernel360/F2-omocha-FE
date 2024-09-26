@@ -30,5 +30,5 @@ export const container = style({
   maxWidth: '1280px',
   margin: '0 auto',
   padding: '0 16px',
-  minHeight: 'calc(100vh - 294px)',
+  minHeight: 'calc(100vh - 260px)',
 });
