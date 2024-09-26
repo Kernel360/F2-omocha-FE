@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const responsiveLayoutWrapper = style({
+  padding: '32px 0',
   position: 'relative',
   display: 'grid',
   gridRowGap: '2vw',
