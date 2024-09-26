@@ -56,7 +56,8 @@ export const image = style({
   justifyContent: 'center',
   width: '250px',
   objectFit: 'contain',
-  border: '1px dashed white ',
+  border: '1.5px dashed white ',
+  borderRadius: '10px',
 });
 
 export const deleteButton = style({
@@ -78,11 +79,6 @@ export const imageUpload = style({
   minWidth: '250px',
   border: '1.5px dashed white',
   borderRadius: '10px',
-  cursor: 'pointer',
-});
-
-export const imageInfo = style({
-  display: 'flex',
   cursor: 'pointer',
 });
 

@@ -100,27 +100,29 @@ export default function Home() {
           <ul className={S.imageList}>
             {fields.map(({ imageRequiredId, file }, index) => (
               <li key={imageRequiredId} className={S.image}>
-                <img src={URL.createObjectURL(file)} alt={URL.createObjectURL(file)} />
+                <img
+                  className={S.image}
+                  src={URL.createObjectURL(file)}
+                  alt={URL.createObjectURL(file)}
+                />
                 <button type="button" className={S.deleteButton} onClick={() => remove(index)}>
                   <DeleteIcon />
                 </button>
               </li>
             ))}
           </ul>
-          <div className={S.imageUpload}>
-            <label htmlFor="image" className={S.imageInfo}>
-              이미지 등록하기
-              <input
-                className={S.imageInput}
-                ref={inputFile}
-                id="image"
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={addImage}
-              />
-            </label>
-          </div>
+          <label htmlFor="image" className={S.imageUpload}>
+            이미지 등록하기
+            <input
+              className={S.imageInput}
+              ref={inputFile}
+              id="image"
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={addImage}
+            />
+          </label>
         </div>
         {errors.imageRequired && (
           <span className={S.error}>
