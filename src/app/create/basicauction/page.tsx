@@ -33,8 +33,6 @@ export default function Home() {
     formState: { errors },
   } = useForm<AuctionInputs>();
 
-  const infoRequired = watch('infoRequired');
-
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'imageRequired',
@@ -45,6 +43,9 @@ export default function Home() {
   });
 
   const inputFile = useRef(null);
+  const infoRequired = watch('infoRequired');
+  const endDate = watch('dateRequired');
+  const endTime = watch('timeRequired');
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -196,9 +197,12 @@ export default function Home() {
               className={S.auctionInput}
               {...register('timeRequired', {
                 required: '종료 시간을 입력해 주세요.',
-                validate: value => {
-                  const currentTime = new Date().toTimeString().split(' ')[0]; // 현재 시간 추출
-                  return value > currentTime || '종료 시간은 현재 시간 이후여야 합니다.';
+                validate: () => {
+                  const currentTime = new Date();
+                  const selectedDateTime = new Date(`${endDate}T${endTime}`);
+                  return selectedDateTime > currentTime
+                    ? true
+                    : '종료 시간은 현재 시간 이후여야 합니다.';
                 },
               })}
             />
