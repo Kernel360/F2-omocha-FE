@@ -22,6 +22,8 @@ type AuctionInputs = {
   timeRequired: string;
 };
 
+const MAX_CONTENT = 500;
+
 export default function Home() {
   const {
     register,
@@ -30,6 +32,8 @@ export default function Home() {
     watch,
     formState: { errors },
   } = useForm<AuctionInputs>();
+
+  const infoRequired = watch('infoRequired');
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -140,12 +144,12 @@ export default function Home() {
       <label htmlFor="info" className={S.auctionLabel}>
         <span className={S.title}>상품 정보</span>
         <div className={S.count}>
-          {watch('infoRequired') ? watch('infoRequired').length : 0}/500
+          {infoRequired ? infoRequired.length : 0}/{MAX_CONTENT}
         </div>
         <textarea
           id="info"
           className={S.info}
-          maxLength={500}
+          maxLength={MAX_CONTENT - 1}
           {...register('infoRequired', {
             required: '상품 정보를 입력해 주세요.',
             validate: {
@@ -168,6 +172,7 @@ export default function Home() {
             <input
               id="endDate"
               type="date"
+              className={S.auctionInput}
               {...register('dateRequired', {
                 required: '종료일을 입력해 주세요.',
                 validate: value => {
@@ -188,6 +193,7 @@ export default function Home() {
             <input
               id="endTime"
               type="time"
+              className={S.auctionInput}
               {...register('timeRequired', {
                 required: '종료 시간을 입력해 주세요.',
                 validate: value => {
