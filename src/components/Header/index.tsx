@@ -1,9 +1,10 @@
 'use client';
 
-import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
 import * as S from '@/components/Header/Header.css';
+import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 
 function Header() {
   const pathname = usePathname();

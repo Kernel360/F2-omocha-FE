@@ -1,9 +1,10 @@
 'use client';
 
-import * as S from '@/components/Footer/Footer.css';
-import { MAIN_CATEGORY } from '@/static/category';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
+import * as S from '@/components/Footer/Footer.css';
+import { MAIN_CATEGORY } from '@/static/category';
 
 function Footer() {
   const router = useRouter();

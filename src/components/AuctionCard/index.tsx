@@ -1,6 +1,8 @@
 import Image from 'next/image';
-import HeartIcon from '@/assets/svg/heart.svg';
 import Link from 'next/link';
+
+import HeartIcon from '@/assets/svg/heart.svg';
+
 import * as S from './AuctionCard.css';
 
 interface AuctionCardProps {

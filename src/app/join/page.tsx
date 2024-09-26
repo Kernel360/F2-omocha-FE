@@ -3,11 +3,12 @@
 
 'use client';
 
-import ErrorIcon from '@/assets/svg/error.svg';
-import CheckIcon from '@/assets/svg/check.svg';
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { useState } from 'react';
+import CheckIcon from '@/assets/svg/check.svg';
+import ErrorIcon from '@/assets/svg/error.svg';
+
 import * as S from './Join.css';
 
 type Inputs = {

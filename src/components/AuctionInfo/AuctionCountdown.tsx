@@ -1,5 +1,7 @@
-import useCountdownTimer from '@/hooks/useCountdownTimer';
 import { Dispatch, SetStateAction, useEffect } from 'react';
+
+import useCountdownTimer from '@/hooks/useCountdownTimer';
+
 import * as S from './AuctionCountdown.css';
 
 interface AuctionCountdownProps {
