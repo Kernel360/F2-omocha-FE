@@ -49,7 +49,6 @@ export default function Home() {
       append(files);
     }
   };
-  console.log(errors);
 
   const onSubmit: SubmitHandler<AuctionInputs> = data => console.log(data);
 
@@ -97,20 +96,6 @@ export default function Home() {
         <div className={S.title}>사진</div>
         <div className={S.count}>{fields.length}/10</div>
         <div className={S.imageBoard}>
-          <ul className={S.imageList}>
-            {fields.map(({ imageRequiredId, file }, index) => (
-              <li key={imageRequiredId} className={S.image}>
-                <img
-                  className={S.image}
-                  src={URL.createObjectURL(file)}
-                  alt={URL.createObjectURL(file)}
-                />
-                <button type="button" className={S.deleteButton} onClick={() => remove(index)}>
-                  <DeleteIcon />
-                </button>
-              </li>
-            ))}
-          </ul>
           <label htmlFor="image" className={S.imageUpload}>
             이미지 등록하기
             <input
@@ -123,6 +108,27 @@ export default function Home() {
               onChange={addImage}
             />
           </label>
+          <ul className={S.imageList}>
+            {fields
+              .slice()
+              .reverse()
+              .map(({ imageRequiredId, file }, index) => (
+                <li key={imageRequiredId} className={S.image}>
+                  <img
+                    className={S.image}
+                    src={URL.createObjectURL(file)}
+                    alt={URL.createObjectURL(file)}
+                  />
+                  <button
+                    type="button"
+                    className={S.deleteButton}
+                    onClick={() => remove(fields.length - index - 1)}
+                  >
+                    <DeleteIcon />
+                  </button>
+                </li>
+              ))}
+          </ul>
         </div>
         {errors.imageRequired && (
           <span className={S.error}>
