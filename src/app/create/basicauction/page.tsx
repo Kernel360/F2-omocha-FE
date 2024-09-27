@@ -78,7 +78,7 @@ export default function Home() {
       <label htmlFor="startPrice" className={S.auctionLabel}>
         <div className={S.title}>시작가</div>
         <input
-          className={`${S.auctionInput} ${S.priceInput}`}
+          className={S.auctionInput}
           id="startPrice"
           type="number"
           placeholder="원"

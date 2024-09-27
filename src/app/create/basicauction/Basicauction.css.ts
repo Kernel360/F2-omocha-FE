@@ -18,14 +18,10 @@ export const title = style({
 });
 
 export const auctionInput = style({
-  width: '368px',
+  maxWidth: '368px',
   borderRadius: '4px',
   padding: '12px 16px',
   border: '1.5px solid black',
-});
-
-export const priceInput = style({
-  textAlign: 'right',
 });
 
 export const count = style({
@@ -92,7 +88,7 @@ export const info = style({
 
 export const period = style({
   display: 'grid',
-  gridTemplateColumns: 'repeat(2,1fr)',
+  gridTemplateColumns: 'repeat(auto-fit,minmax(63px, auto))',
   gap: '30px',
 });
 
