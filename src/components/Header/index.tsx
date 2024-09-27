@@ -9,18 +9,14 @@ function Header() {
   const pathname = usePathname();
 
   return (
-    <div className={S.container}>
+    <header className={S.container}>
       <section className={S.topHeader}>
         <Link href="/">
           <div className={S.logo}>LOGO</div>
         </Link>
         <div className={S.topCategory}>
           {SUB_CATEGORY.map(category => (
-            <Link
-              key={category.id}
-              href={category.path}
-              style={{ color: category.path === pathname ? 'red' : 'black' }}
-            >
+            <Link key={category.id} href={category.path}>
               {category.name}
             </Link>
           ))}
@@ -37,7 +33,7 @@ function Header() {
           </Link>
         ))}
       </section>
-    </div>
+    </header>
   );
 }
 
