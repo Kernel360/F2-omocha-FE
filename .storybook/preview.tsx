@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react';
+import React from 'react';
 
 const preview: Preview = {
   parameters: {
@@ -9,6 +10,14 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    Story => (
+      <div>
+        <Story />
+        <div id="root-portal" />
+      </div>
+    ),
+  ],
 };
 
 export default preview;
