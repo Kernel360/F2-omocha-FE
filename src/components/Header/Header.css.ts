@@ -12,7 +12,7 @@ export const topHeader = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '16px 0',
+  padding: '16px',
 });
 
 export const logo = style({
@@ -27,7 +27,7 @@ export const topCategory = style({
 
 export const bottomHeader = style({
   display: 'flex',
-  padding: '0 0 32px',
   fontSize: '25px',
   gap: '27px',
+  padding: '0 16px',
 });

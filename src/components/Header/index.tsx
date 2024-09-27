@@ -9,7 +9,7 @@ function Header() {
   const pathname = usePathname();
 
   return (
-    <div className={S.container}>
+    <header className={S.container}>
       <section className={S.topHeader}>
         <Link href="/">
           <div className={S.logo}>LOGO</div>
@@ -33,7 +33,7 @@ function Header() {
           </Link>
         ))}
       </section>
-    </div>
+    </header>
   );
 }
 

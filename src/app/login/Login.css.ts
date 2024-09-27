@@ -3,9 +3,9 @@ import { style } from '@vanilla-extract/css';
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  height: 'calc(100vh - 262px)',
+  justifyContent: 'center',
+  height: 'calc(100vh - 230px)',
   boxSizing: 'border-box',
-  paddingTop: '50px',
   alignItems: 'center',
 });
 
@@ -38,7 +38,7 @@ export const optionSection = style({
 });
 
 export const inputSection = style({
-  paddingTop: '50px',
+  paddingTop: '20px',
   display: 'flex',
   flexDirection: 'column',
   gap: '16px',
