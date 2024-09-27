@@ -16,13 +16,14 @@ type Story = StoryObj<typeof Modal>;
 function Example(arg: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   return (
     <div>
       <button type="button" onClick={handleOpen}>
         모달 열기
       </button>
-      {isOpen && <Modal {...arg} />}
+      {isOpen && <Modal {...arg} onClose={handleClose} onEvent={handleClose} />}
     </div>
   );
 }
