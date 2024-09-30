@@ -6,18 +6,19 @@ import { usePathname } from 'next/navigation';
 import useBooleanState from '@/hooks/useBooleanState';
 import { MAIN_CATEGORY, SUB_CATEGORY, SubCategory } from '@/static/category';
 
+import SlideSideNav from '../SlideSideNav';
+
 import * as S from './Header.css';
 
 function Header() {
   const pathname = usePathname();
-  const { value, setTrue } = useBooleanState(false);
-  console.log(value); // 임시 console
+  const { value, setTrue, setFalse } = useBooleanState(false);
 
   const headerItemAction = (headerItem: SubCategory) => {
     switch (headerItem.name) {
       case '알림':
         return (
-          <button type="button" key={headerItem.id} onClick={setTrue}>
+          <button className={S.SideNavButton} type="button" key={headerItem.id} onClick={setTrue}>
             {headerItem.name}
           </button>
         );
@@ -52,6 +53,11 @@ function Header() {
           </Link>
         ))}
       </section>
+      {value && (
+        <SlideSideNav value onClose={setFalse}>
+          <div> test</div>
+        </SlideSideNav>
+      )}
     </header>
   );
 }

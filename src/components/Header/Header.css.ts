@@ -25,6 +25,10 @@ export const topCategory = style({
   fontSize: '12px',
 });
 
+export const SideNavButton = style({
+  cursor: 'pointer',
+});
+
 export const bottomHeader = style({
   display: 'flex',
   fontSize: '25px',
