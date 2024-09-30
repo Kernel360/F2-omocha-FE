@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 
 import { ModalProps, Modal } from '@/components/Modal';
-import { useState } from 'react';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'Modal',

@@ -1,10 +1,11 @@
 'use client';
 
-import { MYPAGE_CATEGORY } from '@/static/category';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import ProfileIcon from '@/assets/svg/profile.svg';
+
 import * as S from '@/app/mypage/Layout.css';
+import ProfileIcon from '@/assets/svg/profile.svg';
+import { MYPAGE_CATEGORY } from '@/static/category';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

@@ -1,8 +1,10 @@
 /* eslint-disable react/require-default-props */
 // 옵셔널 값이지만 초기값을 설정하지 않아도 되는 경우에는 eslint-disable를 사용한다.
 
-import Link from 'next/link';
 import React from 'react';
+
+import Link from 'next/link';
+
 import * as S from './Breadcrumb.css';
 
 interface BreadcrumbProps {

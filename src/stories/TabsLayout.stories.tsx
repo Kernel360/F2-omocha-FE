@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import TabsLayout from '@/components/TabsLayout';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof TabsLayout> = {
   title: 'TabsLayout',
