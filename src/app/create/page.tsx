@@ -1,8 +1,9 @@
 import Link from 'next/link';
 
-import * as S from '@/app/create/Create.css';
 import BasicAuctionIcon from '@/assets/svg/basicauction.svg';
 import LiveAuctionIcon from '@/assets/svg/liveauction.svg';
+
+import * as S from './Create.css';
 
 export default function Home() {
   const isActive = true;

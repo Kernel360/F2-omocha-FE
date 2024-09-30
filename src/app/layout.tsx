@@ -1,8 +1,9 @@
 import localFont from 'next/font/local';
 
-import * as S from '@/app/globals.css';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+
+import * as S from './globals.css';
 
 import type { Metadata, Viewport } from 'next';
 
