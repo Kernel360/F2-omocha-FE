@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import * as S from './AuctionInfo.css';
+
 import AuctionCountdown from './AuctionCountdown';
+import * as S from './AuctionInfo.css';
 
 interface AuctionInfoProps {
   title: string;

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
 import AuctionInfo from '@/components/AuctionInfo';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'AuctionInfo',
