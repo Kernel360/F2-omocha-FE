@@ -2,10 +2,10 @@ import { globalStyle, style } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
-  margin: '10px',
+  gap: '20px',
 });
 
-export const section = style({
+export const leftSection = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',
@@ -53,3 +53,5 @@ export const searchDelete = style({
   cursor: 'pointer',
   color: 'rgb(0,0,0,0.5)',
 });
+
+export const rightSection = style({});
