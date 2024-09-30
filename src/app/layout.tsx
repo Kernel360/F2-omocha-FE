@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import localFont from 'next/font/local';
 
 import * as S from '@/app/globals.css';
@@ -32,13 +33,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        retry: 0,
+        staleTime: 5 * 60 * 1000,
+      },
+    },
+  });
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-        <div className={S.container}>{children}</div>
-        <Footer />
-        <div id="root-portal" />
+        <QueryClientProvider client={queryClient}>
+          <Header />
+          <div className={S.container}>{children}</div>
+          <Footer />
+          <div id="root-portal" />
+        </QueryClientProvider>
       </body>
     </html>
   );
