@@ -11,7 +11,6 @@ export const overlay = style({
 
 export const container = style({
   zIndex: 100,
-
   backgroundColor: 'rgba(255, 255, 255, 1)',
   position: 'absolute',
   top: '0',
@@ -19,18 +18,17 @@ export const container = style({
   height: '100%',
   width: '420px',
   boxSizing: 'border-box',
-  padding: '30px 56px',
 });
 
 export const titleSection = style({
   display: 'flex',
   alignItems: 'center',
   gap: '12px',
+  padding: '30px 30px',
 });
 
 export const title = style({
   fontSize: '20px',
   letterSpacing: '-.3px',
-
   textAlign: 'left',
 });

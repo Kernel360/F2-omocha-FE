@@ -7,8 +7,23 @@ import useBooleanState from '@/hooks/useBooleanState';
 import { MAIN_CATEGORY, SUB_CATEGORY, SubCategory } from '@/static/category';
 
 import SlideSideNav from '../SlideSideNav';
+import TabsLayout from '../TabsLayout';
 
 import * as S from './Header.css';
+import Alarm from './components/Alarm';
+
+const TABS = [
+  {
+    title: '알림',
+    value: 'Alarm',
+  },
+  {
+    title: '채팅',
+    value: 'Chatting',
+  },
+];
+
+const TABS_CONTENT = [<Alarm key="알림" content="알림" />, <Alarm key="채팅" content="채팅" />];
 
 function Header() {
   const pathname = usePathname();
@@ -54,8 +69,12 @@ function Header() {
         ))}
       </section>
       {value && (
-        <SlideSideNav value onClose={setFalse}>
-          <div> test</div>
+        <SlideSideNav onClose={setFalse}>
+          <TabsLayout
+            defaultTriggerValue={TABS[0].value}
+            triggerTitleList={TABS}
+            childrenList={TABS_CONTENT}
+          />
         </SlideSideNav>
       )}
     </header>

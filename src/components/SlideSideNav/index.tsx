@@ -1,20 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 import XIcon from '@/assets/svg/x.svg';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 import Portal from '../Portal';
 
 import * as S from './SlideSideNav.css';
-import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 interface SlideSideNavProps {
-  value: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
 
 function SlideSideNav(Sample: SlideSideNavProps) {
-  const { value, onClose, children } = Sample;
+  const { onClose, children } = Sample;
 
   const sideNavRef = useRef<HTMLDivElement>(null);
 
