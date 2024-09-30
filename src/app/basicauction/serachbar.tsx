@@ -1,16 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
 import { useSearchParams, useRouter } from 'next/navigation';
+
+import DeleteIcon from '@/assets/svg/delete.svg';
 import SearchIcon from '@/assets/svg/search.svg';
-import * as S from '@/app/basicauction/Basicauction.css';
+
+import * as S from './Basicauction.css';
 
 export default function SearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [search, setSearch] = useState('');
 
-  const q = searchParams.get('search');
+  const q = searchParams.get('q');
 
   useEffect(() => {
     setSearch(q || '');
@@ -21,6 +25,7 @@ export default function SearchBar() {
   };
 
   const onSubmit = () => {
+    if (!search || search === q) return;
     router.push(`/basicauction?q=${search}`);
   };
 
@@ -32,10 +37,21 @@ export default function SearchBar() {
 
   return (
     <div className={S.searchBar}>
-      <input value={search} onChange={onChangeSearch} onKeyDown={onKeyDown} />
       <button type="button" onClick={onSubmit}>
         <SearchIcon />
       </button>
+      <input
+        className={S.searchInput}
+        value={search}
+        placeholder="경매 검색"
+        onChange={onChangeSearch}
+        onKeyDown={onKeyDown}
+      />
+      {search.length > 0 && (
+        <button className={S.searchDelete} type="button" onClick={() => setSearch('')}>
+          <DeleteIcon />
+        </button>
+      )}
     </div>
   );
 }
