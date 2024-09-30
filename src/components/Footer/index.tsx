@@ -9,7 +9,7 @@ import { MAIN_CATEGORY } from '@/static/category';
 function Footer() {
   const router = useRouter();
   return (
-    <div className={S.footer}>
+    <footer className={S.footer}>
       <div className={S.container}>
         <div className={S.topFooter}>
           <button className={S.logoButton} type="button" onClick={() => router.push('/')}>
@@ -27,7 +27,7 @@ function Footer() {
         </div>
         <div className={S.bottomFooter}>Copyright ⓒ Omocha. All Rights Reserved</div>
       </div>
-    </div>
+    </footer>
   );
 }
 

@@ -29,6 +29,6 @@ globalStyle('a', {
 export const container = style({
   maxWidth: '1280px',
   margin: '0 auto',
-  padding: '0 16px',
-  minHeight: 'calc(100vh - 260px)',
+  padding: '60px 32px',
+  minHeight: 'calc(100vh - 230px)',
 });
