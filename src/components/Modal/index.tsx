@@ -1,5 +1,6 @@
 import DeleteIcon from '@/assets/svg/delete.svg';
 import * as S from '@/components/Modal/Modal.css';
+
 import Portal from './Portal';
 
 export interface ModalProps {
