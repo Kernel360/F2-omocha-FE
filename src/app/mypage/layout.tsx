@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import * as S from '@/app/mypage/Layout.css';
 import ProfileIcon from '@/assets/svg/profile.svg';
 import { MYPAGE_CATEGORY } from '@/static/category';
-
-import * as S from './Layout.css';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

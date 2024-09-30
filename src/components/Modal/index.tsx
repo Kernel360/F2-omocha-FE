@@ -1,9 +1,7 @@
 import DeleteIcon from '@/assets/svg/delete.svg';
-
-import Portal from '../Portal';
+import Portal from '@/components/Portal';
 
 import * as S from './Modal.css';
-// import Portal from './Portal';
 
 export interface ModalProps {
   content: string;
