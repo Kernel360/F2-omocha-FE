@@ -1,4 +1,5 @@
-import SearchBar from '@/app/basicauction/serachbar';
+import DropDown from '@/app/basicauction/components/dropdown';
+import SearchBar from '@/app/basicauction/components/searchbar';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 
@@ -66,8 +67,7 @@ function Home() {
           <span>10</span>
         </div>
         <SearchBar />
-        <div>가격</div>
-        <div>드롭다운</div>
+        <DropDown />
       </section>
       <section className={S.rightSection}>
         <ListLayout>

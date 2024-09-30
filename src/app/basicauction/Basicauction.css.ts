@@ -8,7 +8,7 @@ export const container = style({
 export const leftSection = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '10px',
+  gap: '30px',
 });
 
 export const count = style({
@@ -33,25 +33,6 @@ globalStyle(`${count} span:nth-child(2)`, {
   borderRadius: '20px',
 });
 
-export const searchBar = style({
-  position: 'relative',
-  display: 'flex',
-  gap: '5px',
-  borderBottom: '1px solid black',
-  padding: '0 10px 5px',
+export const rightSection = style({
+  width: 'calc(100% - 219px)',
 });
-
-export const searchInput = style({
-  border: 'none',
-  outline: 'none',
-  fontSize: '16px',
-});
-
-export const searchDelete = style({
-  position: 'absolute',
-  right: '10px',
-  cursor: 'pointer',
-  color: 'rgb(0,0,0,0.5)',
-});
-
-export const rightSection = style({});
