@@ -1,8 +1,16 @@
-function Home() {
+import SearchBar from '@/app/basicauction/serachbar';
+
+function Home({
+  searchParams,
+}: {
+  searchParams: {
+    q?: string;
+  };
+}) {
   return (
     <div>
-      <span>test</span>
-      <span>제발</span>
+      <SearchBar />
+      {searchParams.q}
     </div>
   );
 }
