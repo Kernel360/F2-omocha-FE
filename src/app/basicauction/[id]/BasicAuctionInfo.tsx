@@ -11,13 +11,12 @@ interface TestProps {
   id: number;
 }
 
-function Test({ id }: TestProps) {
+function BasicAuctionInfo({ id }: TestProps) {
   const { data } = useQuery({
     queryKey: ['basicAuction', id],
     queryFn: () => getBasicAuctionQueryFn(id),
   });
 
-  console.log('data', data);
   if (!data) return null;
 
   return (
@@ -31,4 +30,4 @@ function Test({ id }: TestProps) {
   );
 }
 
-export default Test;
+export default BasicAuctionInfo;

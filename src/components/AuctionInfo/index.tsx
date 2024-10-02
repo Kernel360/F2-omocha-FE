@@ -37,7 +37,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       <hr className={S.division} />
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>남은 시간</span>
-        <AuctionCountdown endTime={endTime || '2024-09-29 14:28:00'} setExpired={setExpired} />
+        <AuctionCountdown endTime={endTime} setExpired={setExpired} />
       </div>
       <div className={S.endTimeDescription}>{endTime}</div>
       <div className={S.infoRow}>

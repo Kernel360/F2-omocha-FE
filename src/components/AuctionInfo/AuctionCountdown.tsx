@@ -1,5 +1,3 @@
-'use client';
-
 import { Dispatch, SetStateAction, useEffect } from 'react';
 
 import useCountdownTimer from '@/hooks/useCountdownTimer';
@@ -18,7 +16,7 @@ function AuctionCountdown({ endTime, setExpired }: AuctionCountdownProps) {
     if (isTimeout) {
       setExpired(true);
     }
-  }, [isTimeout]);
+  }, [isTimeout, setExpired]);
 
   return <div className={S.countdownStyle}>{`${day}일 ${hour}시간 ${minute}분 ${second}초`}</div>;
 }

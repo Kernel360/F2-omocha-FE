@@ -2,7 +2,7 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import TabsLayout from '@/components/TabsLayout';
 
 import * as S from './BasicAuctionDetailPage.css';
-import Test from './Test';
+import Test from './BasicAuctionInfo';
 
 interface BasicAuctionDetailPageProps {
   params: {
