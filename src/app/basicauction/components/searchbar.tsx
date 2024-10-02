@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef } from 'react';
 
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import DeleteIcon from '@/assets/svg/delete.svg';
 import SearchIcon from '@/assets/svg/search.svg';
@@ -11,22 +11,27 @@ import * as S from './SearchBar.css';
 
 export default function SearchBar() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const q = searchParams.get('q');
-  const [search, setSearch] = useState(q || '');
 
-  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = () => {
-    if (!search || search === q) return;
-    router.push(`/basicauction?q=${search}`);
+    const currentSearch = searchRef.current?.value || '';
+
+    // if (currentSearch === searchKeyword) return;
+    // setSearchKeyword(currentSearch);
+    router.push(`/basicauction?q=${currentSearch}`);
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       onSubmit();
+    }
+  };
+
+  const deleteSearch = () => {
+    if (searchRef.current) {
+      searchRef.current.value = '';
+      searchRef.current.focus();
     }
   };
 
@@ -36,17 +41,17 @@ export default function SearchBar() {
         <SearchIcon />
       </button>
       <input
+        ref={searchRef}
         className={S.searchInput}
-        value={search}
+        defaultValue=""
         placeholder="경매 검색"
-        onChange={onChangeSearch}
         onKeyDown={onKeyDown}
       />
-      {search.length > 0 && (
-        <button className={S.searchDelete} type="button" onClick={() => setSearch('')}>
-          <DeleteIcon />
-        </button>
-      )}
+      {/* {searchRef.current != null && ( */}
+      <button className={S.searchDelete} type="button" onClick={deleteSearch}>
+        <DeleteIcon />
+      </button>
+      {/* )} */}
     </div>
   );
 }

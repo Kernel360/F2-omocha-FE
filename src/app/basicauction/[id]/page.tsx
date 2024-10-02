@@ -1,3 +1,6 @@
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+
+import { getBasicAuctionQueryFn } from '@/apis/queryFunctions/basicAuctionQueryFn';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import TabsLayout from '@/components/TabsLayout';
 
@@ -27,12 +30,12 @@ const TABS_CONTENT = [
 ];
 
 async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
-  // const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
 
-  // await queryClient.prefetchQuery({
-  //   queryKey: ['posts'],
-  //   queryFn: () => getBasicAuctionQueryFn(params.id),
-  // });
+  await queryClient.prefetchQuery({
+    queryKey: ['basicAuction', params.id],
+    queryFn: () => getBasicAuctionQueryFn(params.id),
+  });
 
   return (
     <div>
@@ -43,9 +46,9 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
       </Breadcrumb>
       <div className={S.auctionInfoWrapper}>
         <div>BasicAuctionDetailPage {params.id}</div>
-        {/* <HydrationBoundary state={dehydrate(queryClient)}> */}
-        <BasicAuctionInfo id={params.id} />
-        {/* </HydrationBoundary> */}
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <BasicAuctionInfo id={params.id} />
+        </HydrationBoundary>
       </div>
       <TabsLayout
         defaultTriggerValue={TABS[0].value}
@@ -57,5 +60,3 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
 }
 
 export default BasicAuctionDetailPage;
-
-// tab에 넘겨주는 부분을 어떻게 주면 좋을까.. => 이 부분에도 api res의 내용이 필요한데
