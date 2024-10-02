@@ -5,6 +5,7 @@ export const infoWrapper = style({
   flexDirection: 'column',
   padding: '12px',
   width: '500px',
+  minWidth: '300px',
 });
 
 export const infoTitle = style({
@@ -13,6 +14,12 @@ export const infoTitle = style({
   lineHeight: '24px',
   fontWeight: '24px',
   wordBreak: 'break-all',
+});
+
+export const endTimeDescription = style({
+  fontSize: '14px',
+  color: 'gray',
+  textAlign: 'right',
 });
 
 export const infoRow = style({

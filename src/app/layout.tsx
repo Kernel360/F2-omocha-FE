@@ -3,7 +3,8 @@ import localFont from 'next/font/local';
 import * as S from '@/app/globals.css';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import ReactQueryProviders from '@/utils/react-query-provider';
+
+import Providers from './providers';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -36,11 +37,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ReactQueryProviders>
+        <Providers>
           <Header />
           <div className={S.container}>{children}</div>
           <Footer />
-        </ReactQueryProviders>
+        </Providers>
         <div id="root-portal" />
       </body>
     </html>
