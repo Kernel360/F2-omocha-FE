@@ -7,16 +7,19 @@ import useOnClickOutside from '@/hooks/useOnClickOutside';
 import * as S from './SlideSideNav.css';
 
 interface SlideSideNavProps {
+  isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
 
 function SlideSideNav(Sample: SlideSideNavProps) {
-  const { onClose, children } = Sample;
+  const { isOpen, onClose, children } = Sample;
 
   const sideNavRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(sideNavRef, onClose);
+
+  if (!isOpen) return null;
 
   return (
     <Portal>

@@ -68,15 +68,13 @@ function Header() {
           </Link>
         ))}
       </section>
-      {value && (
-        <SlideSideNav onClose={setFalse}>
-          <TabsLayout
-            defaultTriggerValue={TABS[0].value}
-            triggerTitleList={TABS}
-            childrenList={TABS_CONTENT}
-          />
-        </SlideSideNav>
-      )}
+      <SlideSideNav isOpen={value} onClose={setFalse}>
+        <TabsLayout
+          defaultTriggerValue={TABS[0].value}
+          triggerTitleList={TABS}
+          childrenList={TABS_CONTENT}
+        />
+      </SlideSideNav>
     </header>
   );
 }
