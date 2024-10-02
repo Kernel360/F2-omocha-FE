@@ -1,73 +1,27 @@
+'use client';
+
+// 이걸 최대한 빼고 서버 클라이언트에서 쿼리를 가져오는 법을 알아봐야할듯.. 캐시를 통해서 어쩌구..
+
+import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 
-const auctionItems = [
-  {
-    id: 7,
-    isExpired: false,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 1',
-    isLike: true,
-    startPrice: 3000,
-    startTime: '2024-09-01 14:00:00',
-    endTime: '2024-09-01 14:00:00',
-  },
-  {
-    id: 8,
-    isExpired: false,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 2',
-    isLike: false,
-    startPrice: 5000,
-    startTime: '2024-09-02 14:00:00',
-    endTime: '2024-09-02 14:00:00',
-  },
-  {
-    id: 6,
-    isExpired: false,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 3',
-    isLike: true,
-    startPrice: 2000,
-    startTime: '2024-09-03 14:00:00',
-    endTime: '2024-09-03 14:00:00',
-  },
-  {
-    id: 4,
-    isExpired: false,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 3',
-    isLike: true,
-    startPrice: 2000,
-    startTime: '2024-09-03 14:00:00',
-    endTime: '2024-09-03 14:00:00',
-  },
-  {
-    id: 5,
-    isExpired: false,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 3',
-    isLike: true,
-    startPrice: 2000,
-    startTime: '2024-09-03 14:00:00',
-    endTime: '2024-09-03 14:00:00',
-  },
-];
-
 export default function Home() {
+  const { data } = useGetBasicAuctionList();
+  if (!data) return null;
+
   return (
     <ListLayout>
-      {auctionItems.map(item => (
+      {data.result_data.content.map(item => (
         <AuctionCard
-          key={item.id}
-          id={item.id}
-          isExpired={item.isExpired}
-          image={item.image}
+          key={item.auction_id}
+          id={item.auction_id}
+          image={item.image_keys}
           title={item.title}
-          isLike={item.isLike}
-          startPrice={item.startPrice}
-          startTime={item.startTime}
-          endTime={item.endTime}
+          isLike={false}
+          startPrice={item.start_price}
+          startTime={item.start_date}
+          endTime={item.end_date}
         />
       ))}
     </ListLayout>

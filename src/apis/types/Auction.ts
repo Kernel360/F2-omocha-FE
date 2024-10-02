@@ -1,4 +1,3 @@
-// auction 타입 관련된거 짱박아.
 export interface BasicAuctionData {
   title: string;
   auction_type: string;
@@ -15,4 +14,49 @@ export interface BasicAuctionResponse {
   result_data: BasicAuctionData;
   result_msg: string;
   status_code: string;
+}
+
+export interface Auction {
+  auction_id: number;
+  title: string;
+  start_price: number;
+  start_date: string;
+  end_date: string;
+  image_keys: string[];
+}
+
+export interface Pageable {
+  page_number: number;
+  page_size: number;
+  sort: {
+    empty: boolean;
+    unsorted: boolean;
+    sorted: boolean;
+  };
+  offset: number;
+  unpaged: boolean;
+  paged: boolean;
+}
+
+export interface AuctionResponse {
+  content: Auction[];
+  pageable: Pageable;
+  total_pages: number;
+  total_elements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: {
+    empty: boolean;
+    unsorted: boolean;
+    sorted: boolean;
+  };
+  number_of_elements: number;
+  first: boolean;
+  empty: boolean;
+}
+export interface AuctionListResponse {
+  status_code: number;
+  result_msg: string;
+  result_data: AuctionResponse;
 }
