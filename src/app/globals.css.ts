@@ -27,7 +27,7 @@ globalStyle('a', {
 });
 
 export const container = style({
-  maxWidth: '1280px',
+  maxWidth: '1216px', // 1280 - (32*2)
   margin: '0 auto',
   padding: '60px 32px',
   minHeight: 'calc(100vh - 230px)',

@@ -1,9 +1,5 @@
 import { style } from '@vanilla-extract/css';
 
-export const auctionForm = style({
-  margin: '10px',
-});
-
 export const auctionLabel = style({
   display: 'flex',
   flexDirection: 'column',
