@@ -17,10 +17,11 @@ type ImageUpload = {
 type AuctionInputs = {
   nameRequired: string;
   startPriceRequired: number;
+  bidUnitRequired: number;
   imageRequired: ImageUpload[];
   infoRequired: string;
-  dateRequired: string;
-  timeRequired: string;
+  startDateRequired: string;
+  endDateRequired: string;
 };
 
 const MAX_CONTENT = 500;
@@ -45,8 +46,8 @@ export default function Home() {
 
   const inputFile = useRef(null);
   const infoRequired = watch('infoRequired');
-  const endDate = watch('dateRequired');
-  const endTime = watch('timeRequired');
+  const startDate = watch('startDateRequired');
+  // const endTime = watch('timeRequired');
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -76,28 +77,52 @@ export default function Home() {
           </span>
         )}
       </label>
-      <label htmlFor="startPrice" className={S.auctionLabel}>
-        <div className={S.title}>시작가</div>
-        <input
-          className={S.auctionInput}
-          id="startPrice"
-          type="number"
-          placeholder="원"
-          {...register('startPriceRequired', {
-            required: '시작가를 입력해 주세요.',
-            pattern: {
-              value: /^(0|[1-9]\d*)$/,
-              message: '올바른 금액이 아닙니다.',
-            },
-          })}
-        />
-        {errors.startPriceRequired && (
-          <span className={S.error}>
-            <ErrorIcon />
-            {errors.startPriceRequired.message}
-          </span>
-        )}
-      </label>
+      <div className={S.period}>
+        <label htmlFor="startPrice" className={S.auctionLabel}>
+          <div className={S.title}>시작가</div>
+          <input
+            className={S.auctionInput}
+            id="startPrice"
+            type="number"
+            placeholder="원"
+            {...register('startPriceRequired', {
+              required: '시작가를 입력해 주세요.',
+              pattern: {
+                value: /^(0|[1-9]\d*)$/,
+                message: '올바른 금액이 아닙니다.',
+              },
+            })}
+          />
+          {errors.startPriceRequired && (
+            <span className={S.error}>
+              <ErrorIcon />
+              {errors.startPriceRequired.message}
+            </span>
+          )}
+        </label>
+        <label htmlFor="bidUnit" className={S.auctionLabel}>
+          <div className={S.title}>입찰 단위</div>
+          <input
+            className={S.auctionInput}
+            id="bidUnit"
+            type="number"
+            placeholder="원"
+            {...register('bidUnitRequired', {
+              required: '입찰 단위를 입력해 주세요.',
+              pattern: {
+                value: /^(0|[1-9]\d*)$/,
+                message: '올바른 금액이 아닙니다.',
+              },
+            })}
+          />
+          {errors.bidUnitRequired && (
+            <span className={S.error}>
+              <ErrorIcon />
+              {errors.bidUnitRequired.message}
+            </span>
+          )}
+        </label>
+      </div>
       <div className={S.auctionLabel}>
         <div className={S.title}>사진</div>
         <div className={S.count}>{fields.length}/10</div>
@@ -169,48 +194,48 @@ export default function Home() {
       <div className={S.auctionLabel}>
         <div className={S.title}>경매 기간</div>
         <div className={S.period}>
-          <label htmlFor="endDate" className={S.subTitle}>
-            종료일
+          <label htmlFor="startDate" className={S.subTitle}>
+            시작 시각
             <input
-              id="endDate"
-              type="date"
+              id="startDate"
+              type="datetime-local"
               className={S.auctionInput}
-              {...register('dateRequired', {
-                required: '종료일을 입력해 주세요.',
+              {...register('startDateRequired', {
+                required: '시작 시각을 입력해 주세요.',
                 validate: value => {
-                  const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜 추출
-                  return value >= currentDate || '종료일은 현재 현재 날짜 이후여야 합니다.';
+                  const currentDate = new Date().toISOString().split('T')[0];
+                  const currentTime = new Date().toTimeString().split(' ')[0].slice(0, 5);
+                  return (
+                    value >= `${currentDate}T${currentTime}` ||
+                    '현재 시각보다 이전 시간은 선택할 수 없습니다.'
+                  );
                 },
               })}
             />
-            {errors.dateRequired && (
+            {errors.startDateRequired && (
               <span className={S.error}>
                 <ErrorIcon />
-                {errors.dateRequired?.message}
+                {errors.startDateRequired?.message}
               </span>
             )}
           </label>
-          <label htmlFor="endTime" className={S.subTitle}>
-            종료 시간
+          <label htmlFor="endDate" className={S.subTitle}>
+            종료 시각
             <input
-              id="endTime"
-              type="time"
+              id="endDate"
+              type="datetime-local"
               className={S.auctionInput}
-              {...register('timeRequired', {
-                required: '종료 시간을 입력해 주세요.',
-                validate: () => {
-                  const currentTime = new Date();
-                  const selectedDateTime = new Date(`${endDate}T${endTime}`);
-                  return selectedDateTime > currentTime
-                    ? true
-                    : '종료 시간은 현재 시간 이후여야 합니다.';
+              {...register('endDateRequired', {
+                required: '종료 시각을 입력해 주세요.',
+                validate: value => {
+                  return value > startDate || '시작 시각보다 이전 시간은 선택할 수 없습니다.';
                 },
               })}
             />
-            {errors.timeRequired && (
+            {errors.endDateRequired && (
               <span className={S.error}>
                 <ErrorIcon />
-                {errors.timeRequired?.message}
+                {errors.endDateRequired?.message}
               </span>
             )}
           </label>
