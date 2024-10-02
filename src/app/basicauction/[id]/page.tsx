@@ -2,7 +2,7 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import TabsLayout from '@/components/TabsLayout';
 
 import * as S from './BasicAuctionDetailPage.css';
-import Test from './BasicAuctionInfo';
+import BasicAuctionInfo from './BasicAuctionInfo';
 
 interface BasicAuctionDetailPageProps {
   params: {
@@ -44,7 +44,7 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
       <div className={S.auctionInfoWrapper}>
         <div>BasicAuctionDetailPage {params.id}</div>
         {/* <HydrationBoundary state={dehydrate(queryClient)}> */}
-        <Test id={params.id} />
+        <BasicAuctionInfo id={params.id} />
         {/* </HydrationBoundary> */}
       </div>
       <TabsLayout
