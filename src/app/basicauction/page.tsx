@@ -1,4 +1,4 @@
-import DropDown from '@/app/basicauction/components/dropdown';
+import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import SearchBar from '@/app/basicauction/components/searchbar';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
@@ -67,7 +67,7 @@ function Home() {
           <span>10</span>
         </div>
         <SearchBar />
-        <DropDown />
+        <AuctionDropDown />
       </section>
       <section className={S.rightSection}>
         <ListLayout>

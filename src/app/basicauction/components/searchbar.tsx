@@ -7,7 +7,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import SearchIcon from '@/assets/svg/search.svg';
 
-import * as S from './Searchbar.css';
+import * as S from './SearchBar.css';
 
 export default function SearchBar() {
   const router = useRouter();

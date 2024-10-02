@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { Dropdown } from '@/components/Dropdown';
 
-export default function DropDown() {
+export default function AuctionDropDown() {
   const [selected, setSelected] = useState('최신순');
 
   return (
