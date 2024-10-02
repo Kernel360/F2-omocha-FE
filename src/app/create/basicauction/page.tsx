@@ -5,9 +5,10 @@
 import { useRef } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
-import * as S from '@/app/create/basicauction/Basicauction.css';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
+
+import * as S from './Basicauction.css';
 
 type ImageUpload = {
   file: File;
@@ -58,7 +59,7 @@ export default function Home() {
   const onSubmit: SubmitHandler<AuctionInputs> = data => console.log(data);
 
   return (
-    <form className={S.auctionForm} onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="name" className={S.auctionLabel}>
         <div className={S.title}>상품명</div>
         <input

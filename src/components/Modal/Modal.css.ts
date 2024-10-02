@@ -8,6 +8,7 @@ export const overlay = style({
   height: '100%',
   backgroundColor: 'rgba(0, 0, 0, 0.6)',
 });
+
 export const modal = style({
   position: 'absolute',
   top: '50%',
