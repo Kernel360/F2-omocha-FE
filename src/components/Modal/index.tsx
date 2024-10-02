@@ -1,37 +1,29 @@
+import * as Dialog from '@radix-ui/react-dialog';
+
 import DeleteIcon from '@/assets/svg/delete.svg';
-import Portal from '@/components/Portal';
 
 import * as S from './Modal.css';
 
 export interface ModalProps {
-  content: string;
-  rightButton: string;
-  leftButton: string;
-  onEvent: () => void;
-  onClose: () => void;
+  isOpen: boolean;
+  children: React.ReactNode;
+  onOpenChange: (open: boolean) => void;
 }
 
 export function Modal(SAMPLE: ModalProps) {
-  const { content, rightButton, leftButton, onEvent, onClose } = SAMPLE;
+  const { isOpen, children, onOpenChange } = SAMPLE;
 
   return (
-    <Portal>
-      <div className={S.overlay}>
-        <div className={S.modal}>
-          <button className={S.buttonHeader} type="button" onClick={onClose}>
+    <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
+      <Dialog.Portal>
+        <Dialog.Overlay className={S.overlay} />
+        <Dialog.Content className={S.modal}>
+          <Dialog.Close asChild className={S.buttonHeader}>
             <DeleteIcon />
-          </button>
-          <div className={S.content}>{content || '현재 준비 중인 이벤트입니다.'}</div>
-          <span className={S.buttonFooter}>
-            <button type="button" className={S.button.left} onClick={onEvent}>
-              {leftButton}
-            </button>
-            <button type="button" className={S.button.right} onClick={onClose}>
-              {rightButton}
-            </button>
-          </span>
-        </div>
-      </div>
-    </Portal>
+          </Dialog.Close>
+          <div className={S.content}>{children}</div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
