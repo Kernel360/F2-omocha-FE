@@ -59,7 +59,7 @@ export default function Home() {
   const onSubmit: SubmitHandler<AuctionInputs> = data => console.log(data);
 
   return (
-    <form className={S.auctionForm} onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="name" className={S.auctionLabel}>
         <div className={S.title}>상품명</div>
         <input
