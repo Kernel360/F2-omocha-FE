@@ -1,41 +1,54 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import { useState } from 'react';
-
-import { ModalProps, Modal } from '@/components/Modal';
+import ModalFooter from '@/components/Modal/ModalFooter';
+import ModalHeaderFooter from '@/components/Modal/ModalHeaderFooter';
+import { Modal } from '@/components/Modal/index';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta = {
+const meta: Meta = {
   title: 'Modal',
   component: Modal,
-} satisfies Meta<typeof Modal>;
+};
 
 export default meta;
 
 type Story = StoryObj<typeof Modal>;
+type StoryFooter = StoryObj<typeof ModalFooter>;
+type StoryHeaderFooter = StoryObj<typeof ModalHeaderFooter>;
 
-function Example(arg: ModalProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div>
-      <button type="button" onClick={() => setIsOpen(true)}>
-        모달 열기
-      </button>
-      <Modal {...arg} isOpen={isOpen} onOpenChange={open => setIsOpen(open)}>
-        <div>
-          <div>현재 준비 중인 이벤트입니다.</div>
-          <span>
-            <button type="button">왼쪽 버튼</button>
-            <button type="button">오른쪽 버튼</button>
-          </span>
-        </div>
-      </Modal>
-    </div>
-  );
-}
+const sampleContext = <div>모달 내용인데 정말 중요한 모달 내용입니다.</div>;
 
 export const Default: Story = {
-  render: (arg: ModalProps) => <Example {...arg} />,
+  args: {
+    isOpen: true,
+    onOpenChange: () => {},
+    children: sampleContext,
+  },
+  render: args => <Modal {...args} />,
+};
+
+export const ModalWithFooter: StoryFooter = {
+  args: {
+    isOpen: true,
+    onOpenChange: () => {},
+    children: sampleContext,
+    positiveButton: '확인',
+    negativeButton: '취소',
+    positiveButtonEvent: () => {},
+  },
+  render: args => <ModalFooter {...args} />,
+};
+
+export const ModalWithHeaderFooter: StoryHeaderFooter = {
+  args: {
+    isOpen: true,
+    onOpenChange: () => {},
+    children: sampleContext,
+    title: '제목',
+    positiveButton: '확인',
+    negativeButton: '취소',
+    positiveButtonEvent: () => {},
+  },
+  render: args => <ModalHeaderFooter {...args} />,
 };
