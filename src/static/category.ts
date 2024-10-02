@@ -1,8 +1,14 @@
+export interface SubCategory {
+  id: number;
+  name: string;
+  path?: string;
+}
+
 export const SUB_CATEGORY = [
   { id: 1, name: '게시물 업로드', path: '/create' },
   { id: 2, name: '마이페이지', path: '/mypage' },
   { id: 3, name: '찜', path: '/mypage/heart' },
-  { id: 4, name: '알림', path: '/notice' },
+  { id: 4, name: '알림' },
   { id: 5, name: '로그인', path: '/login' },
 ];
 
