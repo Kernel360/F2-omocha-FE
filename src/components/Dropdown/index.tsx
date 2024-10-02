@@ -1,8 +1,9 @@
-import React, { MouseEventHandler, useEffect, useRef } from 'react';
+import React, { MouseEventHandler, useRef } from 'react';
 
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
 import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
 import useDisclosure from '@/hooks/useDisclosure';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 import * as S from './Dropdown.css';
 
@@ -28,18 +29,8 @@ export function Dropdown({ children }: DropDownProps) {
   const triggerRef = useRef<HTMLDivElement>(null);
   const items = React.Children.toArray(children);
 
-  useEffect(() => {
-    const handleWindowClick = (e: MouseEvent) => {
-      const isInsideClick =
-        triggerRef.current && e.target instanceof Element && triggerRef.current.contains(e.target);
-      if (!isInsideClick) {
-        onClose();
-      }
-    };
+  useOnClickOutside(triggerRef, onClose);
 
-    window.addEventListener('click', handleWindowClick);
-    return () => window.removeEventListener('click', handleWindowClick);
-  }, [onClose]);
   return (
     <div>
       <div
