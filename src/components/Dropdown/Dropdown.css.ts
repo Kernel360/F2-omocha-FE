@@ -7,6 +7,11 @@ export const dropdownData = style({
   width: 'fit-content',
 });
 
+export const dropdownTrigger = style({
+  display: 'flex',
+  alignItems: 'center',
+});
+
 export const dropdownContent = style({
   position: 'relative',
   top: '10px',

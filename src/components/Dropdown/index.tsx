@@ -1,13 +1,10 @@
 import React, { MouseEventHandler, useEffect, useRef } from 'react';
 
+import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
+import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
 import useDisclosure from '@/hooks/useDisclosure';
 
 import * as S from './Dropdown.css';
-
-interface DropDownItemProps {
-  children: React.ReactNode;
-  onClick: MouseEventHandler<HTMLButtonElement>;
-}
 
 interface DropDownProps {
   children: React.ReactNode;
@@ -15,10 +12,16 @@ interface DropDownProps {
 
 interface DropDownTriggerProps {
   children: React.ReactNode;
+  isOpen: boolean;
 }
 
 interface DropDownContentProps {
   children: React.ReactNode;
+}
+
+interface DropDownItemProps {
+  children: React.ReactNode;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 export function Dropdown({ children }: DropDownProps) {
@@ -38,7 +41,6 @@ export function Dropdown({ children }: DropDownProps) {
     window.addEventListener('click', handleWindowClick);
     return () => window.removeEventListener('click', handleWindowClick);
   }, [onClose]);
-
   return (
     <div>
       <div
@@ -48,15 +50,22 @@ export function Dropdown({ children }: DropDownProps) {
         ref={triggerRef}
         onClick={onToggle}
       >
-        {items[0]}
+        {React.cloneElement(items[0] as React.ReactElement, { isOpen })}
       </div>
       {isOpen && items[1]}
     </div>
   );
 }
 
-Dropdown.Trigger = function DropdownTrigger({ children }: DropDownTriggerProps) {
-  return <span>{children}</span>;
+Dropdown.Trigger = function DropdownTrigger({ children, isOpen }: DropDownTriggerProps) {
+  return (
+    <span className={S.dropdownTrigger}>
+      {children}
+      <span style={{ pointerEvents: 'none' }}>
+        {isOpen ? <ChevronDownIcon /> : <ChevronUpIcon />}
+      </span>
+    </span>
+  );
 };
 
 Dropdown.Content = function DropdownContent({ children }: DropDownContentProps) {
