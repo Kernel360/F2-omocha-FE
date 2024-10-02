@@ -1,4 +1,24 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { keyframes, style, styleVariants } from '@vanilla-extract/css';
+
+const overlayShow = keyframes({
+  '0%': {
+    opacity: '0',
+  },
+  '100%': {
+    opacity: '1',
+  },
+});
+
+const contentShow = keyframes({
+  '0%': {
+    opacity: '0',
+    transform: 'translate(-50%, -48%) scale(0.96)',
+  },
+  '100%': {
+    opacity: '1',
+    transform: 'translate(-50%, -50%) scale(1)',
+  },
+});
 
 export const overlay = style({
   position: 'fixed',
@@ -6,7 +26,8 @@ export const overlay = style({
   left: '0',
   width: '100%',
   height: '100%',
-  backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  backgroundColor: 'rgb(0, 0, 0, 0.6)',
+  animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
 });
 
 export const modal = style({
@@ -21,6 +42,7 @@ export const modal = style({
   backgroundColor: 'white',
   padding: '10px',
   borderRadius: '10px',
+  animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
 });
 
 export const closeButton = style({
