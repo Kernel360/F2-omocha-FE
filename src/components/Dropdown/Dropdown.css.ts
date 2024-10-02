@@ -1,15 +1,13 @@
 import { style } from '@vanilla-extract/css';
 
 export const dropdownData = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
   cursor: 'pointer',
   border: '1px solid rgb(228, 228, 231)',
   padding: '10px',
   width: 'fit-content',
-});
-
-export const dropdownTrigger = style({
-  display: 'flex',
-  alignItems: 'center',
 });
 
 export const dropdownContent = style({

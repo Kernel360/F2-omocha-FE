@@ -12,7 +12,6 @@ interface DropDownProps {
 
 interface DropDownTriggerProps {
   children: React.ReactNode;
-  isOpen: boolean;
 }
 
 interface DropDownContentProps {
@@ -50,22 +49,18 @@ export function Dropdown({ children }: DropDownProps) {
         ref={triggerRef}
         onClick={onToggle}
       >
-        {React.cloneElement(items[0] as React.ReactElement, { isOpen })}
+        {items[0]}
+        <span style={{ pointerEvents: 'none' }}>
+          {isOpen ? <ChevronDownIcon /> : <ChevronUpIcon />}{' '}
+        </span>
       </div>
       {isOpen && items[1]}
     </div>
   );
 }
 
-Dropdown.Trigger = function DropdownTrigger({ children, isOpen }: DropDownTriggerProps) {
-  return (
-    <span className={S.dropdownTrigger}>
-      {children}
-      <span style={{ pointerEvents: 'none' }}>
-        {isOpen ? <ChevronDownIcon /> : <ChevronUpIcon />}
-      </span>
-    </span>
-  );
+Dropdown.Trigger = function DropdownTrigger({ children }: DropDownTriggerProps) {
+  return <span>{children}</span>;
 };
 
 Dropdown.Content = function DropdownContent({ children }: DropDownContentProps) {
