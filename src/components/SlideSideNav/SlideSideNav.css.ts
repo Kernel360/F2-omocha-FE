@@ -32,3 +32,7 @@ export const title = style({
   letterSpacing: '-.3px',
   textAlign: 'left',
 });
+
+export const xButton = style({
+  cursor: 'pointer',
+});
