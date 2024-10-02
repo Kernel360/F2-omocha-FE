@@ -42,6 +42,7 @@ export const modal = style({
   backgroundColor: 'white',
   padding: '10px',
   borderRadius: '10px',
+  zIndex: '1',
   animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
 });
 
