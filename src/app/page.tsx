@@ -3,7 +3,7 @@ import ListLayout from '@/components/ListLayout';
 
 const auctionItems = [
   {
-    id: 1,
+    id: 7,
     isExpired: false,
     image: 'https://via.placeholder.com/280x200',
     title: 'test 1',
@@ -13,7 +13,7 @@ const auctionItems = [
     endTime: '2024-09-01 14:00:00',
   },
   {
-    id: 2,
+    id: 8,
     isExpired: false,
     image: 'https://via.placeholder.com/280x200',
     title: 'test 2',
@@ -23,8 +23,8 @@ const auctionItems = [
     endTime: '2024-09-02 14:00:00',
   },
   {
-    id: 3,
-    isExpired: true,
+    id: 6,
+    isExpired: false,
     image: 'https://via.placeholder.com/280x200',
     title: 'test 3',
     isLike: true,
@@ -34,7 +34,7 @@ const auctionItems = [
   },
   {
     id: 4,
-    isExpired: true,
+    isExpired: false,
     image: 'https://via.placeholder.com/280x200',
     title: 'test 3',
     isLike: true,
@@ -44,7 +44,7 @@ const auctionItems = [
   },
   {
     id: 5,
-    isExpired: true,
+    isExpired: false,
     image: 'https://via.placeholder.com/280x200',
     title: 'test 3',
     isLike: true,
