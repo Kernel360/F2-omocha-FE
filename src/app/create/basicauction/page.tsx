@@ -5,6 +5,7 @@
 import { useRef } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
+import { usePostBasicAuction } from '@/apis/queryHooks/Auction';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 
@@ -18,8 +19,8 @@ type AuctionInputs = {
   nameRequired: string;
   startPriceRequired: number;
   bidUnitRequired: number;
-  imageRequired: ImageUpload[];
-  infoRequired: string;
+  imagesRequired: ImageUpload[];
+  contentRequired: string;
   startDateRequired: string;
   endDateRequired: string;
 };
@@ -37,17 +38,18 @@ export default function Home() {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'imageRequired',
+    name: 'imagesRequired',
     keyName: 'imageRequiredId',
     rules: {
       required: '이미지를 업로드해 주세요.',
     },
   });
 
+  const { mutate: postBasicAuction } = usePostBasicAuction();
+
   const inputFile = useRef(null);
-  const infoRequired = watch('infoRequired');
+  const contentRequired = watch('contentRequired');
   const startDate = watch('startDateRequired');
-  // const endTime = watch('timeRequired');
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -57,7 +59,18 @@ export default function Home() {
     }
   };
 
-  const onSubmit: SubmitHandler<AuctionInputs> = data => console.log(data);
+  const onSubmit: SubmitHandler<AuctionInputs> = async data => {
+    const newImages = data.imagesRequired.map(image => URL.createObjectURL(image.file));
+    postBasicAuction({
+      title: data.nameRequired,
+      content: data.contentRequired,
+      start_price: data.startPriceRequired,
+      auction_type: 'BASIC',
+      images: newImages,
+      start_date: data.startDateRequired.replace('T', ' '),
+      end_date: data.endDateRequired.replace('T', ' '),
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -161,33 +174,33 @@ export default function Home() {
               ))}
           </ul>
         </div>
-        {errors.imageRequired && (
+        {errors.imagesRequired && (
           <span className={S.error}>
             <ErrorIcon />
-            {errors.imageRequired.root?.message}
+            {errors.imagesRequired.root?.message}
           </span>
         )}
       </div>
       <label htmlFor="info" className={S.auctionLabel}>
         <span className={S.title}>상품 정보</span>
         <div className={S.count}>
-          {infoRequired ? infoRequired.length : 0}/{MAX_CONTENT}
+          {contentRequired ? contentRequired.length : 0}/{MAX_CONTENT}
         </div>
         <textarea
           id="info"
           className={S.info}
           maxLength={MAX_CONTENT - 1}
-          {...register('infoRequired', {
+          {...register('contentRequired', {
             required: '상품 정보를 입력해 주세요.',
             validate: {
               minLength: value => value.length >= 10 || '최소 10글자 이상 작성해야 합니다.',
             },
           })}
         />
-        {errors.infoRequired && (
+        {errors.contentRequired && (
           <span className={S.error}>
             <ErrorIcon />
-            {errors.infoRequired?.message}
+            {errors.contentRequired?.message}
           </span>
         )}
       </label>
