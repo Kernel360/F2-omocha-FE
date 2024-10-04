@@ -60,3 +60,10 @@ export interface AuctionListResponse {
   result_msg: string;
   result_data: AuctionResponse;
 }
+
+export interface GetBasicAuctionListQueryFnProps {
+  title?: string;
+  sort?: string;
+  page?: number;
+  size?: number;
+}

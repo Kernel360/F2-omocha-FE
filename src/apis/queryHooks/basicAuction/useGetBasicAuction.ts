@@ -6,7 +6,6 @@ function useGetBasicAuction(id: number) {
   const { data } = useQuery({
     queryKey: ['basicAuction', id],
     queryFn: () => getBasicAuctionQueryFn(id),
-    // initialData: () => getBasicAuctionQueryFn(id),
   });
   return { data };
 }

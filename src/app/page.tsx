@@ -7,7 +7,13 @@ import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 
 export default function Home() {
-  const { data } = useGetBasicAuctionList();
+  const { data } = useGetBasicAuctionList({
+    title: '',
+    sort: '',
+    page: 0,
+    size: 10,
+  });
+
   if (!data) return null;
 
   return (

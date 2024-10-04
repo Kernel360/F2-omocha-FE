@@ -11,11 +11,15 @@ import ListLayout from '@/components/ListLayout';
 import * as S from './Basicauction.css';
 
 function Home() {
-  const { data } = useGetBasicAuctionList();
   const searchParams = useSearchParams();
-
   const searchKeywordParam = searchParams.get('q');
-  console.log(searchKeywordParam);
+
+  const { data } = useGetBasicAuctionList({
+    title: searchKeywordParam || '',
+    sort: '',
+    page: 0,
+    size: 10,
+  });
 
   if (!data) return null;
 
