@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query';
-// import { useRouter } from 'next/navigation';
 
 import { postBasicAuction } from '@/apis/queryFunctions/Auction';
 import { PostBasicAuctionParams } from '@/apis/types/Auction';

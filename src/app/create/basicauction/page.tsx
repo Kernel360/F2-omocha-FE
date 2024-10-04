@@ -5,7 +5,7 @@
 import { useRef } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
-import { usePostBasicAuction } from '@/apis/queryHooks/Auction';
+import { usePostBasicAuction } from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 
