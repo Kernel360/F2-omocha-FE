@@ -1,6 +1,7 @@
 import { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 
+import Providers from '@/app/providers';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
@@ -35,10 +36,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-        <div className={S.container}>{children}</div>
-        <Footer />
-        <div id="root-portal" />
+        <Providers>
+          <Header />
+          <div className={S.container}>{children}</div>
+          <Footer />
+          <div id="root-portal" />
+        </Providers>
       </body>
     </html>
   );
