@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const apiClient = axios.create({
   // baseURL: `${SERVER_API_URL}`,
-  baseURL: `https://api.omocha-auction.com/`,
+  baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,
   timeout: 100000,
   withCredentials: true,
 });
