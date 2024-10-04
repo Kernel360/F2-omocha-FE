@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
+import { Modal } from '@/components/Modal/Modal';
 import ModalFooter from '@/components/Modal/ModalFooter';
 import ModalHeaderFooter from '@/components/Modal/ModalHeaderFooter';
-import { Modal } from '@/components/Modal/index';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
