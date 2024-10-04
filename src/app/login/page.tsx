@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { useLogin } from '@/apis/queryHooks/Auth';
 import ErrorIcon from '@/assets/svg/error.svg';
 import GoggleIcon from '@/assets/svg/goggle.svg';
-// import sha256 from '@/hooks/sha256';
 
 import * as S from './Login.css';
 
@@ -29,13 +28,10 @@ function Home() {
   const { mutate: login } = useLogin();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
-    // const passwordHashed = await sha256(data.passwordRequired);
-    console.log(data);
     login({
       login_id: data.idRequired,
       password: data.passwordRequired,
     });
-    console.log('실행 완료');
   };
 
   return (
