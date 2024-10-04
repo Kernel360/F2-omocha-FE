@@ -1,8 +1,4 @@
-'use client';
-
-import { useRef } from 'react';
-
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import DeleteIcon from '@/assets/svg/delete.svg';
 import SearchIcon from '@/assets/svg/search.svg';
@@ -11,47 +7,40 @@ import * as S from './SearchBar.css';
 
 export default function SearchBar() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const searchRef = useRef<HTMLInputElement>(null);
+  const searchKeywordParam = searchParams.get('q');
 
-  const onSubmit = () => {
-    const currentSearch = searchRef.current?.value || '';
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 폼의 기본 동작 방지
+    const formData = new FormData(e.currentTarget);
+    const currentSearch = formData.get('searchKeyword') as string;
 
-    // if (currentSearch === searchKeyword) return;
-    // setSearchKeyword(currentSearch);
     router.push(`/basicauction?q=${currentSearch}`);
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      onSubmit();
-    }
-  };
-
-  const deleteSearch = () => {
-    if (searchRef.current) {
-      searchRef.current.value = '';
-      searchRef.current.focus();
+  const deleteSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const input = e.currentTarget.parentElement?.querySelector('input') as HTMLInputElement;
+    if (input) {
+      input.value = '';
+      input.focus();
     }
   };
 
   return (
-    <div className={S.searchBar}>
-      <button type="button" onClick={onSubmit}>
+    <form className={S.searchBar} onSubmit={onSubmit}>
+      <button type="submit">
         <SearchIcon />
       </button>
       <input
-        ref={searchRef}
         className={S.searchInput}
-        defaultValue=""
+        name="searchKeyword"
+        defaultValue={searchKeywordParam || ''}
         placeholder="경매 검색"
-        onKeyDown={onKeyDown}
       />
-      {/* {searchRef.current != null && ( */}
       <button className={S.searchDelete} type="button" onClick={deleteSearch}>
         <DeleteIcon />
       </button>
-      {/* )} */}
-    </div>
+    </form>
   );
 }

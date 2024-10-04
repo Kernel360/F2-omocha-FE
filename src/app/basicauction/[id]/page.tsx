@@ -33,7 +33,7 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['basicAuction', params.id],
+    queryKey: ['basicAuction', params.id], // 이걸 하나로 묶는 작업을 진행해 보아도 좋을듯
     queryFn: () => getBasicAuctionQueryFn(params.id),
   });
 

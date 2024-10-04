@@ -1,5 +1,7 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
+
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import SearchBar from '@/app/basicauction/components/searchbar';
@@ -10,6 +12,10 @@ import * as S from './Basicauction.css';
 
 function Home() {
   const { data } = useGetBasicAuctionList();
+  const searchParams = useSearchParams();
+
+  const searchKeywordParam = searchParams.get('q');
+  console.log(searchKeywordParam);
 
   if (!data) return null;
 
