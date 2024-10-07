@@ -8,6 +8,7 @@ import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
+import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
 
@@ -61,14 +62,15 @@ export default function Home() {
 
   const onSubmit: SubmitHandler<AuctionInputs> = async data => {
     const newImages = data.imagesRequired.map(image => URL.createObjectURL(image.file));
+
     postBasicAuction({
       title: data.nameRequired,
       content: data.contentRequired,
       start_price: data.startPriceRequired,
       auction_type: 'BASIC',
       images: newImages,
-      start_date: data.startDateRequired.replace('T', ' '),
-      end_date: data.endDateRequired.replace('T', ' '),
+      start_date: formatDate(data.startDateRequired),
+      end_date: formatDate(data.endDateRequired),
     });
   };
 
@@ -216,10 +218,8 @@ export default function Home() {
               {...register('startDateRequired', {
                 required: '시작 시각을 입력해 주세요.',
                 validate: value => {
-                  const currentDate = new Date().toISOString().split('T')[0];
-                  const currentTime = new Date().toTimeString().split(' ')[0].slice(0, 5);
                   return (
-                    value >= `${currentDate}T${currentTime}` ||
+                    formatDate(value) >= formatDate(new Date().toString()) ||
                     '현재 시각보다 이전 시간은 선택할 수 없습니다.'
                   );
                 },
