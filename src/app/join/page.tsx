@@ -6,6 +6,7 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import usePostRegister from '@/apis/queryHooks/useAuth/usePostRegister';
 import CheckIcon from '@/assets/svg/check.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 
@@ -34,6 +35,8 @@ function Home() {
     },
   });
 
+  const { mutate } = usePostRegister();
+
   const emailValue = watch('emailRequired');
   const passwordValue = watch('passwordRequired');
 
@@ -59,8 +62,7 @@ function Home() {
       setError('emailRequired', { type: 'manual', message: '이메일 중복 확인이 필요합니다.' });
       return;
     }
-
-    console.log(data); // 임시 console
+    mutate({ login_id: data.emailRequired, password: data.passwordCheckRequired });
   };
 
   const isEmailValid = !errors.emailRequired;
