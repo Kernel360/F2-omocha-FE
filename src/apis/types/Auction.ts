@@ -1,4 +1,4 @@
-export interface BasicAuctionData {
+export interface BasicAuctionResponseData {
   title: string;
   auction_type: string;
   bid_unit: number;
@@ -11,12 +11,13 @@ export interface BasicAuctionData {
 }
 
 export interface BasicAuctionResponse {
-  result_data: BasicAuctionData;
+  result_data: BasicAuctionResponseData;
   result_msg: string;
   status_code: string;
 }
 
-export interface Auction {
+//------
+export interface AuctionData {
   auction_id: number;
   title: string;
   start_price: number;
@@ -38,8 +39,8 @@ export interface Pageable {
   paged: boolean;
 }
 
-export interface AuctionResponse {
-  content: Auction[];
+export interface AuctionListResponseData {
+  content: AuctionData[];
   pageable: Pageable;
   total_pages: number;
   total_elements: number;
@@ -58,10 +59,11 @@ export interface AuctionResponse {
 export interface AuctionListResponse {
   status_code: number;
   result_msg: string;
-  result_data: AuctionResponse;
+  result_data: AuctionListResponseData;
 }
 
-export interface GetBasicAuctionListQueryFnProps {
+// -------
+export interface GetBasicAuctionListParams {
   title?: string;
   sort?: string;
   page?: number;

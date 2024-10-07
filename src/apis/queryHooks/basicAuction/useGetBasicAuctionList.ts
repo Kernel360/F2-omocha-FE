@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getBasicAuctionListQueryFn } from '@/apis/queryFunctions/basicAuctionQueryFn';
-import { GetBasicAuctionListQueryFnProps } from '@/apis/types/Auction';
+import { getBasicAuctionList } from '@/apis/queryFunctions/basicAuctionQueryFn';
+import { GetBasicAuctionListParams } from '@/apis/types/Auction';
 
-function useGetBasicAuctionList(params: GetBasicAuctionListQueryFnProps) {
+function useGetBasicAuctionList(params: GetBasicAuctionListParams) {
   const { data } = useQuery({
     queryKey: ['basicAuctionList', params],
-    queryFn: () => getBasicAuctionListQueryFn(params),
+    queryFn: () => getBasicAuctionList(params),
   });
   return { data };
 }
