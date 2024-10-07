@@ -31,6 +31,7 @@ export const categoryLink = style({
   border: '1.5px solid black',
   borderRadius: '12px',
   padding: '15px',
+  cursor: 'pointer',
   ':hover': {
     boxShadow: '0 0 8px rgba(0, 0, 0, 0.1)',
   },

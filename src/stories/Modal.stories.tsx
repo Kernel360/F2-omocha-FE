@@ -1,41 +1,52 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from 'react';
 
-import { ModalProps, Modal } from '@/components/Modal';
+import { Modal } from '@/components/Modal/Modal';
+import ModalFooter from '@/components/Modal/ModalFooter';
+import ModalHeaderFooter from '@/components/Modal/ModalHeaderFooter';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta = {
+const meta: Meta = {
   title: 'Modal',
   component: Modal,
-} satisfies Meta<typeof Modal>;
+};
 
 export default meta;
 
 type Story = StoryObj<typeof Modal>;
+type StoryFooter = StoryObj<typeof ModalFooter>;
+type StoryHeaderFooter = StoryObj<typeof ModalHeaderFooter>;
 
-function Example(arg: ModalProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
-
-  return (
-    <div>
-      <button type="button" onClick={handleOpen}>
-        모달 열기
-      </button>
-      {isOpen && <Modal {...arg} onClose={handleClose} onEvent={handleClose} />}
-    </div>
-  );
-}
+const sampleContext = <div>모달 내용인데 정말 중요한 모달 내용입니다.</div>;
 
 export const Default: Story = {
-  render: (arg: ModalProps) => <Example {...arg} />,
   args: {
-    content: '이벤트가 시작되었습니다!',
-    rightButton: '취소',
-    leftButton: '확인',
-    onClose: () => {},
-    onEvent: () => {},
+    isOpen: true,
+    onOpenChange: () => {},
+    children: sampleContext,
   },
+  render: args => <Modal {...args} />,
+};
+
+export const ModalWithFooter: StoryFooter = {
+  args: {
+    isOpen: true,
+    onOpenChange: () => {},
+    children: sampleContext,
+    positiveButton: '확인',
+    positiveButtonEvent: () => {},
+  },
+  render: args => <ModalFooter {...args} />,
+};
+
+export const ModalWithHeaderFooter: StoryHeaderFooter = {
+  args: {
+    isOpen: true,
+    onOpenChange: () => {},
+    children: sampleContext,
+    title: '제목',
+    positiveButton: '확인',
+    positiveButtonEvent: () => {},
+  },
+  render: args => <ModalHeaderFooter {...args} />,
 };
