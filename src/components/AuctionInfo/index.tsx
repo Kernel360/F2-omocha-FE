@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 import AuctionCountdown from './AuctionCountdown';
@@ -7,7 +9,7 @@ interface AuctionInfoProps {
   title: string;
   startPrice: number;
   nowPrice: number;
-  endTime: Date | string;
+  endTime: string;
   bidCount: number;
 }
 
@@ -21,22 +23,23 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>시작가</span>
         <span>
-          {startPrice ? startPrice.toLocaleString('ko-KR') : '3,000'}
+          {startPrice.toLocaleString('ko-KR')}
           <span>원</span>
         </span>
       </div>
       <div className={`${S.infoRow} ${S.nowPrice}`}>
         <span className={S.infoRowTitle}>현재가</span>
         <span>
-          {nowPrice ? nowPrice.toLocaleString('ko-KR') : '3,000'}
+          {nowPrice && nowPrice.toLocaleString('ko-KR')}
           <span>원</span>
         </span>
       </div>
       <hr className={S.division} />
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>남은 시간</span>
-        <AuctionCountdown endTime={endTime || '2024-09-29 14:28:00'} setExpired={setExpired} />
+        <AuctionCountdown endTime={endTime} setExpired={setExpired} />
       </div>
+      <div className={S.endTimeDescription}>{endTime}</div>
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>입찰 기록</span>
         <div className={S.infoRight}>

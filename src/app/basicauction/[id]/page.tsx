@@ -1,5 +1,11 @@
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+
+import { getBasicAuction } from '@/apis/queryFunctions/basicAuctionQueryFn';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import TabsLayout from '@/components/TabsLayout';
+
+import * as S from './BasicAuctionDetailPage.css';
+import BasicAuctionInfo from './BasicAuctionInfo';
 
 interface BasicAuctionDetailPageProps {
   params: {
@@ -23,7 +29,14 @@ const TABS_CONTENT = [
   <div key="productInquiry">상품 문의</div>,
 ];
 
-function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
+async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ['basicAuction', params.id], // 이걸 하나로 묶는 작업을 진행해 보아도 좋을듯
+    queryFn: () => getBasicAuction(params.id),
+  });
+
   return (
     <div>
       <Breadcrumb>
@@ -31,9 +44,12 @@ function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
         <Breadcrumb.Item href="/basicauction">Products</Breadcrumb.Item>
         <Breadcrumb.Item>Product {params.id}</Breadcrumb.Item>
       </Breadcrumb>
-      BasicAuctionDetailPage {params.id}
-      <div>디테일 페이지에 들어왔다.</div>
-      <div>여기서 어떤 데이터를 불러오겠지 그걸 TABS CONTENT 컴포넌트에 넘겨줘</div>
+      <div className={S.auctionInfoWrapper}>
+        <div>BasicAuctionDetailPage {params.id}</div>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <BasicAuctionInfo id={params.id} />
+        </HydrationBoundary>
+      </div>
       <TabsLayout
         defaultTriggerValue={TABS[0].value}
         triggerTitleList={TABS}

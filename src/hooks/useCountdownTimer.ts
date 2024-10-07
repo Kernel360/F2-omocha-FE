@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 
 interface UseCountdownTimerProps {
@@ -11,6 +13,7 @@ const DAY_IN_MILLIS = HOUR_IN_MILLIS * 24;
 function useCountdownTimer({ endTime }: UseCountdownTimerProps) {
   const countRemainingTime = (endTimeInCountRemainingTime: Date) => {
     const nowTime = new Date();
+
     if (endTimeInCountRemainingTime.getTime() < nowTime.getTime()) {
       return 0;
     }
@@ -25,13 +28,14 @@ function useCountdownTimer({ endTime }: UseCountdownTimerProps) {
   useEffect(() => {
     const intervalID = setInterval(() => {
       const remainingTimeInUseEffect = countRemainingTime(new Date(endTime));
+
       if (remainingTimeInUseEffect <= 0) {
         clearInterval(intervalID);
         setRemainingTime(0);
 
         return;
       }
-      setRemainingTime(remainingTime);
+      setRemainingTime(remainingTimeInUseEffect);
     }, 1000);
 
     return () => {
