@@ -25,7 +25,7 @@ function Home() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data); // 임시 console
+    console.log(data); // 임시 console입니다.
   };
 
   return (
