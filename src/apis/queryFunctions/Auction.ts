@@ -1,4 +1,4 @@
-import apiClient from '@/apis/index';
+import apiClient from '@/apis/queryFunctions/apiClient';
 import { PostBasicAuctionParams } from '@/apis/types/Auction';
 
 export const postBasicAuction = (param: PostBasicAuctionParams) =>

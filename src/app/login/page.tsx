@@ -7,7 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Link from 'next/link';
 
-import { useLogin } from '@/apis/queryHooks/useAuth/useLogin';
+import usePostLogin from '@/apis/queryHooks/useAuth/usePostLogin';
 import ErrorIcon from '@/assets/svg/error.svg';
 import GoggleIcon from '@/assets/svg/goggle.svg';
 
@@ -25,7 +25,7 @@ function Home() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { mutate: login } = useLogin();
+  const { mutate: login } = usePostLogin();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     login({

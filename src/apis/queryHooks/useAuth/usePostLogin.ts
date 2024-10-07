@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { login } from '@/apis/queryFunctions/Auth';
+import { postLogin } from '@/apis/queryFunctions/Auth';
 import { LoginParams } from '@/apis/types/Auth';
 
-export const useLogin = () => {
+export default function usePostLogin() {
   const { mutate, error } = useMutation({
-    mutationFn: (param: LoginParams) => login(param),
+    mutationFn: (param: LoginParams) => postLogin(param),
     onSuccess: () => {
       // 토큰 관리
     },
@@ -15,4 +15,4 @@ export const useLogin = () => {
   });
 
   return { mutate, error };
-};
+}
