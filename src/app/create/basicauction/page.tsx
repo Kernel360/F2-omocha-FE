@@ -18,8 +18,8 @@ type ImageUpload = {
 
 type AuctionInputs = {
   nameRequired: string;
-  startPriceRequired: number;
-  bidUnitRequired: number;
+  startPriceRequired: string;
+  bidUnitRequired: string;
   imagesRequired: ImageUpload[];
   contentRequired: string;
   startDateRequired: string;
@@ -60,18 +60,23 @@ export default function Home() {
     }
   };
 
-  const onSubmit: SubmitHandler<AuctionInputs> = async data => {
-    const newImages = data.imagesRequired.map(image => URL.createObjectURL(image.file));
+  const onSubmit: SubmitHandler<AuctionInputs> = data => {
+    const formData = new FormData();
 
-    postBasicAuction({
+    const auctionRequest = {
       title: data.nameRequired,
       content: data.contentRequired,
       start_price: data.startPriceRequired,
+      bid_unit: data.bidUnitRequired,
       auction_type: 'BASIC',
-      images: newImages,
       start_date: formatDate(data.startDateRequired),
       end_date: formatDate(data.endDateRequired),
-    });
+    };
+
+    formData.append('auctionRequest', JSON.stringify(auctionRequest));
+    data.imagesRequired.forEach(image => formData.append('images', image.file));
+
+    postBasicAuction(formData);
   };
 
   return (
