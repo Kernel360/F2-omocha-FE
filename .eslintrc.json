@@ -1,7 +1,3 @@
-// {
-//   "extends": ["next/core-web-vitals", "next/typescript"]
-// }
-
 {
   "root": true,
   "env": {
@@ -22,12 +18,41 @@
     "prettier"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "off"
-    // "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
-    // "@typescript-eslint/camelcase": "off",
-    // "import/extensions": ["error", "ignorePackages"],
-    // "no-console": "error"
+    "react/react-in-jsx-scope": "off",
+    "import/prefer-default-export": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react*",
+            "group": "builtin"
+          },
+          {
+            "pattern": "@/*",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "newlines-between": "always",
+        "pathGroupsExcludedImportTypes": ["react*"],
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ]
   },
+
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
