@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+// import { cookies, headers } from 'next/headers';
 
 import * as S from '@/app/globals.css';
 import Providers from '@/app/providers';
@@ -36,6 +37,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // const cookie = cookies()
+  // cookie.get('access')
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
