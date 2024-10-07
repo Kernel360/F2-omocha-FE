@@ -1,14 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 import { postRegister } from '@/apis/queryFunctions/Auth';
 import { ErrorResponse, RegisterParams } from '@/apis/types/Auth';
 
 function usePostRegister() {
+  const router = useRouter();
+
   const { mutate, error } = useMutation({
     mutationFn: (param: RegisterParams) => postRegister(param),
     onSuccess: () => {
       alert('회원가입을 성공했습니다.🎉');
+      router.push('/login');
     },
     onError: (e: AxiosError<ErrorResponse>) => {
       if (e.response) {
