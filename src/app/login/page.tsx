@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Link from 'next/link';
 
+import usePostLogin from '@/apis/queryHooks/useAuth/usePostLogin';
 import ErrorIcon from '@/assets/svg/error.svg';
 import GoggleIcon from '@/assets/svg/goggle.svg';
 
@@ -24,8 +25,14 @@ function Home() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data); // 임시 console
+  const { mutate: login } = usePostLogin();
+
+  const onSubmit: SubmitHandler<Inputs> = async data => {
+    // 주석
+    login({
+      login_id: data.idRequired,
+      password: data.passwordRequired,
+    });
   };
 
   return (

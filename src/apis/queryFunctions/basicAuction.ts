@@ -1,12 +1,18 @@
-import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
-
+import apiClient from '@/apis/queryFunctions/apiClient';
 import {
+  PostBasicAuctionParams,
+  PostBasicAuctionResponse,
   AuctionListResponse,
   BasicAuctionResponse,
   GetBasicAuctionListParams,
-} from '../types/Auction';
+} from '@/apis/types/basicAuction';
+import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 
-import apiClient from './apiClient';
+export const postBasicAuction = async (param: PostBasicAuctionParams) => {
+  const response = await apiClient.post<PostBasicAuctionResponse>('/v1/auction', param);
+
+  return response.data;
+};
 
 export const getBasicAuction = async (id: number) => {
   const response = await apiClient.get<BasicAuctionResponse>(`/v1/auction/${id}`);

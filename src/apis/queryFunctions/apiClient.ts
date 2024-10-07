@@ -6,15 +6,33 @@ const apiClient = axios.create({
   withCredentials: true,
 });
 
-// apiClient.interceptors.request.use((config) => { // 여기서 이제 인터셉토로 토큰이 잘 있는지 확인하기
-//   const accessToken = sessionStorage.getItem('accessToken');
-//   const { headers } = config;
+apiClient.interceptors.request.use(
+  config => {
+    // 성공한 요청
+    //   const accessToken = sessionStorage.getItem('accessToken');
+    //   const { headers } = config;
 
-//   if (headers && accessToken) {
-//     headers.Authorization = `Bearer ${accessToken}`;
-//   }
+    //   if (headers && accessToken) {
+    //     headers.Authorization = `Bearer ${accessToken}`;
+    //   }
 
-//   return config;
-// });
+    return config;
+  },
+  error => {
+    // 실패한 요청
+    return Promise.reject(error);
+  },
+);
+
+apiClient.interceptors.response.use(
+  response => {
+    // 성공한 응답
+    return response;
+  },
+  error => {
+    // 실패한 응답
+    return Promise.reject(error);
+  },
+);
 
 export default apiClient;

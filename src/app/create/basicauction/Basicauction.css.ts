@@ -84,7 +84,7 @@ export const info = style({
 
 export const period = style({
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit,minmax(63px, auto))',
+  gridTemplateColumns: 'repeat(auto-fit,minmax(66px, auto))',
   gap: '30px',
 });
 
@@ -93,7 +93,8 @@ export const subTitle = style({
   flexDirection: 'column',
   fontSize: '16px',
   fontWeight: 'bold',
-  gap: '10px',
+  // maxWidth: '368px',
+  gap: '20px',
 });
 
 export const buttonContainer = style({
@@ -119,6 +120,6 @@ export const error = style({
   alignItems: 'center',
   color: '#FF0000',
   fontSize: '14px',
-  marginLeft: '8px',
+  paddingLeft: '8px',
   fontWeight: 'normal',
 });

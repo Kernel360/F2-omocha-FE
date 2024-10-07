@@ -57,7 +57,28 @@ export interface AuctionListResponse {
   result_data: AuctionListResponseData;
 }
 
-// -------
+//------
+export interface PostBasicAuctionParams {
+  title: string;
+  content: string;
+  start_price: number;
+  auction_type: 'BASIC' | 'LIVE';
+  start_date: string;
+  end_date: string;
+  images: string[];
+}
+
+interface PostBasicAuctionResponseData {
+  acution_id: number;
+}
+
+export interface PostBasicAuctionResponse {
+  status_code: number;
+  result_msg: string;
+  result_data: PostBasicAuctionResponseData;
+}
+
+// -----
 export interface GetBasicAuctionListParams {
   title?: string;
   sort?: string;

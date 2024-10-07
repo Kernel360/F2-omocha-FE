@@ -5,8 +5,10 @@
 import { useRef } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
+import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
+import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
 
@@ -17,10 +19,11 @@ type ImageUpload = {
 type AuctionInputs = {
   nameRequired: string;
   startPriceRequired: number;
-  imageRequired: ImageUpload[];
-  infoRequired: string;
-  dateRequired: string;
-  timeRequired: string;
+  bidUnitRequired: number;
+  imagesRequired: ImageUpload[];
+  contentRequired: string;
+  startDateRequired: string;
+  endDateRequired: string;
 };
 
 const MAX_CONTENT = 500;
@@ -36,17 +39,18 @@ export default function Home() {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'imageRequired',
+    name: 'imagesRequired',
     keyName: 'imageRequiredId',
     rules: {
       required: '이미지를 업로드해 주세요.',
     },
   });
 
+  const { mutate: postBasicAuction } = usePostBasicAuction();
+
   const inputFile = useRef(null);
-  const infoRequired = watch('infoRequired');
-  const endDate = watch('dateRequired');
-  const endTime = watch('timeRequired');
+  const contentRequired = watch('contentRequired');
+  const startDate = watch('startDateRequired');
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -56,7 +60,19 @@ export default function Home() {
     }
   };
 
-  const onSubmit: SubmitHandler<AuctionInputs> = data => console.log(data);
+  const onSubmit: SubmitHandler<AuctionInputs> = async data => {
+    const newImages = data.imagesRequired.map(image => URL.createObjectURL(image.file));
+
+    postBasicAuction({
+      title: data.nameRequired,
+      content: data.contentRequired,
+      start_price: data.startPriceRequired,
+      auction_type: 'BASIC',
+      images: newImages,
+      start_date: formatDate(data.startDateRequired),
+      end_date: formatDate(data.endDateRequired),
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -76,28 +92,52 @@ export default function Home() {
           </span>
         )}
       </label>
-      <label htmlFor="startPrice" className={S.auctionLabel}>
-        <div className={S.title}>시작가</div>
-        <input
-          className={S.auctionInput}
-          id="startPrice"
-          type="number"
-          placeholder="원"
-          {...register('startPriceRequired', {
-            required: '시작가를 입력해 주세요.',
-            pattern: {
-              value: /^(0|[1-9]\d*)$/,
-              message: '올바른 금액이 아닙니다.',
-            },
-          })}
-        />
-        {errors.startPriceRequired && (
-          <span className={S.error}>
-            <ErrorIcon />
-            {errors.startPriceRequired.message}
-          </span>
-        )}
-      </label>
+      <div className={S.period}>
+        <label htmlFor="startPrice" className={S.auctionLabel}>
+          <div className={S.title}>시작가</div>
+          <input
+            className={S.auctionInput}
+            id="startPrice"
+            type="number"
+            placeholder="원"
+            {...register('startPriceRequired', {
+              required: '시작가를 입력해 주세요.',
+              pattern: {
+                value: /^(0|[1-9]\d*)$/,
+                message: '올바른 금액이 아닙니다.',
+              },
+            })}
+          />
+          {errors.startPriceRequired && (
+            <span className={S.error}>
+              <ErrorIcon />
+              {errors.startPriceRequired.message}
+            </span>
+          )}
+        </label>
+        <label htmlFor="bidUnit" className={S.auctionLabel}>
+          <div className={S.title}>입찰 단위</div>
+          <input
+            className={S.auctionInput}
+            id="bidUnit"
+            type="number"
+            placeholder="원"
+            {...register('bidUnitRequired', {
+              required: '입찰 단위를 입력해 주세요.',
+              pattern: {
+                value: /^(0|[1-9]\d*)$/,
+                message: '올바른 금액이 아닙니다.',
+              },
+            })}
+          />
+          {errors.bidUnitRequired && (
+            <span className={S.error}>
+              <ErrorIcon />
+              {errors.bidUnitRequired.message}
+            </span>
+          )}
+        </label>
+      </div>
       <div className={S.auctionLabel}>
         <div className={S.title}>사진</div>
         <div className={S.count}>{fields.length}/10</div>
@@ -136,81 +176,79 @@ export default function Home() {
               ))}
           </ul>
         </div>
-        {errors.imageRequired && (
+        {errors.imagesRequired && (
           <span className={S.error}>
             <ErrorIcon />
-            {errors.imageRequired.root?.message}
+            {errors.imagesRequired.root?.message}
           </span>
         )}
       </div>
       <label htmlFor="info" className={S.auctionLabel}>
         <span className={S.title}>상품 정보</span>
         <div className={S.count}>
-          {infoRequired ? infoRequired.length : 0}/{MAX_CONTENT}
+          {contentRequired ? contentRequired.length : 0}/{MAX_CONTENT}
         </div>
         <textarea
           id="info"
           className={S.info}
           maxLength={MAX_CONTENT - 1}
-          {...register('infoRequired', {
+          {...register('contentRequired', {
             required: '상품 정보를 입력해 주세요.',
             validate: {
               minLength: value => value.length >= 10 || '최소 10글자 이상 작성해야 합니다.',
             },
           })}
         />
-        {errors.infoRequired && (
+        {errors.contentRequired && (
           <span className={S.error}>
             <ErrorIcon />
-            {errors.infoRequired?.message}
+            {errors.contentRequired?.message}
           </span>
         )}
       </label>
       <div className={S.auctionLabel}>
         <div className={S.title}>경매 기간</div>
         <div className={S.period}>
-          <label htmlFor="endDate" className={S.subTitle}>
-            종료일
+          <label htmlFor="startDate" className={S.subTitle}>
+            시작 시각
             <input
-              id="endDate"
-              type="date"
+              id="startDate"
+              type="datetime-local"
               className={S.auctionInput}
-              {...register('dateRequired', {
-                required: '종료일을 입력해 주세요.',
+              {...register('startDateRequired', {
+                required: '시작 시각을 입력해 주세요.',
                 validate: value => {
-                  const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜 추출
-                  return value >= currentDate || '종료일은 현재 현재 날짜 이후여야 합니다.';
+                  return (
+                    formatDate(value) >= formatDate(new Date().toString()) ||
+                    '현재 시각보다 이전 시간은 선택할 수 없습니다.'
+                  );
                 },
               })}
             />
-            {errors.dateRequired && (
+            {errors.startDateRequired && (
               <span className={S.error}>
                 <ErrorIcon />
-                {errors.dateRequired?.message}
+                {errors.startDateRequired?.message}
               </span>
             )}
           </label>
-          <label htmlFor="endTime" className={S.subTitle}>
-            종료 시간
+          <label htmlFor="endDate" className={S.subTitle}>
+            종료 시각
             <input
-              id="endTime"
-              type="time"
+              id="endDate"
+              type="datetime-local"
               className={S.auctionInput}
-              {...register('timeRequired', {
-                required: '종료 시간을 입력해 주세요.',
-                validate: () => {
-                  const currentTime = new Date();
-                  const selectedDateTime = new Date(`${endDate}T${endTime}`);
-                  return selectedDateTime > currentTime
-                    ? true
-                    : '종료 시간은 현재 시간 이후여야 합니다.';
+              {...register('endDateRequired', {
+                required: '종료 시각을 입력해 주세요.',
+                validate: value => {
+                  return value > startDate || '시작 시각보다 이전 시간은 선택할 수 없습니다.';
                 },
               })}
             />
-            {errors.timeRequired && (
+            {errors.endDateRequired && (
               <span className={S.error}>
                 <ErrorIcon />
-                {errors.timeRequired?.message}
+                {errors.endDateRequired?.message}
               </span>
             )}
           </label>
