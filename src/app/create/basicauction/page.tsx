@@ -5,7 +5,7 @@
 import { useRef } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
-import { usePostBasicAuction } from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
+import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 
@@ -60,6 +60,7 @@ export default function Home() {
   };
 
   const onSubmit: SubmitHandler<AuctionInputs> = async data => {
+    console.log(data);
     const newImages = data.imagesRequired.map(image => URL.createObjectURL(image.file));
     postBasicAuction({
       title: data.nameRequired,

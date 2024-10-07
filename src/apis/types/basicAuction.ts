@@ -68,6 +68,16 @@ export interface PostBasicAuctionParams {
   images: string[];
 }
 
+interface PostBasicAuctionResponseData {
+  acution_id: number;
+}
+
+export interface PostBasicAuctionResponse {
+  status_code: number;
+  result_msg: string;
+  result_data: PostBasicAuctionResponseData;
+}
+
 // -----
 export interface GetBasicAuctionListParams {
   title?: string;

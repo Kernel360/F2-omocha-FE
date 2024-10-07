@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { getBasicAuction } from '@/apis/queryFunctions/basicAuctionQueryFn';
+import { getBasicAuction } from '@/apis/queryFunctions/basicAuction';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import TabsLayout from '@/components/TabsLayout';
 

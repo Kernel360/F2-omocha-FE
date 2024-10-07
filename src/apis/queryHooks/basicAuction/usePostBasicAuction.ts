@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { postBasicAuction } from '@/apis/queryFunctions/Auction';
-import { PostBasicAuctionParams } from '@/apis/types/Auction';
+import { postBasicAuction } from '@/apis/queryFunctions/basicAuction';
+import { PostBasicAuctionParams } from '@/apis/types/basicAuction';
 
-export default function usePostBasicAuction() {
+function usePostBasicAuction() {
   const { mutate, error } = useMutation({
     mutationFn: (param: PostBasicAuctionParams) => postBasicAuction(param),
     onSuccess: () => {
@@ -13,3 +13,5 @@ export default function usePostBasicAuction() {
 
   return { mutate, error };
 }
+
+export default usePostBasicAuction;
