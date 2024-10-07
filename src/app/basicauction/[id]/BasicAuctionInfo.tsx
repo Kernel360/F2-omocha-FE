@@ -5,11 +5,11 @@ import React from 'react';
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import AuctionInfo from '@/components/AuctionInfo';
 
-interface TestProps {
+interface BasicAuctionInfoProps {
   id: number;
 }
 
-function BasicAuctionInfo({ id }: TestProps) {
+function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
   const { data } = useGetBasicAuction(id);
 
   if (!data) return null;

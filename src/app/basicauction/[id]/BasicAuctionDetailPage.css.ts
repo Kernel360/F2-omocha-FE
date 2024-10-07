@@ -4,6 +4,5 @@ export const auctionInfoWrapper = style({
   display: 'flex',
   flexWrap: 'wrap',
   justifyContent: 'space-between',
-
   padding: '30px',
 });
