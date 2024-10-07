@@ -1,16 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 import { postLogin } from '@/apis/queryFunctions/Auth';
 import { ErrorResponse, LoginParams } from '@/apis/types/Auth';
 
 function usePostLogin() {
+  const router = useRouter();
+
   const { mutate, error } = useMutation({
     mutationFn: (param: LoginParams) => postLogin(param),
-    onSuccess: res => {
-      console.log(res);
-
-      // 토큰 관리
+    onSuccess: () => {
+      router.push('/');
     },
     onError: (e: AxiosError<ErrorResponse>) => {
       console.log(e.response?.data.result_msg);

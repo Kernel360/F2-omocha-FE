@@ -3,14 +3,13 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const refreshToken = request.cookies.get('refresh')?.value;
-
   const { pathname } = request.nextUrl;
 
   if (pathname === '/favicon.ico') {
     return NextResponse.next(); // middleware를 통과하지 않게 함
   }
 
+  const refreshToken = request.cookies.get('refresh')?.value;
   // const accessToken = request.cookies.get('access')?.value;
 
   // 1. accessToken을 통해서 확인
