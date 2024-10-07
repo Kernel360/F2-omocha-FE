@@ -24,11 +24,10 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // refreshToken이 존재하면 다음으로 진행 (NextResponse.next())
   return NextResponse.next();
 }
 
-// matcher를 사용하여 '/mypage' 관련 경로에만 middleware 적용
+// matcher를 사용하여 지정한 경로에만 middleware 적용
 export const config = {
   matcher: ['/mypage/:path*', '/create/:path*'],
 };
