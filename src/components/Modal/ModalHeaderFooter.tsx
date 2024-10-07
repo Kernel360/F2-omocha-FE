@@ -10,20 +10,11 @@ interface ModalHeaderFooterProps {
   title: string;
   children: React.ReactNode;
   positiveButton: string;
-  negativeButton: string;
   positiveButtonEvent: () => void;
 }
 
 export default function ModalHeaderFooter(SAMPLE: ModalHeaderFooterProps) {
-  const {
-    isOpen,
-    onOpenChange,
-    children,
-    title,
-    positiveButton,
-    negativeButton,
-    positiveButtonEvent,
-  } = SAMPLE;
+  const { isOpen, onOpenChange, children, title, positiveButton, positiveButtonEvent } = SAMPLE;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -43,7 +34,7 @@ export default function ModalHeaderFooter(SAMPLE: ModalHeaderFooterProps) {
             </button>
             <Dialog.Close asChild>
               <button className={S.button.negativeButton} type="button">
-                {negativeButton}
+                취소
               </button>
             </Dialog.Close>
           </div>

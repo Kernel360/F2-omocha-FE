@@ -9,13 +9,11 @@ interface ModalFooterProps {
   children: React.ReactNode;
   onOpenChange: (open: boolean) => void;
   positiveButton: string;
-  negativeButton: string;
   positiveButtonEvent: () => void;
 }
 
 export default function ModalFooter(SAMPLE: ModalFooterProps) {
-  const { isOpen, children, onOpenChange, positiveButton, negativeButton, positiveButtonEvent } =
-    SAMPLE;
+  const { isOpen, children, onOpenChange, positiveButton, positiveButtonEvent } = SAMPLE;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -34,7 +32,7 @@ export default function ModalFooter(SAMPLE: ModalFooterProps) {
             </button>
             <Dialog.Close asChild>
               <button className={S.button.negativeButton} type="button">
-                {negativeButton}
+                취소
               </button>
             </Dialog.Close>
           </div>

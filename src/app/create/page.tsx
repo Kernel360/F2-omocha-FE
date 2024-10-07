@@ -45,7 +45,6 @@ export default function Home() {
           isOpen={isOpen}
           onOpenChange={open => setIsOpen(open)}
           positiveButton="일반 경매로 이동"
-          negativeButton="취소"
           positiveButtonEvent={() => router.push('/create/basicauction')}
         >
           현재 준비중입니다. 일반 경매를 이용해 주세요.
