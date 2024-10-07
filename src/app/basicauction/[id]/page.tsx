@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { getBasicAuctionQueryFn } from '@/apis/queryFunctions/basicAuctionQueryFn';
+import { getBasicAuction } from '@/apis/queryFunctions/basicAuctionQueryFn';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import TabsLayout from '@/components/TabsLayout';
 
@@ -34,7 +34,7 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
 
   await queryClient.prefetchQuery({
     queryKey: ['basicAuction', params.id], // 이걸 하나로 묶는 작업을 진행해 보아도 좋을듯
-    queryFn: () => getBasicAuctionQueryFn(params.id),
+    queryFn: () => getBasicAuction(params.id),
   });
 
   return (
