@@ -1,3 +1,5 @@
+import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+
 import {
   AuctionListResponse,
   BasicAuctionResponse,
@@ -5,7 +7,6 @@ import {
 } from '../types/Auction';
 
 import apiClient from './apiClient';
-import convertQueryParamsObjectToString from './convertQueryParamsObjectToString';
 
 export const getBasicAuction = async (id: number) => {
   const response = await apiClient.get<BasicAuctionResponse>(`/v1/auction/${id}`);
