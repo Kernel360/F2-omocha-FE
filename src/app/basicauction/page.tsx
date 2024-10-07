@@ -1,3 +1,8 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
+
+import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import SearchBar from '@/app/basicauction/components/searchbar';
 import AuctionCard from '@/components/AuctionCard';
@@ -5,60 +10,19 @@ import ListLayout from '@/components/ListLayout';
 
 import * as S from './Basicauction.css';
 
-const auctionItems = [
-  {
-    id: 1,
-    isExpired: false,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 1',
-    isLike: true,
-    startPrice: 3000,
-    startTime: '2024-09-01 14:00:00',
-    endTime: '2024-09-01 14:00:00',
-  },
-  {
-    id: 2,
-    isExpired: false,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 2',
-    isLike: false,
-    startPrice: 5000,
-    startTime: '2024-09-02 14:00:00',
-    endTime: '2024-09-02 14:00:00',
-  },
-  {
-    id: 3,
-    isExpired: true,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 3',
-    isLike: true,
-    startPrice: 2000,
-    startTime: '2024-09-03 14:00:00',
-    endTime: '2024-09-03 14:00:00',
-  },
-  {
-    id: 4,
-    isExpired: true,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 3',
-    isLike: true,
-    startPrice: 2000,
-    startTime: '2024-09-03 14:00:00',
-    endTime: '2024-09-03 14:00:00',
-  },
-  {
-    id: 5,
-    isExpired: true,
-    image: 'https://via.placeholder.com/280x200',
-    title: 'test 3',
-    isLike: true,
-    startPrice: 2000,
-    startTime: '2024-09-03 14:00:00',
-    endTime: '2024-09-03 14:00:00',
-  },
-];
-
 function Home() {
+  const searchParams = useSearchParams();
+  const searchKeywordParam = searchParams.get('q');
+
+  const { data } = useGetBasicAuctionList({
+    title: searchKeywordParam || '',
+    sort: '',
+    page: 0,
+    size: 10,
+  });
+
+  if (!data) return null;
+
   return (
     <div className={S.container}>
       <section className={S.leftSection}>
@@ -71,17 +35,16 @@ function Home() {
       </section>
       <section className={S.rightSection}>
         <ListLayout>
-          {auctionItems.map(item => (
+          {data.result_data.content.map(item => (
             <AuctionCard
-              key={item.id}
-              id={item.id}
-              isExpired={item.isExpired}
-              image={item.image}
+              key={item.auction_id}
+              id={item.auction_id}
+              image={item.image_keys}
               title={item.title}
-              isLike={item.isLike}
-              startPrice={item.startPrice}
-              startTime={item.startTime}
-              endTime={item.endTime}
+              isLike={false}
+              startPrice={item.start_price}
+              startTime={item.start_date}
+              endTime={item.end_date}
             />
           ))}
         </ListLayout>

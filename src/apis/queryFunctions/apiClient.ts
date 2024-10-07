@@ -1,18 +1,25 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API_SERVER_URL}/api`,
-  timeout: 1000,
+  baseURL: `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api`,
+  timeout: 100000,
   withCredentials: true,
 });
 
 apiClient.interceptors.request.use(
   config => {
     // 성공한 요청
+    //   const accessToken = sessionStorage.getItem('accessToken');
+    //   const { headers } = config;
+
+    //   if (headers && accessToken) {
+    //     headers.Authorization = `Bearer ${accessToken}`;
+    //   }
+
     return config;
   },
   error => {
-    // 실패한 응답
+    // 실패한 요청
     return Promise.reject(error);
   },
 );
@@ -23,6 +30,7 @@ apiClient.interceptors.response.use(
     return response;
   },
   error => {
+    // 실패한 응답
     return Promise.reject(error);
   },
 );

@@ -1,14 +1,13 @@
 'use client';
 
-// Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
-import { isServer, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        // With SSR, we usually want to set some default staleTime
-        // above 0 to avoid refetching immediately on the client
+        // SSR에서는 클라이언트에서 즉시 refetch하는 것을 피하기 위해
+        // staleTime을 0보다 크게 설정하는 것이 좋다.
         staleTime: 60 * 1000,
       },
     },
@@ -18,23 +17,22 @@ function makeQueryClient() {
 let browserQueryClient: QueryClient | undefined;
 
 function getQueryClient() {
-  if (isServer) {
-    // Server: always make a new query client
+  if (typeof window === 'undefined') {
+    // Server일 경우
+    // 매번 새로운 queryClient를 만든다.
     return makeQueryClient();
   }
-  // Browser: make a new query client if we don't already have one
-  // This is very important, so we don't re-make a new client if React
-  // suspends during the initial render. This may not be needed if we
-  // have a suspense boundary BELOW the creation of the query client
+  // Browser일 경우
+  // queryClient가 존재하지 않을 경우에만 새로운 queryClient를 만든다.
+  // React가 새 Client를 만들게 하기 위해 중요하다.
   if (!browserQueryClient) browserQueryClient = makeQueryClient();
   return browserQueryClient;
 }
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  // NOTE: Avoid useState when initializing the query client if you don't
-  //       have a suspense boundary between this and the code that may
-  //       suspend because React will throw away the client on the initial
-  //       render if it suspends and there is no boundary
+  // NOTE: queryClient를 useState를 사용하여 초기화 하면 안된다.
+  // suspense boundary가 없을 경우 React의 렌더링이 중단될 수도 있고
+  // queryClient 자체를 폐기할 수 도 있다.
   const queryClient = getQueryClient();
 
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;

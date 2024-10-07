@@ -7,8 +7,7 @@ import * as S from './AuctionCard.css';
 
 interface AuctionCardProps {
   id: number;
-  isExpired: boolean;
-  image: string;
+  image: string[];
   title: string;
   isLike: boolean;
   startPrice: number;
@@ -18,14 +17,14 @@ interface AuctionCardProps {
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
-  const { id, isExpired, image, title, isLike, startPrice, startTime, endTime, nowPrice } = SAMPLE;
-
+  const { id, image, title, isLike, startPrice, startTime, endTime, nowPrice } = SAMPLE;
+  const isExpired = new Date() > new Date(endTime);
   return (
     <Link className={S.cardWrapper} href={`basicauction/${id}`}>
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
       <HeartIcon className={S.heartStyle} stroke="red" fill={isLike ? 'red' : 'none'} />
       <Image
-        src={image || 'https://via.placeholder.com/280x200'}
+        src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image[0]}`}
         alt="Auction Image"
         width={280}
         height={200}
@@ -37,8 +36,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
         <div className={S.cardTimeWrapper}>
           <div className={S.cardFlex}>
             <span>시작가(KRW)</span>
-            <span>{startPrice ? startPrice.toLocaleString('ko-KR') : '3,000'}원</span>
-            {/* 위 삼항연산자는 startPrice가 없을 경우 3,000원으로 표시하도록 함. 나중에 없어질 것임. */}
+            <span>{startPrice.toLocaleString('ko-KR')}원</span>
           </div>
           {nowPrice && (
             <div className={S.cardFlexColor}>

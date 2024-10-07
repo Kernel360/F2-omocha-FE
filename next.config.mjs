@@ -8,6 +8,14 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 's3.ap-northeast-2.amazonaws.com',
+        port: '',
+        pathname: '/omocha.storages/**',
+      },
+    ],
     domains: ['via.placeholder.com'], // 허용할 도메인 추가
   },
   webpack: config => {
