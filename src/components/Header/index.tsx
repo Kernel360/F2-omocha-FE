@@ -40,7 +40,7 @@ function Header() {
             {headerItem.name}
           </button>
         ) : (
-          <Link key="login" href="/login">
+          <Link key="loginWithNotificationHeader" href="/login">
             {headerItem.name}
           </Link>
         );
@@ -57,7 +57,7 @@ function Header() {
             로그아웃
           </button>
         ) : (
-          <Link key="login" href="/login">
+          <Link key="loginWithLoginHeader" href="/login">
             {headerItem.name}
           </Link>
         );
