@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import useBooleanState from '@/hooks/useBooleanState';
+import { useAuth } from '@/provider/authProvider';
 import { MAIN_CATEGORY, SUB_CATEGORY, SubCategory } from '@/static/category';
 
 import SlideSideNav from '../SlideSideNav';
@@ -26,18 +27,40 @@ const TABS = [
 const TABS_CONTENT = [<Alarm key="알림" content="알림" />, <Alarm key="채팅" content="채팅" />];
 
 function Header() {
+  const { token } = useAuth();
+
   const pathname = usePathname();
   const { value, setTrue, setFalse } = useBooleanState(false);
 
   const headerItemAction = (headerItem: SubCategory) => {
     switch (headerItem.name) {
       case '알림':
-        return (
+        return token ? (
           <button className={S.SideNavButton} type="button" key={headerItem.id} onClick={setTrue}>
             {headerItem.name}
           </button>
+        ) : (
+          <Link key="login" href="/login">
+            {headerItem.name}
+          </Link>
         );
-
+      case '로그인':
+        return token ? (
+          <button
+            className={S.SideNavButton}
+            type="button"
+            key={headerItem.id}
+            onClick={() => {
+              console.log('로그아웃');
+            }}
+          >
+            로그아웃
+          </button>
+        ) : (
+          <Link key="login" href="/login">
+            {headerItem.name}
+          </Link>
+        );
       default:
         return (
           <Link key={headerItem.id} href={headerItem.path!}>
