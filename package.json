@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:https": "sudo npx next dev -H local.omocha-auction.com --experimental-https -p 443",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

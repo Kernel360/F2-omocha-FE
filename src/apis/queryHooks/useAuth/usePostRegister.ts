@@ -2,17 +2,18 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
-import { postLogin } from '@/apis/queryFunctions/Auth';
-import { LoginParams } from '@/apis/types/Auth';
+import { postRegister } from '@/apis/queryFunctions/Auth';
+import { RegisterParams } from '@/apis/types/Auth';
 import { CommonResponse } from '@/apis/types/common';
 
-function usePostLogin() {
+function usePostRegister() {
   const router = useRouter();
 
   const { mutate, error } = useMutation({
-    mutationFn: (param: LoginParams) => postLogin(param),
+    mutationFn: (param: RegisterParams) => postRegister(param),
     onSuccess: () => {
-      router.push('/');
+      alert('회원가입을 성공했습니다.🎉');
+      router.push('/login');
     },
     onError: (e: AxiosError<CommonResponse>) => {
       if (e.response) {
@@ -22,12 +23,10 @@ function usePostLogin() {
         console.log('알 수 없는 오류 발생', e.message);
         alert('알 수 없는 오류가 발생했습니다.');
       }
-
-      // 토큰 제거
     },
   });
 
   return { mutate, error };
 }
 
-export default usePostLogin;
+export default usePostRegister;

@@ -2,6 +2,10 @@
 
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
+import { useAuth } from '@/provider/authProvider';
+
 import AuctionCountdown from './AuctionCountdown';
 import * as S from './AuctionInfo.css';
 
@@ -14,8 +18,18 @@ interface AuctionInfoProps {
 }
 
 function AuctionInfo(SAMPLE: AuctionInfoProps) {
+  const router = useRouter();
+  const { token } = useAuth();
   const { title, startPrice, nowPrice, bidCount, endTime } = SAMPLE;
   const [expired, setExpired] = useState(false);
+
+  const handleBidButton = () => {
+    if (token) {
+      console.log('bid 가능');
+    } else {
+      router.push('/login');
+    }
+  };
 
   return (
     <div className={S.infoWrapper}>
@@ -60,9 +74,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         disabled={expired}
         type="button"
         className={expired ? S.bidButton.disabled : S.bidButton.default}
-        onClick={() => {
-          console.log('입찰하기');
-        }}
+        onClick={handleBidButton}
       >
         입찰하기
       </button>
