@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import useBooleanState from '@/hooks/useBooleanState';
-import { MAIN_CATEGORY, SUB_CATEGORY, SubCategory } from '@/static/category';
+import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 
 import SlideSideNav from '../SlideSideNav';
 import TabsLayout from '../TabsLayout';
 
 import * as S from './Header.css';
 import Alarm from './components/Alarm';
+import HeaderItemAction from './components/HeaderItemAction';
 
 const TABS = [
   {
@@ -29,24 +30,6 @@ function Header() {
   const pathname = usePathname();
   const { value, setTrue, setFalse } = useBooleanState(false);
 
-  const headerItemAction = (headerItem: SubCategory) => {
-    switch (headerItem.name) {
-      case '알림':
-        return (
-          <button className={S.SideNavButton} type="button" key={headerItem.id} onClick={setTrue}>
-            {headerItem.name}
-          </button>
-        );
-
-      default:
-        return (
-          <Link key={headerItem.id} href={headerItem.path!}>
-            {headerItem.name}
-          </Link>
-        );
-    }
-  };
-
   return (
     <header className={S.container}>
       <section className={S.topHeader}>
@@ -54,7 +37,9 @@ function Header() {
           <div className={S.logo}>LOGO</div>
         </Link>
         <div className={S.topCategory}>
-          {SUB_CATEGORY.map(category => headerItemAction(category))}
+          {SUB_CATEGORY.map(category => (
+            <HeaderItemAction key={category.id} headerItem={category} setTrue={setTrue} />
+          ))}
         </div>
       </section>
       <section className={S.bottomHeader}>

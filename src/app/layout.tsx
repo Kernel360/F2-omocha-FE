@@ -1,10 +1,11 @@
 import localFont from 'next/font/local';
+import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-
-import Providers from './providers';
+import { AuthProvider } from '@/provider/authProvider';
+import TanstackProviders from '@/provider/tanstackProviders';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -37,14 +38,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookie = cookies();
+  const refreshToken = cookie.get('refresh')?.value || null;
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Providers>
-          <Header />
+        <TanstackProviders>
+          <AuthProvider initialToken={refreshToken}>
+            <Header />
+          </AuthProvider>
           <div className={S.container}>{children}</div>
           <Footer />
-        </Providers>
+        </TanstackProviders>
         <div id="root-portal" />
       </body>
     </html>

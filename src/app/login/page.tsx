@@ -7,8 +7,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Link from 'next/link';
 
+import usePostLogin from '@/apis/queryHooks/useAuth/usePostLogin';
 import ErrorIcon from '@/assets/svg/error.svg';
 import GoggleIcon from '@/assets/svg/goggle.svg';
+import sha256 from '@/utils/sha256';
 
 import * as S from './Login.css';
 
@@ -24,8 +26,16 @@ function Home() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data); // 임시 console입니다.
+  const { mutate: login } = usePostLogin();
+
+  const onSubmit: SubmitHandler<Inputs> = async data => {
+    const newPassword = await sha256(data.passwordRequired);
+
+    // 주석
+    login({
+      login_id: data.idRequired,
+      password: newPassword,
+    });
   };
 
   return (

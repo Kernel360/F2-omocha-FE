@@ -6,8 +6,10 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import usePostRegister from '@/apis/queryHooks/useAuth/usePostRegister';
 import CheckIcon from '@/assets/svg/check.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
+import sha256 from '@/utils/sha256';
 
 import * as S from './Join.css';
 
@@ -34,6 +36,8 @@ function Home() {
     },
   });
 
+  const { mutate } = usePostRegister();
+
   const emailValue = watch('emailRequired');
   const passwordValue = watch('passwordRequired');
 
@@ -54,13 +58,14 @@ function Home() {
     }
   };
 
-  const onSubmit: SubmitHandler<Inputs> = data => {
+  const onSubmit: SubmitHandler<Inputs> = async data => {
     if (!emailCheck) {
       setError('emailRequired', { type: 'manual', message: '이메일 중복 확인이 필요합니다.' });
       return;
     }
+    const newPassword = await sha256(data.passwordCheckRequired);
 
-    console.log(data); // 임시 console
+    mutate({ login_id: data.emailRequired, password: newPassword });
   };
 
   const isEmailValid = !errors.emailRequired;
