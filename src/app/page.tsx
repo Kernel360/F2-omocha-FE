@@ -12,7 +12,7 @@ import * as S from './page.css';
 export default function Home() {
   const { data } = useGetBasicAuctionList({
     title: '',
-    sort: [],
+    sort: ['endDate,DESC', 'startDate,ASC'],
     page: 0,
     size: 4,
   });
