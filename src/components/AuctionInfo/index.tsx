@@ -4,8 +4,12 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import useBooleanState from '@/hooks/useBooleanState';
 import { useAuth } from '@/provider/authProvider';
 
+import { Modal } from '../Modal/Modal';
+
+import AuctionBidListModal from './AuctionBidListModal';
 import AuctionCountdown from './AuctionCountdown';
 import * as S from './AuctionInfo.css';
 
@@ -22,6 +26,12 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const { token } = useAuth();
   const { title, startPrice, nowPrice, bidCount, endTime } = SAMPLE;
   const [expired, setExpired] = useState(false);
+
+  const {
+    value: isOpenBidListModal,
+    toggle: setIsOpenBidListModal,
+    setTrue: openBidListModal,
+  } = useBooleanState();
 
   const handleBidButton = () => {
     if (token) {
@@ -58,10 +68,13 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         <span className={S.infoRowTitle}>입찰 기록</span>
         <div className={S.infoRight}>
           <span>{bidCount}회</span>
-          <button type="button" className={S.infoButton}>
+          <button type="button" className={S.infoButton} onClick={openBidListModal}>
             기록 보기
           </button>
         </div>
+        <Modal isOpen={isOpenBidListModal} onOpenChange={setIsOpenBidListModal}>
+          <AuctionBidListModal />
+        </Modal>
       </div>
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>입찰 희망가</span>
