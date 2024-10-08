@@ -14,7 +14,6 @@ function usePostLogin() {
       router.push('/');
     },
     onError: (e: AxiosError<ErrorResponse>) => {
-      console.log(e.response?.data.result_msg);
       if (e.response) {
         alert(`${e.response.data.result_msg}`);
       } else {
