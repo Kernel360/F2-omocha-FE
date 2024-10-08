@@ -57,6 +57,7 @@ export const deleteButton = style({
   top: '-10px',
   right: '-10px',
   zIndex: '1',
+  cursor: 'pointer',
 });
 
 export const imageInput = style({
@@ -82,10 +83,21 @@ export const info = style({
   border: '1.5px solid black',
 });
 
-export const period = style({
+export const price = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit,minmax(66px, auto))',
   gap: '30px',
+});
+
+export const period = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+});
+
+export const description = style({
+  fontSize: '14px',
+  color: 'rgb(142,142,142)',
 });
 
 export const subTitle = style({
@@ -93,7 +105,6 @@ export const subTitle = style({
   flexDirection: 'column',
   fontSize: '16px',
   fontWeight: 'bold',
-  // maxWidth: '368px',
   gap: '20px',
 });
 
