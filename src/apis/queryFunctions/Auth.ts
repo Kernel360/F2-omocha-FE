@@ -1,8 +1,10 @@
 import apiClient from '@/apis/queryFunctions/apiClient';
-import { LoginParams, ErrorResponse, RegisterParams } from '@/apis/types/Auth';
+import { LoginParams, RegisterParams } from '@/apis/types/Auth';
+
+import { CommonResponse } from '../types/common';
 
 export const postRegister = (param: RegisterParams) =>
-  apiClient.post<ErrorResponse>('/v1/auth/register', param);
+  apiClient.post<CommonResponse>('/v1/auth/register', param);
 
 export const postLogin = (param: LoginParams) =>
-  apiClient.post<ErrorResponse>('/v1/auth/login', param);
+  apiClient.post<CommonResponse>('/v1/auth/login', param);

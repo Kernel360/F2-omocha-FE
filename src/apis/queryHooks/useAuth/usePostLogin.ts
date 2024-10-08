@@ -3,7 +3,8 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
 import { postLogin } from '@/apis/queryFunctions/Auth';
-import { ErrorResponse, LoginParams } from '@/apis/types/Auth';
+import { LoginParams } from '@/apis/types/Auth';
+import { CommonResponse } from '@/apis/types/common';
 
 function usePostLogin() {
   const router = useRouter();
@@ -13,7 +14,7 @@ function usePostLogin() {
     onSuccess: () => {
       router.push('/');
     },
-    onError: (e: AxiosError<ErrorResponse>) => {
+    onError: (e: AxiosError<CommonResponse>) => {
       if (e.response) {
         alert(`${e.response.data.result_msg}`);
       } else {
