@@ -4,6 +4,7 @@ import {
   AuctionListResponseData,
   GetBasicAuctionListParams,
   BasicAuctionResponseData,
+  GetBasicAuctionBidInfo,
 } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
@@ -26,6 +27,12 @@ export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => 
   const response = await apiClient.get<Response<AuctionListResponseData>>(
     `/v1/auction/basic-list?${queryString}`,
   );
+
+  return response.data;
+};
+
+export const getBasicAuctionBidList = async (id: number) => {
+  const response = await apiClient.get<Response<GetBasicAuctionBidInfo[]>>(`/v1/bid/${id}`);
 
   return response.data;
 };

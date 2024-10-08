@@ -14,6 +14,7 @@ import AuctionCountdown from './AuctionCountdown';
 import * as S from './AuctionInfo.css';
 
 interface AuctionInfoProps {
+  id: number;
   title: string;
   startPrice: number;
   nowPrice: number;
@@ -24,7 +25,7 @@ interface AuctionInfoProps {
 function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const router = useRouter();
   const { token } = useAuth();
-  const { title, startPrice, nowPrice, bidCount, endTime } = SAMPLE;
+  const { id, title, startPrice, nowPrice, bidCount, endTime } = SAMPLE;
   const [expired, setExpired] = useState(false);
 
   const {
@@ -73,7 +74,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
           </button>
         </div>
         <Modal isOpen={isOpenBidListModal} onOpenChange={setIsOpenBidListModal}>
-          <AuctionBidListModal />
+          <AuctionBidListModal id={id} />
         </Modal>
       </div>
       <div className={S.infoRow}>
