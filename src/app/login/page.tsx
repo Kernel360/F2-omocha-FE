@@ -31,7 +31,6 @@ function Home() {
   const onSubmit: SubmitHandler<Inputs> = async data => {
     const newPassword = await sha256(data.passwordRequired);
 
-    // 주석
     login({
       login_id: data.idRequired,
       password: newPassword,
