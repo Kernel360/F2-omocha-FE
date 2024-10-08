@@ -16,7 +16,7 @@ function BasicAuction() {
 
   const { data } = useGetBasicAuctionList({
     title: searchKeywordParam || '',
-    sort: '',
+    sort: [],
     page: 0,
     size: 10,
   });
