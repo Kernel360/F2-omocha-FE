@@ -1,15 +1,9 @@
-import { CommonResponse } from './common';
-
 export type BasicAuctionResponseData = Omit<AuctionData, 'auction_id'> & {
   auction_type: string;
   bid_unit: number;
   content: string;
   now_price: number;
 };
-
-export interface BasicAuctionResponse extends CommonResponse {
-  result_data: BasicAuctionResponseData;
-}
 
 //------
 export interface AuctionData {
@@ -52,9 +46,6 @@ export interface AuctionListResponseData {
   empty: boolean;
 }
 
-export interface AuctionListResponse extends CommonResponse {
-  result_data: AuctionListResponseData;
-}
 //------
 export interface PostBasicAuctionParams {
   title: string;
@@ -64,14 +55,6 @@ export interface PostBasicAuctionParams {
   start_date: string;
   end_date: string;
   images: string[];
-}
-
-interface PostBasicAuctionResponseData {
-  acution_id: number;
-}
-
-export interface PostBasicAuctionResponse extends CommonResponse {
-  result_data: PostBasicAuctionResponseData;
 }
 
 // -----

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { postRegister } from '@/apis/queryFunctions/Auth';
 import { RegisterParams } from '@/apis/types/Auth';
-import { CommonResponse } from '@/apis/types/common';
+import { Response } from '@/apis/types/common';
 
 function usePostRegister() {
   const router = useRouter();
@@ -15,7 +15,7 @@ function usePostRegister() {
       alert('회원가입을 성공했습니다.🎉');
       router.push('/login');
     },
-    onError: (e: AxiosError<CommonResponse>) => {
+    onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
         alert(`${e.response.data.result_msg}`);
       } else {
