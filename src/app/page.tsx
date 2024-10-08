@@ -1,33 +1,28 @@
 'use client';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
-import AuctionCard from '@/components/AuctionCard';
-import ListLayout from '@/components/ListLayout';
+import AuctionList from '@/components/AuctionList';
 
 export default function Home() {
   const { data } = useGetBasicAuctionList({
     title: '',
-    sort: '',
+    sort: ['endDate,DESC', 'startDate,ASC'],
     page: 0,
-    size: 10,
+    size: 4,
   });
 
   if (!data) return null;
 
+  const isActive = false;
+
   return (
-    <ListLayout>
-      {data.result_data.content.map(item => (
-        <AuctionCard
-          key={item.auction_id}
-          id={item.auction_id}
-          image={item.image_keys}
-          title={item.title}
-          isLike={false}
-          startPrice={item.start_price}
-          startTime={item.start_date}
-          endTime={item.end_date}
-        />
-      ))}
-    </ListLayout>
+    <div>
+      <AuctionList data={data} pathname="신규 경매 상품" />
+      <AuctionList data={data} pathname="마감 임박 상품" />
+      {isActive && <AuctionList data={data} isLink path="/liveauction" pathname="마감 임박 상품" />}
+      <AuctionList data={data} isLink path="/basicauction" pathname="일반 경매" />
+      {/* 특정 유저의 상품 모아 놓기(필수 아님) */}
+      <AuctionList data={data} pathname="000 판매자" />
+    </div>
   );
 }

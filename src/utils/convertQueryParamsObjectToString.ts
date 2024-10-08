@@ -1,11 +1,15 @@
 function convertQueryParamsObjectToString<T extends { [K in keyof T]: T[K] }>(params: T) {
-  const stringParams = Object.fromEntries(
-    Object.entries(params).map(([key, value]) => [key, String(value)]),
-  );
+  const stringParams = new URLSearchParams();
 
-  const queryString = new URLSearchParams(stringParams).toString();
+  Object.entries(params).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach(val => stringParams.append(key, String(val)));
+    } else {
+      stringParams.append(key, String(value));
+    }
+  });
 
-  return queryString;
+  return stringParams.toString();
 }
 
 export default convertQueryParamsObjectToString;

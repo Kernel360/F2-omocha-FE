@@ -56,15 +56,6 @@ export interface AuctionListResponse extends CommonResponse {
   result_data: AuctionListResponseData;
 }
 //------
-export interface PostBasicAuctionParams {
-  title: string;
-  content: string;
-  start_price: number;
-  auction_type: 'BASIC' | 'LIVE';
-  start_date: string;
-  end_date: string;
-  images: string[];
-}
 
 interface PostBasicAuctionResponseData {
   acution_id: number;
@@ -77,7 +68,7 @@ export interface PostBasicAuctionResponse extends CommonResponse {
 // -----
 export interface GetBasicAuctionListParams {
   title?: string;
-  sort?: string;
+  sort?: string[];
   page?: number;
   size?: number;
 }

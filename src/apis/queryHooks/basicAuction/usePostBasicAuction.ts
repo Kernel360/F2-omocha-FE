@@ -1,15 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 import { postBasicAuction } from '@/apis/queryFunctions/basicAuction';
-import { PostBasicAuctionParams } from '@/apis/types/basicAuction';
 
 function usePostBasicAuction() {
   const queryClinet = useQueryClient();
+  const router = useRouter();
 
   const { mutate, error } = useMutation({
-    mutationFn: (param: PostBasicAuctionParams) => postBasicAuction(param),
+    mutationFn: (param: FormData) => postBasicAuction(param),
     onSuccess: () => {
       queryClinet.invalidateQueries({ queryKey: ['basicAuctionList'] });
+      router.push('/basicauction');
     },
   });
 
