@@ -18,8 +18,8 @@ type ImageUpload = {
 
 type AuctionInputs = {
   nameRequired: string;
-  startPriceRequired: number;
-  bidUnitRequired: number;
+  startPriceRequired: string;
+  bidUnitRequired: string;
   imagesRequired: ImageUpload[];
   contentRequired: string;
   startDateRequired: string;
@@ -43,6 +43,12 @@ export default function Home() {
     keyName: 'imageRequiredId',
     rules: {
       required: '이미지를 업로드해 주세요.',
+      validate: value => {
+        if (value.length > 10) {
+          return '이미지는 최대 10장 까지 업로드 가능합니다.';
+        }
+        return true;
+      },
     },
   });
 
@@ -50,7 +56,6 @@ export default function Home() {
 
   const inputFile = useRef(null);
   const contentRequired = watch('contentRequired');
-  const startDate = watch('startDateRequired');
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -60,18 +65,23 @@ export default function Home() {
     }
   };
 
-  const onSubmit: SubmitHandler<AuctionInputs> = async data => {
-    const newImages = data.imagesRequired.map(image => URL.createObjectURL(image.file));
+  const onSubmit: SubmitHandler<AuctionInputs> = data => {
+    const formData = new FormData();
 
-    postBasicAuction({
+    const auctionRequest = {
       title: data.nameRequired,
       content: data.contentRequired,
       start_price: data.startPriceRequired,
+      bid_unit: data.bidUnitRequired,
       auction_type: 'BASIC',
-      images: newImages,
-      start_date: formatDate(data.startDateRequired),
+      start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
-    });
+    };
+
+    formData.append('auctionRequest', JSON.stringify(auctionRequest));
+    data.imagesRequired.forEach(image => formData.append('images', image.file));
+
+    postBasicAuction(formData);
   };
 
   return (
@@ -92,7 +102,7 @@ export default function Home() {
           </span>
         )}
       </label>
-      <div className={S.period}>
+      <div className={S.price}>
         <label htmlFor="startPrice" className={S.auctionLabel}>
           <div className={S.title}>시작가</div>
           <input
@@ -209,31 +219,11 @@ export default function Home() {
       <div className={S.auctionLabel}>
         <div className={S.title}>경매 기간</div>
         <div className={S.period}>
-          <label htmlFor="startDate" className={S.subTitle}>
-            시작 시각
-            <input
-              id="startDate"
-              type="datetime-local"
-              className={S.auctionInput}
-              {...register('startDateRequired', {
-                required: '시작 시각을 입력해 주세요.',
-                validate: value => {
-                  return (
-                    formatDate(value) >= formatDate(new Date().toString()) ||
-                    '현재 시각보다 이전 시간은 선택할 수 없습니다.'
-                  );
-                },
-              })}
-            />
-            {errors.startDateRequired && (
-              <span className={S.error}>
-                <ErrorIcon />
-                {errors.startDateRequired?.message}
-              </span>
-            )}
-          </label>
+          <span className={S.description}>
+            경매 상품을 올리는 순간부터 경매가 시작됩니다. 종료 시간만을 입력해 주세요.
+          </span>
           <label htmlFor="endDate" className={S.subTitle}>
-            종료 시각
+            종료 시간
             <input
               id="endDate"
               type="datetime-local"
@@ -241,7 +231,10 @@ export default function Home() {
               {...register('endDateRequired', {
                 required: '종료 시각을 입력해 주세요.',
                 validate: value => {
-                  return value > startDate || '시작 시각보다 이전 시간은 선택할 수 없습니다.';
+                  return (
+                    formatDate(value) > formatDate(new Date().toString()) ||
+                    '현재 시각보다 이전 시간은 선택할 수 없습니다.'
+                  );
                 },
               })}
             />

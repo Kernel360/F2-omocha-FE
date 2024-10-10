@@ -15,6 +15,7 @@ function usePostRegister() {
       alert('회원가입을 성공했습니다.🎉');
       router.push('/login');
     },
+
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
         alert(`${e.response.data.result_msg}`);
