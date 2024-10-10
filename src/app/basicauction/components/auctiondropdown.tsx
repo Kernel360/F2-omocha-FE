@@ -1,19 +1,24 @@
-'use client';
-
-import { useState } from 'react';
-
 import { Dropdown } from '@/components/Dropdown';
+import useSetSearchParam from '@/hooks/useSetSearchParam';
+import { SEARCHPARAM_KEY, SORT_VALUE, SORT_TYPES } from '@/static/sort';
 
 export default function AuctionDropDown() {
-  const [selected, setSelected] = useState('최신순');
+  const [searchParams, setSearchParam] = useSetSearchParam();
+  const currentSort = searchParams.get(SEARCHPARAM_KEY.SORT) || SORT_VALUE.CREATEDAT_DESC;
+  const findSortType = SORT_TYPES.find(sortType => sortType.searchParamValue === currentSort);
 
   return (
     <Dropdown>
-      <Dropdown.Trigger>{selected}</Dropdown.Trigger>
+      <Dropdown.Trigger>{findSortType?.label}</Dropdown.Trigger>
       <Dropdown.Content>
-        <Dropdown.Item onClick={() => setSelected('최신순')}>최신순</Dropdown.Item>
-        <Dropdown.Item onClick={() => setSelected('현재가순')}>현재가순</Dropdown.Item>
-        <Dropdown.Item onClick={() => setSelected('경매중')}>경매중</Dropdown.Item>
+        {SORT_TYPES.map(sortType => (
+          <Dropdown.Item
+            key={sortType.id}
+            onClick={() => setSearchParam(sortType.searchParamKey, sortType.searchParamValue)}
+          >
+            {sortType.label}
+          </Dropdown.Item>
+        ))}
       </Dropdown.Content>
     </Dropdown>
   );

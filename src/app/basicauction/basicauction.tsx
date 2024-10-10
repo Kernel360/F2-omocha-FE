@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
-import AuctionFilter from '@/app/basicauction/components/auctionfilter';
+import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import SearchBar from '@/app/basicauction/components/searchbar';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
@@ -32,7 +32,7 @@ function BasicAuction() {
           <span>{data.result_data.content.length}</span>
         </div>
         <SearchBar />
-        <AuctionFilter />
+        <AuctionDropDown />
       </section>
       <section className={S.rightSection}>
         <ListLayout>

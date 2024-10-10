@@ -10,7 +10,7 @@ export const SORT_VALUE = {
   ENDDATE_DESC: 'endDate,DESC',
 };
 
-export const sortTypes = [
+export const SORT_TYPES = [
   {
     id: 1,
     label: '최신순',
