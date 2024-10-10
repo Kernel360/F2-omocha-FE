@@ -3,22 +3,23 @@
 import { useSearchParams } from 'next/navigation';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
-import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
+import AuctionFilter from '@/app/basicauction/components/auctionfilter';
 import SearchBar from '@/app/basicauction/components/searchbar';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
+import { SEARCHPARAM_KEY, SORT_VALUE } from '@/static/sort';
 
 import * as S from './Basicauction.css';
 
 function BasicAuction() {
   const searchParams = useSearchParams();
-  const searchKeywordParam = searchParams.get('q');
+  const searchKeywordParam = searchParams.get(SEARCHPARAM_KEY.Q);
 
   const { data } = useGetBasicAuctionList({
     title: searchKeywordParam || '',
-    sort: ['endDate,DESC', 'startDate,ASC'],
+    sort: [searchParams.get(SEARCHPARAM_KEY.SORT) || SORT_VALUE.CREATEDAT_DESC],
     page: 0,
-    size: 10,
+    size: 20,
   });
 
   if (!data) return null;
@@ -28,10 +29,10 @@ function BasicAuction() {
       <section className={S.leftSection}>
         <div className={S.count}>
           <span>전체</span>
-          <span>10</span>
+          <span>{data.result_data.content.length}</span>
         </div>
         <SearchBar />
-        <AuctionDropDown />
+        <AuctionFilter />
       </section>
       <section className={S.rightSection}>
         <ListLayout>
