@@ -1,15 +1,17 @@
 export interface SubCategory {
   id: number;
   name: string;
+  isLoginRequireToShow: string; // 'ALL' | 'LOGIN_REQUIRE' | 'NO_LOGIN_REQUIRE';
   path?: string;
 }
 
 export const SUB_CATEGORY = [
-  { id: 1, name: '게시물 업로드', path: '/create' },
-  { id: 2, name: '마이페이지', path: '/mypage' },
-  { id: 3, name: '찜', path: '/mypage/heart' },
-  { id: 4, name: '알림' },
-  { id: 5, name: '로그인', path: '/login' },
+  { id: 1, name: '게시물 업로드', isLoginRequireToShow: 'ALL', path: '/create' },
+  { id: 2, name: '마이페이지', isLoginRequireToShow: 'ALL', path: '/mypage' },
+  { id: 3, name: '찜', isLoginRequireToShow: 'ALL', path: '/mypage/heart' },
+  { id: 4, name: '알림', isLoginRequireToShow: 'ALL' },
+  { id: 5, name: '로그인', isLoginRequireToShow: 'NO_LOGIN_REQUIRE', path: '/login' },
+  { id: 6, name: '로그아웃', isLoginRequireToShow: 'LOGIN_REQUIRE' },
 ];
 
 export const MAIN_CATEGORY = [

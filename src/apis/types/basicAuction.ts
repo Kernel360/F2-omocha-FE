@@ -1,15 +1,9 @@
-import { CommonResponse } from './common';
-
 export type BasicAuctionResponseData = Omit<AuctionData, 'auction_id'> & {
   auction_type: string;
   bid_unit: number;
   content: string;
   now_price: number;
 };
-
-export interface BasicAuctionResponse extends CommonResponse {
-  result_data: BasicAuctionResponseData;
-}
 
 //------
 export interface AuctionData {
@@ -19,6 +13,8 @@ export interface AuctionData {
   start_date: string;
   end_date: string;
   image_keys: string[];
+  bid_count: number;
+  now_price: number;
 }
 
 export interface Pageable {
@@ -52,23 +48,42 @@ export interface AuctionListResponseData {
   empty: boolean;
 }
 
-export interface AuctionListResponse extends CommonResponse {
-  result_data: AuctionListResponseData;
-}
 //------
-
-interface PostBasicAuctionResponseData {
-  acution_id: number;
-}
-
-export interface PostBasicAuctionResponse extends CommonResponse {
-  result_data: PostBasicAuctionResponseData;
+export interface PostBasicAuctionParams {
+  title: string;
+  content: string;
+  start_price: number;
+  auction_type: 'BASIC' | 'LIVE';
+  start_date: string;
+  end_date: string;
+  images: string[];
 }
 
 // -----
 export interface GetBasicAuctionListParams {
   title?: string;
-  sort?: string[];
+  sort?: string;
+  auctionStatus?: string;
+  direction?: string;
   page?: number;
   size?: number;
+}
+
+// ----
+
+export interface GetBasicAuctionBidInfo {
+  buyer_id: number;
+  bid_price: number;
+  created_at: string;
+}
+
+// -----
+export interface PostBasicAuctionBidParams {
+  bid_price: number;
+}
+
+export interface PostBasicAuctionBidResponseData {
+  buyer_id: number;
+  bid_price: number;
+  created_at: string;
 }

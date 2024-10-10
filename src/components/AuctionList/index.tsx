@@ -1,20 +1,26 @@
 import Link from 'next/link';
 
-import { AuctionListResponse } from '@/apis/types/basicAuction';
+import { AuctionListResponseData } from '@/apis/types/basicAuction';
+import { Response } from '@/apis/types/common';
 import ArrowRightIcon from '@/assets/svg/arrow-right.svg';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 
 import * as S from './AuctionList.css';
 
-export interface AunctionList {
-  data: AuctionListResponse;
+export interface AuctionListProps {
+  data: Response<AuctionListResponseData>;
   isLink?: boolean;
   path?: string;
   pathname: string;
 }
 
-export default function AuctionList({ data, isLink = false, path = '', pathname }: AunctionList) {
+export default function AuctionList({
+  data,
+  isLink = false,
+  path = '',
+  pathname,
+}: AuctionListProps) {
   return (
     <section className={S.section}>
       <div className={S.title}>
@@ -37,6 +43,7 @@ export default function AuctionList({ data, isLink = false, path = '', pathname 
             startPrice={item.start_price}
             startTime={item.start_date}
             endTime={item.end_date}
+            nowPrice={item.now_price}
           />
         ))}
       </ListLayout>
