@@ -6,7 +6,8 @@ import AuctionList from '@/components/AuctionList';
 export default function Home() {
   const { data } = useGetBasicAuctionList({
     title: '',
-    // sort: '', // ['endDate,DESC', 'startDate,ASC'],
+    sort: 'createdAt',
+    direction: 'DESC',
     page: 0,
     size: 4,
   });

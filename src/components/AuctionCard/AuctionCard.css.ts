@@ -60,6 +60,13 @@ export const cardFlexColor = style({
   color: 'rgba(200, 0, 0, 1)',
 });
 
+export const cardFlexText = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  color: 'rgba(0, 0, 0, 1)',
+});
+
 export const cardTimeWrapper = style({
   display: 'flex',
   flexDirection: 'column',

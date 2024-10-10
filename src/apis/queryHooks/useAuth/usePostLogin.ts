@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { postLogin } from '@/apis/queryFunctions/Auth';
 import { LoginParams } from '@/apis/types/Auth';
-import { CommonResponse } from '@/apis/types/common';
+import { Response } from '@/apis/types/common';
 
 function usePostLogin() {
   const router = useRouter();
@@ -14,7 +14,7 @@ function usePostLogin() {
     onSuccess: () => {
       router.push('/');
     },
-    onError: (e: AxiosError<CommonResponse>) => {
+    onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
         alert(`${e.response.data.result_msg}`);
       } else {
