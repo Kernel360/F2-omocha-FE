@@ -68,7 +68,7 @@ export interface PostBasicAuctionResponse extends CommonResponse {
 // -----
 export interface GetBasicAuctionListParams {
   title?: string;
-  sort?: string[];
+  sort?: string;
   page?: number;
   size?: number;
 }

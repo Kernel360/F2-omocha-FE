@@ -13,9 +13,7 @@ function AuctionCountdown({ endTime, setExpired }: AuctionCountdownProps) {
   const { isTimeout, day, hour, minute, second } = useCountdownTimer({ endTime });
 
   useEffect(() => {
-    if (isTimeout) {
-      setExpired(true);
-    }
+    setExpired(isTimeout);
   }, [isTimeout, setExpired]);
 
   return <div className={S.countdownStyle}>{`${day}일 ${hour}시간 ${minute}분 ${second}초`}</div>;
