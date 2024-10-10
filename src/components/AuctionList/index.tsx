@@ -43,6 +43,7 @@ export default function AuctionList({
             startPrice={item.start_price}
             startTime={item.start_date}
             endTime={item.end_date}
+            nowPrice={item.now_price}
           />
         ))}
       </ListLayout>
