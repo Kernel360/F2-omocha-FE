@@ -18,8 +18,9 @@ function BasicAuction() {
 
   const { data } = useGetBasicAuctionList({
     title: searchKeywordParam || '',
-    sort: '',
-    direction: '',
+    auctionStatus: searchParams.get(SEARCHPARAM_KEY.AUCTIONSTATUS) || '',
+    sort: searchParams.get(SEARCHPARAM_KEY.SORT) || '',
+    direction: searchParams.get(SEARCHPARAM_KEY.DIRECTION) || '',
     page: 0,
     size: 20,
   });

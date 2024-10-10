@@ -1,21 +1,29 @@
 import { Dropdown } from '@/components/Dropdown';
 import useSetSearchParam from '@/hooks/useSetSearchParam';
-import { SEARCHPARAM_KEY, SORT_VALUE, SORT_TYPES } from '@/static/sort';
+import { SEARCHPARAM_KEY, SORT_TYPES, SortTypeProps } from '@/static/sort';
 
 export default function AuctionDropDown() {
-  const [searchParams, setSearchParam] = useSetSearchParam();
-  const currentSort = searchParams.get(SEARCHPARAM_KEY.SORT) || SORT_VALUE.CREATEDAT_DESC;
-  const findSortType = SORT_TYPES.find(sortType => sortType.searchParamValue === currentSort);
+  const { searchParams, setMultipleSearchParams } = useSetSearchParam();
+  const currentSort = searchParams.get(SEARCHPARAM_KEY.DIRECTION) || 'DESC';
+  const findSortType = SORT_TYPES.find(
+    sortType => sortType.searchParams[SEARCHPARAM_KEY.DIRECTION] === currentSort,
+  );
+
+  const handleSortType = (sortType: SortTypeProps) => {
+    const newParams = {
+      [SEARCHPARAM_KEY.SORT]: sortType.searchParams[SEARCHPARAM_KEY.SORT],
+      [SEARCHPARAM_KEY.DIRECTION]: sortType.searchParams[SEARCHPARAM_KEY.DIRECTION],
+    };
+
+    setMultipleSearchParams(newParams);
+  };
 
   return (
     <Dropdown>
       <Dropdown.Trigger>{findSortType?.label}</Dropdown.Trigger>
       <Dropdown.Content>
         {SORT_TYPES.map(sortType => (
-          <Dropdown.Item
-            key={sortType.id}
-            onClick={() => setSearchParam(sortType.searchParamKey, sortType.searchParamValue)}
-          >
+          <Dropdown.Item key={sortType.id} onClick={() => handleSortType(sortType)}>
             {sortType.label}
           </Dropdown.Item>
         ))}

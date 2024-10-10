@@ -1,26 +1,41 @@
 export const SEARCHPARAM_KEY = {
+  DIRECTION: 'direction',
+  AUCTIONSTATUS: 'auctionStatus',
   SORT: 'sort',
   Q: 'q',
 };
 
-export const SORT_VALUE = {
-  CREATEDAT_DESC: 'createdAt,DESC',
-  CREATEDAT_ASC: 'createdAt,ASC',
-  STARTDATE_ASC: 'startDate,ASC',
-  ENDDATE_DESC: 'endDate,DESC',
+export const SEARCHPARAM_VALUE = {
+  CREATEDAT: 'createdAt',
+  STARTDATE: 'startDate',
+  ENDDATE: 'endDate',
+  STARTPRICE: 'startPrice', // 현재 500
+  NOWPRICE: 'nowPrice', // 현재 500
 };
 
-export const SORT_TYPES = [
+export interface SortTypeProps {
+  id: number;
+  label: string;
+  searchParams: {
+    [x: string]: string;
+  };
+}
+
+export const SORT_TYPES: SortTypeProps[] = [
   {
     id: 1,
     label: '최신순',
-    searchParamKey: SEARCHPARAM_KEY.SORT,
-    searchParamValue: SORT_VALUE.CREATEDAT_DESC,
+    searchParams: {
+      [SEARCHPARAM_KEY.SORT]: SEARCHPARAM_VALUE.CREATEDAT,
+      [SEARCHPARAM_KEY.DIRECTION]: 'DESC',
+    },
   },
   {
     id: 2,
     label: '오래된순',
-    searchParamKey: SEARCHPARAM_KEY.SORT,
-    searchParamValue: SORT_VALUE.CREATEDAT_ASC,
+    searchParams: {
+      [SEARCHPARAM_KEY.SORT]: SEARCHPARAM_VALUE.CREATEDAT,
+      [SEARCHPARAM_KEY.DIRECTION]: 'ASC',
+    },
   },
 ];
