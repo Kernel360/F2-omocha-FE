@@ -61,6 +61,7 @@ export const infoButton = style({
 
 export const bidButton = styleVariants({
   default: {
+    height: '80px',
     fontSize: '16px',
     padding: '24px 24px',
     marginTop: '12px',
