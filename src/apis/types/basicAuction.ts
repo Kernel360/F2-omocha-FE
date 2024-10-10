@@ -66,9 +66,13 @@ export interface PostBasicAuctionResponse extends CommonResponse {
 }
 
 // -----
+
+type AunctionStatusType = 'PREBID' | 'BIDDING' | 'CONCLUDED' | 'COMPLETED';
 export interface GetBasicAuctionListParams {
   title?: string;
-  sort?: string[];
+  aunctionStatus?: AunctionStatusType;
+  sort?: string;
+  direction?: string;
   page?: number;
   size?: number;
 }

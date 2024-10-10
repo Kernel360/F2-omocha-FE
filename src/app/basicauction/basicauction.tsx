@@ -7,9 +7,10 @@ import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import SearchBar from '@/app/basicauction/components/searchbar';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
-import { SEARCHPARAM_KEY, SORT_VALUE } from '@/static/sort';
+import { SEARCHPARAM_KEY } from '@/static/sort';
 
 import * as S from './Basicauction.css';
+import AuctionFilter from './components/auctionfilter';
 
 function BasicAuction() {
   const searchParams = useSearchParams();
@@ -17,7 +18,8 @@ function BasicAuction() {
 
   const { data } = useGetBasicAuctionList({
     title: searchKeywordParam || '',
-    sort: [searchParams.get(SEARCHPARAM_KEY.SORT) || SORT_VALUE.CREATEDAT_DESC],
+    sort: '',
+    direction: '',
     page: 0,
     size: 20,
   });
@@ -32,6 +34,7 @@ function BasicAuction() {
           <span>{data.result_data.content.length}</span>
         </div>
         <SearchBar />
+        <AuctionFilter />
         <AuctionDropDown />
       </section>
       <section className={S.rightSection}>
