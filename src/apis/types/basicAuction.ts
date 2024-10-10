@@ -63,6 +63,8 @@ export interface PostBasicAuctionParams {
 export interface GetBasicAuctionListParams {
   title?: string;
   sort?: string;
+  auctionStatus?: string;
+  direction?: string;
   page?: number;
   size?: number;
 }
