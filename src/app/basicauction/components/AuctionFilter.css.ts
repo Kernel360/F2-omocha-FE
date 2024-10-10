@@ -19,8 +19,9 @@ export const checkbox = style({
 
 export const checked = style({
   color: 'black',
+  border: '1px solid black',
 });
 
 export const nonChecked = style({
-  color: 'gray',
+  color: 'rgb(228, 228, 231)',
 });
