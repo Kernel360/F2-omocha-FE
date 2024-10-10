@@ -2,12 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 export const tableWrapper = style({
   width: '100%',
-  // maxWidth: '600px',
   margin: '0 auto',
-  // border: '1px solid #ddd',
-  // borderRadius: '8px',
-  overflow: 'hidden',
-  // boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
 });
 
 export const table = style({
@@ -36,10 +31,10 @@ export const td = style({
   overflow: 'scroll',
 });
 
-export const scrollableTable = style({
-  display: 'block',
+export const scrollableBody = style({
   maxHeight: '300px',
   overflowY: 'auto',
+  width: 'auto',
 });
 
 export const noDataMessage = style({
@@ -47,4 +42,36 @@ export const noDataMessage = style({
   textAlign: 'center',
   fontSize: '16px',
   color: '#999',
+});
+
+export const needLoginSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+  alignItems: 'center',
+});
+export const noUserMessage = style({
+  padding: '16px',
+  textAlign: 'center',
+  fontSize: '16px',
+  color: '#999',
+});
+export const loginButton = style({
+  border: 'none',
+  color: 'white',
+  borderRadius: '4px',
+  maxWidth: '100px',
+  width: '100%',
+  padding: '10px 5px',
+  cursor: 'pointer',
+  backgroundColor: 'black',
+});
+
+export const noBidDataContent = style({
+  padding: '12px',
+  borderBottom: '1px solid #ddd',
+  fontSize: '14px',
+  whiteSpace: 'nowrap',
+  overflow: 'scroll',
+  textAlign: 'center',
 });

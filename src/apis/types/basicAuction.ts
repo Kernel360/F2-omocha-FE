@@ -14,6 +14,7 @@ export interface AuctionData {
   end_date: string;
   image_keys: string[];
   bid_count: number;
+  now_price: number;
 }
 
 export interface Pageable {
@@ -69,6 +70,17 @@ export interface GetBasicAuctionListParams {
 // ----
 
 export interface GetBasicAuctionBidInfo {
+  buyer_id: number;
+  bid_price: number;
+  created_at: string;
+}
+
+// -----
+export interface PostBasicAuctionBidParams {
+  bid_price: number;
+}
+
+export interface PostBasicAuctionBidResponseData {
   buyer_id: number;
   bid_price: number;
   created_at: string;

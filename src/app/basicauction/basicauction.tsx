@@ -28,7 +28,7 @@ function BasicAuction() {
       <section className={S.leftSection}>
         <div className={S.count}>
           <span>전체</span>
-          <span>10</span>
+          <span>{data.result_data.content.length}</span>
         </div>
         <SearchBar />
         <AuctionDropDown />
@@ -45,6 +45,7 @@ function BasicAuction() {
               startPrice={item.start_price}
               startTime={item.start_date}
               endTime={item.end_date}
+              nowPrice={item.now_price}
             />
           ))}
         </ListLayout>

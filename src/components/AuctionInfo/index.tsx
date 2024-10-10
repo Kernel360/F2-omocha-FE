@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
-import { useRouter } from 'next/navigation';
-
+import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
 import useBooleanState from '@/hooks/useBooleanState';
 import { useAuth } from '@/provider/authProvider';
 
@@ -23,10 +22,12 @@ interface AuctionInfoProps {
 }
 
 function AuctionInfo(SAMPLE: AuctionInfoProps) {
-  const router = useRouter();
   const { token } = useAuth();
   const { id, title, startPrice, nowPrice, bidCount, endTime } = SAMPLE;
+  const { mutate } = usePostBasicAuctionBid();
+
   const [expired, setExpired] = useState(false);
+  const bidInputRef = useRef<HTMLInputElement>(null);
 
   const {
     value: isOpenBidListModal,
@@ -35,11 +36,27 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
   } = useBooleanState();
 
   const handleBidButton = () => {
-    if (token) {
-      console.log('bid 가능');
-    } else {
-      router.push('/login');
+    if (bidInputRef.current) {
+      const bidAmount = bidInputRef.current.value;
+
+      mutate({
+        id,
+        params: {
+          bid_price: Number(bidAmount),
+        },
+      });
     }
+  };
+
+  const canNotBid = () => {
+    if (expired) {
+      return '경매 진행 기간이 아닙니다.';
+    }
+    if (!token) {
+      return '로그인 후 사용 가능한 서비스입니다.';
+    }
+
+    return '';
   };
 
   return (
@@ -80,17 +97,18 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>입찰 희망가</span>
         <div className={S.infoRight}>
-          <input type="number" />
+          <input type="number" ref={bidInputRef} />
           <span>원</span>
         </div>
       </div>
       <button
-        disabled={expired}
+        disabled={expired || !token}
         type="button"
-        className={expired ? S.bidButton.disabled : S.bidButton.default}
+        className={expired || !token ? S.bidButton.disabled : S.bidButton.default}
         onClick={handleBidButton}
       >
         입찰하기
+        <p className={S.bidButtonExplain}>{canNotBid()}</p>
       </button>
     </div>
   );

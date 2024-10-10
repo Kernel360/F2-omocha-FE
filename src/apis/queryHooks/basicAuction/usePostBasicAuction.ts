@@ -4,12 +4,12 @@ import { postBasicAuction } from '@/apis/queryFunctions/basicAuction';
 import { PostBasicAuctionParams } from '@/apis/types/basicAuction';
 
 function usePostBasicAuction() {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
 
   const { mutate, error } = useMutation({
     mutationFn: (param: PostBasicAuctionParams) => postBasicAuction(param),
     onSuccess: () => {
-      queryClinet.invalidateQueries({ queryKey: ['basicAuctionList'] });
+      queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
     },
   });
 
