@@ -1,7 +1,8 @@
 'use client';
 
-import calcRemainingTime from '@/utils/calcRemainingTime';
 import { useEffect, useState } from 'react';
+
+import calcRemainingTime from '@/utils/calcRemainingTime';
 
 interface UseCountdownTimerProps {
   endTime: Date | string;
