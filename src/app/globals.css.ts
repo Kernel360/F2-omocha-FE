@@ -26,6 +26,11 @@ globalStyle('a', {
   color: 'black',
 });
 
+globalStyle('ul', {
+  listStyle: 'none',
+  paddingLeft: '0px ',
+});
+
 export const container = style({
   maxWidth: '1216px', // 1280 - (32*2)
   margin: '0 auto',

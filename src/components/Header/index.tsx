@@ -12,6 +12,7 @@ import TabsLayout from '../TabsLayout';
 
 import * as S from './Header.css';
 import Alarm from './components/Alarm';
+import Chatting from './components/Chatting';
 import HeaderActionItem from './components/HeaderActionItem';
 import HeaderLinkItem from './components/HeaderLinkItem';
 
@@ -26,7 +27,7 @@ const TABS = [
   },
 ];
 
-const TABS_CONTENT = [<Alarm key="알림" content="알림" />, <Alarm key="채팅" content="채팅" />];
+const TABS_CONTENT = [<Alarm key="알림" content="알림" />, <Chatting key="채팅" content="채팅" />];
 
 function Header() {
   const pathname = usePathname();
