@@ -4,9 +4,13 @@ import { SEARCHPARAM_KEY, SORT_TYPES, SortTypeProps } from '@/static/sort';
 
 export default function AuctionDropDown() {
   const { searchParams, setMultipleSearchParams } = useSetSearchParam();
-  const currentSort = searchParams.get(SEARCHPARAM_KEY.DIRECTION) || 'DESC';
+  const currentSort = searchParams.get(SEARCHPARAM_KEY.SORT) || 'CREATEDAT';
+  const currentDirection = searchParams.get(SEARCHPARAM_KEY.DIRECTION) || 'DESC';
+
   const findSortType = SORT_TYPES.find(
-    sortType => sortType.searchParams[SEARCHPARAM_KEY.DIRECTION] === currentSort,
+    sortType =>
+      sortType.searchParams[SEARCHPARAM_KEY.SORT] === currentSort &&
+      sortType.searchParams[SEARCHPARAM_KEY.DIRECTION] === currentDirection,
   );
 
   const handleSortType = (sortType: SortTypeProps) => {
