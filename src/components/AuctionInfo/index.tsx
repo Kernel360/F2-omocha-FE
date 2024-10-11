@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+import useDeleteBasicAuction from '@/apis/queryHooks/basicAuction/useDeleteBasicAuction';
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
 import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
@@ -11,6 +12,7 @@ import ModalFooter from '@/components/Modal/ModalFooter';
 import useBooleanState from '@/hooks/useBooleanState';
 import { useAuth } from '@/provider/authProvider';
 
+import AuctionDeleteConfirmModal from './AuctionDeleteConfirmModal';
 import * as S from './AuctionInfo.css';
 
 interface AuctionInfoProps {
@@ -23,10 +25,14 @@ interface AuctionInfoProps {
   bidUnit: number;
 }
 
+const SAMPLE_MEMBER_ID = 12;
+const SAMPLE_AUTHOR_ID = 12;
+
 function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const { token } = useAuth();
   const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit } = SAMPLE;
-  const { mutate } = usePostBasicAuctionBid();
+  const { mutate: postBidMutate } = usePostBasicAuctionBid();
+  const { mutate: deleteAuctionMutate } = useDeleteBasicAuction(); /// usePostBasicAuctionBid();
 
   const [expired, setExpired] = useState(false);
   const bidInputRef = useRef<HTMLInputElement>(null);
@@ -38,9 +44,15 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
   } = useBooleanState();
 
   const {
-    value: isOpenBidComfirmModal,
+    value: isOpenBidConfirmModal,
     toggle: setIsOpenBidConfirmModal,
     setTrue: openBidConfirmModal,
+  } = useBooleanState();
+
+  const {
+    value: isOpenDeleteConfirmModal,
+    toggle: setIsOpenDeleteConfirmModal,
+    setTrue: openDeleteConfirmModal,
   } = useBooleanState();
 
   useEffect(() => {
@@ -55,7 +67,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     if (bidInputRef.current) {
       const bidAmount = bidInputRef.current.value;
 
-      mutate({
+      postBidMutate({
         id,
         params: {
           bid_price: Number(bidAmount),
@@ -63,6 +75,11 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       });
     }
     setIsOpenBidConfirmModal();
+  };
+
+  const handleDeleteButton = () => {
+    console.log('delete');
+    deleteAuctionMutate(id);
   };
 
   const handleBidPriceDown = () => {
@@ -88,6 +105,8 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     }
     return '';
   };
+
+  const canDelete = SAMPLE_MEMBER_ID === SAMPLE_AUTHOR_ID;
 
   return (
     <div className={S.infoWrapper}>
@@ -157,22 +176,45 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
           </div>
         </div>
       </div>
-      <button
-        disabled={expired || !token}
-        type="button"
-        className={expired || !token ? S.bidButton.disabled : S.bidButton.default}
-        onClick={openBidConfirmModal}
-      >
-        입찰하기
-        <p className={S.bidButtonExplain}>{canNotBid()}</p>
-      </button>
+
+      {canDelete ? (
+        <button
+          type="button"
+          disabled={bidCount > 0}
+          className={bidCount > 0 ? S.deleteButton.disabled : S.deleteButton.default}
+          onClick={openDeleteConfirmModal}
+        >
+          삭제하기
+          {bidCount > 0 && (
+            <p className={S.bidButtonExplain}>현재 입찰이 걸려 게시글을 삭제할 수 없습니다.</p>
+          )}
+        </button>
+      ) : (
+        <button
+          disabled={expired || !token}
+          type="button"
+          className={expired || !token ? S.bidButton.disabled : S.bidButton.default}
+          onClick={openBidConfirmModal}
+        >
+          입찰하기
+          <p className={S.bidButtonExplain}>{canNotBid()}</p>
+        </button>
+      )}
       <ModalFooter
-        isOpen={isOpenBidComfirmModal}
+        isOpen={isOpenBidConfirmModal}
         onOpenChange={setIsOpenBidConfirmModal}
         positiveButton="확인"
         positiveButtonEvent={handleBidButton}
       >
         <AuctionBidConfirmModal bidPrice={bidInputRef?.current?.value} />
+      </ModalFooter>
+      <ModalFooter
+        isOpen={isOpenDeleteConfirmModal}
+        onOpenChange={setIsOpenDeleteConfirmModal}
+        positiveButton="삭제"
+        positiveButtonEvent={handleDeleteButton}
+      >
+        <AuctionDeleteConfirmModal />
       </ModalFooter>
     </div>
   );
