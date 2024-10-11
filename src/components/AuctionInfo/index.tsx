@@ -45,7 +45,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
 
   useEffect(() => {
     if (bidInputRef.current && nowPrice) {
-      bidInputRef.current.value = String(nowPrice);
+      bidInputRef.current.value = String(nowPrice + bidUnit);
     } else if (bidInputRef.current && startPrice) {
       bidInputRef.current.value = String(startPrice);
     }
@@ -74,7 +74,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       currentBid -= bidUnit;
     }
 
-    if (currentBid >= nowPrice! && bidInputRef.current) {
+    if (currentBid >= nowPrice! + bidUnit && bidInputRef.current) {
       bidInputRef.current.value = String(currentBid);
     }
   };
