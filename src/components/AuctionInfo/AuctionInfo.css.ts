@@ -83,6 +83,27 @@ export const bidButton = styleVariants({
   },
 });
 
+export const deleteButton = styleVariants({
+  default: {
+    marginTop: '20px',
+    background: 'red',
+    color: '#F0F0F0',
+    borderRadius: '4px',
+    border: 'none',
+    cursor: 'pointer',
+    height: '80px',
+    fontSize: '16px',
+    padding: '24px 24px',
+  },
+  disabled: {
+    fontSize: '14px',
+    marginTop: '12px',
+    border: 'none',
+    color: 'darkgray',
+    cursor: 'not-allowed',
+  },
+});
+
 export const bidButtonExplain = style({
   marginTop: '4px',
   fontSize: '12px',
