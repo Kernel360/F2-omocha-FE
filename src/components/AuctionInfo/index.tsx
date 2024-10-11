@@ -1,29 +1,29 @@
-'use client';
-
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
+import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
+import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
+import AuctionBidListModal from '@/components/AuctionInfo/AuctionBidListModal';
+import AuctionCountdown from '@/components/AuctionInfo/AuctionCountdown';
+import { Modal } from '@/components/Modal/Modal';
 import useBooleanState from '@/hooks/useBooleanState';
 import { useAuth } from '@/provider/authProvider';
 
-import { Modal } from '../Modal/Modal';
-
-import AuctionBidListModal from './AuctionBidListModal';
-import AuctionCountdown from './AuctionCountdown';
 import * as S from './AuctionInfo.css';
 
 interface AuctionInfoProps {
   id: number;
   title: string;
   startPrice: number;
-  nowPrice: number;
+  nowPrice?: number; // nowPrice는 선택적
   endTime: string;
   bidCount: number;
+  bidUnit: number;
 }
 
 function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const { token } = useAuth();
-  const { id, title, startPrice, nowPrice, bidCount, endTime } = SAMPLE;
+  const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit } = SAMPLE;
   const { mutate } = usePostBasicAuctionBid();
 
   const [expired, setExpired] = useState(false);
@@ -34,6 +34,14 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     toggle: setIsOpenBidListModal,
     setTrue: openBidListModal,
   } = useBooleanState();
+
+  useEffect(() => {
+    if (bidInputRef.current && nowPrice) {
+      bidInputRef.current.value = String(nowPrice);
+    } else if (bidInputRef.current && startPrice) {
+      bidInputRef.current.value = String(startPrice);
+    }
+  }, [nowPrice, startPrice]);
 
   const handleBidButton = () => {
     if (bidInputRef.current) {
@@ -48,6 +56,20 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     }
   };
 
+  const handleBidPriceDown = () => {
+    const bidInput = Number(bidInputRef.current?.value);
+    let currentBid = bidInput;
+    if (nowPrice && bidInput - bidUnit >= nowPrice) {
+      currentBid -= bidUnit;
+    } else if (bidInput - bidUnit >= startPrice) {
+      currentBid -= bidUnit;
+    }
+
+    if (currentBid >= nowPrice! && bidInputRef.current) {
+      bidInputRef.current.value = String(currentBid);
+    }
+  };
+
   const canNotBid = () => {
     if (expired) {
       return '경매 진행 기간이 아닙니다.';
@@ -55,7 +77,6 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     if (!token) {
       return '로그인 후 사용 가능한 서비스입니다.';
     }
-
     return '';
   };
 
@@ -95,10 +116,36 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         </Modal>
       </div>
       <div className={S.infoRow}>
+        <span className={S.infoRowTitle}>입찰 단위</span>
+        <div className={S.infoRight}>
+          <span>{`${bidUnit} 원`}</span>
+        </div>
+        <Modal isOpen={isOpenBidListModal} onOpenChange={setIsOpenBidListModal}>
+          <AuctionBidListModal id={id} />
+        </Modal>
+      </div>
+      <div className={S.infoRow}>
         <span className={S.infoRowTitle}>입찰 희망가</span>
         <div className={S.infoRight}>
-          <input type="number" ref={bidInputRef} />
+          <input type="number" ref={bidInputRef} disabled />
           <span>원</span>
+          <div>
+            <button
+              className={S.bidPriceButton}
+              type="button"
+              onClick={() => {
+                if (bidInputRef.current) {
+                  const newBidInput = Number(bidInputRef.current.value) + bidUnit;
+                  bidInputRef.current.value = newBidInput.toString();
+                }
+              }}
+            >
+              <ChevronUpIcon />
+            </button>
+            <button className={S.bidPriceButton} type="button" onClick={handleBidPriceDown}>
+              <ChevronDownIcon />
+            </button>
+          </div>
         </div>
       </div>
       <button
