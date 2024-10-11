@@ -3,9 +3,11 @@ import { useEffect, useRef, useState } from 'react';
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
 import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
+import AuctionBidConfirmModal from '@/components/AuctionInfo/AuctionBidConfirmModal';
 import AuctionBidListModal from '@/components/AuctionInfo/AuctionBidListModal';
 import AuctionCountdown from '@/components/AuctionInfo/AuctionCountdown';
 import { Modal } from '@/components/Modal/Modal';
+import ModalFooter from '@/components/Modal/ModalFooter';
 import useBooleanState from '@/hooks/useBooleanState';
 import { useAuth } from '@/provider/authProvider';
 
@@ -35,6 +37,12 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     setTrue: openBidListModal,
   } = useBooleanState();
 
+  const {
+    value: isOpenBidComfirmModal,
+    toggle: setIsOpenBidConfirmModal,
+    setTrue: openBidConfirmModal,
+  } = useBooleanState();
+
   useEffect(() => {
     if (bidInputRef.current && nowPrice) {
       bidInputRef.current.value = String(nowPrice);
@@ -54,6 +62,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         },
       });
     }
+    setIsOpenBidConfirmModal();
   };
 
   const handleBidPriceDown = () => {
@@ -152,11 +161,19 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         disabled={expired || !token}
         type="button"
         className={expired || !token ? S.bidButton.disabled : S.bidButton.default}
-        onClick={handleBidButton}
+        onClick={openBidConfirmModal}
       >
         입찰하기
         <p className={S.bidButtonExplain}>{canNotBid()}</p>
       </button>
+      <ModalFooter
+        isOpen={isOpenBidComfirmModal}
+        onOpenChange={setIsOpenBidConfirmModal}
+        positiveButton="확인"
+        positiveButtonEvent={handleBidButton}
+      >
+        <AuctionBidConfirmModal bidPrice={bidInputRef?.current?.value} />
+      </ModalFooter>
     </div>
   );
 }
