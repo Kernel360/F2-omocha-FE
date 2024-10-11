@@ -6,7 +6,6 @@ import { Breadcrumb } from '@/components/Breadcrumb';
 import TabsLayout from '@/components/TabsLayout';
 import { AuthProvider } from '@/provider/authProvider';
 
-import * as S from './BasicAuctionDetailPage.css';
 import BasicAuctionInfo from './BasicAuctionInfo';
 
 interface BasicAuctionDetailPageProps {
@@ -49,14 +48,14 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
         <Breadcrumb.Item href="/basicauction">Products</Breadcrumb.Item>
         <Breadcrumb.Item>Product {params.id}</Breadcrumb.Item>
       </Breadcrumb>
-      <div className={S.auctionInfoWrapper}>
-        <div>BasicAuctionDetailPage {params.id}</div>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <AuthProvider initialToken={refreshToken}>
-            <BasicAuctionInfo id={params.id} />
-          </AuthProvider>
-        </HydrationBoundary>
-      </div>
+
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <AuthProvider initialToken={refreshToken}>
+          {/* <div>BasicAuctionDetailPage {params.id}</div> */}
+          <BasicAuctionInfo id={params.id} />
+        </AuthProvider>
+      </HydrationBoundary>
+
       <TabsLayout
         defaultTriggerValue={TABS[0].value}
         triggerTitleList={TABS}
