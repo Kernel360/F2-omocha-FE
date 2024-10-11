@@ -87,3 +87,7 @@ export const bidButtonExplain = style({
   marginTop: '4px',
   fontSize: '12px',
 });
+
+export const bidPriceButton = style({
+  cursor: 'pointer',
+});
