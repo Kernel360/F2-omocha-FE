@@ -12,30 +12,30 @@ import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 import useBooleanState from '@/hooks/useBooleanState';
 import useSetSearchParam from '@/hooks/useSetSearchParam';
-import { SEARCHPARAM_KEY } from '@/static/sort';
+import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
 import * as S from './Basicauction.css';
 
 function BasicAuction() {
   const searchParams = useSearchParams();
-  const searchKeywordParam = searchParams.get(SEARCHPARAM_KEY.Q);
+  const searchKeywordParam = searchParams.get(AUCTIONPARAM_KEY.Q);
 
   const { value: isChecked, toggle } = useBooleanState(false);
   const { setSingleSearchParam } = useSetSearchParam();
 
   useEffect(() => {
     if (isChecked) {
-      setSingleSearchParam(SEARCHPARAM_KEY.AUCTIONSTATUS, 'BIDDING');
+      setSingleSearchParam(AUCTIONPARAM_KEY.AUCTIONSTATUS, 'BIDDING');
     } else {
-      setSingleSearchParam(SEARCHPARAM_KEY.AUCTIONSTATUS, '');
+      setSingleSearchParam(AUCTIONPARAM_KEY.AUCTIONSTATUS, '');
     }
   }, [isChecked]);
 
   const { data } = useGetBasicAuctionList({
     title: searchKeywordParam || '',
-    auctionStatus: searchParams.get(SEARCHPARAM_KEY.AUCTIONSTATUS) || '',
-    sort: searchParams.get(SEARCHPARAM_KEY.SORT) || '',
-    direction: searchParams.get(SEARCHPARAM_KEY.DIRECTION) || '',
+    auctionStatus: searchParams.get(AUCTIONPARAM_KEY.AUCTIONSTATUS) || '',
+    sort: searchParams.get(AUCTIONPARAM_KEY.SORT) || '',
+    direction: searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || '',
     page: 0,
     size: 20,
   });

@@ -1,22 +1,23 @@
 import { Dropdown } from '@/components/Dropdown';
 import useSetSearchParam from '@/hooks/useSetSearchParam';
-import { SEARCHPARAM_KEY, SORT_TYPES, SortTypeProps } from '@/static/sort';
+import { AUCTIONPARAM_KEY, AUCTIONPARAM_VALUE } from '@/static/queryParam';
+import { SORT_TYPES, SortTypeProps } from '@/static/sort';
 
 export default function AuctionDropDown() {
   const { searchParams, setMultipleSearchParams } = useSetSearchParam();
-  const currentSort = searchParams.get(SEARCHPARAM_KEY.SORT) || 'CREATEDAT';
-  const currentDirection = searchParams.get(SEARCHPARAM_KEY.DIRECTION) || 'DESC';
+  const currentSort = searchParams.get(AUCTIONPARAM_KEY.SORT) || AUCTIONPARAM_VALUE.CREATEDAT;
+  const currentDirection = searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || 'DESC';
 
   const findSortType = SORT_TYPES.find(
     sortType =>
-      sortType.searchParams[SEARCHPARAM_KEY.SORT] === currentSort &&
-      sortType.searchParams[SEARCHPARAM_KEY.DIRECTION] === currentDirection,
+      sortType.searchParams[AUCTIONPARAM_KEY.SORT] === currentSort &&
+      sortType.searchParams[AUCTIONPARAM_KEY.DIRECTION] === currentDirection,
   );
 
   const handleSortType = (sortType: SortTypeProps) => {
     const newParams = {
-      [SEARCHPARAM_KEY.SORT]: sortType.searchParams[SEARCHPARAM_KEY.SORT],
-      [SEARCHPARAM_KEY.DIRECTION]: sortType.searchParams[SEARCHPARAM_KEY.DIRECTION],
+      [AUCTIONPARAM_KEY.SORT]: sortType.searchParams[AUCTIONPARAM_KEY.SORT],
+      [AUCTIONPARAM_KEY.DIRECTION]: sortType.searchParams[AUCTIONPARAM_KEY.DIRECTION],
     };
 
     setMultipleSearchParams(newParams);
