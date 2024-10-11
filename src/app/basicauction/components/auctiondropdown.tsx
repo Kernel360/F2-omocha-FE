@@ -8,11 +8,12 @@ export default function AuctionDropDown() {
   const currentSort = searchParams.get(AUCTIONPARAM_KEY.SORT) || AUCTIONPARAM_VALUE.CREATEDAT;
   const currentDirection = searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || 'DESC';
 
-  const findSortType = SORT_TYPES.find(
-    sortType =>
-      sortType.searchParams[AUCTIONPARAM_KEY.SORT] === currentSort &&
-      sortType.searchParams[AUCTIONPARAM_KEY.DIRECTION] === currentDirection,
-  );
+  const findSortType =
+    SORT_TYPES.find(
+      sortType =>
+        sortType.searchParams[AUCTIONPARAM_KEY.SORT] === currentSort &&
+        sortType.searchParams[AUCTIONPARAM_KEY.DIRECTION] === currentDirection,
+    ) || SORT_TYPES[0];
 
   const handleSortType = (sortType: SortTypeProps) => {
     const newParams = {
@@ -25,7 +26,7 @@ export default function AuctionDropDown() {
 
   return (
     <Dropdown>
-      <Dropdown.Trigger>{findSortType?.label}</Dropdown.Trigger>
+      <Dropdown.Trigger>{findSortType.label}</Dropdown.Trigger>
       <Dropdown.Content>
         {SORT_TYPES.map(sortType => (
           <Dropdown.Item key={sortType.id} onClick={() => handleSortType(sortType)}>
