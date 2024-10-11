@@ -1,20 +1,35 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useSearchParams } from 'next/navigation';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import SearchBar from '@/app/basicauction/components/searchbar';
+import CheckIcon from '@/assets/svg/check.svg';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
+import useBooleanState from '@/hooks/useBooleanState';
+import useSetSearchParam from '@/hooks/useSetSearchParam';
 import { SEARCHPARAM_KEY } from '@/static/sort';
 
 import * as S from './Basicauction.css';
-import AuctionFilter from './components/auctionfilter';
 
 function BasicAuction() {
   const searchParams = useSearchParams();
   const searchKeywordParam = searchParams.get(SEARCHPARAM_KEY.Q);
+
+  const { value: isChecked, toggle } = useBooleanState(false);
+  const { setSingleSearchParam } = useSetSearchParam();
+
+  useEffect(() => {
+    if (isChecked) {
+      setSingleSearchParam(SEARCHPARAM_KEY.AUCTIONSTATUS, 'BIDDING');
+    } else {
+      setSingleSearchParam(SEARCHPARAM_KEY.AUCTIONSTATUS, '');
+    }
+  }, [isChecked]);
 
   const { data } = useGetBasicAuctionList({
     title: searchKeywordParam || '',
@@ -35,7 +50,11 @@ function BasicAuction() {
           <span>{data.result_data.content.length}</span>
         </div>
         <SearchBar />
-        <AuctionFilter />
+        <label htmlFor="checkbox" className={`${S.label} ${isChecked ? S.checked : S.nonChecked}`}>
+          경매중
+          <CheckIcon />
+          <input id="checkbox" type="checkbox" className={S.checkbox} onChange={toggle} />
+        </label>
         <AuctionDropDown />
       </section>
       <section className={S.rightSection}>
