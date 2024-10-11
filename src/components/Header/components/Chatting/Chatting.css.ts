@@ -11,6 +11,7 @@ export const title = style({
 });
 
 export const chattingUnitSection = style({
+  cursor: 'pointer ',
   display: 'flex',
   alignItems: 'center',
   gap: '15px',
@@ -75,4 +76,5 @@ export const recentChatTime = style({
 export const recentChat = style({
   color: 'black',
   fontSize: '12px',
+  textAlign: 'start',
 });

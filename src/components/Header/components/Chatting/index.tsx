@@ -1,4 +1,5 @@
 import * as S from './Chatting.css';
+import ChattingListUnit from './ChattingListUnit';
 
 interface ChattingProps {
   content: string;
@@ -17,8 +18,8 @@ const SAMPLE_CHATTING = [
     buyer: { buyer_name: 'buyer', buyer_id: 6 },
     post_id: 31,
     opponent: { opponent_name: 'buyer', opponent_id: 6 },
-    recent_message_time: 3,
-    recent_message: '방가방가',
+    recentMessageTime: 3,
+    recentMessage: '방가방가',
   },
   {
     newRead: false,
@@ -31,8 +32,8 @@ const SAMPLE_CHATTING = [
     buyer: { buyer_name: 'buyer', buyer_id: 6 },
     post_id: 31,
     opponent: { opponent_name: 'buyer', opponent_id: 6 },
-    recent_message_time: 3,
-    recent_message: '방가방가',
+    recentMessageTime: 3,
+    recentMessage: '방가방가',
   },
   {
     newRead: true,
@@ -45,8 +46,8 @@ const SAMPLE_CHATTING = [
     buyer: { buyer_name: 'buyer', buyer_id: 6 },
     post_id: 31,
     opponent: { opponent_name: 'buyer', opponent_id: 6 },
-    recent_message_time: 3,
-    recent_message: '방가방가',
+    recentMessageTime: 3,
+    recentMessage: '방가방가',
   },
   {
     newRead: true,
@@ -59,31 +60,20 @@ const SAMPLE_CHATTING = [
     buyer: { buyer_name: 'buyer', buyer_id: 6 },
     post_id: 31,
     opponent: { opponent_name: 'buyer', opponent_id: 6 },
-    recent_message_time: 3,
-    recent_message: '방가방가',
+    recentMessageTime: 3,
+    recentMessage: '방가방가',
   },
 ];
 
 function Chatting({ content }: ChattingProps) {
-  console.log(content);
+  console.log(content); // 임시 console.log
+
   return (
     <div className={S.container}>
       <h3 className={S.title}>채팅 목록</h3>
       <ul>
         {SAMPLE_CHATTING.map(chat => (
-          <li key={chat.id}>
-            <div className={S.chattingUnitSection}>
-              <div className={chat.newRead ? S.isReadDot.read : S.isReadDot.noRead} />
-              <div className={S.chattingUnit}>
-                <div className={S.chattingUnitInfo}>
-                  <span className={S.chatOpponent}>{chat.opponent.opponent_name}</span>
-                  <span className={S.chatTitle}>{chat.title}</span>
-                  <span className={S.recentChatTime}>{chat.recent_message_time}분 전</span>
-                </div>
-                <span className={S.recentChat}>{chat.recent_message}</span>
-              </div>
-            </div>
-          </li>
+          <ChattingListUnit key={chat.id} chat={chat} />
         ))}
       </ul>
     </div>
