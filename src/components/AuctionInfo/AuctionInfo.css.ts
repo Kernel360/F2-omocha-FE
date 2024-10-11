@@ -97,11 +97,8 @@ export const deleteButton = styleVariants({
   },
   disabled: {
     fontSize: '14px',
-    padding: '24px 24px',
     marginTop: '12px',
-    borderRadius: '4px',
     border: 'none',
-    backgroundColor: 'darkred',
     color: 'darkgray',
     cursor: 'not-allowed',
   },

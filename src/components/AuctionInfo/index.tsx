@@ -32,7 +32,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const { token } = useAuth();
   const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit } = SAMPLE;
   const { mutate: postBidMutate } = usePostBasicAuctionBid();
-  const { mutate: deleteAuctionMutate } = useDeleteBasicAuction(); /// usePostBasicAuctionBid();
+  const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
 
   const [expired, setExpired] = useState(false);
   const bidInputRef = useRef<HTMLInputElement>(null);
@@ -75,11 +75,6 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       });
     }
     setIsOpenBidConfirmModal();
-  };
-
-  const handleDeleteButton = () => {
-    console.log('delete');
-    deleteAuctionMutate(id);
   };
 
   const handleBidPriceDown = () => {
@@ -212,7 +207,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         isOpen={isOpenDeleteConfirmModal}
         onOpenChange={setIsOpenDeleteConfirmModal}
         positiveButton="삭제"
-        positiveButtonEvent={handleDeleteButton}
+        positiveButtonEvent={() => deleteAuctionMutate(id)}
       >
         <AuctionDeleteConfirmModal />
       </ModalFooter>
