@@ -7,7 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Link from 'next/link';
 
-import usePostLogin from '@/apis/queryHooks/useAuth/usePostLogin';
+import usePostLogin from '@/apis/queryHooks/Auth/usePostLogin';
 import ErrorIcon from '@/assets/svg/error.svg';
 import GoggleIcon from '@/assets/svg/goggle.svg';
 import sha256 from '@/utils/sha256';
