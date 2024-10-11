@@ -22,6 +22,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
       nowPrice={data.result_data.now_price}
       endTime={data.result_data.end_date}
       bidCount={data.result_data.bid_count}
+      bidUnit={data.result_data.bid_unit}
     />
   );
 }

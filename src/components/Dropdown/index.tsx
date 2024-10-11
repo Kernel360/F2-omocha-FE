@@ -29,7 +29,7 @@ export function Dropdown({ children }: DropDownProps) {
   const triggerRef = useRef<HTMLDivElement>(null);
   const items = React.Children.toArray(children);
 
-  useOnClickOutside(triggerRef, onClose);
+  useOnClickOutside(triggerRef, onClose, 'click');
 
   return (
     <div>
