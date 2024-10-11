@@ -1,23 +1,43 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useSearchParams } from 'next/navigation';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import SearchBar from '@/app/basicauction/components/searchbar';
+import CheckIcon from '@/assets/svg/check.svg';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
+import useBooleanState from '@/hooks/useBooleanState';
+import useSetSearchParam from '@/hooks/useSetSearchParam';
+import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
 import * as S from './Basicauction.css';
 
 function BasicAuction() {
   const searchParams = useSearchParams();
-  const searchKeywordParam = searchParams.get('q');
+  const searchKeywordParam = searchParams.get(AUCTIONPARAM_KEY.Q);
+
+  const { value: isChecked, toggle } = useBooleanState(false);
+  const { setSingleSearchParam } = useSetSearchParam();
+
+  useEffect(() => {
+    if (isChecked) {
+      setSingleSearchParam(AUCTIONPARAM_KEY.AUCTIONSTATUS, 'BIDDING');
+    } else {
+      setSingleSearchParam(AUCTIONPARAM_KEY.AUCTIONSTATUS, '');
+    }
+  }, [isChecked]);
 
   const { data } = useGetBasicAuctionList({
     title: searchKeywordParam || '',
+    auctionStatus: searchParams.get(AUCTIONPARAM_KEY.AUCTIONSTATUS) || '',
+    sort: searchParams.get(AUCTIONPARAM_KEY.SORT) || '',
+    direction: searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || '',
     page: 0,
-    size: 10,
+    size: 20,
   });
 
   if (!data) return null;
@@ -30,6 +50,11 @@ function BasicAuction() {
           <span>{data.result_data.content.length}</span>
         </div>
         <SearchBar />
+        <label htmlFor="checkbox" className={`${S.label} ${isChecked ? S.checked : S.nonChecked}`}>
+          경매중
+          <CheckIcon />
+          <input id="checkbox" type="checkbox" className={S.checkbox} onChange={toggle} />
+        </label>
         <AuctionDropDown />
       </section>
       <section className={S.rightSection}>
