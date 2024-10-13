@@ -1,13 +1,11 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { cookies } from 'next/headers';
 
 import { getBasicAuction } from '@/apis/queryFunctions/basicAuction';
+import BasicAuctionInfo from '@/app/basicauction/[id]/BasicAuctionInfo';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import TabsLayout from '@/components/TabsLayout';
-import { AuthProvider } from '@/provider/authProvider';
 
 import * as S from './BasicAuctionDetailPage.css';
-import BasicAuctionInfo from './BasicAuctionInfo';
 
 interface BasicAuctionDetailPageProps {
   params: {
@@ -32,9 +30,6 @@ const TABS_CONTENT = [
 ];
 
 async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
-  const cookie = cookies();
-  const refreshToken = cookie.get('refresh')?.value || null;
-
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -52,9 +47,7 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
       <div className={S.auctionInfoWrapper}>
         <div>BasicAuctionDetailPage {params.id}</div>
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <AuthProvider initialToken={refreshToken}>
-            <BasicAuctionInfo id={params.id} />
-          </AuthProvider>
+          <BasicAuctionInfo id={params.id} />
         </HydrationBoundary>
       </div>
       <TabsLayout

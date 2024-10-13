@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 
 import useGetBasicAuctionBidList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionBidList';
-import { useAuth } from '@/provider/authProvider';
+import { useTokenStore } from '@/store/token';
 
 import * as S from './AuctionBidListModal.css';
 
@@ -10,7 +10,7 @@ interface AuctionBidListModalProps {
 }
 
 function AuctionBidListModal({ id }: AuctionBidListModalProps) {
-  const { token } = useAuth();
+  const { refresh } = useTokenStore();
   const router = useRouter();
 
   const { data } = useGetBasicAuctionBidList(id);
@@ -19,7 +19,7 @@ function AuctionBidListModal({ id }: AuctionBidListModalProps) {
     router.push('/login');
   };
 
-  if (!token) {
+  if (!refresh) {
     return (
       <div className={S.needLoginSection}>
         <div className={S.noUserMessage}>로그인이 필요한 서비스 입니다.</div>

@@ -3,13 +3,12 @@
 import { useRef, useState } from 'react';
 
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
+import AuctionBidListModal from '@/components/AuctionInfo/AuctionBidListModal';
+import AuctionCountdown from '@/components/AuctionInfo/AuctionCountdown';
+import { Modal } from '@/components/Modal/Modal';
 import useBooleanState from '@/hooks/useBooleanState';
-import { useAuth } from '@/provider/authProvider';
+import { useTokenStore } from '@/store/token';
 
-import { Modal } from '../Modal/Modal';
-
-import AuctionBidListModal from './AuctionBidListModal';
-import AuctionCountdown from './AuctionCountdown';
 import * as S from './AuctionInfo.css';
 
 interface AuctionInfoProps {
@@ -22,7 +21,7 @@ interface AuctionInfoProps {
 }
 
 function AuctionInfo(SAMPLE: AuctionInfoProps) {
-  const { token } = useAuth();
+  const { refresh } = useTokenStore();
   const { id, title, startPrice, nowPrice, bidCount, endTime } = SAMPLE;
   const { mutate } = usePostBasicAuctionBid();
 
@@ -52,7 +51,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     if (expired) {
       return '경매 진행 기간이 아닙니다.';
     }
-    if (!token) {
+    if (!refresh) {
       return '로그인 후 사용 가능한 서비스입니다.';
     }
 
@@ -102,9 +101,9 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         </div>
       </div>
       <button
-        disabled={expired || !token}
+        disabled={expired || !refresh}
         type="button"
-        className={expired || !token ? S.bidButton.disabled : S.bidButton.default}
+        className={expired || !refresh ? S.bidButton.disabled : S.bidButton.default}
         onClick={handleBidButton}
       >
         입찰하기
