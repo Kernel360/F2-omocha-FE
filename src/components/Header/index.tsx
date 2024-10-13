@@ -3,17 +3,14 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
+import Alarm from '@/components/Header/components/Alarm';
+import SlideSideNav from '@/components/SlideSideNav';
+import TabsLayout from '@/components/TabsLayout';
 import useBooleanState from '@/hooks/useBooleanState';
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 import { useTokenStore } from '@/store/token';
 
-import SlideSideNav from '../SlideSideNav';
-import TabsLayout from '../TabsLayout';
-
 import * as S from './Header.css';
-import Alarm from './components/Alarm';
-import HeaderActionItem from './components/HeaderActionItem';
-import HeaderLinkItem from './components/HeaderLinkItem';
 
 const TABS = [
   {
@@ -42,36 +39,42 @@ function Header() {
         </Link>
         <div className={S.topCategory}>
           {SUB_CATEGORY.map(category => {
-            if (refresh) {
-              if (category.isLoginRequireToShow === 'NO_LOGIN_REQUIRE') {
-                return null;
-              }
-            }
-            if (!refresh) {
-              if (category.isLoginRequireToShow === 'LOGIN_REQUIRE') {
-                return null;
-              }
+            if (category.name === '로그인' && refresh) {
+              return (
+                <button
+                  key={category.id}
+                  type="button"
+                  onClick={() => {
+                    clearToken();
+                    router.push('/');
+                  }}
+                >
+                  로그아웃
+                </button>
+              );
             }
             if (category.path) {
-              return <HeaderLinkItem key={category.id} headerItem={category} />;
+              return (
+                <Link key={category.id} href={category.path}>
+                  {category.name}
+                </Link>
+              );
             }
             return (
-              <HeaderActionItem
+              <button
+                style={{ cursor: 'pointer' }}
                 key={category.id}
-                headerItem={category}
-                onClickEvent={() => {
-                  if (category.name === '알림') {
-                    if (refresh) setTrue();
-                    else {
-                      router.push('/login');
-                    }
-                  }
-                  if (category.name === '로그아웃') {
-                    clearToken();
-                    console.log('로그아웃 로직 있는거');
+                type="button"
+                onClick={() => {
+                  if (refresh) {
+                    setTrue();
+                  } else {
+                    router.push('/login');
                   }
                 }}
-              />
+              >
+                {category.name}
+              </button>
             );
           })}
         </div>
