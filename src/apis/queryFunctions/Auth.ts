@@ -3,6 +3,20 @@ import { LoginParams, RegisterParams } from '@/apis/types/Auth';
 
 import { Response } from '../types/common';
 
+export const postCheckToken = async () => {
+  try {
+    const response = await fetch('/apis/set-cookie', { method: 'GET' });
+
+    if (!response.ok) return null;
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const postRegister = (param: RegisterParams) =>
   apiClient.post<Response<string>>('/v1/auth/register', param);
 
