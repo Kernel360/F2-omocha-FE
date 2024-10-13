@@ -19,9 +19,16 @@ export function middleware(request: NextRequest) {
   }
 
   if ((!refreshToken && !accessToken) || (!refreshToken && accessToken)) {
-    return NextResponse.redirect(
+    const response = NextResponse.redirect(
       new URL('/login?alert=로그인 후 이용 가능한 서비스입니다.', request.url),
     );
+
+    // refreshToken이 없고 accessToken이 있는 경우에만 동작하도록 조정
+    if (!refreshToken && accessToken) {
+      response.cookies.delete('access'); // 여기서 accessToken 삭제
+    }
+
+    return response;
   }
 
   return NextResponse.next();
