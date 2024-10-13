@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
 import useBooleanState from '@/hooks/useBooleanState';
-import { useAuth } from '@/provider/authProvider';
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
+import { useTokenStore } from '@/store/token';
 
 import SlideSideNav from '../SlideSideNav';
 import TabsLayout from '../TabsLayout';
@@ -31,8 +31,9 @@ const TABS_CONTENT = [<Alarm key="알림" content="알림" />, <Alarm key="채�
 function Header() {
   const pathname = usePathname();
   const { value, setTrue, setFalse } = useBooleanState(false);
-  const { token } = useAuth();
+  const { refresh, clearToken } = useTokenStore();
   const router = useRouter();
+
   return (
     <header className={S.container}>
       <section className={S.topHeader}>
@@ -41,12 +42,12 @@ function Header() {
         </Link>
         <div className={S.topCategory}>
           {SUB_CATEGORY.map(category => {
-            if (token) {
+            if (refresh) {
               if (category.isLoginRequireToShow === 'NO_LOGIN_REQUIRE') {
                 return null;
               }
             }
-            if (!token) {
+            if (!refresh) {
               if (category.isLoginRequireToShow === 'LOGIN_REQUIRE') {
                 return null;
               }
@@ -60,12 +61,13 @@ function Header() {
                 headerItem={category}
                 onClickEvent={() => {
                   if (category.name === '알림') {
-                    if (token) setTrue();
+                    if (refresh) setTrue();
                     else {
                       router.push('/login');
                     }
                   }
                   if (category.name === '로그아웃') {
+                    clearToken();
                     console.log('로그아웃 로직 있는거');
                   }
                 }}
