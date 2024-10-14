@@ -10,6 +10,7 @@ import Link from 'next/link';
 import usePostLogin from '@/apis/queryHooks/useAuth/usePostLogin';
 import ErrorIcon from '@/assets/svg/error.svg';
 import GoggleIcon from '@/assets/svg/goggle.svg';
+import NaverIcon from '@/assets/svg/naver.svg';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Login.css';
@@ -90,8 +91,13 @@ function Home() {
       <span className={S.snsLoginTitle}>SNS계정으로 간편 로그인 / 회원가입</span>
       <div className={S.snsLoginSection}>
         <Link href="https://www.google.co.kr/" rel="stylesheet">
-          <div className={S.snsLoginButton}>
+          <div className={S.snsLoginButton.goggle}>
             <GoggleIcon />
+          </div>
+        </Link>
+        <Link href="https://www.naver.co.kr/" rel="stylesheet">
+          <div className={S.snsLoginButton.naver}>
+            <NaverIcon />
           </div>
         </Link>
       </div>

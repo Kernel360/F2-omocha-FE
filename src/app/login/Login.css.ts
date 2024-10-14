@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
@@ -96,16 +96,29 @@ export const snsLoginSection = style({
   marginTop: '20px',
 });
 
-export const snsLoginButton = style({
+export const snsLoginBaseButton = style({
   width: '57px',
   height: '57px',
   borderRadius: '50%',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  background: '#FFF',
   filter: 'drop-shadow(2px 3px 12px rgba(0, 0, 0, 0.10))',
-  ':hover': {},
+});
+
+export const snsLoginButton = styleVariants({
+  goggle: [
+    snsLoginBaseButton,
+    {
+      background: '#FFF',
+    },
+  ],
+  naver: [
+    snsLoginBaseButton,
+    {
+      background: 'rgba(3, 199, 90, 1)',
+    },
+  ],
 });
 
 export const inputLabel = style({
