@@ -9,7 +9,7 @@ import TabsLayout from '@/components/TabsLayout';
 
 import * as S from './BasicAuctionInfo.css';
 import BasicAuctionInfoContent from './BasicAuctionInfoContent';
-// import BasicAuctionInfoQNA from './BasicAuctionInfoQNA';
+import BasicAuctionInfoQNA from './BasicAuctionInfoQNA';
 
 interface BasicAuctionInfoProps {
   id: number;
@@ -49,7 +49,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
         triggerTitleList={TABS}
         childrenList={[
           <BasicAuctionInfoContent key="productInfo" id={id} content={data.result_data.content} />,
-          // <BasicAuctionInfoQNA key="productInquiry" />,
+          <BasicAuctionInfoQNA key="productInquiry" id={id} />,
         ]}
       />
     </div>

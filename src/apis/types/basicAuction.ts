@@ -83,3 +83,45 @@ export interface PostBasicAuctionBidResponseData {
   bid_price: number;
   created_at: string;
 }
+
+// -----
+
+export interface AuctionQNAListData {
+  question_id: number;
+  question_member_id: number;
+  title: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GetAuctionQnAListDataResponseData {
+  content: AuctionQNAListData[];
+  pageable: Pageable;
+  total_pages: number;
+  total_elements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: {
+    empty: boolean;
+    unsorted: boolean;
+    sorted: boolean;
+  };
+  number_of_elements: number;
+  first: boolean;
+  empty: boolean;
+}
+
+export interface PostAuctionQnAParams {
+  title: string;
+  content: string;
+  auction_id: number;
+}
+
+export interface PostAuctionQnAResponseData {
+  question_id: number;
+  title: string;
+  content: string;
+  created_at: string;
+}
