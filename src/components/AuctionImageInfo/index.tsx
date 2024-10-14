@@ -11,6 +11,13 @@ interface AuctionImageInfoProps {
 function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
   const [focusImage, setFocusImage] = useState<string>(imageList[0]);
 
+  const checkFocusImage = (image: string) => {
+    if (focusImage === image) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div className={S.imageSection}>
       <div className={S.subImageWrapper}>
@@ -18,7 +25,11 @@ function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
           <button
             type="button"
             key={image}
-            className={S.subImageWrapperButton}
+            className={
+              checkFocusImage(image)
+                ? S.subImageWrapperButton.active
+                : S.subImageWrapperButton.nonActive
+            }
             onClick={() => setFocusImage(image)}
           >
             <img

@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 export const imageSection = style({
   width: '100%',
@@ -14,14 +14,21 @@ export const subImageWrapper = style({
   overflowY: 'auto',
 });
 
-export const subImageWrapperButton = style({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  border: '1px solid black',
-
-  cursor: 'pointer',
+export const subImageWrapperButton = styleVariants({
+  active: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: '1px solid black',
+    cursor: 'pointer',
+  },
+  nonActive: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: 'none',
+    cursor: 'pointer',
+  },
 });
 
 export const subImage = style({
@@ -40,11 +47,8 @@ export const mainImageWrapper = style({
 });
 
 export const mainImage = style({
-  // height: 'auto',
-  // maxHeight: '450px',
   height: '440px',
-  // width: '100%',
   width: '440px',
   objectFit: 'contain',
-  border: '1px solid black',
+  border: 'none',
 });
