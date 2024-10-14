@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
-  width: '100%',
+  justifyContent: 'center',
   margin: '30px 0 ',
 });
 
@@ -34,4 +34,5 @@ export const categoryLink = style({
 
 export const page = style({
   padding: '50px',
+  width: 'calc(100% - 300px)',
 });
