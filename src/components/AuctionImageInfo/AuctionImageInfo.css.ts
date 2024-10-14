@@ -4,6 +4,7 @@ export const imageSection = style({
   width: '100%',
   display: 'flex',
   maxHeight: '500px',
+  minWidth: '540px',
 });
 
 export const subImageWrapper = style({
@@ -24,16 +25,16 @@ export const subImageWrapperButton = style({
 });
 
 export const subImage = style({
-  height: '80px',
-  width: '80px',
+  height: '70px',
+  width: '70px',
   objectFit: 'contain',
 });
 
 export const mainImageWrapper = style({
   height: '100%',
-  maxHeight: '480px',
+  maxHeight: '460px',
   width: '100%',
-  maxWidth: '480px',
+  maxWidth: '460px',
   display: 'flex',
   justifyContent: 'center',
 });
@@ -41,9 +42,9 @@ export const mainImageWrapper = style({
 export const mainImage = style({
   // height: 'auto',
   // maxHeight: '450px',
-  height: '450px',
+  height: '440px',
   // width: '100%',
-  width: '450px',
+  width: '440px',
   objectFit: 'contain',
   border: '1px solid black',
 });
