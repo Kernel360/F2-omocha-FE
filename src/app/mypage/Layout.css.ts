@@ -18,7 +18,6 @@ export const categoryList = style({
 export const profile = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
   gap: '25px',
 });
 
