@@ -2,8 +2,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
 
-// import Image from 'next/image';
-
 import * as S from './AuctionImageInfo.css';
 
 interface AuctionImageInfoProps {
