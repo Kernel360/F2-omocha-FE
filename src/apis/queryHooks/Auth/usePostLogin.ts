@@ -9,7 +9,7 @@ import { useTokenStore } from '@/store/token';
 
 function usePostLogin() {
   const router = useRouter();
-  const { setToken } = useTokenStore();
+  const { setToken, clearToken } = useTokenStore();
 
   const { mutate, error } = useMutation({
     mutationFn: (param: LoginParams) => postLogin(param),
@@ -26,8 +26,7 @@ function usePostLogin() {
         console.log('알 수 없는 오류 발생', e.message);
         alert('알 수 없는 오류가 발생했습니다.');
       }
-
-      // 토큰 제거
+      clearToken();
     },
   });
 
