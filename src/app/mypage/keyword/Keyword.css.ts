@@ -36,7 +36,7 @@ export const keywordContainer = style({
   border: '1.5px solid black',
   borderRadius: '4px',
   padding: '15px',
-  maxHeight: '200px',
+  maxHeight: '400px',
   height: '100%',
   overflow: 'scroll',
 });

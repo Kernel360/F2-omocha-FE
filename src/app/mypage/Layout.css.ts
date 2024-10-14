@@ -12,7 +12,6 @@ export const categoryList = style({
   listStyle: 'none',
   gap: '50px',
   padding: '50px',
-  borderRight: '1px solid gray',
 });
 
 export const profile = style({
