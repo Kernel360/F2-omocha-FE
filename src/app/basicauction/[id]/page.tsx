@@ -3,7 +3,6 @@ import { cookies } from 'next/headers';
 
 import { getBasicAuction } from '@/apis/queryFunctions/basicAuction';
 import { Breadcrumb } from '@/components/Breadcrumb';
-import TabsLayout from '@/components/TabsLayout';
 import { AuthProvider } from '@/provider/authProvider';
 
 import BasicAuctionInfo from './BasicAuctionInfo';
@@ -13,22 +12,6 @@ interface BasicAuctionDetailPageProps {
     id: number;
   };
 }
-
-const TABS = [
-  {
-    title: '상품 정보',
-    value: 'productInfo',
-  },
-  {
-    title: '상품 문의',
-    value: 'productInquiry',
-  },
-];
-
-const TABS_CONTENT = [
-  <div key="productInfo">상품 정보</div>,
-  <div key="productInquiry">상품 문의</div>,
-];
 
 async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
   const cookie = cookies();
@@ -48,19 +31,11 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
         <Breadcrumb.Item href="/basicauction">Products</Breadcrumb.Item>
         <Breadcrumb.Item>Product {params.id}</Breadcrumb.Item>
       </Breadcrumb>
-
       <HydrationBoundary state={dehydrate(queryClient)}>
         <AuthProvider initialToken={refreshToken}>
-          {/* <div>BasicAuctionDetailPage {params.id}</div> */}
           <BasicAuctionInfo id={params.id} />
         </AuthProvider>
       </HydrationBoundary>
-
-      <TabsLayout
-        defaultTriggerValue={TABS[0].value}
-        triggerTitleList={TABS}
-        childrenList={TABS_CONTENT}
-      />
     </div>
   );
 }
