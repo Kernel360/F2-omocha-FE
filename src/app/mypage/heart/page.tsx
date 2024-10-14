@@ -1,6 +1,6 @@
-import TabsLayout from '@/components/TabsLayout';
 import BasicHeart from '@/app/mypage/heart/components/basicheart';
 import LiveHeart from '@/app/mypage/heart/components/liveheart';
+import TabsLayout from '@/components/TabsLayout';
 
 import * as S from './Heart.css';
 
