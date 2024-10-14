@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
 
-import Image from 'next/image';
+// import Image from 'next/image';
 
 import * as S from './AuctionImageInfo.css';
 
@@ -9,10 +11,8 @@ interface AuctionImageInfoProps {
 }
 
 function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
-  console.log(imageList);
   const [focusImage, setFocusImage] = useState<string>(imageList[0]);
 
-  console.log(focusImage, setFocusImage);
   return (
     <div className={S.imageSection}>
       <div className={S.subImageWrapper}>
@@ -20,27 +20,23 @@ function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
           <button
             type="button"
             key={image}
-            className={S.subImageButton}
+            className={S.subImageWrapperButton}
             onClick={() => setFocusImage(image)}
           >
-            <Image
+            <img
               src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image}`}
               alt="Auction Image"
-              width={100}
-              height={100}
-              // className={S.cardImage}
+              className={S.subImage}
             />
           </button>
         ))}
       </div>
       <div className={S.mainImageWrapper}>
-        <Image
+        <img
           src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${focusImage}`}
           alt="Auction Image"
-          width={462}
-          height={462}
-          // className={S.cardImage}
-        />{' '}
+          className={S.mainImage}
+        />
       </div>
     </div>
   );
