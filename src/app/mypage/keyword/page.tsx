@@ -1,7 +1,11 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
 import DeleteIcon from '@/assets/svg/delete.svg';
+import ErrorIcon from '@/assets/svg/error.svg';
 
 import * as S from './Keyword.css';
 
@@ -44,24 +48,39 @@ function Home() {
     formState: { errors },
   } = useForm<Input>();
 
+  const keywordRequired = watch('keywordRequired');
+
+  const onSubmit: SubmitHandler<Input> = async data => {
+    console.log(data);
+  };
+
   return (
     <div className={S.keyword}>
       <h2>키워드</h2>
-      <section>
-        <form className={S.form}>
+      <section className={S.section}>
+        <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
           <input
             className={S.input}
-            id="currentPw"
-            type="password"
+            type="text"
             placeholder="알림 받을 키워드를 입력해 주세요."
             {...register('keywordRequired', {
               required: '키워드를 입력해 주세요.',
             })}
           />
-          <button className={S.formButton} type="submit">
+          <button
+            className={`${S.formButton} ${!keywordRequired ? S.disabledButton : ''}`}
+            type="submit"
+            disabled={!keywordRequired}
+          >
             등록
           </button>
         </form>
+        {errors.keywordRequired && (
+          <span className={S.inputError}>
+            <ErrorIcon />
+            {errors.keywordRequired.message}
+          </span>
+        )}
       </section>
       <section>
         <ul className={S.keywordContainer}>

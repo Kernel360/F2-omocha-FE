@@ -8,6 +8,8 @@ export const keyword = style({
 
 export const section = style({
   display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
 });
 
 export const form = style({
@@ -22,11 +24,26 @@ export const input = style({
   border: '1.5px solid black',
 });
 
+export const inputError = style({
+  display: 'flex',
+  gap: '4px',
+  alignItems: 'center',
+  color: 'red',
+  fontSize: '14px',
+  marginLeft: '10px',
+});
+
 export const formButton = style({
   width: '80px',
   backgroundColor: 'black',
   color: 'white',
   borderRadius: '4px',
+  cursor: 'pointer',
+});
+
+export const disabledButton = style({
+  backgroundColor: 'gray',
+  cursor: 'not-allowed',
 });
 
 export const keywordContainer = style({
