@@ -5,6 +5,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import ErrorIcon from '@/assets/svg/error.svg';
+import useUserStore from '@/store/useUserStore';
 
 import * as S from './Profile.css';
 
@@ -15,6 +16,7 @@ type Inputs = {
 };
 
 function Home() {
+  const user = useUserStore(state => state.user);
   const {
     register,
     handleSubmit,
@@ -35,7 +37,7 @@ function Home() {
         <h3>계정</h3>
         <label htmlFor="id" className={S.label}>
           <span>아이디</span>
-          <input className={S.input.disabled} id="id" type="text" value="hi@test.com" disabled />
+          <input className={S.input.disabled} id="id" type="text" value={user?.login_id} disabled />
         </label>
       </section>
       <section className={S.section}>

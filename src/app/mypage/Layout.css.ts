@@ -18,7 +18,7 @@ export const profile = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
-  paddingBottom: '30px',
+  padding: '10px 10px 30px 10px',
   borderBottom: '1px solid #eaeaea',
 });
 
