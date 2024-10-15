@@ -4,8 +4,9 @@ export const infoWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   padding: '12px',
-  width: '500px',
-  minWidth: '300px',
+  minWidth: '320px',
+  width: '100%',
+  maxWidth: '450px',
 });
 
 export const infoTitle = style({
