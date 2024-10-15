@@ -4,8 +4,9 @@ export const infoWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   padding: '12px',
-  width: '500px',
-  minWidth: '300px',
+  minWidth: '320px',
+  width: '100%',
+  maxWidth: '450px',
 });
 
 export const infoTitle = style({
@@ -83,7 +84,34 @@ export const bidButton = styleVariants({
   },
 });
 
+export const deleteButton = styleVariants({
+  default: {
+    marginTop: '20px',
+    background: 'red',
+    color: '#F0F0F0',
+    borderRadius: '4px',
+    border: 'none',
+    cursor: 'pointer',
+    height: '80px',
+    fontSize: '16px',
+    padding: '24px 24px',
+  },
+  disabled: {
+    padding: '24px 24px',
+    marginTop: '12px',
+    borderRadius: '4px',
+    border: 'none',
+    backgroundColor: 'darkred',
+    color: 'darkgray',
+    cursor: 'not-allowed',
+  },
+});
+
 export const bidButtonExplain = style({
   marginTop: '4px',
   fontSize: '12px',
+});
+
+export const bidPriceButton = style({
+  cursor: 'pointer',
 });

@@ -34,10 +34,10 @@ function useCountdownTimer({ endTime }: UseCountdownTimerProps) {
     };
   }, []);
 
-  const day = Math.floor(remainingTime / DAY_IN_MILLIS) || '-';
-  const hour = Math.floor((remainingTime % DAY_IN_MILLIS) / HOUR_IN_MILLIS) || '-';
-  const minute = Math.floor((remainingTime % HOUR_IN_MILLIS) / MINUTE_IN_MILLIS) || '-';
-  const second = Math.floor((remainingTime % MINUTE_IN_MILLIS) / 1000) || '-';
+  const day = Math.floor(remainingTime / DAY_IN_MILLIS) ?? '-';
+  const hour = Math.floor((remainingTime % DAY_IN_MILLIS) / HOUR_IN_MILLIS) ?? '-';
+  const minute = Math.floor((remainingTime % HOUR_IN_MILLIS) / MINUTE_IN_MILLIS) ?? '-';
+  const second = Math.floor((remainingTime % MINUTE_IN_MILLIS) / 1000) ?? '-';
   const isTimeout = remainingTime <= 0;
 
   return { isTimeout, remainingTime, day, hour, minute, second };
