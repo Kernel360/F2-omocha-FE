@@ -1,7 +1,8 @@
 import { style } from '@vanilla-extract/css';
 
 export const overlay = style({
-  position: 'absolute',
+  position: 'fixed',
+  zIndex: 80,
   top: '0',
   left: '0',
   width: '100%',
@@ -12,7 +13,8 @@ export const overlay = style({
 export const container = style({
   zIndex: 100,
   backgroundColor: 'rgba(255, 255, 255, 1)',
-  position: 'absolute',
+  position: 'fixed',
+  // position: 'absolute',
   top: '0',
   right: '0',
   height: '100%',

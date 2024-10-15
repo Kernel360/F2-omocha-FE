@@ -26,8 +26,7 @@ function ChattingListUnit({
   buyer_name,
   created_date,
 }: ChattingListUnitProps) {
-  console.log('auction_id', auction_id);
-  console.log('room_id', room_id);
+  console.log('auction_id', auction_id); // 임시 console
   console.log('seller_id', seller_id);
   console.log('now_price', now_price);
   console.log('buyer_id', buyer_id);
@@ -36,7 +35,6 @@ function ChattingListUnit({
   const {
     value: isOpenChatroomModal,
     toggle: setIsOpenChatroomListModal,
-    // setTrue: openChatroomListModal,
     setFalse: closeChatroomListModal,
   } = useBooleanState();
 
@@ -49,11 +47,10 @@ function ChattingListUnit({
           onClick={setIsOpenChatroomListModal}
         >
           <div className={S.isReadDot.read} />
-          {/* 임시로 해놓음 */}
           {/* //newRead ? S.isReadDot.read : S.isReadDot.noRead} /> */}
           <div className={S.chattingUnit}>
             <div className={S.chattingUnitInfo}>
-              <span className={S.chatOpponent}>{seller_name}</span>
+              <span className={S.chatOpponent}>{seller_name || 'test'}</span>
               <span className={S.chatTitle}>{room_name}</span>
               <span className={S.recentChatTime}>{created_date}</span>
               {/* //분 전 */}
