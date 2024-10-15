@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <ul className={S.categoryList}>
         <div className={S.profile}>
           <h2>유저 이름</h2>
-          <div>
+          <div className={S.heart}>
             <span>좋아요</span>
             <span>16</span>
           </div>

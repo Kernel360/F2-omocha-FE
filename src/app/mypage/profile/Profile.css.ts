@@ -42,6 +42,7 @@ export const input = styleVariants({
     inputBase,
     {
       border: '1.5px solid gray',
+      cursor: 'not-allowed',
     },
   ],
 });

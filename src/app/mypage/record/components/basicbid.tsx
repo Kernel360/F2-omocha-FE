@@ -66,7 +66,14 @@ export default function BasicBid() {
     <ul className={S.basicBid}>
       {LISTS.map(list => (
         <li className={S.list} key={list.id}>
-          <Image src={list.image} width={120} height={120} alt="경매 사진" />
+          <Image
+            className={S.image}
+            src={list.image}
+            width={0}
+            height={0}
+            sizes="100vw"
+            alt="경매 사진"
+          />
           <ul className={S.listRight}>
             <li>
               <span className={S.listName}>상품명</span>
