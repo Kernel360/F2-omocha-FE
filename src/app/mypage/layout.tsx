@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import ProfileIcon from '@/assets/svg/profile.svg';
 import { MYPAGE_CATEGORY } from '@/static/category';
 
 import * as S from './Layout.css';
@@ -15,10 +14,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className={S.container}>
       <ul className={S.categoryList}>
         <div className={S.profile}>
-          <div className={S.profileIcon}>
-            <ProfileIcon width="40px" />
+          <h2>유저 이름</h2>
+          <div className={S.heart}>
+            <span>좋아요</span>
+            <span>16</span>
           </div>
-          <h3>닉네임</h3>
         </div>
         {MYPAGE_CATEGORY.map(category => (
           <li key={category.id}>
