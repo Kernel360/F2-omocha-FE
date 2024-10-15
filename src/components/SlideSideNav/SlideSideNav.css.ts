@@ -14,7 +14,6 @@ export const container = style({
   zIndex: 100,
   backgroundColor: 'rgba(255, 255, 255, 1)',
   position: 'fixed',
-  // position: 'absolute',
   top: '0',
   right: '0',
   height: '100%',
