@@ -55,10 +55,9 @@ export interface PostBasicAuctionResponseData {
 
 // -----
 
-export type AuctionStatusType = 'PREBID' | 'BIDDING' | 'CONCLUDED' | 'COMPLETED';
 export interface GetBasicAuctionListParams {
   title?: string;
-  auctionStatus?: AuctionStatusType | string;
+  auctionStatus?: string;
   direction?: string;
   sort?: string;
   page?: number;
