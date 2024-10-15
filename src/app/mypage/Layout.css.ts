@@ -1,38 +1,54 @@
-import { style } from '@vanilla-extract/css';
+import { style, globalStyle } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
-  width: '100%',
-  margin: '30px 0 ',
+  justifyContent: 'center',
+  padding: '20px',
 });
 
 export const categoryList = style({
   display: 'flex',
   flexDirection: 'column',
   listStyle: 'none',
-  gap: '50px',
-  padding: '50px',
-  borderRight: '1px solid gray',
+  gap: '30px',
+  marginRight: '80px',
 });
 
 export const profile = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
-  gap: '25px',
+  gap: '20px',
+  paddingBottom: '30px',
+  borderBottom: '1px solid #eaeaea',
 });
 
-export const profileIcon = style({
+export const heart = style({
   display: 'flex',
-  border: '2px solid rgb(95, 99, 104)',
-  borderRadius: '50%',
+  alignItems: 'center',
+  gap: '10px',
+});
+
+globalStyle(`${heart} span:nth-child(1)`, {
+  fontSize: '18px',
+});
+
+globalStyle(`${heart} span:nth-child(2)`, {
+  display: 'flex',
+  justifyContent: 'center',
+  fontSize: '18px',
+  fontWeight: 'bold',
+  color: 'rgb(196,39,39, 0.7)',
+  backgroundColor: 'rgb(196,39,39, 0.2)',
+  minWidth: '50px',
   padding: '5px',
+  borderRadius: '20px',
 });
 
 export const categoryLink = style({
   textDecoration: 'none',
+  padding: '10px',
 });
 
 export const page = style({
-  padding: '50px',
+  width: 'calc(100% - 300px)',
 });
