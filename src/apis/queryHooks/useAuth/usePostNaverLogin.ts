@@ -11,7 +11,13 @@ function usePostNaverLogin() {
   const { mutate, error } = useMutation({
     mutationFn: () => postNaverLogin(),
     onSuccess: () => {
-      router.push('/');
+      const { referrer } = document;
+      const isOmochaAuctionPage = referrer.includes('omocha-auction');
+      if (referrer && isOmochaAuctionPage) {
+        router.back();
+      } else {
+        router.push('/');
+      }
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
