@@ -1,11 +1,11 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { cookies } from 'next/headers';
 
 import { getBasicAuction } from '@/apis/queryFunctions/basicAuction';
-import BasicAuctionInfo from '@/app/basicauction/[id]/BasicAuctionInfo';
 import { Breadcrumb } from '@/components/Breadcrumb';
-import TabsLayout from '@/components/TabsLayout';
+import { AuthProvider } from '@/provider/authProvider';
 
-import * as S from './BasicAuctionDetailPage.css';
+import BasicAuctionInfo from './BasicAuctionInfo';
 
 interface BasicAuctionDetailPageProps {
   params: {
@@ -13,23 +13,10 @@ interface BasicAuctionDetailPageProps {
   };
 }
 
-const TABS = [
-  {
-    title: '상품 정보',
-    value: 'productInfo',
-  },
-  {
-    title: '상품 문의',
-    value: 'productInquiry',
-  },
-];
-
-const TABS_CONTENT = [
-  <div key="productInfo">상품 정보</div>,
-  <div key="productInquiry">상품 문의</div>,
-];
-
 async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
+  const cookie = cookies();
+  const refreshToken = cookie.get('refresh')?.value || null;
+
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -44,17 +31,11 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
         <Breadcrumb.Item href="/basicauction">Products</Breadcrumb.Item>
         <Breadcrumb.Item>Product {params.id}</Breadcrumb.Item>
       </Breadcrumb>
-      <div className={S.auctionInfoWrapper}>
-        <div>BasicAuctionDetailPage {params.id}</div>
-        <HydrationBoundary state={dehydrate(queryClient)}>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <AuthProvider initialToken={refreshToken}>
           <BasicAuctionInfo id={params.id} />
-        </HydrationBoundary>
-      </div>
-      <TabsLayout
-        defaultTriggerValue={TABS[0].value}
-        triggerTitleList={TABS}
-        childrenList={TABS_CONTENT}
-      />
+        </AuthProvider>
+      </HydrationBoundary>
     </div>
   );
 }

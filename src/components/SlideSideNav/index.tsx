@@ -17,7 +17,7 @@ function SlideSideNav(Sample: SlideSideNavProps) {
 
   const sideNavRef = useRef<HTMLDivElement>(null);
 
-  useOnClickOutside(sideNavRef, onClose);
+  useOnClickOutside(sideNavRef, onClose, 'mousedown');
 
   if (!isOpen) return null;
 
