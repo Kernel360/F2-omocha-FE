@@ -66,6 +66,7 @@ export const chatTitle = style({
   whiteSpace: 'nowrap',
   width: '215px',
   fontSize: '12px',
+  textAlign: 'start',
 });
 
 export const recentChatTime = style({
@@ -77,4 +78,24 @@ export const recentChat = style({
   color: 'black',
   fontSize: '12px',
   textAlign: 'start',
+});
+
+//= =====
+
+export const chatroomContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
+  padding: '20px',
+  border: '1px solid #f0f0f0',
+  borderRadius: '10px',
+});
+
+export const closeButton = style({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  borderBottom: '1.5px solid black',
+  backgroundColor: 'transparent',
+  paddingBottom: '10px',
+  cursor: 'pointer',
 });

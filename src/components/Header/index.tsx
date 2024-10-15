@@ -27,7 +27,7 @@ const TABS = [
   },
 ];
 
-const TABS_CONTENT = [<Alarm key="알림" content="알림" />, <Chatting key="채팅" content="채팅" />];
+const TABS_CONTENT = [<Alarm key="알림" content="알림" />, <Chatting key="채팅" />];
 
 function Header() {
   const pathname = usePathname();

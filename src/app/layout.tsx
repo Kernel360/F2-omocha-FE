@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+import Head from 'next/head';
 import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
@@ -43,6 +44,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <Head>
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+      </Head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanstackProviders>
           <AuthProvider initialToken={refreshToken}>
