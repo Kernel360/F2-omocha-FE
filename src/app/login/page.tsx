@@ -94,12 +94,12 @@ function Home() {
       </ul>
       <span className={S.snsLoginTitle}>SNS계정으로 간편 로그인 / 회원가입</span>
       <div className={S.snsLoginSection}>
-        <button type="button" onClick={() => googleLogin()} style={{ cursor: 'pointer' }}>
+        <button type="button" onClick={() => googleLogin()} className={S.snsLoginButtonWrapper}>
           <div className={S.snsLoginButton.goggle}>
             <GoogleIcon />
           </div>
         </button>
-        <button type="button" onClick={() => naverLogin()} style={{ cursor: 'pointer' }}>
+        <button type="button" onClick={() => naverLogin()} className={S.snsLoginButtonWrapper}>
           <div className={S.snsLoginButton.naver}>
             <NaverIcon />
           </div>

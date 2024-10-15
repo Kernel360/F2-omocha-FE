@@ -96,6 +96,10 @@ export const snsLoginSection = style({
   marginTop: '20px',
 });
 
+export const snsLoginButtonWrapper = style({
+  cursor: 'pointer',
+});
+
 export const snsLoginBaseButton = style({
   width: '57px',
   height: '57px',
