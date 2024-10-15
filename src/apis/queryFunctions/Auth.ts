@@ -21,7 +21,3 @@ export const postRegister = (param: RegisterParams) =>
 
 export const postLogin = (param: LoginParams) =>
   apiClient.post<Response<string>>('/v1/auth/login', param);
-
-export const postGoogleLogin = () => apiClient.post<Response<string>>('/v1/oauth/authorize/google');
-
-export const postNaverLogin = () => apiClient.post<Response<string>>('/v1/oauth/authorize/naver');
