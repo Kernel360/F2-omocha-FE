@@ -9,7 +9,6 @@ import * as S from './Chatting.css';
 
 export interface ChatroomProps {
   roomId: number;
-  close: () => void;
 }
 
 interface Message {
@@ -28,10 +27,7 @@ interface ReceivedMessage {
   type: 'CHAT';
 }
 
-// const ME = 10;
-
-function Chattingroom({ roomId, close }: ChatroomProps) {
-  console.log(close); // lint 방지용 console
+function Chattingroom({ roomId }: ChatroomProps) {
   const user = useUserStore(state => state.user);
 
   const [messages, setMessages] = useState<Message[]>([]);

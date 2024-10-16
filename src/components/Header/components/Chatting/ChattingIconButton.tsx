@@ -32,7 +32,6 @@ function ChattingIconButton() {
           <Popover.Close className={S.popoverClose} aria-label="Close">
             <XIcon />
           </Popover.Close>
-          {/* <Popover.Arrow className={S.popoverArrow} /> */}
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>

@@ -106,7 +106,6 @@ export const chatroomContainer = style({
   padding: '16px 0px',
   backgroundColor: 'white',
   borderRadius: '12px',
-  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
 });
 
 export const chatroomHeader = style({
@@ -221,12 +220,6 @@ export const submitButton = style({
   },
 });
 
-// export const msgDate = style({
-//   fontSize: '10px',
-//   color: '#999',
-//   textAlign: 'end',
-// });
-
 // Message Styles
 export const msgDateBase = style({
   fontSize: '10px',
@@ -239,14 +232,12 @@ export const msgDate = styleVariants({
     msgDateBase,
     {
       marginLeft: 'auto',
-      // backgroundColor: 'rgba(230,39,39,0.6)',
     },
   ],
   opponentMsg: [
     msgDateBase,
     {
       marginRight: 'auto',
-      // backgroundColor: 'rgba(0,0,0,0.3)',
     },
   ],
 });

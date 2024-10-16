@@ -34,6 +34,10 @@ export const chattingListWrapper = style({
   overflowY: 'scroll',
 });
 
+export const chattingUnitButton = style({
+  width: '100%',
+});
+
 export const popoverContent = style({
   margin: '0 10px',
   borderRadius: '4px',
@@ -89,7 +93,7 @@ export const popoverClose = style({
   right: '5px',
   selectors: {
     '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.3)', // violet.violet3,
+      backgroundColor: 'rgba(0, 0, 0, 0.3)',
     },
     '&:focus': {
       boxShadow: `0 0 0 2px pink`,
@@ -113,7 +117,7 @@ export const iconButton = style({
   boxShadow: `0 2px 10px black`,
   selectors: {
     '&:hover': {
-      backgroundColor: 'rgba(255, 193, 200, 1)', // violet.violet3,
+      backgroundColor: 'rgba(255, 193, 200, 1)',
     },
     '&:focus': {
       boxShadow: '0 0 0 2px black',
@@ -129,7 +133,7 @@ export const fieldset = style({
 
 export const label = style({
   fontSize: '13px',
-  color: 'black', // violet.violet11,
+  color: 'black',
   width: '75px',
 });
 
@@ -143,8 +147,8 @@ export const input = style({
   padding: '0 10px',
   fontSize: '13px',
   lineHeight: 1,
-  color: 'black', // violet.violet11,
-  boxShadow: `0 0 0 1px 'black',`, // ${violet.violet7}
+  color: 'black',
+  boxShadow: `0 0 0 1px 'black',`,
   height: '25px',
   selectors: {
     '&:focus': {
@@ -155,7 +159,7 @@ export const input = style({
 
 export const text = style({
   margin: 0,
-  color: 'black', // mauve.mauve12,
+  color: 'black',
   fontSize: '15px',
   lineHeight: '19px',
   fontWeight: 500,
