@@ -7,7 +7,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Link from 'next/link';
 
-import { postGoogleLogin } from '@/apis/queryFunctions/Auth';
 import usePostLogin from '@/apis/queryHooks/Auth/usePostLogin';
 import ErrorIcon from '@/assets/svg/error.svg';
 import GoogleIcon from '@/assets/svg/google.svg';
@@ -34,7 +33,7 @@ function Home() {
     const newPassword = await sha256(data.passwordRequired);
 
     login({
-      login_id: data.idRequired,
+      email: data.idRequired,
       password: newPassword,
     });
   };
@@ -101,9 +100,6 @@ function Home() {
             <NaverIcon />
           </div>
         </Link>
-        <button type="button" onClick={postGoogleLogin}>
-          테스트
-        </button>
       </div>
     </div>
   );

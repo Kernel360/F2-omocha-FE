@@ -1,9 +1,9 @@
 export interface RegisterParams {
-  login_id: string;
+  email: string;
   password: string;
 }
 
 export interface LoginParams {
-  login_id: string;
+  email: string;
   password: string;
 }
