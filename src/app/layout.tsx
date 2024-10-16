@@ -54,7 +54,7 @@ export default function RootLayout({
             <Header />
             <div className={S.container}>
               {children}
-              <ChattingIconButton />
+              {refreshToken && <ChattingIconButton />}
             </div>
             <Footer />
           </AuthProvider>
