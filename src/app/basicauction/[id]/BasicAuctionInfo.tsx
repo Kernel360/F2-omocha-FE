@@ -42,6 +42,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
           endTime={data.result_data.end_date}
           bidCount={data.result_data.bid_count}
           bidUnit={data.result_data.bid_unit}
+          sellerId={data.result_data.seller_id}
         />
       </div>
       <TabsLayout
