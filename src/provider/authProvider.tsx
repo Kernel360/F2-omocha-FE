@@ -1,30 +1,20 @@
 'use client';
 
-import {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useMemo,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import { createContext, useContext, ReactNode, useMemo } from 'react';
 
 interface AuthContextType {
-  token: string | null;
-  setToken: Dispatch<SetStateAction<string | null>>;
+  isLoggedIn: boolean;
 }
 
 interface AuthProviderProps {
   children: ReactNode;
-  initialToken: string | null;
+  isLoggedIn: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export function AuthProvider({ children, initialToken }: AuthProviderProps) {
-  const [token, setToken] = useState(initialToken);
-  const value = useMemo(() => ({ token, setToken }), [token]);
+export function AuthProvider({ children, isLoggedIn }: AuthProviderProps) {
+  const value = useMemo(() => ({ isLoggedIn }), [isLoggedIn]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
