@@ -21,6 +21,8 @@ export const subImageWrapperButton = styleVariants({
     alignItems: 'center',
     border: '1px solid black',
     cursor: 'pointer',
+
+    borderSizing: 'border-box',
   },
   nonActive: {
     display: 'flex',
@@ -28,6 +30,7 @@ export const subImageWrapperButton = styleVariants({
     alignItems: 'center',
     border: 'none',
     cursor: 'pointer',
+    borderSizing: 'border-box',
   },
 });
 

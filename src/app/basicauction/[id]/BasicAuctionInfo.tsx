@@ -3,12 +3,12 @@
 import React from 'react';
 
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
+import BasicAuctionInfoContent from '@/app/basicauction/[id]/BasicAuctionInfoContent';
 import AuctionImageInfo from '@/components/AuctionImageInfo';
 import AuctionInfo from '@/components/AuctionInfo';
 import TabsLayout from '@/components/TabsLayout';
 
 import * as S from './BasicAuctionInfo.css';
-import BasicAuctionInfoContent from './BasicAuctionInfoContent';
 import BasicAuctionInfoQNA from './BasicAuctionInfoQNA';
 
 interface BasicAuctionInfoProps {

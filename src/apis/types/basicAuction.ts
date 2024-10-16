@@ -3,6 +3,9 @@ export type BasicAuctionResponseData = Omit<AuctionData, 'auction_id'> & {
   bid_unit: number;
   content: string;
   now_price: number;
+  seller_id: number;
+  status: string;
+  conclude_price: number | null;
 };
 
 //------
@@ -55,10 +58,9 @@ export interface PostBasicAuctionResponseData {
 
 // -----
 
-export type AuctionStatusType = 'PREBID' | 'BIDDING' | 'CONCLUDED' | 'COMPLETED';
 export interface GetBasicAuctionListParams {
   title?: string;
-  auctionStatus?: AuctionStatusType | string;
+  auctionStatus?: string;
   direction?: string;
   sort?: string;
   page?: number;

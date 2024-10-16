@@ -7,9 +7,12 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Link from 'next/link';
 
+import usePostGoogleLogin from '@/apis/queryHooks/useAuth/usePostGoogleLogin';
 import usePostLogin from '@/apis/queryHooks/useAuth/usePostLogin';
+import usePostNaverLogin from '@/apis/queryHooks/useAuth/usePostNaverLogin';
 import ErrorIcon from '@/assets/svg/error.svg';
-import GoggleIcon from '@/assets/svg/goggle.svg';
+import GoogleIcon from '@/assets/svg/google.svg';
+import NaverIcon from '@/assets/svg/naver.svg';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Login.css';
@@ -27,6 +30,8 @@ function Home() {
   } = useForm<Inputs>();
 
   const { mutate: login } = usePostLogin();
+  const { mutate: naverLogin } = usePostNaverLogin();
+  const { mutate: googleLogin } = usePostGoogleLogin();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     const newPassword = await sha256(data.passwordRequired);
@@ -89,11 +94,16 @@ function Home() {
       </ul>
       <span className={S.snsLoginTitle}>SNS계정으로 간편 로그인 / 회원가입</span>
       <div className={S.snsLoginSection}>
-        <Link href="https://www.google.co.kr/" rel="stylesheet">
-          <div className={S.snsLoginButton}>
-            <GoggleIcon />
+        <button type="button" onClick={() => googleLogin()} className={S.snsLoginButtonWrapper}>
+          <div className={S.snsLoginButton.goggle}>
+            <GoogleIcon />
           </div>
-        </Link>
+        </button>
+        <button type="button" onClick={() => naverLogin()} className={S.snsLoginButtonWrapper}>
+          <div className={S.snsLoginButton.naver}>
+            <NaverIcon />
+          </div>
+        </button>
       </div>
     </div>
   );
