@@ -8,13 +8,12 @@ import { Response } from '@/apis/types/common';
 
 function usePostLogin() {
   const router = useRouter();
+  const { referrer } = document;
+  const isOmochaAuctionPage = referrer.includes('omocha-auction');
 
   const { mutate, error } = useMutation({
     mutationFn: (param: LoginParams) => postLogin(param),
-    onSuccess: async () => {
-      const { referrer } = document;
-      const isOmochaAuctionPage = referrer.includes('omocha-auction');
-
+    onSuccess: () => {
       if (referrer && isOmochaAuctionPage) {
         router.back();
       } else {

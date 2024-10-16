@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
-
 import useDeleteBasicAuction from '@/apis/queryHooks/basicAuction/useDeleteBasicAuction';
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
@@ -8,10 +6,11 @@ import AuctionBidConfirmModal from '@/components/AuctionInfo/AuctionBidConfirmMo
 import AuctionBidListModal from '@/components/AuctionInfo/AuctionBidListModal';
 import AuctionCountdown from '@/components/AuctionInfo/AuctionCountdown';
 import AuctionDeleteConfirmModal from '@/components/AuctionInfo/AuctionDeleteConfirmModal';
+import { useHandleBidPrice } from '@/components/AuctionInfo/hooks/useHandleBidPrice';
+import { usePermissionBidPrice } from '@/components/AuctionInfo/hooks/usePermissionBidPrice';
 import { Modal } from '@/components/Modal/Modal';
 import ModalFooter from '@/components/Modal/ModalFooter';
 import useBooleanState from '@/hooks/useBooleanState';
-import { useTokenStore } from '@/store/token';
 
 import * as S from './AuctionInfo.css';
 
@@ -23,19 +22,13 @@ interface AuctionInfoProps {
   endTime: string;
   bidCount: number;
   bidUnit: number;
+  sellerId: number;
 }
 
-const SAMPLE_MEMBER_ID = 12;
-const SAMPLE_AUTHOR_ID = 12;
-
 function AuctionInfo(SAMPLE: AuctionInfoProps) {
-  const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit } = SAMPLE;
+  const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit, sellerId } = SAMPLE;
   const { mutate: postBidMutate } = usePostBasicAuctionBid();
   const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
-  const { refresh } = useTokenStore();
-
-  const [expired, setExpired] = useState(false);
-  const bidInputRef = useRef<HTMLInputElement>(null);
 
   const {
     value: isOpenBidListModal,
@@ -55,18 +48,17 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     setTrue: openDeleteConfirmModal,
   } = useBooleanState();
 
-  useEffect(() => {
-    if (bidInputRef.current && nowPrice) {
-      bidInputRef.current.value = String(nowPrice + bidUnit);
-    } else if (bidInputRef.current && startPrice) {
-      bidInputRef.current.value = String(startPrice);
-    }
-  }, [nowPrice, startPrice]);
+  const { bidInputRef, handleBidPriceDown } = useHandleBidPrice({
+    nowPrice,
+    startPrice,
+    bidUnit,
+  });
+
+  const { expired, setExpired, token, canNotBid, canDelete } = usePermissionBidPrice(sellerId);
 
   const handleBidButton = () => {
     if (bidInputRef.current) {
       const bidAmount = bidInputRef.current.value;
-
       postBidMutate({
         id,
         params: {
@@ -76,32 +68,6 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     }
     setIsOpenBidConfirmModal();
   };
-
-  const handleBidPriceDown = () => {
-    const bidInput = Number(bidInputRef.current?.value);
-    let currentBid = bidInput;
-    if (nowPrice && bidInput - bidUnit >= nowPrice) {
-      currentBid -= bidUnit;
-    } else if (bidInput - bidUnit >= startPrice) {
-      currentBid -= bidUnit;
-    }
-
-    if (currentBid >= nowPrice! + bidUnit && bidInputRef.current) {
-      bidInputRef.current.value = String(currentBid);
-    }
-  };
-
-  const canNotBid = () => {
-    if (expired) {
-      return '경매 진행 기간이 아닙니다.';
-    }
-    if (!refresh) {
-      return '로그인 후 사용 가능한 서비스입니다.';
-    }
-    return '';
-  };
-
-  const canDelete = SAMPLE_MEMBER_ID === SAMPLE_AUTHOR_ID;
 
   return (
     <div className={S.infoWrapper}>
@@ -186,9 +152,9 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         </button>
       ) : (
         <button
-          disabled={expired || !refresh}
+          disabled={expired || !token}
           type="button"
-          className={expired || !refresh ? S.bidButton.disabled : S.bidButton.default}
+          className={expired || !token ? S.bidButton.disabled : S.bidButton.default}
           onClick={openBidConfirmModal}
         >
           입찰하기
