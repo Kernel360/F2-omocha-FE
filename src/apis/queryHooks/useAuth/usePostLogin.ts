@@ -11,6 +11,8 @@ import useUserStore from '@/store/useUserStore';
 function usePostLogin() {
   const router = useRouter();
   const { setUser } = useUserStore();
+  const { referrer } = document;
+  const isOmochaAuctionPage = referrer.includes('omocha-auction');
 
   const { mutate, error } = useMutation({
     mutationFn: (param: LoginParams) => postLogin(param),
@@ -18,7 +20,11 @@ function usePostLogin() {
       try {
         const userData = await getUser();
         setUser(userData);
-        router.push('/');
+        if (referrer && isOmochaAuctionPage) {
+          router.back();
+        } else {
+          router.push('/');
+        }
       } catch (e: unknown) {
         if (e instanceof AxiosError) {
           console.log(e.message);
