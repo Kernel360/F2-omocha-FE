@@ -3,7 +3,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import * as StompJs from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
-import { getUser } from '@/apis/testForChatting';
+import useUserStore from '@/store/useUserStore';
 
 import * as S from './Chatting.css';
 
@@ -32,6 +32,7 @@ const ME = 10;
 
 function Chattingroom({ roomId, close }: ChatroomProps) {
   console.log(close); // lint 방지용 console
+  const user = useUserStore(state => state.user);
 
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -55,16 +56,6 @@ function Chattingroom({ roomId, close }: ChatroomProps) {
   const socket = new SockJS(`${process.env.NEXT_PUBLIC_SOCKET_SERVER_URL}`);
   const client = useRef<StompJs.Client>();
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const fetchUserId = async () => {
-    try {
-      const data = await getUser(); //  zustand 사용해서 수정해야함
-      return data.member_id; // userId를 반환
-    } catch (error) {
-      console.error('Error fetching user data:', error); // 에러 처리
-      return null; // 에러 발생 시 null 반환
-    }
-  };
 
   useEffect(() => {
     const disconnect = () => {
@@ -114,8 +105,6 @@ function Chattingroom({ roomId, close }: ChatroomProps) {
   }, [roomId]);
 
   const sendMessage = async (message: string) => {
-    const senderId = await fetchUserId();
-
     console.log('Destination URL:', `https://api.omocha-auction.com/pub/${roomId}/messages`); // 생성된 URL을 확인합니다.
 
     client.current?.publish({
@@ -123,7 +112,7 @@ function Chattingroom({ roomId, close }: ChatroomProps) {
       body: JSON.stringify({
         message_type: 'CHAT',
         message,
-        sender_id: senderId,
+        sender_id: user?.member_id,
       }),
     });
   };
