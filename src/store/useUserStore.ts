@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { UserData } from '@/apis/types/User';
 
@@ -18,6 +18,7 @@ const useUserStore = create(
     }),
     {
       name: 'user-info-storage',
+      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );
