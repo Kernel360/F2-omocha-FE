@@ -4,17 +4,12 @@
 
 import * as Popover from '@radix-ui/react-popover';
 
-import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import XIcon from '@/assets/svg/x.svg';
 
 import * as S from './ChattingIconButton.css';
 import ChattingList from './ChattingList';
 
 function ChattingIconButton() {
-  const { data } = useGetChatroomList({ pageable: 0 });
-
-  if (!data) return null;
-
   return (
     <Popover.Root>
       <Popover.Trigger asChild>

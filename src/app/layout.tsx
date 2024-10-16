@@ -52,12 +52,12 @@ export default function RootLayout({
         <TanstackProviders>
           <AuthProvider initialToken={refreshToken}>
             <Header />
+            <div className={S.container}>
+              {children}
+              <ChattingIconButton />
+            </div>
+            <Footer />
           </AuthProvider>
-          <div className={S.container}>
-            {children}
-            <ChattingIconButton />
-          </div>
-          <Footer />
         </TanstackProviders>
         <div id="root-portal" />
       </body>

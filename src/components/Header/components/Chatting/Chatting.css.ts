@@ -76,9 +76,7 @@ export const chatTitle = style({
   textOverflow: 'ellipsis',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
-  // width: '220px',
   width: '100%',
-
   fontSize: '14px',
   fontWeight: '600',
   textAlign: 'start',
@@ -102,8 +100,7 @@ export const recentChat = style({
 export const chatroomContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  margin: '16px 0',
-  padding: '16px 0px',
+
   backgroundColor: 'white',
   borderRadius: '12px',
 });
@@ -128,7 +125,7 @@ export const chatListWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
-  height: '300px',
+  height: '330px',
   overflowY: 'auto',
   backgroundColor: '#f9f9f9',
   padding: '10px',
@@ -192,7 +189,6 @@ export const inputSection = style({
   gap: '8px',
   borderTop: '1px solid #e5e5e5',
   paddingTop: '16px',
-  padding: '16px 8px 0 8px',
 });
 
 export const inputWrapper = style({

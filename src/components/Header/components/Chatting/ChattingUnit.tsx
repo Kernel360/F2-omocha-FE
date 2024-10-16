@@ -29,7 +29,6 @@ function ChattingUnit({
   return (
     <li key={room_id}>
       <div className={S.chattingUnitSection}>
-        <div className={S.isReadDot.read} />
         {/* //newRead ? S.isReadDot.read : S.isReadDot.noRead} /> */}
         <div className={S.chattingUnit}>
           <div className={S.chattingUnitInfo}>

@@ -1,20 +1,31 @@
 import { useState } from 'react';
 
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
+import useUserStore from '@/store/useUserStore';
 
 import * as S from './ChattingIconButton.css';
 import ChattingUnit from './ChattingUnit';
 import Chattingroom from './Chattingroom';
 
 function Chatting() {
-  const { data } = useGetChatroomList({ pageable: 0 });
+  const user = useUserStore(state => state.user);
+
+  const { data } = useGetChatroomList({ pageable: 0 }, user);
 
   const [openChatroomId, setOpenChatroomId] = useState<number | null>(null);
 
   if (!data) return null;
 
   return (
-    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 10 }}>
+    <div
+      style={{
+        minHeight: '480px',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+      }}
+    >
       {openChatroomId ? (
         <>
           <button type="button" onClick={() => setOpenChatroomId(null)}>

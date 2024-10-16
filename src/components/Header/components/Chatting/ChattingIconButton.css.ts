@@ -30,7 +30,7 @@ export const title = style({
 
 export const chattingListWrapper = style({
   marginTop: '35px',
-  height: '300px',
+  height: '100%',
   overflowY: 'scroll',
 });
 
@@ -43,7 +43,6 @@ export const popoverContent = style({
   borderRadius: '4px',
   padding: '20px',
   width: '320px',
-
   backgroundColor: 'white',
   boxShadow: `
     hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
