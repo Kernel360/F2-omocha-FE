@@ -2,6 +2,7 @@
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionList from '@/components/AuctionList';
+// import ChatModalTest from '@/components/ChatModalTest';
 
 export default function Home() {
   const { data } = useGetBasicAuctionList({
@@ -24,6 +25,7 @@ export default function Home() {
       <AuctionList data={data} isLink path="/basicauction" pathname="일반 경매" />
       {/* 특정 유저의 상품 모아 놓기(필수 아님) */}
       <AuctionList data={data} pathname="000 판매자" />
+      {/* <ChatModalTest /> */}
     </div>
   );
 }

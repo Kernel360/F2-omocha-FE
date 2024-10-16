@@ -11,3 +11,20 @@ function Portal({ children }: PortalProps) {
 }
 
 export default Portal;
+
+// function Portal(props: PortalProps) {
+//   const { children } = props;
+//   const [element, setElement] = useState<HTMLElement | null>(null);
+
+//   useEffect(() => {
+//     setElement(document.getElementById('portal'));
+//   }, []);
+
+//   if (!element) {
+//     return null;
+//   }
+
+//   return ReactDOM.createPortal(children, element);
+// }
+
+// export default Portal;

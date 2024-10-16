@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
+// import ChatModalTest from '@/components/ChatModalTest';
+import ChatModalTest from '@/components/ChatModalTest';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { AuthProvider } from '@/provider/authProvider';
@@ -53,6 +55,7 @@ export default function RootLayout({
             <Header />
           </AuthProvider>
           <div className={S.container}>{children}</div>
+          <ChatModalTest />
           <Footer />
         </TanstackProviders>
         <div id="root-portal" />

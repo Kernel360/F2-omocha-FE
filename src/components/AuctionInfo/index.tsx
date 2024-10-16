@@ -25,8 +25,8 @@ interface AuctionInfoProps {
   bidUnit: number;
 }
 
-const SAMPLE_MEMBER_ID = 12;
-const SAMPLE_AUTHOR_ID = 12;
+const SAMPLE_MEMBER_ID = 13;
+const SAMPLE_AUTHOR_ID = 13;
 
 function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const { token } = useAuth();
