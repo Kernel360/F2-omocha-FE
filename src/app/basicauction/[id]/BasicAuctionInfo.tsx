@@ -3,13 +3,12 @@
 import React from 'react';
 
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
+import BasicAuctionInfoContent from '@/app/basicauction/[id]/BasicAuctionInfoContent';
 import AuctionImageInfo from '@/components/AuctionImageInfo';
 import AuctionInfo from '@/components/AuctionInfo';
 import TabsLayout from '@/components/TabsLayout';
 
 import * as S from './BasicAuctionInfo.css';
-import BasicAuctionInfoContent from './BasicAuctionInfoContent';
-// import BasicAuctionInfoQNA from './BasicAuctionInfoQNA';
 
 interface BasicAuctionInfoProps {
   id: number;
@@ -42,6 +41,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
           endTime={data.result_data.end_date}
           bidCount={data.result_data.bid_count}
           bidUnit={data.result_data.bid_unit}
+          sellerId={data.result_data.seller_id}
         />
       </div>
       <TabsLayout
@@ -49,7 +49,6 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
         triggerTitleList={TABS}
         childrenList={[
           <BasicAuctionInfoContent key="productInfo" id={id} content={data.result_data.content} />,
-          // <BasicAuctionInfoQNA key="productInquiry" />,
         ]}
       />
     </div>

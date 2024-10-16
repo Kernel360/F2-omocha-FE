@@ -20,7 +20,7 @@ const TABS_CONTENT = [<BasicHeart key="basicHeart" />, <LiveHeart key="liveHeart
 function Home() {
   return (
     <div className={S.heart}>
-      <h2>찜</h2>
+      <h2>찜 (16)</h2>
       <TabsLayout
         defaultTriggerValue={TABS[0].value}
         triggerTitleList={TABS}
