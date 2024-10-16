@@ -3,10 +3,9 @@ import Head from 'next/head';
 import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
-// import ChatModalTest from '@/components/ChatModalTest';
-import ChatModalTest from '@/components/ChatModalTest';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import ChattingIconButton from '@/components/Header/components/Chatting/ChattingIconButton';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 
@@ -54,8 +53,10 @@ export default function RootLayout({
           <AuthProvider initialToken={refreshToken}>
             <Header />
           </AuthProvider>
-          <div className={S.container}>{children}</div>
-          <ChatModalTest />
+          <div className={S.container}>
+            {children}
+            <ChattingIconButton />
+          </div>
           <Footer />
         </TanstackProviders>
         <div id="root-portal" />

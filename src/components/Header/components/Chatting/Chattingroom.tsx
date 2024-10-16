@@ -28,7 +28,7 @@ interface ReceivedMessage {
   type: 'CHAT';
 }
 
-const ME = 10;
+// const ME = 10;
 
 function Chattingroom({ roomId, close }: ChatroomProps) {
   console.log(close); // lint 방지용 console
@@ -136,12 +136,23 @@ function Chattingroom({ roomId, close }: ChatroomProps) {
           return (
             <div
               key={`${msg.date}+${msg.text}`}
-              className={msg.sender_id === ME ? S.msgBox.myMsg : S.msgBox.opponentMsg}
+              className={msg.sender_id === user?.member_id ? S.msgBox.myMsg : S.msgBox.opponentMsg}
+              // 이 삼항 연산 부분 리팩토링 필요
             >
-              <div className={msg.sender_id === ME ? S.msgWrapper.myMsg : S.msgWrapper.opponentMsg}>
+              <div
+                className={
+                  msg.sender_id === user?.member_id ? S.msgWrapper.myMsg : S.msgWrapper.opponentMsg
+                }
+              >
                 <span className={S.msg}>{msg.text}</span>
               </div>
-              <p className={S.msgDate}>{msg.date}</p>
+              <p
+                className={
+                  msg.sender_id === user?.member_id ? S.msgDate.myMsg : S.msgDate.opponentMsg
+                }
+              >
+                {msg.date}
+              </p>
             </div>
           );
         })}

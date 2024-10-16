@@ -1,6 +1,7 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
 export const container = style({
+  position: 'relative',
   padding: '16px 24px',
   backgroundColor: 'white',
   color: 'black',
@@ -8,6 +9,7 @@ export const container = style({
 });
 
 export const title = style({
+  position: 'fixed',
   fontSize: '18px',
   fontWeight: 'bold',
   margin: '16px 0',
@@ -19,7 +21,8 @@ export const chattingUnitSection = style({
   display: 'flex',
   alignItems: 'center',
   gap: '16px',
-  padding: '16px',
+  padding: '16px 0',
+  width: '100%',
   borderBottom: '1px solid #e5e5e5',
   transition: 'background-color 0.2s ease',
   ':hover': {
@@ -31,6 +34,7 @@ export const chattingUnit = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
+  width: '100%',
 });
 
 export const chattingUnitInfo = style({
@@ -72,7 +76,9 @@ export const chatTitle = style({
   textOverflow: 'ellipsis',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
-  width: '220px',
+  // width: '220px',
+  width: '100%',
+
   fontSize: '14px',
   fontWeight: '600',
   textAlign: 'start',
@@ -81,6 +87,8 @@ export const chatTitle = style({
 export const recentChatTime = style({
   color: '#999',
   fontSize: '12px',
+  width: 'fit-content',
+  minWidth: '45px',
   textAlign: 'start',
 });
 
@@ -213,8 +221,32 @@ export const submitButton = style({
   },
 });
 
-export const msgDate = style({
+// export const msgDate = style({
+//   fontSize: '10px',
+//   color: '#999',
+//   textAlign: 'end',
+// });
+
+// Message Styles
+export const msgDateBase = style({
   fontSize: '10px',
   color: '#999',
   textAlign: 'end',
+});
+
+export const msgDate = styleVariants({
+  myMsg: [
+    msgDateBase,
+    {
+      marginLeft: 'auto',
+      // backgroundColor: 'rgba(230,39,39,0.6)',
+    },
+  ],
+  opponentMsg: [
+    msgDateBase,
+    {
+      marginRight: 'auto',
+      // backgroundColor: 'rgba(0,0,0,0.3)',
+    },
+  ],
 });

@@ -52,8 +52,7 @@ function ChattingListUnit({
             <div className={S.chattingUnitInfo}>
               <span className={S.chatOpponent}>{seller_name || 'test'}</span>
               <span className={S.chatTitle}>{room_name}</span>
-              <span className={S.recentChatTime}>{created_date}</span>
-              {/* //분 전 */}
+              <span className={S.recentChatTime}>nnn분전</span>
             </div>
             <span className={S.recentChat}>{created_date}</span>
           </div>

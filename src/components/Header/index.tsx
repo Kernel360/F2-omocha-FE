@@ -8,26 +8,11 @@ import { useAuth } from '@/provider/authProvider';
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 
 import SlideSideNav from '../SlideSideNav';
-import TabsLayout from '../TabsLayout';
 
 import * as S from './Header.css';
 import Alarm from './components/Alarm';
-import Chatting from './components/Chatting';
 import HeaderActionItem from './components/HeaderActionItem';
 import HeaderLinkItem from './components/HeaderLinkItem';
-
-const TABS = [
-  {
-    title: '알림',
-    value: 'Alarm',
-  },
-  {
-    title: '채팅',
-    value: 'Chatting',
-  },
-];
-
-const TABS_CONTENT = [<Alarm key="알림" content="준비중입니다!" />, <Chatting key="채팅" />];
 
 function Header() {
   const pathname = usePathname();
@@ -87,11 +72,7 @@ function Header() {
         ))}
       </section>
       <SlideSideNav isOpen={value} onClose={setFalse}>
-        <TabsLayout
-          defaultTriggerValue={TABS[0].value}
-          triggerTitleList={TABS}
-          childrenList={TABS_CONTENT}
-        />
+        <Alarm content="준비중입니다!" />
       </SlideSideNav>
     </header>
   );
