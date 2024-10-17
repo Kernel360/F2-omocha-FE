@@ -21,3 +21,5 @@ export const postRegister = (param: RegisterParams) =>
 
 export const postLogin = (param: LoginParams) =>
   apiClient.post<Response<string>>('/v1/auth/login', param);
+
+export const postLogout = () => apiClient.post<Response<null>>('v1/auth/logout');
