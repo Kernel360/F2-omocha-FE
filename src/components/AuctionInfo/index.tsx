@@ -109,9 +109,9 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         <div className={S.infoRight}>
           <span>{`${bidUnit} 원`}</span>
         </div>
-        <Modal isOpen={isOpenBidListModal} onOpenChange={setIsOpenBidListModal}>
+        {/* <Modal isOpen={isOpenBidListModal} onOpenChange={setIsOpenBidListModal}>
           <AuctionBidListModal id={id} />
-        </Modal>
+        </Modal> */}
       </div>
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>입찰 희망가</span>
