@@ -182,21 +182,26 @@ export const accordionTrigger = style({
   padding: '10px 20px',
   fontSize: '14px',
   width: '100%',
+  gap: '10px',
   display: 'flex ',
+  flexDirection: 'column',
   justifyContent: 'space-between',
-
   fontFamily: 'inherit',
-
-  height: '45px',
+  minHeight: '45px',
   flex: 1,
-
   alignItems: 'center',
-
   lineHeight: 1,
   color: 'black',
-
   backgroundColor: 'var(--accordion-bg-color)',
   transition: 'background-color 0.3s',
+});
+
+export const questionWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '100%',
+  gap: '10px',
 });
 
 export const userEmail = style({
@@ -230,12 +235,19 @@ export const haveAnswerVariants = styleVariants({
   ],
 });
 
+export const questionDeleteButton = style({
+  padding: '5px',
+  fontSize: '12px',
+  color: 'black',
+  cursor: 'pointer',
+  marginLeft: 'auto',
+});
+
 export const accordionContent = style({
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
   boxSizing: 'border-box',
-  // width: 'fit-content',
   width: '100%',
   fontSize: '15px',
   color: 'black',

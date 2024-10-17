@@ -50,12 +50,14 @@ export const needLoginSection = style({
   gap: '20px',
   alignItems: 'center',
 });
+
 export const noUserMessage = style({
   padding: '16px',
   textAlign: 'center',
   fontSize: '16px',
   color: '#999',
 });
+
 export const loginButton = style({
   border: 'none',
   color: 'white',

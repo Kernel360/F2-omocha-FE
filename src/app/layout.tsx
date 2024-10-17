@@ -54,7 +54,7 @@ export default function RootLayout({
             <Header />
             <div className={S.container}>
               {children}
-              {isLoggedIn && <ChattingIconButton />}
+              <ChattingIconButton />
             </div>
           </AuthProvider>
           <Footer />
