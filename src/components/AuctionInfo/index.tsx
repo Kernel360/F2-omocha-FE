@@ -54,7 +54,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     bidUnit,
   });
 
-  const { expired, setExpired, isLoggedIn, canNotBid, canDelete } = usePermissionBidPrice(sellerId);
+  const { expired, setExpired, user, canNotBid, canDelete } = usePermissionBidPrice(sellerId);
 
   const handleBidButton = () => {
     if (bidInputRef.current) {
@@ -152,9 +152,9 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         </button>
       ) : (
         <button
-          disabled={expired || !isLoggedIn}
+          disabled={expired || !user}
           type="button"
-          className={expired || !isLoggedIn ? S.bidButton.disabled : S.bidButton.default}
+          className={expired || !user ? S.bidButton.disabled : S.bidButton.default}
           onClick={openBidConfirmModal}
         >
           입찰하기

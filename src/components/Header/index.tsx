@@ -7,8 +7,8 @@ import Alarm from '@/components/Header/components/Alarm';
 import SlideSideNav from '@/components/SlideSideNav';
 import TabsLayout from '@/components/TabsLayout';
 import useBooleanState from '@/hooks/useBooleanState';
-import { useAuth } from '@/provider/authProvider';
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
+import useUserStore from '@/store/useUserStore';
 
 import * as S from './Header.css';
 
@@ -28,8 +28,8 @@ const TABS_CONTENT = [<Alarm key="알림" content="알림" />, <Alarm key="채�
 function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const { isLoggedIn } = useAuth();
   const { value, setTrue, setFalse } = useBooleanState(false);
+  const { user, removeUser } = useUserStore();
 
   return (
     <header className={S.container}>
@@ -39,12 +39,13 @@ function Header() {
         </Link>
         <div className={S.topCategory}>
           {SUB_CATEGORY.map(category => {
-            if (category.name === '로그인' && isLoggedIn) {
+            if (category.name === '로그인' && user) {
               return (
                 <button
                   key={category.id}
                   type="button"
                   onClick={() => {
+                    removeUser();
                     console.log('로그아웃');
                   }}
                 >
@@ -65,7 +66,7 @@ function Header() {
                 key={category.id}
                 type="button"
                 onClick={() => {
-                  if (isLoggedIn) {
+                  if (user) {
                     setTrue();
                   } else {
                     router.push('/login');

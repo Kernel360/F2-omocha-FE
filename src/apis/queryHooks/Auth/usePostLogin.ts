@@ -3,22 +3,27 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
 import { postLogin } from '@/apis/queryFunctions/Auth';
+import { getUser } from '@/apis/queryFunctions/User';
 import { LoginParams } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
+import useUserStore from '@/store/useUserStore';
 
 function usePostLogin() {
+  const setUser = useUserStore(state => state.setUser);
   const router = useRouter();
   const { referrer } = document;
   const isOmochaAuctionPage = referrer.includes('omocha-auction');
 
   const { mutate, error } = useMutation({
     mutationFn: (param: LoginParams) => postLogin(param),
-    onSuccess: () => {
+    onSuccess: async () => {
       if (referrer && isOmochaAuctionPage) {
         router.back();
       } else {
         router.push('/');
       }
+      const data = await getUser();
+      setUser(data);
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
