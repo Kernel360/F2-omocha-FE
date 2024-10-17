@@ -31,7 +31,7 @@ function BasicAuctionInfoQNA({ id, isSeller, userEmail }: BasicAuctionInfoQNAPro
 
   return (
     <div className={S.accordionContainer}>
-      {isSeller && (
+      {!isSeller && (
         <Accordion.Root type="single" collapsible>
           <Accordion.Item value={'postQNATrigger'} className={S.accordionItemButton}>
             <AccordionTrigger className={S.qnaPostButton}>QnA 쓰기</AccordionTrigger>
@@ -93,7 +93,7 @@ function BasicAuctionInfoQNA({ id, isSeller, userEmail }: BasicAuctionInfoQNAPro
                 <div className={S.createAt}>{item.question_response.created_at}</div>
                 <div
                   className={
-                    item.answer_response ? S.haveAnswerVariants.yes : S.haveAnswerVariants.yes
+                    item.answer_response ? S.haveAnswerVariants.yes : S.haveAnswerVariants.no
                   }
                 >
                   {item.answer_response ? 'yes' : 'no'}
@@ -101,9 +101,13 @@ function BasicAuctionInfoQNA({ id, isSeller, userEmail }: BasicAuctionInfoQNAPro
               </div>
             </AccordionTrigger>
             <AccordionContent className={S.accordionContent}>
-              {item.answer_response?.content}
-              <span className={S.answerTitle}>답변.</span>
               {item.question_response.content}
+              {item.answer_response && (
+                <>
+                  <span className={S.answerTitle}>답변.</span>
+                  {item.answer_response.content}
+                </>
+              )}
             </AccordionContent>
           </Accordion.Item>
         ))}
