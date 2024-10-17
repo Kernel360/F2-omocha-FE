@@ -98,7 +98,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
           <span>원</span>
         </span>
       </div>
-      <div className={`${S.infoRow} `}>
+      <div className={`${S.infoRow} ${S.nowPrice}`}>
         <span className={S.infoRowTitle}>현재가</span>
         <span>
           {currentPrice && currentPrice.result_data.now_price !== 0

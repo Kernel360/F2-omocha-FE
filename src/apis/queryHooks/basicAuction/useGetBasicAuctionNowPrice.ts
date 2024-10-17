@@ -4,7 +4,7 @@ import { getNowPrice } from '@/apis/queryFunctions/basicAuction';
 
 function useGetBasicAuctionNowPrice(id: number) {
   const { data, error, refetch } = useQuery({
-    queryKey: ['nowPrice'],
+    queryKey: ['nowPrice', id],
     queryFn: () => getNowPrice(id),
   });
 
