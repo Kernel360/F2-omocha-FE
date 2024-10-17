@@ -1,10 +1,6 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 'use client';
 
 import * as Popover from '@radix-ui/react-popover';
-
-import XIcon from '@/assets/svg/x.svg';
 
 import * as S from './ChattingIconButton.css';
 import ChattingList from './ChattingList';
@@ -24,9 +20,6 @@ function ChattingIconButton() {
           }}
         >
           <ChattingList />
-          <Popover.Close className={S.popoverClose} aria-label="Close">
-            <XIcon />
-          </Popover.Close>
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>

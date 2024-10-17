@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
+import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
 import useUserStore from '@/store/useUserStore';
 
 import * as S from './ChattingIconButton.css';
@@ -28,8 +29,8 @@ function Chatting() {
     >
       {openChatroomId ? (
         <>
-          <button type="button" onClick={() => setOpenChatroomId(null)}>
-            닫기
+          <button type="button" onClick={() => setOpenChatroomId(null)} className={S.goBackButton}>
+            <ChevronDownIcon />
           </button>
           <Chattingroom roomId={openChatroomId} />
         </>

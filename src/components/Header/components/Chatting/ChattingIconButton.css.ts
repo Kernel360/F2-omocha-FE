@@ -20,6 +20,24 @@ const slideLeftAndFade = keyframes({
   to: { opacity: 1, transform: 'translateX(0)' },
 });
 
+export const goBackButton = style({
+  width: 'fit-content',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: 'black',
+  transform: 'rotate(90deg)',
+  borderRadius: '100%',
+  selectors: {
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    '&:focus': {
+      boxShadow: `0 0 0 2px black`,
+    },
+  },
+});
+
 export const title = style({
   position: 'fixed',
   fontSize: '18px',
