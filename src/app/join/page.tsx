@@ -6,6 +6,7 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import useGetEmailValidation from '@/apis/queryHooks/Auth/useGetEmailValidation';
 import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
 import CheckIcon from '@/assets/svg/check.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
@@ -36,51 +37,37 @@ function Home() {
     },
   });
 
-  const { mutate } = usePostRegister();
-
   const emailValue = watch('emailRequired');
   const passwordValue = watch('passwordRequired');
 
   const [emailCheck, setEmailCheck] = useState(false);
+  const [emailApiCheck, setEamilApiCheck] = useState(false);
 
-  const checkEmail = () => {
-    if (emailValue === '' || emailValue === null || emailValue === undefined) {
-      return;
-    }
+  const { mutate } = usePostRegister();
+  const { data: canUseEmail } = useGetEmailValidation(emailApiCheck ? emailValue : null);
 
-    const emailExists = false; // 실제 API를 통해 중복 여부 확인
-
-    if (emailExists) {
-      setError('emailRequired', { type: 'manual', message: '중복된 이메일이 있습니다.' });
-    } else {
+  const handleCheckEmail = async () => {
+    if (emailValue && canUseEmail) {
       setEmailCheck(true);
       clearErrors('emailRequired');
+    } else {
+      setError('emailRequired', { type: 'manual', message: '중복된 이메일이 있습니다.' });
+      setEmailCheck(false);
     }
   };
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
-    if (!emailCheck) {
-      setError('emailRequired', { type: 'manual', message: '이메일 중복 확인이 필요합니다.' });
-      return;
-    }
     const newPassword = await sha256(data.passwordCheckRequired);
-
     mutate({ email: data.emailRequired, password: newPassword });
   };
 
-  const isEmailValid = !errors.emailRequired;
-
   const getButtonStyle = () => {
-    if (emailValue === '') {
-      return S.checkButton.disabled;
-    }
-    if (!isEmailValid) {
+    if (emailValue === '' || (canUseEmail && emailCheck)) {
       return S.checkButton.disabled;
     }
     if (emailCheck) {
       return S.checkButton.confirm;
     }
-
     return S.checkButton.default;
   };
 
@@ -97,6 +84,7 @@ function Home() {
               <input
                 className={S.joinInput}
                 placeholder="이메일을 입력하세요."
+                disabled={canUseEmail && emailCheck}
                 type="email"
                 {...register('emailRequired', {
                   required: '이메일을 입력해 주세요',
@@ -104,16 +92,22 @@ function Home() {
                     value: /\S+@\S+\.\S+/,
                     message: '올바른 이메일 형식이 아니에요',
                   },
-                  onChange: () => setEmailCheck(false),
+                  onChange: () => {
+                    setEmailCheck(false);
+                    clearErrors('emailRequired');
+                  },
                 })}
               />
               <button
                 type="button"
-                disabled={!isEmailValid || emailCheck || emailValue === ''}
+                disabled={(canUseEmail && emailCheck) || emailValue === ''}
                 className={buttonStyle}
-                onClick={() => checkEmail()}
+                onClick={() => {
+                  setEamilApiCheck(true);
+                  handleCheckEmail();
+                }}
               >
-                {emailCheck ? '확인완료' : ' 중복확인'}
+                {emailCheck ? '확인완료' : '중복확인'}
               </button>
             </div>
             {errors.emailRequired && (
@@ -122,10 +116,16 @@ function Home() {
                 {errors.emailRequired.message}
               </span>
             )}
-            {emailCheck && (
+            {emailCheck && canUseEmail && (
               <span className={`${S.inputValidation} ${S.correct}`}>
                 <CheckIcon />
                 사용 가능한 이메일입니다.
+              </span>
+            )}
+            {emailCheck && !canUseEmail && (
+              <span className={`${S.inputValidation} ${S.error}`}>
+                <ErrorIcon />
+                중복된 이메일이 있습니다.
               </span>
             )}
           </label>

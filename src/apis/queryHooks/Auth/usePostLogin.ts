@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { postLogin } from '@/apis/queryFunctions/Auth';
 import { LoginParams } from '@/apis/types/Auth';
@@ -12,11 +12,12 @@ function usePostLogin() {
   const { setIsLoggedIn } = useAuth();
   const { referrer } = document;
   const isOmochaAuctionPage = referrer.includes('omocha-auction');
+  const pathname = usePathname();
 
   const { mutate, error } = useMutation({
     mutationFn: (param: LoginParams) => postLogin(param),
     onSuccess: async () => {
-      if (referrer && isOmochaAuctionPage) {
+      if (referrer && isOmochaAuctionPage && !pathname.includes('/join')) {
         router.back();
       } else {
         router.push('/');
