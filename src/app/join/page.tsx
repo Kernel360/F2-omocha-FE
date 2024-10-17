@@ -42,7 +42,6 @@ function Home() {
 
   const [emailCheck, setEmailCheck] = useState(false);
   const [emailApiCheck, setEamilApiCheck] = useState(false);
-  const isEmailValid = !errors.emailRequired;
 
   const { mutate } = usePostRegister();
   const { data: canUseEmail } = useGetEmailValidation(emailApiCheck ? emailValue : null);
@@ -63,7 +62,7 @@ function Home() {
   };
 
   const getButtonStyle = () => {
-    if (emailValue === '' || !isEmailValid) {
+    if (emailValue === '' || (canUseEmail && emailCheck)) {
       return S.checkButton.disabled;
     }
     if (emailCheck) {
@@ -101,7 +100,7 @@ function Home() {
               />
               <button
                 type="button"
-                disabled={!isEmailValid || emailCheck || emailValue === ''}
+                disabled={(canUseEmail && emailCheck) || emailValue === ''}
                 className={buttonStyle}
                 onClick={() => {
                   setEamilApiCheck(true);
