@@ -26,7 +26,7 @@ export const overlay = style({
   left: '0',
   width: '100%',
   height: '100%',
-  backgroundColor: 'rgb(0, 0, 0, 0.6)',
+  backgroundColor: 'rgb(0, 0, 0, 0.3)',
   animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
 });
 

@@ -7,7 +7,7 @@ import * as S from './ChattingIconButton.css';
 import ChattingUnit from './ChattingUnit';
 import Chattingroom from './Chattingroom';
 
-function Chatting() {
+function ChattingList() {
   const { data } = useGetChatroomList({ pageable: 0 });
 
   const [openChatroomId, setOpenChatroomId] = useState<number | null>(null);
@@ -62,4 +62,4 @@ function Chatting() {
   );
 }
 
-export default Chatting;
+export default ChattingList;
