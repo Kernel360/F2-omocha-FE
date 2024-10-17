@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style, styleVariants, keyframes } from '@vanilla-extract/css';
 
 export const infoWrapper = style({
   display: 'flex',
@@ -41,6 +41,20 @@ export const infoRowTitle = style({
 
 export const refreshCurrentPrice = style({
   display: 'flex',
+  alignItems: 'center',
+  cursor: 'pointer',
+});
+
+// 중간 발표 이후 공통 로직으로 구현하기
+/* 애니메이션 정의 */
+export const rotate = keyframes({
+  '0%': { transform: 'rotate(0deg)' },
+  '100%': { transform: 'rotate(360deg)' },
+});
+
+/* 회전하는 클래스 */
+export const rotating = style({
+  animation: `${rotate} 1s linear infinite` /* forwards를 사용하여 마지막 상태 유지 */,
 });
 
 export const infoRight = style({
