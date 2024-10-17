@@ -37,7 +37,7 @@ function Home() {
         <h3>계정</h3>
         <label htmlFor="id" className={S.label}>
           <span>아이디</span>
-          <input className={S.input.disabled} id="id" type="text" value={user?.login_id} disabled />
+          <input className={S.input.disabled} id="id" type="text" value={user?.email} disabled />
         </label>
       </section>
       <section className={S.section}>
