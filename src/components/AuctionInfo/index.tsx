@@ -25,16 +25,8 @@ interface AuctionInfoProps {
   sellerId: number;
 }
 
-function AuctionInfo({
-  id,
-  title,
-  startPrice,
-  nowPrice,
-  bidCount,
-  endTime,
-  bidUnit,
-  sellerId,
-}: AuctionInfoProps) {
+function AuctionInfo(SAMPLE: AuctionInfoProps) {
+  const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit, sellerId } = SAMPLE;
   const { mutate: postBidMutate } = usePostBasicAuctionBid();
   const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
 
@@ -62,7 +54,7 @@ function AuctionInfo({
     bidUnit,
   });
 
-  const { expired, setExpired, token, canNotBid, canDelete } = usePermissionBidPrice(sellerId);
+  const { expired, setExpired, user, canNotBid, canDelete } = usePermissionBidPrice(sellerId);
 
   const handleBidButton = () => {
     if (bidInputRef.current) {
@@ -160,9 +152,9 @@ function AuctionInfo({
         </button>
       ) : (
         <button
-          disabled={expired || !token}
+          disabled={expired || !user}
           type="button"
-          className={expired || !token ? S.bidButton.disabled : S.bidButton.default}
+          className={expired || !user ? S.bidButton.disabled : S.bidButton.default}
           onClick={openBidConfirmModal}
         >
           입찰하기

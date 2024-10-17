@@ -9,12 +9,6 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   config => {
     // 성공한 요청
-    //   const accessToken = sessionStorage.getItem('accessToken');
-    //   const { headers } = config;
-
-    //   if (headers && accessToken) {
-    //     headers.Authorization = `Bearer ${accessToken}`;
-    //   }
 
     return config;
   },

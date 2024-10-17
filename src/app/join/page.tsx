@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import usePostRegister from '@/apis/queryHooks/useAuth/usePostRegister';
+import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
 import CheckIcon from '@/assets/svg/check.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 import sha256 from '@/utils/sha256';

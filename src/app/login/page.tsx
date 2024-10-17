@@ -7,9 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Link from 'next/link';
 
-import usePostGoogleLogin from '@/apis/queryHooks/useAuth/usePostGoogleLogin';
-import usePostLogin from '@/apis/queryHooks/useAuth/usePostLogin';
-import usePostNaverLogin from '@/apis/queryHooks/useAuth/usePostNaverLogin';
+import usePostLogin from '@/apis/queryHooks/Auth/usePostLogin';
 import ErrorIcon from '@/assets/svg/error.svg';
 import GoogleIcon from '@/assets/svg/google.svg';
 import NaverIcon from '@/assets/svg/naver.svg';
@@ -18,7 +16,7 @@ import sha256 from '@/utils/sha256';
 import * as S from './Login.css';
 
 type Inputs = {
-  idRequired: string;
+  emailRequired: string;
   passwordRequired: string;
 };
 
@@ -30,14 +28,12 @@ function Home() {
   } = useForm<Inputs>();
 
   const { mutate: login } = usePostLogin();
-  const { mutate: naverLogin } = usePostNaverLogin();
-  const { mutate: googleLogin } = usePostGoogleLogin();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     const newPassword = await sha256(data.passwordRequired);
 
     login({
-      email: data.idRequired,
+      email: data.emailRequired,
       password: newPassword,
     });
   };
@@ -51,17 +47,17 @@ function Home() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={S.inputSection}>
           <label className={S.inputLabel}>
-            아이디
+            이메일
             <input
               className={S.loginInput}
               placeholder="아이디"
               type="text"
-              {...register('idRequired', { required: true })}
+              {...register('emailRequired', { required: true })}
             />
-            {errors.idRequired && (
+            {errors.emailRequired && (
               <span className={S.inputError}>
                 <ErrorIcon />
-                id field is required
+                이메일을 입력해 주세요.
               </span>
             )}
           </label>
@@ -76,7 +72,7 @@ function Home() {
             {errors.passwordRequired && (
               <span className={S.inputError}>
                 <ErrorIcon />
-                password field is required
+                비밀번호를 입력해 주세요.
               </span>
             )}
           </label>
@@ -94,16 +90,16 @@ function Home() {
       </ul>
       <span className={S.snsLoginTitle}>SNS계정으로 간편 로그인 / 회원가입</span>
       <div className={S.snsLoginSection}>
-        <button type="button" onClick={() => googleLogin()} className={S.snsLoginButtonWrapper}>
+        <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v1/oauth/authorize/google`}>
           <div className={S.snsLoginButton.goggle}>
             <GoogleIcon />
           </div>
-        </button>
-        <button type="button" onClick={() => naverLogin()} className={S.snsLoginButtonWrapper}>
+        </Link>
+        <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v1/oauth/authorize/naver`}>
           <div className={S.snsLoginButton.naver}>
             <NaverIcon />
           </div>
-        </button>
+        </Link>
       </div>
     </div>
   );
