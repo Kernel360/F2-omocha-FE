@@ -3,7 +3,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import * as StompJs from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
-import useUserStore from '@/store/useUserStore';
+import useGetUser from '@/apis/queryHooks/User/useGetUser';
 
 import * as S from './Chatting.css';
 
@@ -28,7 +28,7 @@ interface ReceivedMessage {
 }
 
 function Chattingroom({ roomId }: ChatroomProps) {
-  const user = useUserStore(state => state.user);
+  const { data: user } = useGetUser();
 
   const [messages, setMessages] = useState<Message[]>([]);
 

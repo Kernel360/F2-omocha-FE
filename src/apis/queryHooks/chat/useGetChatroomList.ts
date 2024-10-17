@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getChatroomList } from '@/apis/queryFunctions/chat';
-import { UserData } from '@/apis/types/User';
 import { GetChatroomListParams } from '@/apis/types/chat';
+import { useAuth } from '@/provider/authProvider';
 
-function useGetChatroomList(params: GetChatroomListParams, user: UserData | null) {
+function useGetChatroomList(params: GetChatroomListParams) {
+  const { isLoggedIn } = useAuth();
   const { data } = useQuery({
     queryKey: ['chatroomList', params],
     queryFn: () => getChatroomList(params),
-    enabled: !!user,
+    enabled: !!isLoggedIn,
   });
 
   return { data };

@@ -2,16 +2,13 @@ import { useState } from 'react';
 
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
-import useUserStore from '@/store/useUserStore';
 
 import * as S from './ChattingIconButton.css';
 import ChattingUnit from './ChattingUnit';
 import Chattingroom from './Chattingroom';
 
 function Chatting() {
-  const user = useUserStore(state => state.user);
-
-  const { data } = useGetChatroomList({ pageable: 0 }, user);
+  const { data } = useGetChatroomList({ pageable: 0 });
 
   const [openChatroomId, setOpenChatroomId] = useState<number | null>(null);
 
