@@ -10,8 +10,8 @@ function usePostBasicAuctionQnA() {
 
   const { mutate, error } = useMutation({
     mutationFn: (data: PostAuctionQnAParams) => postAuctionQnA(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['auctionQnAList'] });
+    onSuccess: (_, params) => {
+      queryClient.invalidateQueries({ queryKey: ['auctionQnAList', params.auction_id] });
     },
     onError: (e: AxiosError<Response<PostAuctionQnAResponseData>>) => {
       if (e.response) {

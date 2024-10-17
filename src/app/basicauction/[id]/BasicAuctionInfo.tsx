@@ -34,6 +34,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
 
   const sellerId = data.result_data.seller_id;
   const userId = user?.member_id;
+  const userEmail = user?.email;
   const isSeller = sellerId === userId;
 
   return (
@@ -56,7 +57,12 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
         triggerTitleList={TABS}
         childrenList={[
           <BasicAuctionInfoContent key="productInfo" id={id} content={data.result_data.content} />,
-          <BasicAuctionInfoQNA key="productInquiry" id={id} isSeller={isSeller} />,
+          <BasicAuctionInfoQNA
+            key="productInquiry"
+            id={id}
+            userEmail={userEmail}
+            isSeller={isSeller}
+          />,
         ]}
       />
     </div>

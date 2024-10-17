@@ -5,15 +5,27 @@ import useGetAuctionQNAList from '@/apis/queryHooks/basicAuction/useGetBasicAuti
 import { AuctionQNAData } from '@/apis/types/basicAuction';
 
 import * as S from './BasicAuctionInfoQNA.css';
+import usePostBasicAuctionQnA from '@/apis/queryHooks/basicAuction/usePostBasicAuctionQnA';
 
 interface BasicAuctionInfoQNAProps {
   id: number;
   isSeller: boolean;
+  userEmail: string | undefined;
 }
 
-function BasicAuctionInfoQNA({ id, isSeller }: BasicAuctionInfoQNAProps) {
-  const sampleUserId = 'dbshaejin@gmail.com';
+function BasicAuctionInfoQNA({ id, isSeller, userEmail }: BasicAuctionInfoQNAProps) {
   const { data } = useGetAuctionQNAList(id);
+  const { mutate: postQnAMutate } = usePostBasicAuctionQnA();
+
+  const onsubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const title = formData.get('title') as string;
+    const content = formData.get('content') as string;
+
+    console.log(title, content, ':', id);
+    postQnAMutate({ auction_id: id, title, content });
+  };
 
   if (!data) return null;
 
@@ -25,18 +37,24 @@ function BasicAuctionInfoQNA({ id, isSeller }: BasicAuctionInfoQNAProps) {
             <AccordionTrigger className={S.qnaPostButton}>QnA 쓰기</AccordionTrigger>
             <AccordionContent className={S.accordionPostQnAContent}>
               <>
-                <form className={S.postQnASection}>
+                <form className={S.postQnASection} onSubmit={onsubmit}>
                   <div className={S.postQnAWrapper}>
                     <label htmlFor="userId" className={S.postQnALable}>
                       이메일
                     </label>
-                    <span className={S.postQnAText}>{sampleUserId}</span>
+                    <span className={S.postQnAText}>{userEmail}</span>
+                  </div>
+                  <div className={S.postQnAWrapperTop}>
+                    <label htmlFor="title" className={S.postQnALable}>
+                      제목
+                    </label>
+                    <input name="title" className={S.postQnATextAreaTitle} required />
                   </div>
                   <div className={S.postQnAWrapperTop}>
                     <label htmlFor="content" className={S.postQnALable}>
                       문의내용
                     </label>
-                    <textarea id="content" className={S.postQnATextAreaContent} />
+                    <textarea name="content" className={S.postQnATextAreaContent} />
                   </div>
                   <div className={S.buttonWrapper}>
                     <AccordionTrigger>
@@ -83,6 +101,7 @@ function BasicAuctionInfoQNA({ id, isSeller }: BasicAuctionInfoQNAProps) {
               </div>
             </AccordionTrigger>
             <AccordionContent className={S.accordionContent}>
+              {item.answer_response?.content}
               <span className={S.answerTitle}>답변.</span>
               {item.question_response.content}
             </AccordionContent>

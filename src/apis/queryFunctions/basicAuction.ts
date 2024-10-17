@@ -8,6 +8,8 @@ import {
   PostBasicAuctionBidResponseData,
   PostBasicAuctionResponseData,
   GetAuctionQnAListDataResponseData,
+  PostAuctionQnAParams,
+  PostAuctionQnAResponseData,
   // PostAuctionQnAParams,
   // PostAuctionQnAResponseData,
 } from '@/apis/types/basicAuction';
@@ -80,14 +82,14 @@ export const getAuctionQnAList = async (id: number) => {
 
 // // 없어질 수도 있는 것.
 
-// export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
-//   const response = await apiClient.post<Response<PostAuctionQnAResponseData>>(
-//     `/v1/question`,
-//     param,
-//   );
+export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
+  const response = await apiClient.post<Response<PostAuctionQnAResponseData>>(
+    `/v1/question`,
+    param,
+  );
 
-//   return response.data;
-// };
+  return response.data;
+};
 
 // export const deleteAuctionQnA = async (id: number) => {
 //   const response = await apiClient.delete<Response<null>>(`/v1/question/${id}`);

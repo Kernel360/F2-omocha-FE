@@ -95,12 +95,21 @@ export const postQnAButton = styleVariants({
   ],
 });
 
+export const postQnATextAreaTitle = style({
+  padding: '5px',
+  width: '90%',
+  borderRadius: '5px',
+  fontSize: '14px',
+  resize: 'none',
+});
+
 export const postQnATextAreaContent = style({
   padding: '5px',
   width: '90%',
   height: '100px',
   borderRadius: '5px',
   fontSize: '14px',
+  resize: 'none',
 });
 
 export const postQnANoticeSection = style({
