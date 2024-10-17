@@ -7,3 +7,7 @@ export interface LoginParams {
   email: string;
   password: string;
 }
+
+export interface CheckEmailParams {
+  email: string | null;
+}
