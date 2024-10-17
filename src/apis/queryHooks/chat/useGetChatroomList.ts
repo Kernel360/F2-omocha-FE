@@ -6,6 +6,7 @@ import { useAuth } from '@/provider/authProvider';
 
 function useGetChatroomList(params: GetChatroomListParams) {
   const { isLoggedIn } = useAuth();
+
   const { data } = useQuery({
     queryKey: ['chatroomList', params],
     queryFn: () => getChatroomList(params),

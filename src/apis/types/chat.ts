@@ -12,6 +12,7 @@ export interface ChatroomData {
   buyer_id: number;
   buyer_name: string | null;
   created_date: string; // ISO 날짜 형식으로 관리
+  last_message_time: string; // ISO 날짜 형식으로 관리
 }
 
 export interface Sort {
@@ -26,4 +27,17 @@ export interface ChatroomListResponseData {
   first: boolean;
   last: boolean;
   has_next: boolean;
+}
+
+// ----
+
+export interface OpenAuctionInfo {
+  auction_id: number;
+  room_id: number;
+  room_name: string;
+  seller_id: number;
+  seller_name: string | null;
+  now_price: number;
+  buyer_id: number;
+  buyer_name: string | null;
 }

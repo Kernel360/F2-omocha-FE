@@ -4,11 +4,13 @@ import * as StompJs from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
+import { OpenAuctionInfo } from '@/apis/types/chat';
 
 import * as S from './Chatting.css';
 
 export interface ChatroomProps {
   roomId: number;
+  openAuctionInfo: OpenAuctionInfo | null;
 }
 
 interface Message {
@@ -27,10 +29,36 @@ interface ReceivedMessage {
   type: 'CHAT';
 }
 
-function Chattingroom({ roomId }: ChatroomProps) {
+function Chattingroom({ roomId, openAuctionInfo }: ChatroomProps) {
   const { data: user } = useGetUser();
 
+  const seller = openAuctionInfo?.seller_name || `${openAuctionInfo?.seller_id}번 사용자`;
+  const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
+
   const [messages, setMessages] = useState<Message[]>([]);
+
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  };
+
+  const isScrolledToBottom = () => {
+    if (chatContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
+
+      return scrollTop + clientHeight === scrollHeight - 65;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    if (isScrolledToBottom()) {
+      scrollToBottom();
+    }
+  }, [messages]);
 
   const pushMessage = (
     newMessage: string,
@@ -126,8 +154,14 @@ function Chattingroom({ roomId }: ChatroomProps) {
 
   return (
     <div className={S.chatroomContainer}>
-      <div className={S.chatroomHeader}>{roomId}</div>
-      <div className={S.chatListWrapper}>
+      <div className={S.chatroomHeader}>
+        <span className={S.chatroomName}>{openAuctionInfo?.room_name}</span>
+        <div className={S.chatroomUserSection}>
+          <span className={S.user}>{`판매자: ${seller}`}</span>
+          <span className={S.user}>{`구매자: ${buyer}`}</span>
+        </div>
+      </div>
+      <div ref={chatContainerRef} className={S.chatListWrapper}>
         {messages.map(msg => {
           return (
             <div
