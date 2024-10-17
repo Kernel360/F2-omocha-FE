@@ -50,8 +50,3 @@ export default function AuctionList({
     </section>
   );
 }
-
-AuctionList.defaultProps = {
-  isLink: false,
-  path: '',
-};

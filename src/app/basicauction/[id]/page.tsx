@@ -1,9 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { cookies } from 'next/headers';
 
 import { getBasicAuction } from '@/apis/queryFunctions/basicAuction';
 import { Breadcrumb } from '@/components/Breadcrumb';
-import { AuthProvider } from '@/provider/authProvider';
 
 import BasicAuctionInfo from './BasicAuctionInfo';
 
@@ -14,9 +12,6 @@ interface BasicAuctionDetailPageProps {
 }
 
 async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
-  const cookie = cookies();
-  const refreshToken = cookie.get('refresh')?.value || null;
-
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -32,9 +27,7 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
         <Breadcrumb.Item>Product {params.id}</Breadcrumb.Item>
       </Breadcrumb>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <AuthProvider initialToken={refreshToken}>
-          <BasicAuctionInfo id={params.id} />
-        </AuthProvider>
+        <BasicAuctionInfo id={params.id} />
       </HydrationBoundary>
     </div>
   );
