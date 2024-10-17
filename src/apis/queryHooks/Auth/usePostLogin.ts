@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation';
 import { postLogin } from '@/apis/queryFunctions/Auth';
 import { LoginParams } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
+import { useAuth } from '@/provider/authProvider';
 
 function usePostLogin() {
   const router = useRouter();
+  const { setIsLoggedIn } = useAuth();
   const { referrer } = document;
   const isOmochaAuctionPage = referrer.includes('omocha-auction');
 
@@ -19,6 +21,7 @@ function usePostLogin() {
       } else {
         router.push('/');
       }
+      setIsLoggedIn(true);
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {

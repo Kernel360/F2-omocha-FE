@@ -35,3 +35,7 @@ export const bottomHeader = style({
   gap: '27px',
   padding: '0 16px',
 });
+
+export const logoutButton = style({
+  cursor: 'pointer',
+});

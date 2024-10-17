@@ -3,12 +3,13 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
+import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import Alarm from '@/components/Header/components/Alarm';
 import SlideSideNav from '@/components/SlideSideNav';
 import TabsLayout from '@/components/TabsLayout';
 import useBooleanState from '@/hooks/useBooleanState';
+import { useAuth } from '@/provider/authProvider';
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
-import useUserStore from '@/store/useUserStore';
 
 import * as S from './Header.css';
 
@@ -29,7 +30,8 @@ function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { value, setTrue, setFalse } = useBooleanState(false);
-  const { user, removeUser } = useUserStore();
+  const { isLoggedIn } = useAuth();
+  const { mutate: logout } = usePostLogout();
 
   return (
     <header className={S.container}>
@@ -39,15 +41,13 @@ function Header() {
         </Link>
         <div className={S.topCategory}>
           {SUB_CATEGORY.map(category => {
-            if (category.name === '로그인' && user) {
+            if (category.name === '로그인' && isLoggedIn) {
               return (
                 <button
+                  className={S.logoutButton}
                   key={category.id}
                   type="button"
-                  onClick={() => {
-                    removeUser();
-                    console.log('로그아웃');
-                  }}
+                  onClick={() => logout()}
                 >
                   로그아웃
                 </button>
@@ -66,7 +66,7 @@ function Header() {
                 key={category.id}
                 type="button"
                 onClick={() => {
-                  if (user) {
+                  if (isLoggedIn) {
                     setTrue();
                   } else {
                     router.push('/login');
