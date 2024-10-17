@@ -1,9 +1,11 @@
 import localFont from 'next/font/local';
+import Head from 'next/head';
 import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import ChattingIconButton from '@/components/Header/components/Chatting/ChattingIconButton';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 
@@ -39,16 +41,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookie = cookies();
-  const refreshToken = cookie.get('refresh')?.value || null;
+  const isLoggedIn = cookie.has('access');
 
   return (
     <html lang="en">
+      <Head>
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+      </Head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanstackProviders>
-          <AuthProvider initialToken={refreshToken}>
+          <AuthProvider isLoggedIn={isLoggedIn}>
             <Header />
+            <div className={S.container}>
+              {children}
+              {isLoggedIn && <ChattingIconButton />}
+            </div>
           </AuthProvider>
-          <div className={S.container}>{children}</div>
           <Footer />
         </TanstackProviders>
         <div id="root-portal" />

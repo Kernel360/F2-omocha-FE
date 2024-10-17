@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import usePostRegister from '@/apis/queryHooks/useAuth/usePostRegister';
+import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
 import CheckIcon from '@/assets/svg/check.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 import sha256 from '@/utils/sha256';
@@ -65,7 +65,7 @@ function Home() {
     }
     const newPassword = await sha256(data.passwordCheckRequired);
 
-    mutate({ login_id: data.emailRequired, password: newPassword });
+    mutate({ email: data.emailRequired, password: newPassword });
   };
 
   const isEmailValid = !errors.emailRequired;
