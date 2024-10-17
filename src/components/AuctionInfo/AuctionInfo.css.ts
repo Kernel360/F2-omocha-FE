@@ -39,6 +39,10 @@ export const infoRowTitle = style({
   fontWeight: '40px',
 });
 
+export const refreshCurrentPrice = style({
+  display: 'flex',
+});
+
 export const infoRight = style({
   display: 'flex',
   alignItems: 'center',

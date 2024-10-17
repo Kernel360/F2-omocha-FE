@@ -1,7 +1,9 @@
 import useDeleteBasicAuction from '@/apis/queryHooks/basicAuction/useDeleteBasicAuction';
+import useGetBasicAuctionNowPrice from '@/apis/queryHooks/basicAuction/useGetBasicAuctionNowPrice';
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
 import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
+import RefreshIcon from '@/assets/svg/refresh.svg';
 import AuctionBidConfirmModal from '@/components/AuctionInfo/AuctionBidConfirmModal';
 import AuctionBidListModal from '@/components/AuctionInfo/AuctionBidListModal';
 import AuctionCountdown from '@/components/AuctionInfo/AuctionCountdown';
@@ -29,6 +31,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit, sellerId } = SAMPLE;
   const { mutate: postBidMutate } = usePostBasicAuctionBid();
   const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
+  const { data: currentPrice, refetch } = useGetBasicAuctionNowPrice(id);
 
   const {
     value: isOpenBidListModal,
@@ -69,6 +72,10 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     setIsOpenBidConfirmModal();
   };
 
+  const refreshCurrentPrice = () => {
+    refetch();
+  };
+
   return (
     <div className={S.infoWrapper}>
       <div className={S.infoTitle}>{title}</div>
@@ -82,9 +89,17 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       <div className={`${S.infoRow} ${S.nowPrice}`}>
         <span className={S.infoRowTitle}>현재가</span>
         <span>
-          {nowPrice && nowPrice.toLocaleString('ko-KR')}
+          {currentPrice && currentPrice.result_data.now_price !== 0
+            ? currentPrice.result_data.now_price.toLocaleString('ko-KR')
+            : '-'}
           <span>원</span>
         </span>
+      </div>
+      <div className={`${S.infoRow} `}>
+        <span>{`${currentPrice ? currentPrice.result_data.created_at : '-'}불러옴`}</span>
+        <button type="button" className={S.refreshCurrentPrice} onClick={refreshCurrentPrice}>
+          <RefreshIcon />
+        </button>
       </div>
       <hr className={S.division} />
       <div className={S.infoRow}>
@@ -109,9 +124,6 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
         <div className={S.infoRight}>
           <span>{`${bidUnit} 원`}</span>
         </div>
-        {/* <Modal isOpen={isOpenBidListModal} onOpenChange={setIsOpenBidListModal}>
-          <AuctionBidListModal id={id} />
-        </Modal> */}
       </div>
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>입찰 희망가</span>
@@ -137,7 +149,6 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
           </div>
         </div>
       </div>
-
       {canDelete ? (
         <button
           type="button"

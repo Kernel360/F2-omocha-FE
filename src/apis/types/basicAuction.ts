@@ -152,3 +152,8 @@ export interface PostAuctionQnAAnswerResponseData {
   content: string;
   created_at: string;
 }
+
+export interface GetNowPriceResponseData {
+  now_price: number;
+  created_at: string;
+}
