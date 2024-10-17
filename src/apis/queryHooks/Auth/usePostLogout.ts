@@ -4,13 +4,20 @@ import { useRouter } from 'next/navigation';
 
 import { postLogout } from '@/apis/queryFunctions/Auth';
 import { Response } from '@/apis/types/common';
+import { useAuth } from '@/provider/authProvider';
+import useUserStore from '@/store/useUserStore';
 
 function usePostLogout() {
   const router = useRouter();
+  const { setIsLoggedIn } = useAuth();
+  const removeUser = useUserStore(state => state.removeUser);
+
   const { mutate, error } = useMutation({
     mutationFn: () => postLogout(),
     onSuccess: async () => {
       router.push('/');
+      setIsLoggedIn(false);
+      removeUser();
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
