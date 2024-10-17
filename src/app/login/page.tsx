@@ -37,7 +37,7 @@ function Home() {
     const newPassword = await sha256(data.passwordRequired);
 
     login({
-      login_id: data.idRequired,
+      email: data.idRequired,
       password: newPassword,
     });
   };

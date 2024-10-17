@@ -65,7 +65,7 @@ function Home() {
     }
     const newPassword = await sha256(data.passwordCheckRequired);
 
-    mutate({ login_id: data.emailRequired, password: newPassword });
+    mutate({ email: data.emailRequired, password: newPassword });
   };
 
   const isEmailValid = !errors.emailRequired;
