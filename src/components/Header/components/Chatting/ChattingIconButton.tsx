@@ -2,10 +2,15 @@
 
 import * as Popover from '@radix-ui/react-popover';
 
+import { useAuth } from '@/provider/authProvider';
+
 import * as S from './ChattingIconButton.css';
 import ChattingList from './ChattingList';
 
 function ChattingIconButton() {
+  const { isLoggedIn } = useAuth();
+
+  if (!isLoggedIn) return null;
   return (
     <Popover.Root>
       <Popover.Trigger asChild>

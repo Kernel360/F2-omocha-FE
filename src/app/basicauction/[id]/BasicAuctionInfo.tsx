@@ -2,12 +2,12 @@
 
 import React from 'react';
 
+import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import BasicAuctionInfoContent from '@/app/basicauction/[id]/BasicAuctionInfoContent';
 import AuctionImageInfo from '@/components/AuctionImageInfo';
 import AuctionInfo from '@/components/AuctionInfo';
 import TabsLayout from '@/components/TabsLayout';
-import useUserStore from '@/store/useUserStore';
 
 import * as S from './BasicAuctionInfo.css';
 import BasicAuctionInfoQNA from './BasicAuctionInfoQNA';
@@ -28,13 +28,14 @@ const TABS = [
 
 function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
   const { data } = useGetBasicAuction(id);
-  const user = useUserStore(state => state.user);
+
+  const user = useGetUser();
 
   if (!data) return null;
 
   const sellerId = data.result_data.seller_id;
-  const userId = user?.member_id;
-  const userEmail = user?.email;
+  const userId = user.data?.member_id;
+  const userEmail = user.data?.email;
   const isSeller = sellerId === userId;
 
   return (
@@ -56,10 +57,11 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
         defaultTriggerValue={TABS[0].value}
         triggerTitleList={TABS}
         childrenList={[
-          <BasicAuctionInfoContent key="productInfo" id={id} content={data.result_data.content} />,
+          <BasicAuctionInfoContent key="productInfo" content={data.result_data.content} />,
           <BasicAuctionInfoQNA
             key="productInquiry"
             id={id}
+            userId={userId}
             userEmail={userEmail}
             isSeller={isSeller}
           />,
