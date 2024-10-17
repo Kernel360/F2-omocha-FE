@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className={S.container}>
       <ul className={S.categoryList}>
         <div className={S.profile}>
-          <h2>{user?.login_id}</h2>
+          <h2>{user?.email}</h2>
           <Link href="/mypage/heart">
             <div className={S.heart}>
               <span>찜</span>

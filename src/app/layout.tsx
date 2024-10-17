@@ -39,16 +39,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookie = cookies();
-  const refreshToken = cookie.get('refresh')?.value || null;
+  const isLoggedIn = cookie.has('access');
 
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanstackProviders>
-          <AuthProvider initialToken={refreshToken}>
+          <AuthProvider isLoggedIn={isLoggedIn}>
             <Header />
+            <div className={S.container}>{children}</div>
           </AuthProvider>
-          <div className={S.container}>{children}</div>
           <Footer />
         </TanstackProviders>
         <div id="root-portal" />
