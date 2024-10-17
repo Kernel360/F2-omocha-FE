@@ -6,6 +6,7 @@ import { AuctionQNAData } from '@/apis/types/basicAuction';
 
 import * as S from './BasicAuctionInfoQNA.css';
 import usePostBasicAuctionQnA from '@/apis/queryHooks/basicAuction/usePostBasicAuctionQnA';
+import usePostBasicAuctionQnAAnswer from '@/apis/queryHooks/basicAuction/usePostBasicAuctionQnAAnswer';
 
 interface BasicAuctionInfoQNAProps {
   id: number;
@@ -16,6 +17,7 @@ interface BasicAuctionInfoQNAProps {
 function BasicAuctionInfoQNA({ id, isSeller, userEmail }: BasicAuctionInfoQNAProps) {
   const { data } = useGetAuctionQNAList(id);
   const { mutate: postQnAMutate } = usePostBasicAuctionQnA();
+  const { mutate: postQnAAnswerMutate } = usePostBasicAuctionQnAAnswer();
 
   const onsubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +27,20 @@ function BasicAuctionInfoQNA({ id, isSeller, userEmail }: BasicAuctionInfoQNAPro
 
     console.log(title, content, ':', id);
     postQnAMutate({ auction_id: id, title, content });
+  };
+
+  const onsubmitAnswer = (e: React.FormEvent<HTMLFormElement>, question_id: number) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const answer = formData.get('answer') as string;
+
+    console.log(answer);
+    console.log(question_id);
+    postQnAAnswerMutate({
+      question_id,
+      title: `${question_id}번 답변`,
+      content: answer,
+    });
   };
 
   if (!data) return null;
@@ -102,10 +118,32 @@ function BasicAuctionInfoQNA({ id, isSeller, userEmail }: BasicAuctionInfoQNAPro
             </AccordionTrigger>
             <AccordionContent className={S.accordionContent}>
               {item.question_response.content}
-              {item.answer_response && (
+              {!isSeller && item.answer_response && (
                 <>
                   <span className={S.answerTitle}>답변.</span>
                   {item.answer_response.content}
+                </>
+              )}
+              {isSeller && item.answer_response && (
+                <>
+                  <span className={S.answerTitle}>답변.</span>
+                  {item.answer_response.content}
+                </>
+              )}
+              {isSeller && !item.answer_response && (
+                <>
+                  <span className={S.answerTitle}>답변.</span>
+                  <form
+                    className={S.postQnASection}
+                    onSubmit={e => onsubmitAnswer(e, item.question_response.question_id)}
+                  >
+                    <div className={S.answerPostSection}>
+                      <textarea name="answer" className={S.postQnATextAreaContent} required />
+                      <button type="submit" className={S.postQnAButton.submit}>
+                        답변 등록
+                      </button>
+                    </div>
+                  </form>
                 </>
               )}
             </AccordionContent>

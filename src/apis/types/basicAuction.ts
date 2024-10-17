@@ -139,3 +139,16 @@ export interface PostAuctionQnAResponseData {
   content: string;
   created_at: string;
 }
+
+export interface PostAuctionQnAAnswerParams {
+  question_id: number;
+  title: string;
+  content: string;
+}
+
+export interface PostAuctionQnAAnswerResponseData {
+  question_id: number;
+  title: string;
+  content: string;
+  created_at: string;
+}

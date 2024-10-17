@@ -234,7 +234,9 @@ export const accordionContent = style({
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
-  width: 'fit-content',
+  boxSizing: 'border-box',
+  // width: 'fit-content',
+  width: '100%',
   fontSize: '15px',
   color: 'black',
   backgroundColor: 'var(--accordion-bg-color)',
@@ -257,5 +259,11 @@ export const answerTitle = style({
   fontSize: '15px',
   fontWeight: 'bold',
   color: 'rgb(55, 95, 255)',
-  margin: '10px 0',
+  margin: '15px 0',
+});
+
+export const answerPostSection = style({
+  display: 'flex',
+  alignItems: 'end',
+  gap: '20px',
 });
