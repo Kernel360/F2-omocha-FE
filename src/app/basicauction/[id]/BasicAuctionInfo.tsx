@@ -7,6 +7,7 @@ import BasicAuctionInfoContent from '@/app/basicauction/[id]/BasicAuctionInfoCon
 import AuctionImageInfo from '@/components/AuctionImageInfo';
 import AuctionInfo from '@/components/AuctionInfo';
 import TabsLayout from '@/components/TabsLayout';
+import useUserStore from '@/store/useUserStore';
 
 import * as S from './BasicAuctionInfo.css';
 import BasicAuctionInfoQNA from './BasicAuctionInfoQNA';
@@ -27,8 +28,13 @@ const TABS = [
 
 function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
   const { data } = useGetBasicAuction(id);
+  const user = useUserStore(state => state.user);
 
   if (!data) return null;
+
+  const sellerId = data.result_data.seller_id;
+  const userId = user?.member_id;
+  const isSeller = sellerId === userId;
 
   return (
     <div>
@@ -50,7 +56,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
         triggerTitleList={TABS}
         childrenList={[
           <BasicAuctionInfoContent key="productInfo" id={id} content={data.result_data.content} />,
-          <BasicAuctionInfoQNA key="productInquiry" id={id} />,
+          <BasicAuctionInfoQNA key="productInquiry" id={id} isSeller={isSeller} />,
         ]}
       />
     </div>

@@ -4,8 +4,8 @@ import { getAuctionQnAList } from '@/apis/queryFunctions/basicAuction';
 
 function useGetAuctionQNAList(id: number) {
   const { data } = useQuery({
-    queryKey: ['auctionQnAList', id],
     queryFn: () => getAuctionQnAList(id),
+    queryKey: ['auctionQnAList', id],
   });
   return { data };
 }

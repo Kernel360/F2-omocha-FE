@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 
+// 이걸 따로 빼서 쓸 수 있을라나
+
 import * as Accordion from '@radix-ui/react-accordion';
 
 // AccordionTrigger 타입 정의

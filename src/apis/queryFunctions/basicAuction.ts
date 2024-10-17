@@ -8,8 +8,8 @@ import {
   PostBasicAuctionBidResponseData,
   PostBasicAuctionResponseData,
   GetAuctionQnAListDataResponseData,
-  PostAuctionQnAParams,
-  PostAuctionQnAResponseData,
+  // PostAuctionQnAParams,
+  // PostAuctionQnAResponseData,
 } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
@@ -62,26 +62,35 @@ export const deleteAuction = async (id: number) => {
 
 export const getAuctionQnAList = async (id: number) => {
   const response = await apiClient.get<Response<GetAuctionQnAListDataResponseData>>(
-    `/v1/question/${id}/question-list`,
+    `/v1/question/${id}/qna-list`,
     /// api/v1/question/{auctionId}/question-list
   );
 
   return response.data;
 };
 
-//
+// export const getAuctionQnAList = async (id: number) => {
+//   const response = await apiClient.get<Response<GetAuctionQnAListDataResponseData>>(
+//     `/v1/question/${id}/question-list`,
+//     /// api/v1/question/{auctionId}/question-list
+//   );
 
-export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
-  const response = await apiClient.post<Response<PostAuctionQnAResponseData>>(
-    `/v1/question`,
-    param,
-  );
+//   return response.data;
+// };
 
-  return response.data;
-};
+// // 없어질 수도 있는 것.
 
-export const deleteAuctionQnA = async (id: number) => {
-  const response = await apiClient.delete<Response<null>>(`/v1/question/${id}`);
+// export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
+//   const response = await apiClient.post<Response<PostAuctionQnAResponseData>>(
+//     `/v1/question`,
+//     param,
+//   );
 
-  return response.data;
-};
+//   return response.data;
+// };
+
+// export const deleteAuctionQnA = async (id: number) => {
+//   const response = await apiClient.delete<Response<null>>(`/v1/question/${id}`);
+
+//   return response.data;
+// };

@@ -88,17 +88,29 @@ export interface PostBasicAuctionBidResponseData {
 
 // -----
 
-export interface AuctionQNAListData {
+export interface QuestionResponse {
   question_id: number;
-  question_member_id: number;
+  title: string;
+  content: string;
+  created_at: string; // ISO 날짜 형식
+  member_id: number;
+  email: string | null;
+}
+
+export interface AnswerResponse {
+  answer_id: number;
   title: string;
   content: string;
   created_at: string;
-  updated_at: string;
+}
+
+export interface AuctionQNAData {
+  question_response: QuestionResponse;
+  answer_response: AnswerResponse | null;
 }
 
 export interface GetAuctionQnAListDataResponseData {
-  content: AuctionQNAListData[];
+  content: AuctionQNAData[];
   pageable: Pageable;
   total_pages: number;
   total_elements: number;
