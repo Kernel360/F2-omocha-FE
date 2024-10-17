@@ -6,12 +6,9 @@ import { usePathname, useRouter } from 'next/navigation';
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import Alarm from '@/components/Header/components/Alarm';
 import SlideSideNav from '@/components/SlideSideNav';
-
 import useBooleanState from '@/hooks/useBooleanState';
 import { useAuth } from '@/provider/authProvider';
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
-
-import TabsLayout from '../TabsLayout';
 
 import * as S from './Header.css';
 
