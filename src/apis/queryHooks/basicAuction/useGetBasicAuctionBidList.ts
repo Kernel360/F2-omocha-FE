@@ -6,6 +6,7 @@ function useGetBasicAuctionBidList(id: number) {
   const { data } = useQuery({
     queryKey: ['basicAuctionBidList', id],
     queryFn: () => getBasicAuctionBidList(id),
+    staleTime: 0,
   });
   return { data };
 }

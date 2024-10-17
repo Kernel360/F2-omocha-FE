@@ -1,7 +1,11 @@
+import { useRef, useState } from 'react';
+
 import useDeleteBasicAuction from '@/apis/queryHooks/basicAuction/useDeleteBasicAuction';
+import useGetBasicAuctionNowPrice from '@/apis/queryHooks/basicAuction/useGetBasicAuctionNowPrice';
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
 import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
+import RefreshIcon from '@/assets/svg/refresh.svg';
 import AuctionBidConfirmModal from '@/components/AuctionInfo/AuctionBidConfirmModal';
 import AuctionBidListModal from '@/components/AuctionInfo/AuctionBidListModal';
 import AuctionCountdown from '@/components/AuctionInfo/AuctionCountdown';
@@ -18,7 +22,7 @@ interface AuctionInfoProps {
   id: number;
   title: string;
   startPrice: number;
-  nowPrice?: number; // nowPrice는 선택적
+  nowPrice?: number;
   endTime: string;
   bidCount: number;
   bidUnit: number;
@@ -29,6 +33,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit, sellerId } = SAMPLE;
   const { mutate: postBidMutate } = usePostBasicAuctionBid();
   const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
+  const { data: currentPrice, refetch } = useGetBasicAuctionNowPrice(id);
 
   const {
     value: isOpenBidListModal,
@@ -69,6 +74,20 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
     setIsOpenBidConfirmModal();
   };
 
+  const iconRef = useRef<HTMLButtonElement>(null);
+
+  const [isRotating, setIsRotating] = useState(false);
+
+  const refreshCurrentPrice = () => {
+    setIsRotating(true);
+    refetch();
+
+    // 로직이 끝난 후 애니메이션을 멈추기 위해 일정 시간이 지난 후 false로 설정
+    setTimeout(() => {
+      setIsRotating(false);
+    }, 1000); // 1초 동안 회전
+  };
+
   return (
     <div className={S.infoWrapper}>
       <div className={S.infoTitle}>{title}</div>
@@ -82,9 +101,22 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       <div className={`${S.infoRow} ${S.nowPrice}`}>
         <span className={S.infoRowTitle}>현재가</span>
         <span>
-          {nowPrice && nowPrice.toLocaleString('ko-KR')}
+          {currentPrice && currentPrice.result_data.now_price !== 0
+            ? currentPrice.result_data.now_price.toLocaleString('ko-KR')
+            : '-'}
           <span>원</span>
         </span>
+      </div>
+      <div className={`${S.infoRow} `}>
+        <span>{`${currentPrice ? currentPrice.result_data.created_at : '-'}불러옴`}</span>
+        <button
+          ref={iconRef}
+          type="button"
+          className={S.refreshCurrentPrice}
+          onClick={refreshCurrentPrice}
+        >
+          <RefreshIcon className={isRotating ? S.rotating : ''} />
+        </button>
       </div>
       <hr className={S.division} />
       <div className={S.infoRow}>
@@ -134,7 +166,6 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
           </div>
         </div>
       </div>
-
       {canDelete ? (
         <button
           type="button"
