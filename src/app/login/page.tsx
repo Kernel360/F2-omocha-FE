@@ -16,7 +16,7 @@ import sha256 from '@/utils/sha256';
 import * as S from './Login.css';
 
 type Inputs = {
-  idRequired: string;
+  emailRequired: string;
   passwordRequired: string;
 };
 
@@ -33,7 +33,7 @@ function Home() {
     const newPassword = await sha256(data.passwordRequired);
 
     login({
-      email: data.idRequired,
+      email: data.emailRequired,
       password: newPassword,
     });
   };
@@ -47,17 +47,17 @@ function Home() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={S.inputSection}>
           <label className={S.inputLabel}>
-            아이디
+            이메일
             <input
               className={S.loginInput}
               placeholder="아이디"
               type="text"
-              {...register('idRequired', { required: true })}
+              {...register('emailRequired', { required: true })}
             />
-            {errors.idRequired && (
+            {errors.emailRequired && (
               <span className={S.inputError}>
                 <ErrorIcon />
-                id field is required
+                이메일을 입력해 주세요.
               </span>
             )}
           </label>
@@ -72,7 +72,7 @@ function Home() {
             {errors.passwordRequired && (
               <span className={S.inputError}>
                 <ErrorIcon />
-                password field is required
+                비밀번호를 입력해 주세요.
               </span>
             )}
           </label>
