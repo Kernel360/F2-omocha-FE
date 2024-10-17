@@ -1,12 +1,13 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { AccordionContent, AccordionTrigger } from '@radix-ui/react-accordion';
 import * as Accordion from '@radix-ui/react-accordion';
 
 import useGetAuctionQNAList from '@/apis/queryHooks/basicAuction/useGetBasicAutionQnAList';
+import usePostBasicAuctionQnA from '@/apis/queryHooks/basicAuction/usePostBasicAuctionQnA';
+import usePostBasicAuctionQnAAnswer from '@/apis/queryHooks/basicAuction/usePostBasicAuctionQnAAnswer';
 import { AuctionQNAData } from '@/apis/types/basicAuction';
 
 import * as S from './BasicAuctionInfoQNA.css';
-import usePostBasicAuctionQnA from '@/apis/queryHooks/basicAuction/usePostBasicAuctionQnA';
-import usePostBasicAuctionQnAAnswer from '@/apis/queryHooks/basicAuction/usePostBasicAuctionQnAAnswer';
 
 interface BasicAuctionInfoQNAProps {
   id: number;
@@ -49,7 +50,7 @@ function BasicAuctionInfoQNA({ id, isSeller, userEmail }: BasicAuctionInfoQNAPro
     <div className={S.accordionContainer}>
       {!isSeller && (
         <Accordion.Root type="single" collapsible>
-          <Accordion.Item value={'postQNATrigger'} className={S.accordionItemButton}>
+          <Accordion.Item value="postQNATrigger" className={S.accordionItemButton}>
             <AccordionTrigger className={S.qnaPostButton}>QnA 쓰기</AccordionTrigger>
             <AccordionContent className={S.accordionPostQnAContent}>
               <>
