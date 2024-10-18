@@ -15,6 +15,7 @@ import { usePermissionBidPrice } from '@/components/AuctionInfo/hooks/usePermiss
 import { Modal } from '@/components/Modal/Modal';
 import ModalFooter from '@/components/Modal/ModalFooter';
 import useBooleanState from '@/hooks/useBooleanState';
+import useDebounce from '@/hooks/useDebounce';
 
 import * as S from './AuctionInfo.css';
 
@@ -61,7 +62,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
 
   const { expired, setExpired, user, canNotBid, canDelete } = usePermissionBidPrice(sellerId);
 
-  const handleBidButton = () => {
+  const handleBidButton = useDebounce(() => {
     if (bidInputRef.current) {
       const bidAmount = bidInputRef.current.value;
       postBidMutate({
@@ -72,7 +73,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       });
     }
     setIsOpenBidConfirmModal();
-  };
+  });
 
   const iconRef = useRef<HTMLButtonElement>(null);
 
