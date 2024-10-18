@@ -8,6 +8,7 @@ import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
+import useDebounce from '@/hooks/useDebounce';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
@@ -65,7 +66,7 @@ export default function Home() {
     }
   };
 
-  const onSubmit: SubmitHandler<AuctionInputs> = data => {
+  const onSubmit: SubmitHandler<AuctionInputs> = useDebounce(data => {
     const formData = new FormData();
 
     const auctionRequest = {
@@ -82,7 +83,7 @@ export default function Home() {
     data.imagesRequired.forEach(image => formData.append('images', image.file));
 
     postBasicAuction(formData);
-  };
+  }, 1000);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
