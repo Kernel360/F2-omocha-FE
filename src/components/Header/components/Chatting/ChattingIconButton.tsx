@@ -12,6 +12,7 @@ function ChattingIconButton() {
   const { isLoggedIn } = useAuth();
 
   if (!isLoggedIn) return null;
+
   return (
     <Popover.Root>
       <Popover.Trigger asChild>

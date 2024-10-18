@@ -1,5 +1,4 @@
 import { style, styleVariants, keyframes } from '@vanilla-extract/css';
-import exp from 'constants';
 
 export const infoWrapper = style({
   display: 'flex',

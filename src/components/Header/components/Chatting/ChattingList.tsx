@@ -9,13 +9,17 @@ import ChattingUnit from './ChattingUnit';
 import Chattingroom from './Chattingroom';
 
 function ChattingList() {
-  const { data } = useGetChatroomList({ pageable: 0 });
+  const { data, refetch } = useGetChatroomList({ pageable: 0 });
 
   const [openChatroomId, setOpenChatroomId] = useState<number | null>(null);
   const [openAuctionInfo, setOpenAuctionInfo] = useState<OpenAuctionInfo | null>(null);
 
   if (!data) return null;
 
+  const handleRefetch = () => {
+    setOpenChatroomId(null);
+    refetch();
+  };
   return (
     <div
       style={{
@@ -28,7 +32,7 @@ function ChattingList() {
     >
       {openChatroomId ? (
         <>
-          <button type="button" onClick={() => setOpenChatroomId(null)} className={S.goBackButton}>
+          <button type="button" onClick={handleRefetch} className={S.goBackButton}>
             <ChevronDownIcon />
           </button>
           <Chattingroom roomId={openChatroomId} openAuctionInfo={openAuctionInfo} />

@@ -7,13 +7,14 @@ import { useAuth } from '@/provider/authProvider';
 function useGetChatroomList(params: GetChatroomListParams) {
   const { isLoggedIn } = useAuth();
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['chatroomList', params],
     queryFn: () => getChatroomList(params),
     enabled: !!isLoggedIn,
+    staleTime: 0,
   });
 
-  return { data };
+  return { data, refetch };
 }
 
 export default useGetChatroomList;

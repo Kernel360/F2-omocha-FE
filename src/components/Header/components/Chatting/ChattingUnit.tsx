@@ -48,6 +48,9 @@ function ChattingUnit({
     return `${diffMin}분 전`;
   };
 
+  const lastMinute = calLastMessage();
+  console.log('last_message_time', last_message_time);
+
   return (
     <li key={room_id}>
       <div className={S.chattingUnitSection}>
@@ -56,9 +59,9 @@ function ChattingUnit({
           <div className={S.chattingUnitInfo}>
             <span className={S.chatOpponent}>{other || '익명인'}</span>
             <span className={S.chatTitle}>{room_name}</span>
-            <span className={S.recentChatTime}>{calLastMessage()}</span>
+            <span className={S.recentChatTime}>{lastMinute}</span>
           </div>
-          <span className={S.recentChat}>{created_date}</span>
+          <span className={S.recentChat}>{last_message_time}</span>
         </div>
       </div>
     </li>
