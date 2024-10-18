@@ -107,8 +107,10 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
           <span>원</span>
         </span>
       </div>
-      <div className={`${S.infoRow} `}>
-        <span>{`${currentPrice ? currentPrice.result_data.created_at : '-'}불러옴`}</span>
+      <div className={`${S.infoRight} ${S.moveToRight}`}>
+        <span
+          className={`${S.calledTime} `}
+        >{`${currentPrice ? currentPrice.result_data.called_at : '-'}불러옴`}</span>
         <button
           ref={iconRef}
           type="button"
@@ -139,7 +141,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>입찰 단위</span>
         <div className={S.infoRight}>
-          <span>{`${bidUnit} 원`}</span>
+          <span>{`${bidUnit.toLocaleString()} 원`}</span>
         </div>
       </div>
       <div className={S.infoRow}>

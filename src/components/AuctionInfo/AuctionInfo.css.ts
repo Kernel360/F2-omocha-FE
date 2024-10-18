@@ -1,4 +1,5 @@
 import { style, styleVariants, keyframes } from '@vanilla-extract/css';
+import exp from 'constants';
 
 export const infoWrapper = style({
   display: 'flex',
@@ -57,10 +58,19 @@ export const rotating = style({
   animation: `${rotate} 1s linear infinite` /* forwards를 사용하여 마지막 상태 유지 */,
 });
 
+export const moveToRight = style({
+  marginLeft: 'auto',
+});
+
 export const infoRight = style({
   display: 'flex',
   alignItems: 'center',
   gap: '8px',
+});
+
+export const calledTime = style({
+  fontSize: '12px',
+  color: 'gray',
 });
 
 export const division = style({
