@@ -15,8 +15,10 @@ function usePostBasicAuctionBid() {
       queryClient.invalidateQueries({ queryKey: ['basicAuction', params.id] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionBidList', params.id] });
+      queryClient.invalidateQueries({ queryKey: ['nowPrice', params.id] });
     },
-    onError: (e: AxiosError<Response<string>>) => {
+    onError: (e: AxiosError<Response<string>>, params) => {
+      queryClient.invalidateQueries({ queryKey: ['nowPrice', params.id] });
       if (e.response) {
         alert(`${e.response.data.result_msg}`);
       } else {

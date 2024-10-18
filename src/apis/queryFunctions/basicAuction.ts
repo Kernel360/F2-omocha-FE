@@ -12,6 +12,7 @@ import {
   PostAuctionQnAResponseData,
   PostAuctionQnAAnswerResponseData,
   PostAuctionQnAAnswerParams,
+  GetNowPriceResponseData,
 } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
@@ -91,6 +92,14 @@ export const postAuctionQnAAnswer = async (param: PostAuctionQnAAnswerParams) =>
 
 export const deleteAuctionQnA = async (id: number) => {
   const response = await apiClient.delete<Response<null>>(`/v1/question/${id}`);
+
+  return response.data;
+};
+
+export const getNowPrice = async (id: number) => {
+  const response = await apiClient.get<Response<GetNowPriceResponseData>>(
+    `/v1/bid/${id}/now-price`,
+  );
 
   return response.data;
 };

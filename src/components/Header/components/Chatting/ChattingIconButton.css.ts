@@ -21,6 +21,9 @@ const slideLeftAndFade = keyframes({
 });
 
 export const goBackButton = style({
+  position: 'fixed',
+  top: '18px',
+  left: '5px',
   width: 'fit-content',
   display: 'inline-flex',
   alignItems: 'center',
@@ -42,12 +45,16 @@ export const title = style({
   position: 'fixed',
   fontSize: '18px',
   fontWeight: 'bold',
-  margin: '8px 0',
+  padding: '20px',
+  width: '100%',
+  boxSizing: 'border-box',
+  backgroundColor: 'white',
+  borderRadius: '4px 4px 0 0',
   color: 'black',
 });
 
 export const chattingListWrapper = style({
-  marginTop: '35px',
+  marginTop: '61px',
   height: '100%',
   overflowY: 'scroll',
 });
@@ -59,9 +66,10 @@ export const chattingUnitButton = style({
 export const popoverContent = style({
   margin: '0 10px',
   borderRadius: '4px',
-  padding: '20px',
   width: '320px',
-  backgroundColor: 'white',
+  backgroundColor: 'rgb(244, 244, 244)',
+  opacity: 1,
+  zIndex: 1000,
   boxShadow: `
     hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px
@@ -120,26 +128,27 @@ export const popoverClose = style({
 
 export const iconButton = style({
   position: 'fixed',
-  bottom: '40px',
-  right: '40px',
-  fontFamily: 'inherit',
+  bottom: '50px',
+  right: '20px',
   borderRadius: '100%',
   height: '55px',
   width: '55px',
-  display: 'inline-flex',
+  display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   color: 'black',
-  backgroundColor: 'reds',
-  boxShadow: `0 2px 10px black`,
+  backgroundColor: '#2e2e2e',
+  boxShadow: `0 1px 5px black`,
   selectors: {
     '&:hover': {
-      backgroundColor: 'rgba(255, 193, 200, 1)',
-    },
-    '&:focus': {
-      boxShadow: '0 0 0 2px black',
+      boxShadow: '0 2px 10px black',
     },
   },
+});
+
+export const chatIcon = style({
+  fill: 'white',
+  stroke: 'white',
 });
 
 export const fieldset = style({

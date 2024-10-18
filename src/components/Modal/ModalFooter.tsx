@@ -19,7 +19,8 @@ export default function ModalFooter(SAMPLE: ModalFooterProps) {
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className={S.overlay} />
-        <Dialog.Content className={S.modal}>
+        <Dialog.Content className={S.modal} aria-describedby={undefined}>
+          <Dialog.Title className="DialogTitle" />
           <Dialog.Close asChild>
             <div className={S.closeButton}>
               <DeleteIcon />
