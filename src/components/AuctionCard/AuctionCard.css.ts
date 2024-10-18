@@ -87,5 +87,4 @@ export const dim = style({
   color: 'rgba(255, 255, 255, 1)',
   fontWeight: 'bold',
   borderRadius: '12px',
-  zIndex: 1,
 });

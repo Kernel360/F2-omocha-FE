@@ -2,6 +2,7 @@
 
 import * as Popover from '@radix-ui/react-popover';
 
+import ChatIcon from '@/assets/svg/chat.svg';
 import { useAuth } from '@/provider/authProvider';
 
 import * as S from './ChattingIconButton.css';
@@ -11,10 +12,13 @@ function ChattingIconButton() {
   const { isLoggedIn } = useAuth();
 
   if (!isLoggedIn) return null;
+
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button type="button" className={S.iconButton} aria-label="Update dimensions" />
+        <button type="button" className={S.iconButton} aria-label="Update dimensions">
+          <ChatIcon className={S.chatIcon} />
+        </button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content

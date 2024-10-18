@@ -1,14 +1,18 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import * as StompJs from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
+import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
+import useGetLastChat from '@/apis/queryHooks/chat/useGetLastChat';
+import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
 
 import * as S from './Chatting.css';
 
 export interface ChatroomProps {
   roomId: number;
+  openAuctionInfo: OpenAuctionInfo | null;
 }
 
 interface Message {
@@ -27,10 +31,51 @@ interface ReceivedMessage {
   type: 'CHAT';
 }
 
-function Chattingroom({ roomId }: ChatroomProps) {
+function Chattingroom({ roomId, openAuctionInfo }: ChatroomProps) {
   const { data: user } = useGetUser();
+  const { reversedM } = useGetLastChat(roomId);
+  const { refetch } = useGetChatroomList({
+    pageable: 0,
+  });
 
-  const [messages, setMessages] = useState<Message[]>([]);
+  const seller = openAuctionInfo?.seller_name || `${openAuctionInfo?.seller_id}번 사용자`;
+  const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
+
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const isScrollToBottomRef = useRef<boolean>(false);
+  // 스크롤 상태 ref
+
+  const handleScroll = () => {
+    if (!chatContainerRef.current) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
+    // console.log('node scrollTop값===', scrollTop, scrollHeight, clientHeight);
+    isScrollToBottomRef.current = scrollTop + clientHeight === scrollHeight;
+    // console.log('isScrollToBottomRef.current 값===', isScrollToBottomRef.current);
+  };
+
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTo({
+          top: chatContainerRef.current.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+    }, 100);
+  };
+
+  const chatContainerCallbackRef = useCallback((node: HTMLDivElement) => {
+    // console.log('node 값===', node);
+    if (node) {
+      chatContainerRef.current = node;
+      scrollToBottom();
+
+      node.addEventListener('scroll', handleScroll);
+    }
+  }, []);
 
   const pushMessage = (
     newMessage: string,
@@ -41,12 +86,18 @@ function Chattingroom({ roomId }: ChatroomProps) {
     setMessages(prevMessages => [
       ...prevMessages,
       {
-        text: newMessage,
-        date: newDate,
+        message: newMessage,
+        room_id: roomId,
+        sender_nick_name: null,
+        created_date: newDate,
         sender_id,
         type,
       },
     ]);
+
+    if (isScrollToBottomRef.current) {
+      scrollToBottom();
+    }
   };
 
   const socket = new SockJS(`${process.env.NEXT_PUBLIC_SOCKET_SERVER_URL}`);
@@ -69,6 +120,7 @@ function Chattingroom({ roomId }: ChatroomProps) {
           receivedMessage.sender_id,
           'CHAT',
         );
+        refetch();
       });
     };
 
@@ -97,6 +149,10 @@ function Chattingroom({ roomId }: ChatroomProps) {
 
     return () => {
       if (client) disconnect();
+
+      if (chatContainerRef.current) {
+        chatContainerRef.current.removeEventListener('scroll', handleScroll);
+      }
     };
   }, [roomId]);
 
@@ -124,14 +180,29 @@ function Chattingroom({ roomId }: ChatroomProps) {
     }
   };
 
+  useEffect(() => {
+    if (reversedM && messages.length === 0) {
+      setMessages(reversedM);
+    }
+  }, [reversedM]);
+
+  console.log('messages: 바로?', messages);
+  console.log('reversedM: 바로?', reversedM); // 바로바로 messafes에 반영 대야햄
+
   return (
     <div className={S.chatroomContainer}>
-      <div className={S.chatroomHeader}>{roomId}</div>
-      <div className={S.chatListWrapper}>
+      <div className={S.chatroomHeader}>
+        <span className={S.chatroomName}>{openAuctionInfo?.room_name}</span>
+        <div className={S.chatroomUserSection}>
+          <span className={S.user}>{`판매자: ${seller}`}</span>
+          <span className={S.user}>{`구매자: ${buyer}`}</span>
+        </div>
+      </div>
+      <div ref={chatContainerCallbackRef} className={S.chatListWrapper}>
         {messages.map(msg => {
           return (
             <div
-              key={`${msg.date}+${msg.text}`}
+              key={`${msg.created_date}+${msg.message}+${msg.sender_id}`}
               className={msg.sender_id === user?.member_id ? S.msgBox.myMsg : S.msgBox.opponentMsg}
               // 이 삼항 연산 부분 리팩토링 필요
             >
@@ -140,14 +211,14 @@ function Chattingroom({ roomId }: ChatroomProps) {
                   msg.sender_id === user?.member_id ? S.msgWrapper.myMsg : S.msgWrapper.opponentMsg
                 }
               >
-                <span className={S.msg}>{msg.text}</span>
+                <span className={S.msg}>{msg.message}</span>
               </div>
               <p
                 className={
                   msg.sender_id === user?.member_id ? S.msgDate.myMsg : S.msgDate.opponentMsg
                 }
               >
-                {msg.date}
+                {msg.created_date}
               </p>
             </div>
           );

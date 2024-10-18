@@ -21,7 +21,8 @@ export const chattingUnitSection = style({
   display: 'flex',
   alignItems: 'center',
   gap: '16px',
-  padding: '16px 0',
+  padding: '16px 20px',
+  boxSizing: 'border-box',
   width: '100%',
   borderBottom: '1px solid #e5e5e5',
   transition: 'background-color 0.2s ease',
@@ -68,7 +69,9 @@ export const isReadDot = styleVariants({
 export const chatOpponent = style({
   color: 'black',
   fontSize: '14px',
+  minWidth: '50px',
   fontWeight: '500',
+  textAlign: 'start',
 });
 
 export const chatTitle = style({
@@ -76,7 +79,6 @@ export const chatTitle = style({
   textOverflow: 'ellipsis',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
-  width: '100%',
   fontSize: '14px',
   fontWeight: '600',
   textAlign: 'start',
@@ -85,6 +87,7 @@ export const chatTitle = style({
 export const recentChatTime = style({
   color: '#999',
   fontSize: '12px',
+  marginLeft: 'auto',
   width: 'fit-content',
   minWidth: '45px',
   textAlign: 'start',
@@ -106,7 +109,26 @@ export const chatroomContainer = style({
 });
 
 export const chatroomHeader = style({
-  padding: '0 16px 16px 16px',
+  height: '61px',
+  boxSizing: 'border-box',
+  padding: '10px 0 10px 40px',
+});
+
+export const chatroomName = style({
+  fontSize: '16px',
+  fontWeight: 'bold',
+  color: 'black',
+});
+
+export const chatroomUserSection = style({
+  display: 'flex',
+  gap: '8px',
+  marginTop: '8px',
+});
+
+export const user = style({
+  color: '#333',
+  fontSize: '12px',
 });
 
 export const closeButton = style({
@@ -125,7 +147,7 @@ export const chatListWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
-  height: '330px',
+  height: '332px',
   overflowY: 'auto',
   backgroundColor: '#f9f9f9',
   padding: '10px',
@@ -188,7 +210,9 @@ export const inputSection = style({
   display: 'flex',
   gap: '8px',
   borderTop: '1px solid #e5e5e5',
-  paddingTop: '16px',
+  padding: '16px 8px',
+  backgroundColor: 'white',
+  borderRadius: '0 0 8px 8px',
 });
 
 export const inputWrapper = style({
