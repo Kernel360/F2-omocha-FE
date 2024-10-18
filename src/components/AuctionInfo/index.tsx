@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 
 import useDeleteBasicAuction from '@/apis/queryHooks/basicAuction/useDeleteBasicAuction';
+import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import useGetBasicAuctionNowPrice from '@/apis/queryHooks/basicAuction/useGetBasicAuctionNowPrice';
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
@@ -35,6 +36,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const { mutate: postBidMutate } = usePostBasicAuctionBid();
   const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
   const { data: currentPrice, refetch } = useGetBasicAuctionNowPrice(id);
+  const { refetch: refetchBasicAuction } = useGetBasicAuction(id);
 
   const {
     value: isOpenBidListModal,
@@ -82,6 +84,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
   const refreshCurrentPrice = () => {
     setIsRotating(true);
     refetch();
+    refetchBasicAuction();
 
     // 로직이 끝난 후 애니메이션을 멈추기 위해 일정 시간이 지난 후 false로 설정
     setTimeout(() => {
