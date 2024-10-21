@@ -6,6 +6,7 @@ import * as S from '@/app/globals.css';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ChattingIconButton from '@/components/Header/components/Chatting/ChattingIconButton';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 
@@ -55,6 +56,7 @@ export default function RootLayout({
             <div className={S.container}>
               {children}
               <ChattingIconButton />
+              <ScrollToTopButton />
             </div>
           </AuthProvider>
           <Footer />
