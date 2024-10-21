@@ -3,7 +3,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import useGetEmailValidation from '@/apis/queryHooks/Auth/useGetEmailValidation';
@@ -37,24 +37,34 @@ function Home() {
     },
   });
 
-  const emailValue = watch('emailRequired');
+  const emailRequired = watch('emailRequired');
   const passwordValue = watch('passwordRequired');
 
-  const [emailCheck, setEmailCheck] = useState(false);
-  const [emailApiCheck, setEamilApiCheck] = useState(false);
+  const checkEamilError = !!errors.emailRequired; // validation 에러
+  const [emailValidationCheck, setEmailValidationCheck] = useState(false); // validation 확인
+  const [emailApiCheck, setEmailApiCheck] = useState(false); // api 중복 검사
 
   const { mutate } = usePostRegister();
-  const { data: canUseEmail } = useGetEmailValidation(emailApiCheck ? emailValue : null);
+  const { data: canUseEmail, error } = useGetEmailValidation(emailApiCheck ? emailRequired : null);
 
-  const handleCheckEmail = async () => {
-    if (emailValue && canUseEmail) {
-      setEmailCheck(true);
-      clearErrors('emailRequired');
-    } else {
-      setError('emailRequired', { type: 'manual', message: '중복된 이메일이 있습니다.' });
-      setEmailCheck(false);
+  const handleCheckEmail = () => {
+    if (emailRequired === '') return;
+
+    if (!checkEamilError) {
+      setEmailValidationCheck(true);
+      setEmailApiCheck(true);
     }
   };
+
+  useEffect(() => {
+    if (emailApiCheck && canUseEmail) {
+      clearErrors('emailRequired');
+    }
+    if (error) {
+      setEmailApiCheck(false);
+      setError('emailRequired', { type: 'manual', message: '중복된 이메일이 있습니다.' });
+    }
+  }, [canUseEmail, clearErrors, emailApiCheck, error, setError]);
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     const newPassword = await sha256(data.passwordCheckRequired);
@@ -62,16 +72,16 @@ function Home() {
   };
 
   const getButtonStyle = () => {
-    if (emailValue === '' || (canUseEmail && emailCheck)) {
+    // 이메일이 비어 있음 or (이메일에 에러 존재 and 중복 검사가 완료되지 않은 상태)
+    if (emailRequired === '' || (checkEamilError && !emailValidationCheck)) {
       return S.checkButton.disabled;
     }
-    if (emailCheck) {
+    // 유효성 검사 완료 and 중복 검사 완료
+    if (emailValidationCheck && canUseEmail) {
       return S.checkButton.confirm;
     }
     return S.checkButton.default;
   };
-
-  const buttonStyle = getButtonStyle();
 
   return (
     <div className={S.container}>
@@ -84,7 +94,7 @@ function Home() {
               <input
                 className={S.joinInput}
                 placeholder="이메일을 입력하세요."
-                disabled={canUseEmail && emailCheck}
+                disabled={canUseEmail && emailValidationCheck}
                 type="email"
                 {...register('emailRequired', {
                   required: '이메일을 입력해 주세요',
@@ -93,21 +103,20 @@ function Home() {
                     message: '올바른 이메일 형식이 아니에요',
                   },
                   onChange: () => {
-                    setEmailCheck(false);
+                    setEmailValidationCheck(false);
                     clearErrors('emailRequired');
                   },
                 })}
               />
               <button
                 type="button"
-                disabled={(canUseEmail && emailCheck) || emailValue === ''}
-                className={buttonStyle}
+                disabled={(canUseEmail && emailValidationCheck) || emailRequired === ''}
+                className={getButtonStyle()}
                 onClick={() => {
-                  setEamilApiCheck(true);
                   handleCheckEmail();
                 }}
               >
-                {emailCheck ? '확인완료' : '중복확인'}
+                {emailValidationCheck ? '확인 완료' : '중복 확인'}
               </button>
             </div>
             {errors.emailRequired && (
@@ -116,16 +125,10 @@ function Home() {
                 {errors.emailRequired.message}
               </span>
             )}
-            {emailCheck && canUseEmail && (
+            {emailValidationCheck && canUseEmail && (
               <span className={`${S.inputValidation} ${S.correct}`}>
                 <CheckIcon />
                 사용 가능한 이메일입니다.
-              </span>
-            )}
-            {emailCheck && !canUseEmail && (
-              <span className={`${S.inputValidation} ${S.error}`}>
-                <ErrorIcon />
-                중복된 이메일이 있습니다.
               </span>
             )}
           </label>
