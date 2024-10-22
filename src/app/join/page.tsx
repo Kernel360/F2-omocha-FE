@@ -8,6 +8,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import useGetEmailValidation from '@/apis/queryHooks/Auth/useGetEmailValidation';
 import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
+import {
+  confirmPasswordValidation,
+  emailValidation,
+  passwordValidation,
+} from '@/app/join/utils/joinValidation';
 import CheckIcon from '@/assets/svg/check.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 import sha256 from '@/utils/sha256';
@@ -38,7 +43,7 @@ function Home() {
   });
 
   const emailRequired = watch('emailRequired');
-  const passwordValue = watch('passwordRequired');
+  const passwordRequired = watch('passwordRequired');
 
   const checkEmailError = !!errors.emailRequired; // validation 에러
   const [emailValidationCheck, setEmailValidationCheck] = useState(false); // validation 확인
@@ -94,14 +99,10 @@ function Home() {
               <input
                 className={S.joinInput}
                 placeholder="이메일을 입력하세요."
-                // disabled={canUseEmail && emailValidationCheck}
+                disabled={canUseEmail && emailValidationCheck}
                 type="email"
                 {...register('emailRequired', {
-                  required: '이메일을 입력해 주세요',
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: '올바른 이메일 형식이 아니에요',
-                  },
+                  ...emailValidation,
                   onChange: () => {
                     setEmailValidationCheck(false);
                     clearErrors('emailRequired');
@@ -138,18 +139,7 @@ function Home() {
               className={S.joinInput}
               placeholder="비밀번호를 입력하세요."
               type="password"
-              {...register('passwordRequired', {
-                required: '비밀번호를 입력하세요.',
-                validate: {
-                  minLength: value =>
-                    value.length >= 8 || '비밀번호는 최소 8글자 이상이어야 합니다.',
-                  number: value => /[0-9]/.test(value) || '비밀번호에는 숫자가 포함되어야 합니다.',
-                  letter: value =>
-                    /[a-zA-Z]/.test(value) || '비밀번호에는 알파벳이 포함되어야 합니다.',
-                  specialChar: value =>
-                    /[\W_]/.test(value) || '비밀번호에는 특수문자가 포함되어야 합니다.',
-                },
-              })}
+              {...register('passwordRequired', passwordValidation)}
             />
             {errors.passwordRequired && (
               <span className={`${S.inputValidation} ${S.error}`}>
@@ -164,10 +154,7 @@ function Home() {
               className={S.joinInput}
               placeholder="비밀번호를 입력하세요."
               type="password"
-              {...register('passwordCheckRequired', {
-                required: '비밀번호를 입력하세요.',
-                validate: value => value === passwordValue || '비밀번호가 일치하지 않습니다.',
-              })}
+              {...register('passwordCheckRequired', confirmPasswordValidation(passwordRequired))}
             />
             {errors.passwordCheckRequired && (
               <span className={`${S.inputValidation} ${S.error}`}>
