@@ -18,7 +18,7 @@ export const getChatroomList = async (param: GetChatroomListParams) => {
   return response.data.result_data;
 };
 
-export const getLastChat = async (roomId: number) => {
+export const getLastChat = async (roomId: number | null) => {
   const response = await apiClient.get<Response<GetLastChatResponseData>>(`/v1/chatroom/${roomId}`);
 
   return response.data.result_data;

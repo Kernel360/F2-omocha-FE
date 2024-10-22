@@ -5,7 +5,6 @@ import SockJS from 'sockjs-client';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
-import useGetLastChat from '@/apis/queryHooks/chat/useGetLastChat';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
 
 import * as S from './Chatting.css';
@@ -13,6 +12,7 @@ import * as S from './Chatting.css';
 export interface ChatroomProps {
   roomId: number;
   openAuctionInfo: OpenAuctionInfo | null;
+  lastChat: ChatMessage[];
 }
 
 interface Message {
@@ -31,17 +31,17 @@ interface ReceivedMessage {
   type: 'CHAT';
 }
 
-function Chattingroom({ roomId, openAuctionInfo }: ChatroomProps) {
+function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+
   const { data: user } = useGetUser();
-  const { reversedM } = useGetLastChat(roomId);
+
   const { refetch } = useGetChatroomList({
     pageable: 0,
   });
 
   const seller = openAuctionInfo?.seller_name || `${openAuctionInfo?.seller_id}번 사용자`;
   const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
-
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const isScrollToBottomRef = useRef<boolean>(false);
@@ -51,9 +51,7 @@ function Chattingroom({ roomId, openAuctionInfo }: ChatroomProps) {
     if (!chatContainerRef.current) return;
 
     const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
-    // console.log('node scrollTop값===', scrollTop, scrollHeight, clientHeight);
     isScrollToBottomRef.current = scrollTop + clientHeight === scrollHeight;
-    // console.log('isScrollToBottomRef.current 값===', isScrollToBottomRef.current);
   };
 
   const scrollToBottom = () => {
@@ -68,11 +66,8 @@ function Chattingroom({ roomId, openAuctionInfo }: ChatroomProps) {
   };
 
   const chatContainerCallbackRef = useCallback((node: HTMLDivElement) => {
-    // console.log('node 값===', node);
     if (node) {
       chatContainerRef.current = node;
-      scrollToBottom();
-
       node.addEventListener('scroll', handleScroll);
     }
   }, []);
@@ -112,7 +107,6 @@ function Chattingroom({ roomId, openAuctionInfo }: ChatroomProps) {
     const subscribeTest = () => {
       client.current?.subscribe(`/sub/channel/${roomId}`, received_message => {
         const receivedMessage: ReceivedMessage = JSON.parse(received_message.body);
-        console.log('> Received message:', receivedMessage);
 
         pushMessage(
           receivedMessage.message,
@@ -131,7 +125,14 @@ function Chattingroom({ roomId, openAuctionInfo }: ChatroomProps) {
           console.log('debug', str);
         },
         onConnect: () => {
+          // console.log('last Chat(in onConnect):', lastChat);
+          // 여기서 lastChat을 setMessages로 넣어주면, 채팅방을 나갔다가 다시 들어왔을 때, 이전 채팅 내용이 다시 불러와집니다.
+          // 그런데 lastChat을 호출하는 부분에서 새로운 채팅 내용을 불러오는 것이 아니라, 기존 채팅 내용을 불러오고 나서, 새로운 채팅 내용을 다시 불러오는 현상이 있었음.
+          // 그래서 상위 파일에서 lastChat을 불러오는 부분을 useEffect를 사용하여 다시 호출함...
+          // 고치긴 해야할 것 같음..
+          setMessages(lastChat);
           subscribeTest();
+          scrollToBottom();
         },
         onWebSocketError: error => {
           console.log('WebSocket Error :', error);
@@ -148,7 +149,9 @@ function Chattingroom({ roomId, openAuctionInfo }: ChatroomProps) {
     connect();
 
     return () => {
-      if (client) disconnect();
+      if (client) {
+        disconnect();
+      }
 
       if (chatContainerRef.current) {
         chatContainerRef.current.removeEventListener('scroll', handleScroll);
@@ -179,15 +182,6 @@ function Chattingroom({ roomId, openAuctionInfo }: ChatroomProps) {
       inputRef.current.value = '';
     }
   };
-
-  useEffect(() => {
-    if (reversedM && messages.length === 0) {
-      setMessages(reversedM);
-    }
-  }, [reversedM]);
-
-  console.log('messages: 바로?', messages);
-  console.log('reversedM: 바로?', reversedM); // 바로바로 messafes에 반영 대야햄
 
   return (
     <div className={S.chatroomContainer}>

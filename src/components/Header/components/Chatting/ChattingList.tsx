@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
+import useGetLastChat from '@/apis/queryHooks/chat/useGetLastChat';
 import { OpenAuctionInfo } from '@/apis/types/chat';
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
 
@@ -13,13 +14,21 @@ function ChattingList() {
 
   const [openChatroomId, setOpenChatroomId] = useState<number | null>(null);
   const [openAuctionInfo, setOpenAuctionInfo] = useState<OpenAuctionInfo | null>(null);
-
-  if (!data) return null;
+  const { reversedM, refetch: reversedMRefetch } = useGetLastChat(openChatroomId);
 
   const handleRefetch = () => {
     setOpenChatroomId(null);
     refetch();
   };
+
+  useEffect(() => {
+    // reversedM이 중간에 바뀌기 때문에...
+    if (!openChatroomId) return;
+    reversedMRefetch();
+  }, [reversedM]);
+
+  if (!data) return null;
+
   return (
     <div
       style={{
@@ -30,12 +39,16 @@ function ChattingList() {
         gap: 10,
       }}
     >
-      {openChatroomId ? (
+      {reversedM && openChatroomId ? (
         <>
           <button type="button" onClick={handleRefetch} className={S.goBackButton}>
             <ChevronDownIcon />
           </button>
-          <Chattingroom roomId={openChatroomId} openAuctionInfo={openAuctionInfo} />
+          <Chattingroom
+            roomId={openChatroomId}
+            openAuctionInfo={openAuctionInfo}
+            lastChat={reversedM}
+          />
         </>
       ) : (
         <div>
