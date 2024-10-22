@@ -40,7 +40,7 @@ function Home() {
   const emailRequired = watch('emailRequired');
   const passwordValue = watch('passwordRequired');
 
-  const checkEamilError = !!errors.emailRequired; // validation 에러
+  const checkEmailError = !!errors.emailRequired; // validation 에러
   const [emailValidationCheck, setEmailValidationCheck] = useState(false); // validation 확인
   const [emailApiCheck, setEmailApiCheck] = useState(false); // api 중복 검사
 
@@ -50,7 +50,7 @@ function Home() {
   const handleCheckEmail = () => {
     if (emailRequired === '') return;
 
-    if (!checkEamilError) {
+    if (!checkEmailError) {
       setEmailValidationCheck(true);
       setEmailApiCheck(true);
     }
@@ -73,7 +73,7 @@ function Home() {
 
   const getButtonStyle = () => {
     // 이메일이 비어 있음 or (이메일에 에러 존재 and 중복 검사가 완료되지 않은 상태)
-    if (emailRequired === '' || (checkEamilError && !emailValidationCheck)) {
+    if (emailRequired === '' || (checkEmailError && !emailValidationCheck)) {
       return S.checkButton.disabled;
     }
     // 유효성 검사 완료 and 중복 검사 완료
@@ -94,7 +94,7 @@ function Home() {
               <input
                 className={S.joinInput}
                 placeholder="이메일을 입력하세요."
-                disabled={canUseEmail && emailValidationCheck}
+                // disabled={canUseEmail && emailValidationCheck}
                 type="email"
                 {...register('emailRequired', {
                   required: '이메일을 입력해 주세요',
