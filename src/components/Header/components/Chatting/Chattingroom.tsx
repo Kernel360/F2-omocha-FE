@@ -1,13 +1,14 @@
-import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { FormEvent, useCallback, useRef } from 'react';
 
-import * as StompJs from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
+// import * as StompJs from '@stomp/stompjs';
+// import SockJS from 'sockjs-client';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
 
 import * as S from './Chatting.css';
+import useChatSocket from './hooks/useChatSocket';
 
 export interface ChatroomProps {
   roomId: number;
@@ -15,27 +16,26 @@ export interface ChatroomProps {
   lastChat: ChatMessage[];
 }
 
-interface Message {
-  text: string;
-  date: string;
-  sender_id: number;
-  type: 'CHAT';
-}
+// interface Message {
+//   text: string;
+//   date: string;
+//   sender_id: number;
+//   type: 'CHAT';
+// }
 
-interface ReceivedMessage {
-  created_date: string;
-  message: string;
-  room_id: number;
-  sender_id: number;
-  sender_nick_name: null | string;
-  type: 'CHAT';
-}
+// interface ReceivedMessage {
+//   created_date: string;
+//   message: string;
+//   room_id: number;
+//   sender_id: number;
+//   sender_nick_name: null | string;
+//   type: 'CHAT';
+// }
 
 function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  // const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const { data: user } = useGetUser();
-
   const { refetch } = useGetChatroomList({
     pageable: 0,
   });
@@ -44,15 +44,21 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
   const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
-  const isScrollToBottomRef = useRef<boolean>(false);
+  // list 쌓이는 영역
+
+  const isScrollToBottomRef = useRef<boolean>(false); // 이걸로 바닥이냐 아니냐를 판단
   // 스크롤 상태 ref
 
   const handleScroll = () => {
+    // 스크롤 이벤트 마다 호출되는 함수 => 따라서 isScrollToBottomRef에 현재 바닥인지 값을 TF로 저장
+    // disconnect에 끊어
     if (!chatContainerRef.current) return;
 
     const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
     isScrollToBottomRef.current = scrollTop + clientHeight === scrollHeight;
   };
+
+  console.log('isScrollToBottomRef:', isScrollToBottomRef.current);
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -72,97 +78,111 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     }
   }, []);
 
-  const pushMessage = (
-    newMessage: string,
-    newDate: string,
-    sender_id: number,
-    type: Message['type'],
-  ) => {
-    setMessages(prevMessages => [
-      ...prevMessages,
-      {
-        message: newMessage,
-        room_id: roomId,
-        sender_nick_name: null,
-        created_date: newDate,
-        sender_id,
-        type,
-      },
-    ]);
-
+  const checkScroll = () => {
     if (isScrollToBottomRef.current) {
       scrollToBottom();
     }
   };
 
-  const socket = new SockJS(`${process.env.NEXT_PUBLIC_SOCKET_SERVER_URL}`);
-  const client = useRef<StompJs.Client>();
+  const { messages, client } = useChatSocket({
+    roomId,
+    lastChat,
+    refetch,
+    onConnect: scrollToBottom,
+    onMessage: checkScroll,
+  });
+
+  // const pushMessage = (
+  //   newMessage: string,
+  //   newDate: string,
+  //   sender_id: number,
+  //   type: Message['type'],
+  // ) => {
+  //   setMessages(prevMessages => [
+  //     ...prevMessages,
+  //     {
+  //       message: newMessage,
+  //       room_id: roomId,
+  //       sender_nick_name: null,
+  //       created_date: newDate,
+  //       sender_id,
+  //       type,
+  //     },
+  //   ]);
+
+  //   if (isScrollToBottomRef.current) {
+  //     scrollToBottom();
+  //   }
+  // };
+
+  // const socket = new SockJS(`${process.env.NEXT_PUBLIC_SOCKET_SERVER_URL}`);
+  // const client = useRef<StompJs.Client>();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const disconnect = () => {
-      client.current?.deactivate();
-    };
+  // useEffect(() => {
+  //   const disconnect = () => {
+  //     client.current?.deactivate();
+  //   };
 
-    const subscribeTest = () => {
-      client.current?.subscribe(`/sub/channel/${roomId}`, received_message => {
-        const receivedMessage: ReceivedMessage = JSON.parse(received_message.body);
+  //   const subscribeTest = () => {
+  //     client.current?.subscribe(`/sub/channel/${roomId}`, received_message => {
+  //       const receivedMessage: ReceivedMessage = JSON.parse(received_message.body);
 
-        pushMessage(
-          receivedMessage.message,
-          receivedMessage.created_date,
-          receivedMessage.sender_id,
-          'CHAT',
-        );
-        refetch();
-      });
-    };
+  //       pushMessage(
+  //         receivedMessage.message,
+  //         receivedMessage.created_date,
+  //         receivedMessage.sender_id,
+  //         'CHAT',
+  //       );
+  //       refetch();
+  //     });
+  //   };
 
-    const connect = () => {
-      client.current = new StompJs.Client({
-        webSocketFactory: () => socket,
-        debug: str => {
-          console.log('debug', str);
-        },
-        onConnect: () => {
-          // console.log('last Chat(in onConnect):', lastChat);
-          // 여기서 lastChat을 setMessages로 넣어주면, 채팅방을 나갔다가 다시 들어왔을 때, 이전 채팅 내용이 다시 불러와집니다.
-          // 그런데 lastChat을 호출하는 부분에서 새로운 채팅 내용을 불러오는 것이 아니라, 기존 채팅 내용을 불러오고 나서, 새로운 채팅 내용을 다시 불러오는 현상이 있었음.
-          // 그래서 상위 파일에서 lastChat을 불러오는 부분을 useEffect를 사용하여 다시 호출함...
-          // 고치긴 해야할 것 같음..
-          setMessages(lastChat);
-          subscribeTest();
-          scrollToBottom();
-        },
-        onWebSocketError: error => {
-          console.log('WebSocket Error :', error);
-        },
-        onStompError: frame => {
-          console.dir(`Broker reported error: ${frame.headers.message}`);
-          console.dir(`Additional details: ${frame}`);
-        },
-      });
+  //   // const connect = () => {
+  //   //   client.current = new StompJs.Client({
+  //   //     webSocketFactory: () => socket,
+  //   //     debug: str => {
+  //   //       console.log('debug', str);
+  //   //     },
+  //   //     onConnect: () => {
+  //   //       // console.log('last Chat(in onConnect):', lastChat);
+  //   //       // 여기서 lastChat을 setMessages로 넣어주면, 채팅방을 나갔다가 다시 들어왔을 때, 이전 채팅 내용이 다시 불러와집니다.
+  //   //       // 그런데 lastChat을 호출하는 부분에서 새로운 채팅 내용을 불러오는 것이 아니라, 기존 채팅 내용을 불러오고 나서, 새로운 채팅 내용을 다시 불러오는 현상이 있었음.
+  //   //       // 그래서 상위 파일에서 lastChat을 불러오는 부분을 useEffect를 사용하여 다시 호출함...
+  //   //       // 고치긴 해야할 것 같음..
+  //   //       setMessages(lastChat);
+  //   //       subscribeTest();
+  //   //       scrollToBottom();
+  //   //     },
+  //   //     onWebSocketError: error => {
+  //   //       console.log('WebSocket Error :', error);
+  //   //     },
+  //   //     onStompError: frame => {
+  //   //       console.dir(`Broker reported error: ${frame.headers.message}`);
+  //   //       console.dir(`Additional details: ${frame}`);
+  //   //     },
+  //   //   });
 
-      client.current.activate();
-    };
+  //   //   client.current.activate();
+  //   // };
 
-    connect();
+  //   // connect();
 
-    return () => {
-      if (client) {
-        disconnect();
-      }
+  //   // return () => {
+  //   //   if (client) {
+  //   //     disconnect();
+  //   //   }
 
-      if (chatContainerRef.current) {
-        chatContainerRef.current.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, [roomId]);
+  //   //   if (chatContainerRef.current) {
+  //   //     chatContainerRef.current.removeEventListener('scroll', handleScroll);
+  //   //   }
+  //   };
+  // }, [roomId]);
 
   const sendMessage = async (message: string) => {
     console.log('Destination URL:', `https://api.omocha-auction.com/pub/${roomId}/messages`); // 생성된 URL을 확인합니다.
 
-    client.current?.publish({
+    client?.publish({
       destination: `/pub/${roomId}/messages`,
       body: JSON.stringify({
         message_type: 'CHAT',
