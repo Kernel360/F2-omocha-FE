@@ -23,10 +23,7 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
   const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
-  // list 쌓이는 영역
-
-  const isScrollToBottomRef = useRef<boolean>(false); // 이걸로 바닥이냐 아니냐를 판단
-  // 스크롤 상태 ref
+  const isScrollToBottomRef = useRef<boolean>(false);
 
   const handleScroll = () => {
     if (!chatContainerRef.current) return;
@@ -34,8 +31,6 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
     isScrollToBottomRef.current = scrollTop + clientHeight === scrollHeight;
   };
-
-  console.log('isScrollToBottomRef:', isScrollToBottomRef.current);
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -72,8 +67,6 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const sendMessage = async (message: string) => {
-    console.log('Destination URL:', `https://api.omocha-auction.com/pub/${roomId}/messages`); // 생성된 URL을 확인합니다.
-
     client?.publish({
       destination: `/pub/${roomId}/messages`,
       body: JSON.stringify({
