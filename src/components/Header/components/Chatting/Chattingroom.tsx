@@ -64,8 +64,6 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     onMessage: checkScroll,
   });
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const sendMessage = async (message: string) => {
     client?.publish({
       destination: `/pub/${roomId}/messages`,
@@ -76,6 +74,8 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
       }),
     });
   };
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const sendHandler = async (e: FormEvent) => {
     e.preventDefault();

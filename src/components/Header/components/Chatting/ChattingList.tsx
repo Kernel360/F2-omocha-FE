@@ -14,7 +14,7 @@ function ChattingList() {
 
   const [openChatroomId, setOpenChatroomId] = useState<number | null>(null);
   const [openAuctionInfo, setOpenAuctionInfo] = useState<OpenAuctionInfo | null>(null);
-  const { reversedM, refetch: reversedMRefetch } = useGetLastChat(openChatroomId);
+  const { reversedMessages, refetch: reversedMRefetch } = useGetLastChat(openChatroomId);
 
   const handleRefetch = () => {
     setOpenChatroomId(null);
@@ -25,7 +25,7 @@ function ChattingList() {
     // reversedM이 중간에 바뀌기 때문에...
     if (!openChatroomId) return;
     reversedMRefetch();
-  }, [reversedM]);
+  }, [reversedMessages]);
 
   if (!data) return null;
 
@@ -39,7 +39,7 @@ function ChattingList() {
         gap: 10,
       }}
     >
-      {reversedM && openChatroomId ? (
+      {reversedMessages && openChatroomId ? (
         <>
           <button type="button" onClick={handleRefetch} className={S.goBackButton}>
             <ChevronDownIcon />
@@ -47,7 +47,7 @@ function ChattingList() {
           <Chattingroom
             roomId={openChatroomId}
             openAuctionInfo={openAuctionInfo}
-            lastChat={reversedM}
+            lastChat={reversedMessages}
           />
         </>
       ) : (
