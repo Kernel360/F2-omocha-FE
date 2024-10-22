@@ -85,7 +85,7 @@ export default function Home() {
     data.imagesRequired.forEach(image => formData.append('images', image.file));
 
     postBasicAuction(formData);
-  }, 1000);
+  }, 500);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -234,6 +234,7 @@ export default function Home() {
               id="endDate"
               type="datetime-local"
               className={S.auctionInput}
+              min={new Date().toISOString().slice(0, 16)}
               {...register('endDateRequired', {
                 required: '종료 시각을 입력해 주세요.',
                 validate: value => {
