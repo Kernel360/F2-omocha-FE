@@ -75,7 +75,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       });
     }
     setIsOpenBidConfirmModal();
-  });
+  }, 300);
 
   const iconRef = useRef<HTMLButtonElement>(null);
 
