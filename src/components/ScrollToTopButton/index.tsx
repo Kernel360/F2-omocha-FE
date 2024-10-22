@@ -29,9 +29,9 @@ export default function ScrollToTopButton() {
       }
     };
 
-    document.addEventListener('scroll', handleShowButton);
+    window.addEventListener('scroll', handleShowButton);
     return () => {
-      document.removeEventListener('scroll', handleShowButton);
+      window.removeEventListener('scroll', handleShowButton);
 
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
