@@ -47,6 +47,7 @@ export const image = style({
   gap: '10px',
   justifyContent: 'center',
   width: '250px',
+  height: 'auto',
   objectFit: 'contain',
   border: '1.5px dashed white ',
   borderRadius: '10px',

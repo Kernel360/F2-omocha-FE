@@ -5,6 +5,8 @@
 import { useRef } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
+import Image from 'next/image';
+
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
@@ -171,8 +173,11 @@ export default function Home() {
               .reverse()
               .map(({ imageRequiredId, file }, index) => (
                 <li key={imageRequiredId} className={S.image}>
-                  <img
+                  <Image
                     className={S.image}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
                     src={URL.createObjectURL(file)}
                     alt={URL.createObjectURL(file)}
                   />
