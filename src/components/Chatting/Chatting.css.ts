@@ -151,6 +151,7 @@ export const chatListWrapper = style({
   overflowY: 'auto',
   backgroundColor: '#f9f9f9',
   padding: '10px',
+  whiteSpace: 'pre-wrap',
 });
 
 export const msgBoxBase = style({
@@ -222,6 +223,7 @@ export const inputWrapper = style({
   border: '1px solid #e5e5e5',
   fontSize: '14px',
   outline: 'none',
+  resize: 'none',
 });
 
 export const submitButton = style({

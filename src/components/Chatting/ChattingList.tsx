@@ -65,7 +65,7 @@ function ChattingList() {
             roomId={openChatroomId}
             openAuctionInfo={openAuctionInfo}
             lastChat={reversedMessages}
-            setChatCreate={setChatCreate}
+            // setChatCreate={setChatCreate}
           />
         </>
       ) : (
