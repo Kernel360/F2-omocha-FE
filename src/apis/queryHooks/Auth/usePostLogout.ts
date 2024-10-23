@@ -15,7 +15,7 @@ function usePostLogout() {
   const { mutate, error } = useMutation({
     mutationFn: () => postLogout(),
     onSuccess: async () => {
-      router.push('/');
+      router.push('/', { scroll: false });
       setIsLoggedIn(false);
       removeUser();
     },

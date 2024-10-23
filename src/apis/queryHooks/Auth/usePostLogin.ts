@@ -20,7 +20,7 @@ function usePostLogin() {
       if (referrer && isOmochaAuctionPage && !pathname.includes('/join')) {
         router.back();
       } else {
-        router.push('/');
+        router.push('/', { scroll: false });
       }
       setIsLoggedIn(true);
     },

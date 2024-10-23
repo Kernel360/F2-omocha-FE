@@ -16,7 +16,7 @@ function AuctionBidListModal({ id }: AuctionBidListModalProps) {
   const { data } = useGetBasicAuctionBidList(id);
 
   const moveToLogin = () => {
-    router.push('/login');
+    router.push('/login', { scroll: false });
   };
 
   if (!isLoggedIn) {

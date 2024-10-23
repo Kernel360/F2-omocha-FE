@@ -13,13 +13,17 @@ function Footer() {
     <footer className={S.footer}>
       <div className={S.container}>
         <div className={S.topFooter}>
-          <button className={S.logoButton} type="button" onClick={() => router.push('/')}>
+          <button
+            className={S.logoButton}
+            type="button"
+            onClick={() => router.push('/', { scroll: false })}
+          >
             LOGO
           </button>
           <ul className={S.categoryList}>
             {MAIN_CATEGORY.map(category => (
               <li className={S.category} key={category.id}>
-                <Link className={S.categoryLink} href={category.path}>
+                <Link className={S.categoryLink} href={category.path} scroll={false}>
                   {category.name}
                 </Link>
               </li>

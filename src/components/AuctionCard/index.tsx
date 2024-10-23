@@ -20,7 +20,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   const { id, image, title, isLike, startPrice, startTime, endTime, nowPrice } = SAMPLE;
   const isExpired = new Date() > new Date(endTime);
   return (
-    <Link className={S.cardWrapper} href={`basicauction/${id}`}>
+    <Link className={S.cardWrapper} href={`basicauction/${id}`} scroll={false}>
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
       <HeartIcon className={S.heartStyle} stroke="red" fill={isLike ? 'red' : 'none'} />
       <Image

@@ -11,7 +11,7 @@ function usePostBasicAuction() {
     mutationFn: (param: FormData) => postBasicAuction(param),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
-      router.push('/basicauction');
+      router.push('/basicauction', { scroll: false });
     },
   });
 

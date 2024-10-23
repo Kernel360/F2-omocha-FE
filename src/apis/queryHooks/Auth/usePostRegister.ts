@@ -13,7 +13,7 @@ function usePostRegister() {
     mutationFn: (param: RegisterParams) => postRegister(param),
     onSuccess: () => {
       alert('회원가입을 성공했습니다.🎉');
-      router.push('/login');
+      router.push('/login', { scroll: false });
     },
 
     onError: (e: AxiosError<Response<string>>) => {
