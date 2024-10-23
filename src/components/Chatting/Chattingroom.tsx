@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
@@ -75,16 +75,19 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     });
   };
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const sendHandler = async (e: FormEvent) => {
-    e.preventDefault();
-
+  const sendHandler = async () => {
     const message = inputRef.current?.value.trim();
     if (message && inputRef.current) {
       sendMessage(message);
-
       inputRef.current.value = '';
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      sendHandler();
     }
   };
 
@@ -131,19 +134,18 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
           );
         })}
       </div>
-      <form onSubmit={sendHandler}>
-        <div className={S.inputSection}>
-          <input
-            type="text"
-            ref={inputRef}
-            placeholder="메시지를 입력하세요..."
-            className={S.inputWrapper}
-          />
-          <button type="submit" className={S.submitButton}>
-            전송
-          </button>
-        </div>
-      </form>
+
+      <div className={S.inputSection}>
+        <textarea
+          ref={inputRef}
+          placeholder="메시지를 입력하세요..."
+          className={S.inputWrapper}
+          onKeyUp={handleKeyDown}
+        />
+        <button type="button" className={S.submitButton} onClick={sendHandler}>
+          전송
+        </button>
+      </div>
     </div>
   );
 }
