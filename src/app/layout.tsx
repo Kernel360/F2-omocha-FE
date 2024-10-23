@@ -6,6 +6,7 @@ import * as S from '@/app/globals.css';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ChattingIconButton from '@/components/Header/components/Chatting/ChattingIconButton';
+import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
@@ -51,6 +52,8 @@ export default function RootLayout({
       </Head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanstackProviders>
+          <NavigationEvents />
+
           <AuthProvider isLoggedIn={isLoggedIn}>
             <Header />
             <div className={S.container}>
