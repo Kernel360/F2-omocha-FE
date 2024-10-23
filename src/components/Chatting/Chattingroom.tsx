@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useRef } from 'react';
+import { FormEvent, useCallback, useEffect, useRef } from 'react';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
@@ -87,6 +87,14 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
       inputRef.current.value = '';
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   return (
     <div className={S.chatroomContainer}>
