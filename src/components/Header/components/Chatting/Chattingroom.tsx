@@ -5,19 +5,23 @@ import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
 
 import * as S from './Chatting.css';
+import useBidirectionalInfiniteScroll from './hooks/useBidirectionalInfiniteScroll';
 import useChatSocket from './hooks/useChatSocket';
 
 export interface ChatroomProps {
   roomId: number;
   openAuctionInfo: OpenAuctionInfo | null;
   lastChat: ChatMessage[];
+  setChatCreate: (chatCreate: string) => void;
 }
 
-function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
+function Chattingroom({ roomId, openAuctionInfo, lastChat, setChatCreate }: ChatroomProps) {
   const { data: user } = useGetUser();
   const { refetch } = useGetChatroomList({
     pageable: 0,
   });
+
+  console.log('setChatCreate', setChatCreate); // 임시 lint용 console
 
   const seller = openAuctionInfo?.seller_name || `${openAuctionInfo?.seller_id}번 사용자`;
   const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
@@ -75,6 +79,8 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     });
   };
 
+  // messages에 나는 새로운 lastChat이 넘어오면 스프레드 연산자들 통해서 상단에 붙이고 싶어
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const sendHandler = async (e: FormEvent) => {
@@ -87,6 +93,18 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
       inputRef.current.value = '';
     }
   };
+
+  const sectionRef = useBidirectionalInfiniteScroll({
+    sectionRef: chatContainerRef,
+    upFetch: () => {
+      console.log('upFetch', lastChat[0].created_date);
+    },
+    downFetch: () => {
+      console.log('downFetch', lastChat[lastChat.length - 1].created_date);
+    },
+  });
+
+  console.log('sectionRef', sectionRef);
 
   return (
     <div className={S.chatroomContainer}>

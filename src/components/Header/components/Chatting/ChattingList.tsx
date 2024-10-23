@@ -11,10 +11,14 @@ import Chattingroom from './Chattingroom';
 
 function ChattingList() {
   const { data, refetch } = useGetChatroomList({ pageable: 0 });
-
+  const [chatCreate, setChatCreate] = useState<string>('');
   const [openChatroomId, setOpenChatroomId] = useState<number | null>(null);
   const [openAuctionInfo, setOpenAuctionInfo] = useState<OpenAuctionInfo | null>(null);
-  const { reversedMessages, refetch: reversedMRefetch } = useGetLastChat(openChatroomId);
+  const { reversedMessages, refetch: reversedMRefetch } = useGetLastChat(
+    openChatroomId,
+    chatCreate,
+  );
+  // const [lastChat, setLastChat] = useState<ChatMessage[]>([]);
 
   const handleRefetch = () => {
     setOpenChatroomId(null);
@@ -26,6 +30,19 @@ function ChattingList() {
     if (!openChatroomId) return;
     reversedMRefetch();
   }, [reversedMessages]);
+
+  if (!data) return null;
+
+  // useEffect(() => {
+  //   if (!openChatroomId) return;
+  //   reversedMRefetch().then(_data => {
+  //     if (!_data || !_data.data || !_data.data.messages.content) {
+  //       return;
+  //     }
+
+  //     setLastChat(prevLastChat => [..._data.data.messages.content, ...prevLastChat]);
+  //   });
+  // }, [openChatroomId]);
 
   if (!data) return null;
 
@@ -48,6 +65,7 @@ function ChattingList() {
             roomId={openChatroomId}
             openAuctionInfo={openAuctionInfo}
             lastChat={reversedMessages}
+            setChatCreate={setChatCreate}
           />
         </>
       ) : (
