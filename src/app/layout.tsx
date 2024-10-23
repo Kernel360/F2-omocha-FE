@@ -3,9 +3,9 @@ import Head from 'next/head';
 import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
+import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import ChattingIconButton from '@/components/Header/components/Chatting/ChattingIconButton';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 
