@@ -24,6 +24,7 @@ function useChatSocket({ roomId, lastChat, refetch, onConnect, onMessage }: UseC
   const [messages, setMessages] = useState<ChatMessage[]>(lastChat); // 초기화 안될지도
 
   const pushMessage = (newMessage: string, newDate: string, sender_id: number, type: 'CHAT') => {
+    // 메시지를 보내는 이벤트 입니다.
     setMessages(prevMessages => [
       ...prevMessages,
       {
@@ -43,7 +44,10 @@ function useChatSocket({ roomId, lastChat, refetch, onConnect, onMessage }: UseC
   const { client } = useSocket({
     url: `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URL}`,
     config: {
+      // https://stomp-js.github.io/api-docs/latest/classes/Client.html
+      // 문서 참고
       onConnect: () => {
+        // 연결을 시도합니다.
         setMessages(lastChat);
       },
       onWebSocketError: error => {
@@ -58,6 +62,7 @@ function useChatSocket({ roomId, lastChat, refetch, onConnect, onMessage }: UseC
       },
     },
     afterConnect: _client => {
+      // 연결이 성공한 이후 진행할 작업닙니다.
       if (_client) {
         _client.subscribe(`/sub/channel/${roomId}`, received_message => {
           console.log('received_message: useSocket.ts', received_message);
