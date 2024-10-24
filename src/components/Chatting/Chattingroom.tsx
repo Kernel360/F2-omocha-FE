@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
+import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
 
 import * as S from './Chatting.css';
 import useChatSocket from './hooks/useChatSocket';
@@ -24,6 +25,18 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const isScrollToBottomRef = useRef<boolean>(false);
+
+  const sectionRef = useBidirectionalInfiniteScroll({
+    sectionRef: chatContainerRef,
+    upFetch: () => {
+      console.log('upFetch', lastChat[0].created_date);
+    },
+    downFetch: () => {
+      console.log('downFetch', lastChat[lastChat.length - 1].created_date);
+    },
+  });
+
+  console.log('sectionRef', sectionRef);
 
   const handleScroll = () => {
     if (!chatContainerRef.current) return;
