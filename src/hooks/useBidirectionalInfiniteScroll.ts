@@ -11,27 +11,22 @@ function useBidirectionalInfiniteScroll({
   upFetch,
   downFetch,
 }: UseBidirectionalInfiniteScrollParams) {
-  const handleScroll = () => {
-    if (!sectionRef.current) return;
-
-    const { scrollTop, scrollHeight, clientHeight } = sectionRef.current;
-    // console.log('scrollTop', scrollTop);
-    // console.log('scrollHeight', scrollHeight);
-    // console.log('clientHeight', clientHeight);
-
-    if (scrollTop === 0) {
-      console.log('upFetch');
-      upFetch();
-    }
-
-    if (scrollTop + clientHeight === scrollHeight) {
-      console.log('downFetch', downFetch);
-      // downFetch();
-    }
-  };
-
   useEffect(() => {
     if (!sectionRef.current) return undefined;
+
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const { scrollTop, scrollHeight, clientHeight } = sectionRef.current;
+      if (scrollTop === 0) {
+        console.log('upFetch');
+        upFetch();
+      }
+
+      if (scrollTop + clientHeight === scrollHeight) {
+        console.log('downFetch', downFetch);
+      }
+    };
 
     const currentSection = sectionRef.current;
     currentSection.addEventListener('scroll', handleScroll);
@@ -39,7 +34,7 @@ function useBidirectionalInfiniteScroll({
     return () => {
       currentSection.removeEventListener('scroll', handleScroll);
     };
-  }, [sectionRef]);
+  }, [sectionRef, upFetch, downFetch]);
 
   return { sectionRef };
 }

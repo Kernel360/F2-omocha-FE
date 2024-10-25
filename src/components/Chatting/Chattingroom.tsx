@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { getLastChat } from '@/apis/queryFunctions/chat';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
@@ -20,23 +21,29 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     pageable: 0,
   });
 
+  const [messages, setMessages] = useState<ChatMessage[]>(lastChat); // 초기화 안될지도
+
   const seller = openAuctionInfo?.seller_name || `${openAuctionInfo?.seller_id}번 사용자`;
   const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const isScrollToBottomRef = useRef<boolean>(false);
 
-  const sectionRef = useBidirectionalInfiniteScroll({
+  const fetchLastChat = useCallback(async () => {
+    const reversedMessages = await getLastChat(roomId, messages[0].created_date);
+    if (reversedMessages) {
+      const testValue = reversedMessages.messages.content.map(message => message).reverse();
+      setMessages(prevMessages => [...testValue, ...prevMessages]);
+    }
+  }, [roomId, messages]);
+
+  useBidirectionalInfiniteScroll({
     sectionRef: chatContainerRef,
-    upFetch: () => {
-      console.log('upFetch', lastChat[0].created_date);
-    },
+    upFetch: fetchLastChat,
     downFetch: () => {
       console.log('downFetch', lastChat[lastChat.length - 1].created_date);
     },
   });
-
-  console.log('sectionRef', sectionRef);
 
   const handleScroll = () => {
     if (!chatContainerRef.current) return;
@@ -69,9 +76,10 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     }
   };
 
-  const { messages, client } = useChatSocket({
+  const { client } = useChatSocket({
     roomId,
     lastChat,
+    setMessages,
     refetch,
     onConnect: scrollToBottom,
     onMessage: checkScroll,

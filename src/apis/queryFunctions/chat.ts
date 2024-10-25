@@ -19,11 +19,11 @@ export const getChatroomList = async (param: GetChatroomListParams) => {
 };
 
 export const getLastChat = async (roomId: number | null, chatCreate?: string) => {
-  const formatterForApi = chatCreate && chatCreate.length > 1 ? chatCreate.replace(' ', 'T') : '';
+  const formatterCreateDateForApi =
+    chatCreate && chatCreate.length > 1 ? chatCreate.replace(' ', 'T') : '';
 
-  console.log('formatterForApi', formatterForApi);
   const response = await apiClient.get<Response<GetLastChatResponseData>>(
-    `/v1/chatroom/${roomId}?cursor=${formatterForApi}`,
+    `/v1/chatroom/${roomId}?cursor=${formatterCreateDateForApi}`,
   );
 
   return response.data.result_data;

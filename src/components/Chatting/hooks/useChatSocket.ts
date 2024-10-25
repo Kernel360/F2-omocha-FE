@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import { ChatMessage } from '@/apis/types/chat';
 import useSocket from '@/hooks/useSocket';
@@ -6,6 +6,7 @@ import useSocket from '@/hooks/useSocket';
 interface UseChatSocketParams {
   roomId: number;
   lastChat: ChatMessage[];
+  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   refetch: () => void;
   onConnect?: () => void;
   onMessage?: () => void;
@@ -14,15 +15,21 @@ interface UseChatSocketParams {
 interface ReceivedMessage {
   created_date: string;
   message: string;
+
   room_id: number;
   sender_id: number;
   sender_nick_name: null | string;
   type: 'CHAT';
 }
 
-function useChatSocket({ roomId, lastChat, refetch, onConnect, onMessage }: UseChatSocketParams) {
-  const [messages, setMessages] = useState<ChatMessage[]>(lastChat); // 초기화 안될지도
-
+function useChatSocket({
+  roomId,
+  lastChat,
+  setMessages,
+  refetch,
+  onConnect,
+  onMessage,
+}: UseChatSocketParams) {
   const pushMessage = (newMessage: string, newDate: string, sender_id: number, type: 'CHAT') => {
     // 메시지를 보내는 이벤트 입니다.
     setMessages(prevMessages => [
@@ -84,7 +91,8 @@ function useChatSocket({ roomId, lastChat, refetch, onConnect, onMessage }: UseC
     },
   });
 
-  return { messages, pushMessage, setMessages, client };
+  return { pushMessage, setMessages, client };
+  // messages
 }
 
 export default useChatSocket;
