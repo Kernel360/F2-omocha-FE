@@ -4,6 +4,7 @@ import { getLastChat } from '@/apis/queryFunctions/chat';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
+import ArrowRightIcon from '@/assets/svg/arrow-right.svg';
 import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
 
 import * as S from './Chatting.css';
@@ -22,7 +23,7 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
   });
 
   const [messages, setMessages] = useState<ChatMessage[]>(lastChat); // 초기화 안될지도
-
+  // const [isVisibleToBottomButton, setIsVisibleToBottomButton] = useState<boolean>(false);
   const seller = openAuctionInfo?.seller_name || `${openAuctionInfo?.seller_id}번 사용자`;
   const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
 
@@ -50,6 +51,11 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
 
     const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
     isScrollToBottomRef.current = scrollTop + clientHeight === scrollHeight;
+    // if (scrollTop <= 80) {
+    //   setIsVisibleToBottomButton(true);
+    // } else {
+    //   setIsVisibleToBottomButton(false);
+    // }
   };
 
   const scrollToBottom = () => {
@@ -62,6 +68,15 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
       }
     }, 100);
   };
+
+  // const isVisibleAboutPosition = (threshold = 50) => {
+  //   // threshold 기본값을 설정 (예: 50px)
+  //   if (chatContainerRef.current) {
+  //     const { scrollTop } = chatContainerRef.current;
+  //     return scrollTop <= threshold;
+  //   }
+  //   return false;
+  // };
 
   const chatContainerCallbackRef = useCallback((node: HTMLDivElement) => {
     if (node) {
@@ -154,6 +169,11 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
             </div>
           );
         })}
+        {/* {isVisibleToBottomButton && ( */}
+        <button type="button" onClick={scrollToBottom} className={S.toBottomButton}>
+          <ArrowRightIcon className={S.toBottomIcon} />
+        </button>
+        {/* )} */}
       </div>
 
       <div className={S.inputSection}>
