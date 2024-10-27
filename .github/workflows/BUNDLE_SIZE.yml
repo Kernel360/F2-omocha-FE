@@ -1,0 +1,38 @@
+name: analyze bundle size
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - hotfix
+  pull_request:
+    branches:
+      - main
+      - develop
+      - hotfix
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Analyze bundle sizes
+        uses: transferwise/actions-next-bundle-analyzer@v2
+        with:
+          comment-strategy: 'skip-insignificant'
+          create-issue: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
