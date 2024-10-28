@@ -33,8 +33,8 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
   const fetchLastChat = useCallback(async () => {
     const reversedMessages = await getLastChat(roomId, messages[0].created_date);
     if (reversedMessages) {
-      const testValue = reversedMessages.messages.content.map(message => message).reverse();
-      setMessages(prevMessages => [...testValue, ...prevMessages]);
+      const newLastChat = reversedMessages.messages.content.map(message => message).reverse();
+      setMessages(prevMessages => [...newLastChat, ...prevMessages]);
     }
   }, [roomId, messages]);
 

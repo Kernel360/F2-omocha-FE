@@ -1,5 +1,3 @@
-// import { useState } from 'react';
-
 import { ChatMessage } from '@/apis/types/chat';
 import useSocket from '@/hooks/useSocket';
 
@@ -92,7 +90,6 @@ function useChatSocket({
   });
 
   return { pushMessage, setMessages, client };
-  // messages
 }
 
 export default useChatSocket;
