@@ -6,6 +6,7 @@ import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
 import ArrowRightIcon from '@/assets/svg/arrow-right.svg';
 import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
+import useBooleanState from '@/hooks/useBooleanState';
 
 import * as S from './Chatting.css';
 import useChatSocket from './hooks/useChatSocket';
@@ -29,6 +30,7 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const isScrollToBottomRef = useRef<boolean>(false);
+  const { value: bottomScrollButtonValue, setTrue, setFalse } = useBooleanState(false);
 
   const fetchLastChat = useCallback(async () => {
     const reversedMessages = await getLastChat(roomId, messages[0].created_date);
@@ -48,8 +50,11 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
 
     const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
     isScrollToBottomRef.current = scrollTop + clientHeight === scrollHeight;
-
-    // scrollHeight - scrollTop - clientHeight > 200 이게 이제 하단 스크롤 버튼이 나타나야하는 시점
+    if (scrollHeight - scrollTop - clientHeight > 200) {
+      setTrue();
+    } else {
+      setFalse();
+    }
   };
 
   const scrollToBottom = () => {
@@ -179,10 +184,11 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
           </button>
         )}
 
-        {/* 하단 스크롤 관련 버튼 추가 구현 필요 */}
-        <button type="button" onClick={scrollToBottom} className={S.toBottomButton}>
-          <ArrowRightIcon className={S.toBottomIcon} />
-        </button>
+        {bottomScrollButtonValue && (
+          <button type="button" onClick={scrollToBottom} className={S.toBottomButton}>
+            <ArrowRightIcon className={S.toBottomIcon} />
+          </button>
+        )}
       </div>
 
       <div className={S.inputSection}>
