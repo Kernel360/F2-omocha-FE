@@ -26,7 +26,7 @@ export default function AuctionList({
       <div className={S.title}>
         <h3>{pathname}</h3>
         {isLink ? (
-          <Link className={S.link} href={path}>
+          <Link className={S.link} href={path} scroll={false}>
             경매 전체보기
             <ArrowRightIcon />
           </Link>

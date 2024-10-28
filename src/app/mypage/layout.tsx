@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <ul className={S.categoryList}>
         <div className={S.profile}>
           <h2>{user?.email}</h2>
-          <Link href="/mypage/heart">
+          <Link href="/mypage/heart" scroll={false}>
             <div className={S.heart}>
               <span>찜</span>
               <span>16</span>
@@ -30,6 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               className={S.categoryLink}
               href={category.path}
               style={{ color: category.path === pathname ? 'red' : 'black' }}
+              scroll={false}
             >
               {category.name}
             </Link>
