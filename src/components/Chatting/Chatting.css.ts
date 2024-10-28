@@ -144,6 +144,7 @@ export const closeButton = style({
 
 // Chat List
 export const chatListWrapper = style({
+  position: 'relative',
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
@@ -262,4 +263,28 @@ export const msgDate = styleVariants({
       marginRight: 'auto',
     },
   ],
+});
+
+export const toBottomButton = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'fixed',
+  bottom: '100px',
+  right: '10px',
+  padding: '8px',
+  borderRadius: '50%',
+  backgroundColor: 'rgba(0, 0, 0, 0.3);',
+  color: 'white',
+  cursor: 'pointer',
+  transition: 'background-color 0.2s ease',
+  ':hover': {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+});
+
+export const toBottomIcon = style({
+  transform: 'rotate(90deg)',
+  width: '20px',
+  height: '20px',
 });

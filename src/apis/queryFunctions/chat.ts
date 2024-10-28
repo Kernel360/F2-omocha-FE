@@ -18,8 +18,13 @@ export const getChatroomList = async (param: GetChatroomListParams) => {
   return response.data.result_data;
 };
 
-export const getLastChat = async (roomId: number | null) => {
-  const response = await apiClient.get<Response<GetLastChatResponseData>>(`/v1/chatroom/${roomId}`);
+export const getLastChat = async (roomId: number | null, chatCreate?: string) => {
+  const formatterCreateDateForApi =
+    chatCreate && chatCreate.length > 1 ? chatCreate.replace(' ', 'T') : '';
+
+  const response = await apiClient.get<Response<GetLastChatResponseData>>(
+    `/v1/chatroom/${roomId}?cursor=${formatterCreateDateForApi}`,
+  );
 
   return response.data.result_data;
 };
