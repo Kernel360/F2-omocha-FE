@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 
 interface UseBidirectionalInfiniteScrollParams {
   sectionRef: React.RefObject<HTMLDivElement>;
-  upFetch: () => void;
-  downFetch: () => void;
+  upFetch?: () => void;
+  downFetch?: () => void;
 }
 
 function useBidirectionalInfiniteScroll({
@@ -22,11 +22,11 @@ function useBidirectionalInfiniteScroll({
       const { scrollTop, scrollHeight, clientHeight } = sectionRef.current;
       if (scrollTop === 0) {
         prevScrollHeightRef.current = scrollHeight;
-        upFetch();
+        if (upFetch) upFetch();
       }
 
       if (scrollTop + clientHeight === scrollHeight) {
-        console.log('downFetch', downFetch);
+        if (downFetch) downFetch();
       }
     };
 
