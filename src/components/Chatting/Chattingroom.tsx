@@ -48,6 +48,8 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
 
     const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
     isScrollToBottomRef.current = scrollTop + clientHeight === scrollHeight;
+
+    // scrollHeight - scrollTop - clientHeight > 200 이게 이제 하단 스크롤 버튼이 나타나야하는 시점
   };
 
   const scrollToBottom = () => {
@@ -72,16 +74,29 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     if (isScrollToBottomRef.current) {
       scrollToBottom();
     }
+    return false;
   };
 
-  const { client } = useChatSocket({
+  const checkBottom = () => {
+    return isScrollToBottomRef.current;
+  };
+
+  const { client, newChat, readNewChat } = useChatSocket({
     roomId,
     lastChat,
     setMessages,
     refetch,
     onConnect: scrollToBottom,
     onMessage: checkScroll,
+    checkBottom,
   });
+
+  const handleNewChat = () => {
+    if (newChat) {
+      scrollToBottom();
+      readNewChat();
+    }
+  };
 
   const sendMessage = async (message: string) => {
     client?.publish({
@@ -152,6 +167,14 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
             </div>
           );
         })}
+
+        {newChat && (
+          <button type="button" className={S.newFloatingChat} onClick={handleNewChat}>
+            <div className={S.newFloatingChatUser}> 유저</div>
+            <span className={S.newFloatingChatMessage}>{newChat.message}</span>
+          </button>
+        )}
+
         {/* 하단 스크롤 관련 버튼 추가 구현 필요 */}
         <button type="button" onClick={scrollToBottom} className={S.toBottomButton}>
           <ArrowRightIcon className={S.toBottomIcon} />

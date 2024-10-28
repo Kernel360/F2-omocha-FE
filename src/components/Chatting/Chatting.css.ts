@@ -288,3 +288,33 @@ export const toBottomIcon = style({
   width: '20px',
   height: '20px',
 });
+
+export const newFloatingChat = style({
+  position: 'fixed',
+  display: 'flex',
+  bottom: '90px',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  padding: '4px 8px',
+  gap: '4px',
+  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+  borderRadius: '12px',
+  width: 'fit-content',
+  cursor: 'pointer',
+});
+
+export const newFloatingChatUser = style({
+  color: 'black',
+  fontSize: '14px',
+  fontWeight: '600',
+});
+
+export const newFloatingChatMessage = style({
+  color: 'black',
+  fontSize: '14px',
+  fontWeight: '400',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  maxWidth: '110px',
+});

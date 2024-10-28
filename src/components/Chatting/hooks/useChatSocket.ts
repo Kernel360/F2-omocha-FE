@@ -1,3 +1,6 @@
+import { useState } from 'react';
+
+import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import { ChatMessage } from '@/apis/types/chat';
 import useSocket from '@/hooks/useSocket';
 
@@ -8,12 +11,12 @@ interface UseChatSocketParams {
   refetch: () => void;
   onConnect?: () => void;
   onMessage?: () => void;
+  checkBottom?: () => boolean;
 }
 
 interface ReceivedMessage {
   created_date: string;
   message: string;
-
   room_id: number;
   sender_id: number;
   sender_nick_name: null | string;
@@ -27,7 +30,11 @@ function useChatSocket({
   refetch,
   onConnect,
   onMessage,
+  checkBottom,
 }: UseChatSocketParams) {
+  const [newChat, setNewChat] = useState<ChatMessage | null>(null);
+  const user = useGetUser();
+
   const pushMessage = (newMessage: string, newDate: string, sender_id: number, type: 'CHAT') => {
     // 메시지를 보내는 이벤트 입니다.
     setMessages(prevMessages => [
@@ -43,6 +50,19 @@ function useChatSocket({
     ]);
     if (onMessage) {
       onMessage();
+    }
+    if (checkBottom) {
+      const isBottom = checkBottom();
+      if (!isBottom && sender_id !== user.data?.member_id) {
+        setNewChat({
+          message: newMessage,
+          room_id: roomId,
+          sender_nick_name: null,
+          created_date: newDate,
+          sender_id,
+          type,
+        });
+      }
     }
   };
 
@@ -89,7 +109,11 @@ function useChatSocket({
     },
   });
 
-  return { pushMessage, setMessages, client };
+  const readNewChat = () => {
+    setNewChat(null);
+  };
+
+  return { pushMessage, setMessages, client, newChat, readNewChat };
 }
 
 export default useChatSocket;
