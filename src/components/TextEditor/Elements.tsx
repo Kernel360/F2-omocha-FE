@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { RenderElementProps } from 'slate-react';
 
 interface CustomElement {
   type: string;
-  align?: 'left' | 'center' | 'right' | 'justify'; // align 속성 정의
-  children: any; // children의 타입 정의
+  align?: 'left' | 'center' | 'right' | 'justify';
+  children: unknown;
 }
 
 // 요소별 블록 스타일

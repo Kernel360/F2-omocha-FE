@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { RenderLeafProps } from 'slate-react';
 
 type CustomText = {
@@ -16,23 +17,25 @@ declare module 'slate' {
 
 // 텍스트별 마크 스타일
 function Leaf({ attributes, children, leaf }: RenderLeafProps) {
+  let styledChildren = children;
+
   if (leaf.bold) {
-    children = <strong>{children}</strong>;
+    styledChildren = <strong>{styledChildren}</strong>;
   }
 
   if (leaf.code) {
-    children = <code>{children}</code>;
+    styledChildren = <code>{styledChildren}</code>;
   }
 
   if (leaf.italic) {
-    children = <em>{children}</em>;
+    styledChildren = <em>{styledChildren}</em>;
   }
 
   if (leaf.underline) {
-    children = <u>{children}</u>;
+    styledChildren = <u>{styledChildren}</u>;
   }
 
-  return <span {...attributes}>{children}</span>;
+  return <span {...attributes}>{styledChildren}</span>;
 }
 
 export default Leaf;
