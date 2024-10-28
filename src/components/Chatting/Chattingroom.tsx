@@ -169,7 +169,11 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
         })}
 
         {newChat && (
-          <button type="button" className={S.newFloatingChat} onClick={handleNewChat}>
+          <button
+            type="button"
+            className={`${S.newFloatingChat} ${newChat ? 'visible' : 'hidden'}`}
+            onClick={handleNewChat}
+          >
             <div className={S.newFloatingChatUser}> 유저</div>
             <span className={S.newFloatingChatMessage}>{newChat.message}</span>
           </button>

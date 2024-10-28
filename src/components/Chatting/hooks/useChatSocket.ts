@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import { ChatMessage } from '@/apis/types/chat';
@@ -34,6 +34,7 @@ function useChatSocket({
 }: UseChatSocketParams) {
   const [newChat, setNewChat] = useState<ChatMessage | null>(null);
   const user = useGetUser();
+  const timerRef = useRef<NodeJS.Timeout | null>(null); // 타이머 ID 저장
 
   const pushMessage = (newMessage: string, newDate: string, sender_id: number, type: 'CHAT') => {
     // 메시지를 보내는 이벤트 입니다.
@@ -62,6 +63,14 @@ function useChatSocket({
           sender_id,
           type,
         });
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+
+        timerRef.current = setTimeout(() => {
+          setNewChat(null);
+          timerRef.current = null;
+        }, 2000);
       }
     }
   };
