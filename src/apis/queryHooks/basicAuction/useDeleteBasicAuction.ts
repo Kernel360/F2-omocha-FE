@@ -13,7 +13,7 @@ function useDeleteBasicAuction() {
     mutationFn: (id: number) => deleteAuction(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
-      router.push('/basicauction');
+      router.push('/basicauction', { scroll: false });
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
