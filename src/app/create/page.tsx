@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div className={S.container}>
       <div className={S.containerBox}>
-        <Link className={S.categoryLink} href="/create/basicauction">
+        <Link className={S.categoryLink} href="/create/basicauction" scroll={false}>
           <div className={S.title}>일반 경매</div>
           <div>
             <BasicAuctionIcon />
@@ -45,7 +45,7 @@ export default function Home() {
           isOpen={isOpen}
           onOpenChange={open => setIsOpen(open)}
           positiveButton="일반 경매로 이동"
-          positiveButtonEvent={() => router.push('/create/basicauction')}
+          positiveButtonEvent={() => router.push('/create/basicauction', { scroll: false })}
         >
           현재 준비중입니다. 일반 경매를 이용해 주세요.
         </ModalFooter>
