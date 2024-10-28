@@ -22,7 +22,7 @@ function Header() {
   return (
     <header className={S.container}>
       <section className={S.topHeader}>
-        <Link href="/">
+        <Link href="/" scroll={false}>
           <div className={S.logo}>LOGO</div>
         </Link>
         <div className={S.topCategory}>
@@ -41,7 +41,7 @@ function Header() {
             }
             if (category.path) {
               return (
-                <Link key={category.id} href={category.path}>
+                <Link key={category.id} href={category.path} scroll={false}>
                   {category.name}
                 </Link>
               );
@@ -55,7 +55,7 @@ function Header() {
                   if (isLoggedIn) {
                     setTrue();
                   } else {
-                    router.push('/login');
+                    router.push('/login', { scroll: false });
                   }
                 }}
               >
@@ -71,6 +71,7 @@ function Header() {
             key={category.id}
             href={category.path}
             style={{ color: category.path === pathname ? 'red' : 'black' }}
+            scroll={false}
           >
             {category.name}
           </Link>

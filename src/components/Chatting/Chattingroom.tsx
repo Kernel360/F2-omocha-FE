@@ -1,8 +1,11 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { getLastChat } from '@/apis/queryFunctions/chat';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
+import ArrowRightIcon from '@/assets/svg/arrow-right.svg';
+import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
 
 import * as S from './Chatting.css';
 import useChatSocket from './hooks/useChatSocket';
@@ -19,11 +22,26 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     pageable: 0,
   });
 
+  const [messages, setMessages] = useState<ChatMessage[]>(lastChat);
+
   const seller = openAuctionInfo?.seller_name || `${openAuctionInfo?.seller_id}번 사용자`;
   const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const isScrollToBottomRef = useRef<boolean>(false);
+
+  const fetchLastChat = useCallback(async () => {
+    const reversedMessages = await getLastChat(roomId, messages[0].created_date);
+    if (reversedMessages) {
+      const newLastChat = reversedMessages.messages.content.map(message => message).reverse();
+      setMessages(prevMessages => [...newLastChat, ...prevMessages]);
+    }
+  }, [roomId, messages]);
+
+  useBidirectionalInfiniteScroll({
+    sectionRef: chatContainerRef,
+    upFetch: fetchLastChat,
+  });
 
   const handleScroll = () => {
     if (!chatContainerRef.current) return;
@@ -56,9 +74,10 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     }
   };
 
-  const { messages, client } = useChatSocket({
+  const { client } = useChatSocket({
     roomId,
     lastChat,
+    setMessages,
     refetch,
     onConnect: scrollToBottom,
     onMessage: checkScroll,
@@ -133,6 +152,10 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
             </div>
           );
         })}
+        {/* 하단 스크롤 관련 버튼 추가 구현 필요 */}
+        <button type="button" onClick={scrollToBottom} className={S.toBottomButton}>
+          <ArrowRightIcon className={S.toBottomIcon} />
+        </button>
       </div>
 
       <div className={S.inputSection}>

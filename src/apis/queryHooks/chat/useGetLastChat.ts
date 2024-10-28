@@ -2,10 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getLastChat } from '@/apis/queryFunctions/chat';
 
-function useGetLastChat(roomId: number | null) {
+function useGetLastChat(roomId: number | null, chatCreate?: string) {
+  console.log('chatCreate in useGetLastChat Hook', chatCreate);
   const { data, error, isLoading, refetch } = useQuery({
-    queryKey: ['lastChat'],
-    queryFn: () => getLastChat(roomId),
+    queryKey: ['lastChat', roomId, chatCreate],
+    queryFn: () => getLastChat(roomId, chatCreate),
     enabled: !!roomId,
     staleTime: 0,
   });

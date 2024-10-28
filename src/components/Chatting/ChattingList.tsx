@@ -22,10 +22,11 @@ function ChattingList() {
   };
 
   useEffect(() => {
-    // reversedM이 중간에 바뀌기 때문에...
     if (!openChatroomId) return;
     reversedMRefetch();
   }, [reversedMessages]);
+
+  if (!data) return null;
 
   if (!data) return null;
 

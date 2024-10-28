@@ -9,7 +9,7 @@ function HaveToLoginNotiModal() {
   const router = useRouter();
 
   const moveToLogin = () => {
-    router.push('/login');
+    router.push('/login', { scroll: false });
   };
 
   if (!isLoggedIn) {
