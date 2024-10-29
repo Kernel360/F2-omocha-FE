@@ -16,6 +16,7 @@ permissions:
   contents: read # 저장소 내용에 대한 읽기 권한
   security-events: write # 보안 이벤트에 대한 쓰기 권한
   statuses: write # 상태에 대한 쓰기 권한
+  pull-requests: write # PR에 대한 쓰기 권한
 
 jobs:
   analyze:
