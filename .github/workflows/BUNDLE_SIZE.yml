@@ -25,13 +25,14 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-      
+
       - name: Build
         run: npm run build
-      
+
       - name: Analyze bundle sizes
         uses: transferwise/actions-next-bundle-analyzer@v2
         with:
+          working-directory: .next
           comment-strategy: 'skip-insignificant'
           create-issue: false
         env:
