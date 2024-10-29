@@ -1,10 +1,12 @@
+import { ReactElement } from 'react';
+
 import { useSlate } from 'slate-react';
 
 import customEditor from '@/utils/customEditor';
 
 interface BlockButtonProps {
   format: string;
-  icon: string;
+  icon: ReactElement;
 }
 
 // 참고 -  https://github.com/ianstormtaylor/slate/blob/main/site/examples/ts/richtext.tsx

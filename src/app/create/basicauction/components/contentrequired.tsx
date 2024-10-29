@@ -20,6 +20,7 @@ import Elements from '@/components/TextEditor/Elements';
 import Leaf from '@/components/TextEditor/Leaf';
 import MarkButton from '@/components/TextEditor/MarkButton';
 import useEditorShortcuts from '@/components/TextEditor/hooks/useEditorShortcuts';
+import { TEXT_EDITOR_BLOCK_ICON, TEXT_EDITOR_MARK_ICON } from '@/static/icon';
 
 import * as S from '../Basicauction.css';
 
@@ -69,19 +70,12 @@ function ContentRequired() {
       </div>
       <Slate editor={editor} initialValue={initialValue} onChange={handleChange}>
         <div style={{ display: 'flex', gap: '5px', marginBottom: '5px' }}>
-          <MarkButton format="bold" icon="B" />
-          <MarkButton format="italic" icon="I" />
-          <MarkButton format="underline" icon="U" />
-          <MarkButton format="code" icon="CODE" />
-          <BlockButton format="heading-one" icon="H1" />
-          <BlockButton format="heading-two" icon="H2" />
-          <BlockButton format="block-quote" icon="Q" />
-          <BlockButton format="numbered-list" icon="Ol" />
-          <BlockButton format="bulleted-list" icon="Ul" />
-          <BlockButton format="left" icon="LEFT" />
-          <BlockButton format="center" icon="CENTER" />
-          <BlockButton format="right" icon="RIGHT" />
-          <BlockButton format="justify" icon="JUSTIFY" />
+          {TEXT_EDITOR_MARK_ICON.map(mark => (
+            <MarkButton key={mark.id} format={mark.format} icon={mark.icon} />
+          ))}
+          {TEXT_EDITOR_BLOCK_ICON.map(block => (
+            <BlockButton key={block.id} format={block.format} icon={block.icon} />
+          ))}
         </div>
         <Editable
           style={{ padding: '20px', border: '1px solid gray', height: '400px' }}

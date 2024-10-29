@@ -1,10 +1,12 @@
+import { ReactElement } from 'react';
+
 import { useSlate } from 'slate-react';
 
 import customEditor from '@/utils/customEditor';
 
 interface MarkButtonProps {
   format: string;
-  icon: string;
+  icon: ReactElement;
 }
 
 // 마크 단위 버튼
