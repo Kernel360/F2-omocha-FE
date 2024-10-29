@@ -39,7 +39,6 @@ jobs:
       - name: Analyze bundle sizes
         uses: transferwise/actions-next-bundle-analyzer@v2
         with:
-          working-directory: .
           comment-strategy: 'skip-insignificant'
           create-issue: false
         env:
