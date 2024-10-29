@@ -21,6 +21,7 @@ import Leaf from '@/components/TextEditor/Leaf';
 import MarkButton from '@/components/TextEditor/MarkButton';
 import useEditorShortcuts from '@/components/TextEditor/hooks/useEditorShortcuts';
 import { TEXT_EDITOR_BLOCK_ICON, TEXT_EDITOR_MARK_ICON } from '@/static/icon';
+import countContentText from '@/utils/countContentText';
 
 import * as S from '../Basicauction.css';
 
@@ -50,7 +51,8 @@ function ContentRequired() {
     setValue,
   } = useFormContext<AuctionInputs>();
 
-  const contentRequired = watch('contentRequired');
+  const contentRequired = watch('contentRequired') ? watch('contentRequired') : '0';
+  const contentLength = countContentText(JSON.parse(contentRequired));
 
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
@@ -66,7 +68,7 @@ function ContentRequired() {
     <label htmlFor="info" className={S.auctionLabel}>
       <span className={S.title}>상품 정보</span>
       <div className={S.count}>
-        {contentRequired ? contentRequired.length : 0}/{MAX_CONTENT}
+        {contentLength} /{MAX_CONTENT}
       </div>
       <div className={S.content}>
         <Slate editor={editor} initialValue={initialValue} onChange={handleChange}>
