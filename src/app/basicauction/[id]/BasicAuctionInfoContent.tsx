@@ -1,3 +1,5 @@
+import DOMPurify from 'dompurify';
+
 import { convertSlateToHTML } from '@/utils/convertSlateToHTML';
 
 interface BasicAuctionInfoContentProps {
@@ -9,7 +11,13 @@ function BasicAuctionInfoContent({ content }: BasicAuctionInfoContentProps) {
 
   const htmlContent = convertSlateToHTML(contentArray);
 
-  return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: DOMPurify.sanitize(htmlContent),
+      }}
+    />
+  );
 }
 
 export default BasicAuctionInfoContent;
