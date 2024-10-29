@@ -1,7 +1,7 @@
 import { Editor, Transforms, Element as SlateElement } from 'slate';
 
 interface CustomElement extends SlateElement {
-  type?: string;
+  type: string;
   align?: string;
 }
 
