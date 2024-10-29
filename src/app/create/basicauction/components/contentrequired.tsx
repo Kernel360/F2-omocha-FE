@@ -68,24 +68,27 @@ function ContentRequired() {
       <div className={S.count}>
         {contentRequired ? contentRequired.length : 0}/{MAX_CONTENT}
       </div>
-      <Slate editor={editor} initialValue={initialValue} onChange={handleChange}>
-        <div style={{ display: 'flex', gap: '5px', marginBottom: '5px' }}>
-          {TEXT_EDITOR_MARK_ICON.map(mark => (
-            <MarkButton key={mark.id} format={mark.format} icon={mark.icon} />
-          ))}
-          {TEXT_EDITOR_BLOCK_ICON.map(block => (
-            <BlockButton key={block.id} format={block.format} icon={block.icon} />
-          ))}
-        </div>
-        <Editable
-          style={{ padding: '20px', border: '1px solid gray', height: '400px' }}
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          spellCheck
-          autoFocus
-          onKeyDown={handleKeyDown}
-        />
-      </Slate>
+      <div className={S.content}>
+        <Slate editor={editor} initialValue={initialValue} onChange={handleChange}>
+          <section className={S.editorSection}>
+            {TEXT_EDITOR_MARK_ICON.map(mark => (
+              <MarkButton key={mark.id} format={mark.format} icon={mark.icon} />
+            ))}
+            {TEXT_EDITOR_BLOCK_ICON.map(block => (
+              <BlockButton key={block.id} format={block.format} icon={block.icon} />
+            ))}
+          </section>
+          <Editable
+            className={S.editorContent}
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            spellCheck
+            autoFocus
+            onKeyDown={handleKeyDown}
+          />
+        </Slate>
+      </div>
+
       {errors.contentRequired && (
         <span className={S.error}>
           <ErrorIcon />

@@ -4,6 +4,8 @@ import { useSlate } from 'slate-react';
 
 import customEditor from '@/utils/customEditor';
 
+import * as S from './TextEditor.css';
+
 interface BlockButtonProps {
   format: string;
   icon: ReactElement;
@@ -31,15 +33,8 @@ function BlockButton({ format, icon }: BlockButtonProps) {
         event.preventDefault();
         toggleBlock(editor, format);
       }}
-      style={{
-        cursor: 'pointer',
-        backgroundColor: isActive ? 'lightblue' : 'transparent', // 활성 상태에 따른 배경색 변경
-        color: isActive ? 'black' : '#ccc', // 활성 상태에 따른 텍스트 색상 변경
-        border: '1px solid black',
-        padding: '8px',
-        display: 'flex',
-        alignItems: 'center',
-      }}
+      data-active={isActive}
+      className={S.iconButton}
     >
       {icon}
     </button>

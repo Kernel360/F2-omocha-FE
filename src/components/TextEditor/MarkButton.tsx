@@ -4,6 +4,8 @@ import { useSlate } from 'slate-react';
 
 import customEditor from '@/utils/customEditor';
 
+import * as S from './TextEditor.css';
+
 interface MarkButtonProps {
   format: string;
   icon: ReactElement;
@@ -21,15 +23,8 @@ function MarkButton({ format, icon }: MarkButtonProps) {
         event.preventDefault();
         toggleMark(editor, format);
       }}
-      style={{
-        cursor: 'pointer',
-        backgroundColor: isActive ? 'lightblue' : 'transparent', // 활성 상태에 따른 배경색
-        color: isActive ? 'black' : '#ccc', // 활성 상태에 따른 텍스트 색상
-        border: '1px solid black', // 테두리 스타일
-        padding: '8px', // 버튼 내부 여백
-        display: 'flex',
-        alignItems: 'center',
-      }}
+      data-active={isActive}
+      className={S.iconButton}
     >
       {icon}
     </button>
