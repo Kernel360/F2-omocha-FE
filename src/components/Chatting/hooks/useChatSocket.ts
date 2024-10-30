@@ -36,12 +36,17 @@ function useChatSocket({
   const user = useGetUser();
   const timerRef = useRef<NodeJS.Timeout | null>(null); // 타이머 ID 저장
 
-  const pushMessage = (newMessage: string, newDate: string, sender_id: number, type: 'CHAT') => {
+  const pushMessage = (
+    newPostMessage: string,
+    newDate: string,
+    sender_id: number,
+    type: 'CHAT',
+  ) => {
     // 메시지를 보내는 이벤트 입니다.
     setMessages(prevMessages => [
       ...prevMessages,
       {
-        message: newMessage,
+        message: newPostMessage,
         room_id: roomId,
         sender_nick_name: null,
         created_date: newDate,
@@ -59,7 +64,7 @@ function useChatSocket({
 
       if (!isBottom && sender_id !== user.data?.member_id) {
         setNewMessage({
-          message: newMessage,
+          message: newPostMessage,
           room_id: roomId,
           sender_nick_name: null,
           created_date: newDate,
