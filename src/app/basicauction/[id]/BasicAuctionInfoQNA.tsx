@@ -23,6 +23,9 @@ function BasicAuctionInfoQNA({ id, isSeller, userEmail, userId }: BasicAuctionIn
     <div className={S.accordionContainer}>
       {!isSeller && <QNAInputSection id={id} userId={userId} userEmail={userEmail} />}
       <Accordion.Root type="single" collapsible>
+        {data.result_data.content.length === 0 && (
+          <div className={S.NoQNA}>등록된 질문이 없습니다.</div>
+        )}
         {data.result_data.content.map((item: AuctionQNAData) => (
           <QnAUnit
             key={item.question_response.question_id}

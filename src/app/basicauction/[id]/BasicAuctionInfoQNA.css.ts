@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
+import typography from '@/styles/typo';
+
 export const postQnATextAreaTitle = style({
   padding: '5px',
   width: '90%',
@@ -53,3 +55,12 @@ export const accordionItem = style({
     },
   },
 });
+
+export const NoQNA = style([
+  typography.bodyLarge,
+  {
+    padding: '20px',
+
+    color: 'rgb(160, 160, 160)',
+  },
+]);
