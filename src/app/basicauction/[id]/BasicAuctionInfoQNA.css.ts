@@ -1,36 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
-export const qnaPostButton = style({
-  display: 'block',
-  padding: '10px',
-  fontSize: '14px',
-  backgroundColor: 'rgb(245, 245, 245)',
-  color: 'black',
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  margin: '10px 0',
-  marginLeft: 'auto',
-});
-
-export const accordionPostQnAContent = style({
-  overflow: 'hidden',
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  boxSizing: 'border-box',
-  fontSize: '15px',
-  color: 'black',
-  backgroundColor: 'var(--accordion-bg-color)',
-  transition: 'background-color 0.3s',
-
-  selectors: {
-    '&[data-state="open"]': {
-      padding: '10px 20px',
-    },
-  },
-});
-
 export const postQnASection = style({
   display: 'flex',
   width: '100%',
@@ -38,33 +7,21 @@ export const postQnASection = style({
   gap: '20px',
 });
 
-export const postQnAWrapper = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '10px',
-});
-
-export const postQnAWrapperTop = style({
-  display: 'flex',
-
-  gap: '10px',
-});
-
-export const postQnALable = style({
-  fontSize: '14px',
-  width: '80px',
-});
-
-export const postQnAText = style({
-  fontSize: '14px',
+export const postQnATextAreaTitle = style({
   padding: '5px',
-  backgroundColor: 'rgb(245, 245, 245)',
+  width: '90%',
+  borderRadius: '5px',
+  fontSize: '14px',
+  resize: 'none',
 });
 
-export const buttonWrapper = style({
-  display: 'flex',
-  gap: '10px',
-  marginLeft: 'auto',
+export const postQnATextAreaContent = style({
+  padding: '5px',
+  width: '90%',
+  height: '100px',
+  borderRadius: '5px',
+  fontSize: '14px',
+  resize: 'none',
 });
 
 export const postQnAButton = styleVariants({
@@ -93,23 +50,6 @@ export const postQnAButton = styleVariants({
       cursor: 'pointer',
     },
   ],
-});
-
-export const postQnATextAreaTitle = style({
-  padding: '5px',
-  width: '90%',
-  borderRadius: '5px',
-  fontSize: '14px',
-  resize: 'none',
-});
-
-export const postQnATextAreaContent = style({
-  padding: '5px',
-  width: '90%',
-  height: '100px',
-  borderRadius: '5px',
-  fontSize: '14px',
-  resize: 'none',
 });
 
 export const postQnANoticeSection = style({
