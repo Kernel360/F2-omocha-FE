@@ -1,3 +1,6 @@
+import { useRef, useState } from 'react';
+
+import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import { ChatMessage } from '@/apis/types/chat';
 import useSocket from '@/hooks/useSocket';
 
@@ -7,13 +10,13 @@ interface UseChatSocketParams {
   setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   refetch: () => void;
   onConnect?: () => void;
-  onMessage?: () => void;
+  onMessage?: (senderId: number) => void;
+  checkBottom?: () => boolean;
 }
 
 interface ReceivedMessage {
   created_date: string;
   message: string;
-
   room_id: number;
   sender_id: number;
   sender_nick_name: null | string;
@@ -27,13 +30,23 @@ function useChatSocket({
   refetch,
   onConnect,
   onMessage,
+  checkBottom,
 }: UseChatSocketParams) {
-  const pushMessage = (newMessage: string, newDate: string, sender_id: number, type: 'CHAT') => {
+  const [newMessage, setNewMessage] = useState<ChatMessage | null>(null);
+  const user = useGetUser();
+  const timerRef = useRef<NodeJS.Timeout | null>(null); // 타이머 ID 저장
+
+  const pushMessage = (
+    newPostMessage: string,
+    newDate: string,
+    sender_id: number,
+    type: 'CHAT',
+  ) => {
     // 메시지를 보내는 이벤트 입니다.
     setMessages(prevMessages => [
       ...prevMessages,
       {
-        message: newMessage,
+        message: newPostMessage,
         room_id: roomId,
         sender_nick_name: null,
         created_date: newDate,
@@ -41,8 +54,32 @@ function useChatSocket({
         type,
       },
     ]);
+
     if (onMessage) {
-      onMessage();
+      onMessage(sender_id);
+    }
+
+    if (checkBottom) {
+      const isBottom = checkBottom();
+
+      if (!isBottom && sender_id !== user.data?.member_id) {
+        setNewMessage({
+          message: newPostMessage,
+          room_id: roomId,
+          sender_nick_name: null,
+          created_date: newDate,
+          sender_id,
+          type,
+        });
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+
+        timerRef.current = setTimeout(() => {
+          setNewMessage(null);
+          timerRef.current = null;
+        }, 2000);
+      }
     }
   };
 
@@ -89,7 +126,11 @@ function useChatSocket({
     },
   });
 
-  return { pushMessage, setMessages, client };
+  const readNewChat = () => {
+    setNewMessage(null);
+  };
+
+  return { pushMessage, setMessages, client, newMessage, readNewChat };
 }
 
 export default useChatSocket;
