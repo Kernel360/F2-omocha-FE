@@ -11,6 +11,7 @@ import { useAuth } from '@/provider/authProvider';
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 
 import * as S from './Header.css';
+import colors from '@/styles/color';
 
 function Header() {
   const pathname = usePathname();
@@ -41,7 +42,12 @@ function Header() {
             }
             if (category.path) {
               return (
-                <Link key={category.id} href={category.path} scroll={false}>
+                <Link
+                  key={category.id}
+                  href={category.path}
+                  scroll={false}
+                  className={S.TopHeaderUnit}
+                >
                   {category.name}
                 </Link>
               );
@@ -49,6 +55,7 @@ function Header() {
             return (
               <button
                 style={{ cursor: 'pointer' }}
+                className={S.TopHeaderUnit}
                 key={category.id}
                 type="button"
                 onClick={() => {
@@ -67,12 +74,7 @@ function Header() {
       </section>
       <section className={S.bottomHeader}>
         {MAIN_CATEGORY.map(category => (
-          <Link
-            key={category.id}
-            href={category.path}
-            style={{ color: category.path === pathname ? 'red' : 'black' }}
-            scroll={false}
-          >
+          <Link key={category.id} href={category.path} className={S.buttonStyles} scroll={false}>
             {category.name}
           </Link>
         ))}

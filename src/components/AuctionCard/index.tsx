@@ -26,7 +26,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       <Image
         src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image[0]}`}
         alt="Auction Image"
-        width={280}
+        width={240}
         height={200}
         className={S.cardImage}
       />

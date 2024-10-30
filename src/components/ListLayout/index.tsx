@@ -6,7 +6,7 @@ interface ListLayoutProps {
 
 function ListLayout({ children }: ListLayoutProps) {
   return (
-    <div className={S.layout}>
+    <div className={S.layoutWrapper}>
       <div className={S.responsiveLayoutWrapper}>{children}</div>
     </div>
   );

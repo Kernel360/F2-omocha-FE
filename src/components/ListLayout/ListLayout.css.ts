@@ -1,3 +1,4 @@
+import layout from '@/styles/layout';
 import { style } from '@vanilla-extract/css';
 
 export const responsiveLayoutWrapper = style({
@@ -6,14 +7,13 @@ export const responsiveLayoutWrapper = style({
   display: 'grid',
   gridRowGap: '2vw',
   gap: '24px',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
   width: '100%',
-  maxWidth: '1200px',
-  justifyItems: 'center',
+  maxWidth: layout.maxLayoutWidth.maxWidth,
   height: 'auto',
 });
 
-export const layout = style({
+export const layoutWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

@@ -1,3 +1,4 @@
+import colors from '@/styles/color';
 import { globalStyle, style } from '@vanilla-extract/css';
 
 export const section = style({
@@ -24,6 +25,7 @@ export const section = style({
 export const title = style({
   display: 'flex',
   justifyContent: 'space-between',
+  color: colors.gray11,
   alignItems: 'flex-end',
 });
 

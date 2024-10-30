@@ -1,3 +1,4 @@
+import colors from '@/styles/color';
 import { style } from '@vanilla-extract/css';
 
 export const footer = style({
@@ -5,8 +6,8 @@ export const footer = style({
   flexDirection: 'column',
   justifyContent: 'space-around',
   height: '130px',
-  backgroundColor: 'rgb(0, 0, 0, 0.9)',
-  color: 'white',
+  backgroundColor: colors.gray2,
+  color: colors.gray11,
   padding: '0 16px',
 });
 
@@ -23,7 +24,8 @@ export const topFooter = style({
 });
 
 export const logoButton = style({
-  color: 'white',
+  color: colors.gray11,
+
   fontSize: '32px',
 });
 
@@ -47,5 +49,5 @@ export const bottomFooter = style({
 });
 
 export const categoryLink = style({
-  color: 'rgb(256, 256, 256)',
+  color: colors.gray11,
 });
