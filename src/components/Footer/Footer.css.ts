@@ -1,4 +1,5 @@
 import colors from '@/styles/color';
+import layout from '@/styles/layout';
 import { style } from '@vanilla-extract/css';
 
 export const footer = style({
@@ -12,7 +13,7 @@ export const footer = style({
 });
 
 export const container = style({
-  maxWidth: '1280px',
+  maxWidth: layout.maxLayoutWidth.maxWidth,
   width: '100%',
   margin: '0 auto',
 });

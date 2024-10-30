@@ -165,7 +165,6 @@ function BasicAuctionInfoQNA({ id, isSeller, userEmail, userId }: BasicAuctionIn
               positiveButtonEvent={() => deleteQuestion(item.question_response.question_id)}
             >
               <ConfirmDeleteModal />
-              {/* 왜인지 모르겠는데 여기다가 넣으면 overlay색상이 너무 진해짐 */}
             </ModalFooter>
             <AccordionContent className={S.accordionContent}>
               {item.question_response.content}

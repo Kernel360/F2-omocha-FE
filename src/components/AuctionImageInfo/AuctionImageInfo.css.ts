@@ -1,5 +1,7 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+
 export const imageSection = style({
   width: '100%',
   display: 'flex',
@@ -19,9 +21,8 @@ export const subImageWrapperButton = styleVariants({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    border: '1px solid black',
+    border: `1px solid ${colors.primary11}`,
     cursor: 'pointer',
-
     borderSizing: 'border-box',
   },
   nonActive: {

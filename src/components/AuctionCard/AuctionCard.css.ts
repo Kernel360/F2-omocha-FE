@@ -1,6 +1,7 @@
+import { style } from '@vanilla-extract/css';
+
 import shadow from '@/styles/shadow';
 import typography from '@/styles/typo';
-import { style } from '@vanilla-extract/css';
 
 export const cardWrapper = style({
   position: 'relative',
