@@ -75,10 +75,13 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     }
   }, []);
 
-  const checkScroll = () => {
+  const checkScroll = (senderId: number) => {
     if (isScrollToBottomRef.current) {
       scrollToBottom();
+    } else if (!isScrollToBottomRef.current && senderId === user?.member_id) {
+      scrollToBottom();
     }
+
     return false;
   };
 
@@ -86,7 +89,7 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     return isScrollToBottomRef.current;
   };
 
-  const { client, newChat, readNewChat } = useChatSocket({
+  const { client, newMessage, readNewChat } = useChatSocket({
     roomId,
     lastChat,
     setMessages,
@@ -97,7 +100,7 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
   });
 
   const handleNewChat = () => {
-    if (newChat) {
+    if (newMessage) {
       scrollToBottom();
       readNewChat();
     }
@@ -173,14 +176,13 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
           );
         })}
 
-        {newChat && (
+        {newMessage && (
           <button
             type="button"
-            className={`${S.newFloatingChat} ${newChat ? 'visible' : 'hidden'}`}
+            className={`${S.newFloatingChat} ${newMessage ? 'visible' : 'hidden'}`}
             onClick={handleNewChat}
           >
-            <div className={S.newFloatingChatUser}> 유저</div>
-            <span className={S.newFloatingChatMessage}>{newChat.message}</span>
+            <span className={S.newFloatingChatMessage}>{newMessage.message}</span>
           </button>
         )}
 

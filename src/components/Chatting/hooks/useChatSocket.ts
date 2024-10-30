@@ -10,7 +10,7 @@ interface UseChatSocketParams {
   setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
   refetch: () => void;
   onConnect?: () => void;
-  onMessage?: () => void;
+  onMessage?: (senderId: number) => void;
   checkBottom?: () => boolean;
 }
 
@@ -32,7 +32,7 @@ function useChatSocket({
   onMessage,
   checkBottom,
 }: UseChatSocketParams) {
-  const [newChat, setNewChat] = useState<ChatMessage | null>(null);
+  const [newMessage, setNewMessage] = useState<ChatMessage | null>(null);
   const user = useGetUser();
   const timerRef = useRef<NodeJS.Timeout | null>(null); // 타이머 ID 저장
 
@@ -49,13 +49,16 @@ function useChatSocket({
         type,
       },
     ]);
+
     if (onMessage) {
-      onMessage();
+      onMessage(sender_id);
     }
+
     if (checkBottom) {
       const isBottom = checkBottom();
+
       if (!isBottom && sender_id !== user.data?.member_id) {
-        setNewChat({
+        setNewMessage({
           message: newMessage,
           room_id: roomId,
           sender_nick_name: null,
@@ -68,7 +71,7 @@ function useChatSocket({
         }
 
         timerRef.current = setTimeout(() => {
-          setNewChat(null);
+          setNewMessage(null);
           timerRef.current = null;
         }, 2000);
       }
@@ -119,10 +122,10 @@ function useChatSocket({
   });
 
   const readNewChat = () => {
-    setNewChat(null);
+    setNewMessage(null);
   };
 
-  return { pushMessage, setMessages, client, newChat, readNewChat };
+  return { pushMessage, setMessages, client, newMessage, readNewChat };
 }
 
 export default useChatSocket;

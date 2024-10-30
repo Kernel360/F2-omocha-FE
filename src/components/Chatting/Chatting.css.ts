@@ -327,12 +327,6 @@ export const newFloatingChat = style({
   },
 });
 
-export const newFloatingChatUser = style({
-  color: 'black',
-  fontSize: '14px',
-  fontWeight: '600',
-});
-
 export const newFloatingChatMessage = style({
   color: 'black',
   fontSize: '14px',
