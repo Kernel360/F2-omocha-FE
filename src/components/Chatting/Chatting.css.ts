@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { keyframes, style, styleVariants } from '@vanilla-extract/css';
 
 export const container = style({
   position: 'relative',
@@ -287,4 +287,52 @@ export const toBottomIcon = style({
   transform: 'rotate(90deg)',
   width: '20px',
   height: '20px',
+});
+
+const fadeIn = keyframes({
+  from: { opacity: 0, transform: 'translate(-50%, 10px)' },
+  to: { opacity: 1, transform: 'translate(-50%, 0)' },
+});
+
+const fadeOut = keyframes({
+  from: { opacity: 1, transform: 'translate(-50%, 0)' },
+  to: { opacity: 0, transform: 'translate(-50%, 10px)' },
+});
+
+export const newFloatingChat = style({
+  position: 'fixed',
+  display: 'flex',
+  bottom: '90px',
+  left: '50%',
+  padding: '4px 8px',
+  gap: '4px',
+  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+  borderRadius: '12px',
+  width: 'fit-content',
+  cursor: 'pointer',
+  transform: 'translateX(-50%)',
+  opacity: 0,
+
+  animation: `${fadeOut} 0.3s forwards`,
+
+  selectors: {
+    '&.visible': {
+      opacity: 1,
+      animation: `${fadeIn} 0.3s forwards`,
+    },
+    '&.hidden': {
+      opacity: 0,
+      animation: `${fadeOut} 0.3s forwards`,
+    },
+  },
+});
+
+export const newFloatingChatMessage = style({
+  color: 'black',
+  fontSize: '14px',
+  fontWeight: '400',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  maxWidth: '110px',
 });

@@ -6,6 +6,7 @@ import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
 import ArrowRightIcon from '@/assets/svg/arrow-right.svg';
 import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
+import useBooleanState from '@/hooks/useBooleanState';
 
 import * as S from './Chatting.css';
 import useChatSocket from './hooks/useChatSocket';
@@ -29,6 +30,7 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const isScrollToBottomRef = useRef<boolean>(false);
+  const { value: bottomScrollButtonValue, setTrue, setFalse } = useBooleanState(false);
 
   const fetchLastChat = useCallback(async () => {
     const reversedMessages = await getLastChat(roomId, messages[0].created_date);
@@ -48,6 +50,11 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
 
     const { scrollTop, scrollHeight, clientHeight } = chatContainerRef.current;
     isScrollToBottomRef.current = scrollTop + clientHeight === scrollHeight;
+    if (scrollHeight - scrollTop - clientHeight > 200) {
+      setTrue();
+    } else {
+      setFalse();
+    }
   };
 
   const scrollToBottom = () => {
@@ -68,20 +75,36 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     }
   }, []);
 
-  const checkScroll = () => {
+  const checkScroll = (senderId: number) => {
     if (isScrollToBottomRef.current) {
       scrollToBottom();
+    } else if (!isScrollToBottomRef.current && senderId === user?.member_id) {
+      scrollToBottom();
     }
+
+    return false;
   };
 
-  const { client } = useChatSocket({
+  const checkBottom = () => {
+    return isScrollToBottomRef.current;
+  };
+
+  const { client, newMessage, readNewChat } = useChatSocket({
     roomId,
     lastChat,
     setMessages,
     refetch,
     onConnect: scrollToBottom,
     onMessage: checkScroll,
+    checkBottom,
   });
+
+  const handleNewChat = () => {
+    if (newMessage) {
+      scrollToBottom();
+      readNewChat();
+    }
+  };
 
   const sendMessage = async (message: string) => {
     client?.publish({
@@ -152,10 +175,22 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
             </div>
           );
         })}
-        {/* 하단 스크롤 관련 버튼 추가 구현 필요 */}
-        <button type="button" onClick={scrollToBottom} className={S.toBottomButton}>
-          <ArrowRightIcon className={S.toBottomIcon} />
-        </button>
+
+        {newMessage && (
+          <button
+            type="button"
+            className={`${S.newFloatingChat} ${newMessage ? 'visible' : 'hidden'}`}
+            onClick={handleNewChat}
+          >
+            <span className={S.newFloatingChatMessage}>{newMessage.message}</span>
+          </button>
+        )}
+
+        {bottomScrollButtonValue && (
+          <button type="button" onClick={scrollToBottom} className={S.toBottomButton}>
+            <ArrowRightIcon className={S.toBottomIcon} />
+          </button>
+        )}
       </div>
 
       <div className={S.inputSection}>
