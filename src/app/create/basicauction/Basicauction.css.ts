@@ -47,6 +47,7 @@ export const image = style({
   gap: '10px',
   justifyContent: 'center',
   width: '250px',
+  height: 'auto',
   objectFit: 'contain',
   border: '1.5px dashed white ',
   borderRadius: '10px',
@@ -133,4 +134,31 @@ export const error = style({
   fontSize: '14px',
   paddingLeft: '8px',
   fontWeight: 'normal',
+});
+
+export const content = style({
+  display: 'flex',
+  flexDirection: 'column',
+  border: '1px solid #d1d5db',
+  borderRadius: '4px',
+  overflow: 'scroll',
+});
+
+export const editorSection = style({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '8px',
+  padding: '8px',
+  backgroundColor: '#f9fafb',
+  borderBottom: '1px solid  #d1d5db',
+});
+
+export const editorContent = style({
+  padding: '16px',
+  backgroundColor: '#ffffff',
+  minHeight: '200px',
+  height: '100%',
+  fontSize: '16px',
+  lineHeight: '1.5',
+  color: '#374151',
 });

@@ -3,9 +3,13 @@
 'use client';
 
 import { useRef } from 'react';
-import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+
+import Image from 'next/image';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
+import ContentRequired from '@/app/create/basicauction/components/contentrequired';
+import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
 import DeleteIcon from '@/assets/svg/delete.svg';
 import ErrorIcon from '@/assets/svg/error.svg';
 import useDebounce from '@/hooks/useDebounce';
@@ -13,30 +17,14 @@ import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
 
-type ImageUpload = {
-  file: File;
-};
-
-type AuctionInputs = {
-  nameRequired: string;
-  startPriceRequired: string;
-  bidUnitRequired: string;
-  imagesRequired: ImageUpload[];
-  contentRequired: string;
-  startDateRequired: string;
-  endDateRequired: string;
-};
-
-const MAX_CONTENT = 500;
-
 export default function Home() {
+  const methods = useForm<AuctionInputs>();
   const {
     register,
     control,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<AuctionInputs>();
+  } = methods;
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -56,7 +44,6 @@ export default function Home() {
   const { mutate: postBasicAuction } = usePostBasicAuction();
 
   const inputFile = useRef(null);
-  const contentRequired = watch('contentRequired');
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -83,176 +70,160 @@ export default function Home() {
     data.imagesRequired.forEach(image => formData.append('images', image.file));
 
     postBasicAuction(formData);
-  }, 1000);
+  }, 500);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="name" className={S.auctionLabel}>
-        <div className={S.title}>상품명</div>
-        <input
-          className={S.auctionInput}
-          id="name"
-          type="text"
-          placeholder="상품명"
-          {...register('nameRequired', { required: '상품명을 입력해 주세요.' })}
-        />
-        {errors.nameRequired && (
-          <span className={S.error}>
-            <ErrorIcon />
-            {errors.nameRequired.message}
-          </span>
-        )}
-      </label>
-      <div className={S.price}>
-        <label htmlFor="startPrice" className={S.auctionLabel}>
-          <div className={S.title}>시작가</div>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="name" className={S.auctionLabel}>
+          <div className={S.title}>상품명</div>
           <input
             className={S.auctionInput}
-            id="startPrice"
-            type="number"
-            placeholder="원"
-            {...register('startPriceRequired', {
-              required: '시작가를 입력해 주세요.',
-              pattern: {
-                value: /^(0|[1-9]\d*)$/,
-                message: '올바른 금액이 아닙니다.',
-              },
-            })}
+            id="name"
+            type="text"
+            placeholder="상품명"
+            {...register('nameRequired', { required: '상품명을 입력해 주세요.' })}
           />
-          {errors.startPriceRequired && (
+          {errors.nameRequired && (
             <span className={S.error}>
               <ErrorIcon />
-              {errors.startPriceRequired.message}
+              {errors.nameRequired.message}
             </span>
           )}
         </label>
-        <label htmlFor="bidUnit" className={S.auctionLabel}>
-          <div className={S.title}>입찰 단위</div>
-          <input
-            className={S.auctionInput}
-            id="bidUnit"
-            type="number"
-            placeholder="원"
-            {...register('bidUnitRequired', {
-              required: '입찰 단위를 입력해 주세요.',
-              pattern: {
-                value: /^(0|[1-9]\d*)$/,
-                message: '올바른 금액이 아닙니다.',
-              },
-            })}
-          />
-          {errors.bidUnitRequired && (
-            <span className={S.error}>
-              <ErrorIcon />
-              {errors.bidUnitRequired.message}
-            </span>
-          )}
-        </label>
-      </div>
-      <div className={S.auctionLabel}>
-        <div className={S.title}>사진</div>
-        <div className={S.count}>{fields.length}/10</div>
-        <div className={S.imageBoard}>
-          <label htmlFor="image" className={S.imageUpload}>
-            이미지 등록하기
+        <div className={S.price}>
+          <label htmlFor="startPrice" className={S.auctionLabel}>
+            <div className={S.title}>시작가</div>
             <input
-              className={S.imageInput}
-              ref={inputFile}
-              id="image"
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={addImage}
-            />
-          </label>
-          <ul className={S.imageList}>
-            {fields
-              .slice()
-              .reverse()
-              .map(({ imageRequiredId, file }, index) => (
-                <li key={imageRequiredId} className={S.image}>
-                  <img
-                    className={S.image}
-                    src={URL.createObjectURL(file)}
-                    alt={URL.createObjectURL(file)}
-                  />
-                  <button
-                    type="button"
-                    className={S.deleteButton}
-                    onClick={() => remove(fields.length - index - 1)}
-                  >
-                    <DeleteIcon />
-                  </button>
-                </li>
-              ))}
-          </ul>
-        </div>
-        {errors.imagesRequired && (
-          <span className={S.error}>
-            <ErrorIcon />
-            {errors.imagesRequired.root?.message}
-          </span>
-        )}
-      </div>
-      <label htmlFor="info" className={S.auctionLabel}>
-        <span className={S.title}>상품 정보</span>
-        <div className={S.count}>
-          {contentRequired ? contentRequired.length : 0}/{MAX_CONTENT}
-        </div>
-        <textarea
-          id="info"
-          className={S.info}
-          maxLength={MAX_CONTENT - 1}
-          {...register('contentRequired', {
-            required: '상품 정보를 입력해 주세요.',
-            validate: {
-              minLength: value => value.length >= 10 || '최소 10글자 이상 작성해야 합니다.',
-            },
-          })}
-        />
-        {errors.contentRequired && (
-          <span className={S.error}>
-            <ErrorIcon />
-            {errors.contentRequired?.message}
-          </span>
-        )}
-      </label>
-      <div className={S.auctionLabel}>
-        <div className={S.title}>경매 기간</div>
-        <div className={S.period}>
-          <span className={S.description}>
-            경매 상품을 올리는 순간부터 경매가 시작됩니다. 종료 시간만을 입력해 주세요.
-          </span>
-          <label htmlFor="endDate" className={S.subTitle}>
-            종료 시간
-            <input
-              id="endDate"
-              type="datetime-local"
               className={S.auctionInput}
-              {...register('endDateRequired', {
-                required: '종료 시각을 입력해 주세요.',
-                validate: value => {
-                  return (
-                    formatDate(value) > formatDate(new Date().toString()) ||
-                    '현재 시각보다 이전 시간은 선택할 수 없습니다.'
-                  );
+              id="startPrice"
+              type="number"
+              placeholder="원"
+              {...register('startPriceRequired', {
+                required: '시작가를 입력해 주세요.',
+                pattern: {
+                  value: /^(0|[1-9]\d*)$/,
+                  message: '올바른 금액이 아닙니다.',
                 },
               })}
             />
-            {errors.endDateRequired && (
+            {errors.startPriceRequired && (
               <span className={S.error}>
                 <ErrorIcon />
-                {errors.endDateRequired?.message}
+                {errors.startPriceRequired.message}
+              </span>
+            )}
+          </label>
+          <label htmlFor="bidUnit" className={S.auctionLabel}>
+            <div className={S.title}>입찰 단위</div>
+            <input
+              className={S.auctionInput}
+              id="bidUnit"
+              type="number"
+              placeholder="원"
+              {...register('bidUnitRequired', {
+                required: '입찰 단위를 입력해 주세요.',
+                pattern: {
+                  value: /^(0|[1-9]\d*)$/,
+                  message: '올바른 금액이 아닙니다.',
+                },
+              })}
+            />
+            {errors.bidUnitRequired && (
+              <span className={S.error}>
+                <ErrorIcon />
+                {errors.bidUnitRequired.message}
               </span>
             )}
           </label>
         </div>
-      </div>
-      <div className={S.buttonContainer}>
-        <button className={S.button} type="submit">
-          경매 올리기
-        </button>
-      </div>
-    </form>
+        <div className={S.auctionLabel}>
+          <div className={S.title}>사진</div>
+          <div className={S.count}>{fields.length}/10</div>
+          <div className={S.imageBoard}>
+            <label htmlFor="image" className={S.imageUpload}>
+              이미지 등록하기
+              <input
+                className={S.imageInput}
+                ref={inputFile}
+                id="image"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={addImage}
+              />
+            </label>
+            <ul className={S.imageList}>
+              {fields
+                .slice()
+                .reverse()
+                .map(({ imageRequiredId, file }, index) => (
+                  <li key={imageRequiredId} className={S.image}>
+                    <Image
+                      className={S.image}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      src={URL.createObjectURL(file)}
+                      alt={URL.createObjectURL(file)}
+                    />
+                    <button
+                      type="button"
+                      className={S.deleteButton}
+                      onClick={() => remove(fields.length - index - 1)}
+                    >
+                      <DeleteIcon />
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          </div>
+          {errors.imagesRequired && (
+            <span className={S.error}>
+              <ErrorIcon />
+              {errors.imagesRequired.root?.message}
+            </span>
+          )}
+        </div>
+        <ContentRequired />
+        <div className={S.auctionLabel}>
+          <div className={S.title}>경매 기간</div>
+          <div className={S.period}>
+            <span className={S.description}>
+              경매 상품을 올리는 순간부터 경매가 시작됩니다. 종료 시간만을 입력해 주세요.
+            </span>
+            <label htmlFor="endDate" className={S.subTitle}>
+              종료 시간
+              <input
+                id="endDate"
+                type="datetime-local"
+                className={S.auctionInput}
+                min={new Date().toISOString().slice(0, 16)}
+                {...register('endDateRequired', {
+                  required: '종료 시각을 입력해 주세요.',
+                  validate: value => {
+                    return (
+                      formatDate(value) > formatDate(new Date().toString()) ||
+                      '현재 시각보다 이전 시간은 선택할 수 없습니다.'
+                    );
+                  },
+                })}
+              />
+              {errors.endDateRequired && (
+                <span className={S.error}>
+                  <ErrorIcon />
+                  {errors.endDateRequired?.message}
+                </span>
+              )}
+            </label>
+          </div>
+        </div>
+        <div className={S.buttonContainer}>
+          <button className={S.button} type="submit">
+            경매 올리기
+          </button>
+        </div>
+      </form>
+    </FormProvider>
   );
 }

@@ -1,0 +1,45 @@
+name: analyze bundle size
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - hotfix
+  pull_request:
+    branches:
+      - main
+      - develop
+      - hotfix
+
+permissions:
+  actions: read # 액션에 대한 읽기 권한
+  contents: read # 저장소 내용에 대한 읽기 권한
+  security-events: write # 보안 이벤트에 대한 쓰기 권한
+  statuses: write # 상태에 대한 쓰기 권한
+  pull-requests: write # PR에 대한 쓰기 권한
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Analyze bundle sizes
+        uses: transferwise/actions-next-bundle-analyzer@v2
+        with:
+          comment-strategy: 'skip-insignificant'
+          create-issue: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
