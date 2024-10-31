@@ -1,6 +1,7 @@
+import { globalStyle, style } from '@vanilla-extract/css';
+
 import colors from '@/styles/color';
 import typography from '@/styles/typo';
-import { globalStyle, style } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
