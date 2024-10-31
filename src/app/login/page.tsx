@@ -8,9 +8,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 
 import usePostLogin from '@/apis/queryHooks/Auth/usePostLogin';
-import ErrorIcon from '@/assets/svg/error.svg';
 import GoogleIcon from '@/assets/svg/google.svg';
 import NaverIcon from '@/assets/svg/naver.svg';
+import ErrorIcon from '@/assets/svg/triangle-alert.svg';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Login.css';

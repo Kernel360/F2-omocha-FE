@@ -5,7 +5,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import DeleteIcon from '@/assets/svg/delete.svg';
-import ErrorIcon from '@/assets/svg/error.svg';
+import ErrorIcon from '@/assets/svg/triangle-alert.svg';
 
 import * as S from './Keyword.css';
 

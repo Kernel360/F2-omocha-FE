@@ -4,7 +4,7 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import ErrorIcon from '@/assets/svg/error.svg';
+import ErrorIcon from '@/assets/svg/triangle-alert.svg';
 import useUserStore from '@/store/useUserStore';
 
 import * as S from './Profile.css';

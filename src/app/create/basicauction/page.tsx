@@ -11,7 +11,7 @@ import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuct
 import ContentRequired from '@/app/create/basicauction/components/contentrequired';
 import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
 import DeleteIcon from '@/assets/svg/delete.svg';
-import ErrorIcon from '@/assets/svg/error.svg';
+import ErrorIcon from '@/assets/svg/triangle-alert.svg';
 import useDebounce from '@/hooks/useDebounce';
 import formatDate from '@/utils/formatDate';
 

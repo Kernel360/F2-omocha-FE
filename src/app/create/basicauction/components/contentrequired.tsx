@@ -14,7 +14,7 @@ import {
 } from 'slate-react';
 
 import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
-import ErrorIcon from '@/assets/svg/error.svg';
+import ErrorIcon from '@/assets/svg/triangle-alert.svg';
 import BlockButton from '@/components/TextEditor/BlockButton';
 import Elements from '@/components/TextEditor/Elements';
 import Leaf from '@/components/TextEditor/Leaf';

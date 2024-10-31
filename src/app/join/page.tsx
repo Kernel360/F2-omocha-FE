@@ -14,7 +14,7 @@ import {
   passwordValidation,
 } from '@/app/join/utils/joinValidation';
 import CheckIcon from '@/assets/svg/check.svg';
-import ErrorIcon from '@/assets/svg/error.svg';
+import ErrorIcon from '@/assets/svg/triangle-alert.svg';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Join.css';
