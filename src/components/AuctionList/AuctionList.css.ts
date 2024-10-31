@@ -1,5 +1,6 @@
-import colors from '@/styles/color';
 import { globalStyle, style } from '@vanilla-extract/css';
+
+import colors from '@/styles/color';
 
 export const section = style({
   position: 'relative',

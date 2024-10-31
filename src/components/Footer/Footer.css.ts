@@ -1,6 +1,7 @@
+import { style } from '@vanilla-extract/css';
+
 import colors from '@/styles/color';
 import layout from '@/styles/layout';
-import { style } from '@vanilla-extract/css';
 
 export const footer = style({
   display: 'flex',

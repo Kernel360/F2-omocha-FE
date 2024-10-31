@@ -1,5 +1,6 @@
-import layout from '@/styles/layout';
 import { style } from '@vanilla-extract/css';
+
+import layout from '@/styles/layout';
 
 export const responsiveLayoutWrapper = style({
   padding: '32px 0',

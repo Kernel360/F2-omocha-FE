@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import Alarm from '@/components/Header/components/Alarm';
@@ -11,10 +11,8 @@ import { useAuth } from '@/provider/authProvider';
 import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 
 import * as S from './Header.css';
-import colors from '@/styles/color';
 
 function Header() {
-  const pathname = usePathname();
   const router = useRouter();
   const { value, setTrue, setFalse } = useBooleanState(false);
   const { isLoggedIn } = useAuth();

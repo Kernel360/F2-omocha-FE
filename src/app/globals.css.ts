@@ -1,5 +1,6 @@
-import layout from '@/styles/layout';
 import { globalStyle, style } from '@vanilla-extract/css';
+
+import layout from '@/styles/layout';
 
 globalStyle('html, body, h1, h2, h3, h4, button, p, ul, ol, li', {
   margin: 0,
