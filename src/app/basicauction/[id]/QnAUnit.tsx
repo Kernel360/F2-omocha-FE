@@ -42,6 +42,7 @@ function QnAUnit({ item, userId, isSeller }: QnAUnitProps) {
       title: `${question_id}번 답변`,
       content: answer,
     });
+    // 여기서 트리거가 닫혀야해
   };
 
   return (
