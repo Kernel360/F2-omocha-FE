@@ -1,8 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
-// import shadow from '@/styles/shadow';
-// import typography from '@/styles/typo';
-
 export const accordionItemButton = style({
   width: '100%',
   borderBottom: '1px solid #e0e0e0',

@@ -37,7 +37,7 @@ export const cardContent = style({
 });
 
 export const cardTitle = style([
-  typography.h4, // h3 스타일 적용
+  typography.h4,
   {
     display: 'inline-block',
     width: '100%',

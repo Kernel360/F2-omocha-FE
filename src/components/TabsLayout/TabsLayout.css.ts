@@ -20,13 +20,13 @@ export const tabsTrigger = style({
   border: 'none',
   cursor: 'pointer',
   transition: 'all 0.2s ease',
-  borderBottom: `2px solid ${colors.gray5}`, // '2px solid black',
+  borderBottom: `2px solid ${colors.gray5}`,
   borderRadius: '8px 8px 0 0',
   selectors: {
     '&[data-state="active"]': {
-      color: colors.primary11, // 'red',
-      backgroundColor: colors.primary3, // 'transparent',
-      borderBottom: `2px solid ${colors.primary9}`, // '2px solid red',
+      color: colors.primary11,
+      backgroundColor: colors.primary3,
+      borderBottom: `2px solid ${colors.primary9}`,
     },
   },
 });
