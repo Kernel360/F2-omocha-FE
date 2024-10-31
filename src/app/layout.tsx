@@ -10,6 +10,7 @@ import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
+import { ToastProvider } from '@/provider/toastProvider';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -51,20 +52,22 @@ export default function RootLayout({
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <TanstackProviders>
-          <NavigationEvents />
+        <ToastProvider>
+          <TanstackProviders>
+            <NavigationEvents />
 
-          <AuthProvider isLoggedIn={isLoggedIn}>
-            <Header />
-            <div className={S.container}>
-              {children}
-              <ChattingIconButton />
-              <ScrollToTopButton />
-            </div>
-          </AuthProvider>
-          <Footer />
-        </TanstackProviders>
-        <div id="root-portal" />
+            <AuthProvider isLoggedIn={isLoggedIn}>
+              <Header />
+              <div className={S.container}>
+                {children}
+                <ChattingIconButton />
+                <ScrollToTopButton />
+              </div>
+            </AuthProvider>
+            <Footer />
+          </TanstackProviders>
+          <div id="root-portal" />
+        </ToastProvider>
       </body>
     </html>
   );
