@@ -4,6 +4,8 @@
 
 import { useEffect } from 'react';
 
+import * as S from './globals.css';
+
 export default function Error({
   error,
   reset,
@@ -17,7 +19,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div>
+    <div className={S.errorContainer}>
       <h2>예상치 못한 오류가 발생했습니다.</h2>
       <button
         type="button"
@@ -25,6 +27,7 @@ export default function Error({
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
+        className={S.errorButton}
       >
         다시 시도
       </button>

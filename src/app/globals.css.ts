@@ -36,5 +36,28 @@ export const container = style({
   maxWidth: '1216px', // 1280 - (32*2)
   margin: '0 auto',
   padding: '60px 32px',
+  boxSizing: 'border-box',
   minHeight: 'calc(100vh - 230px)',
+});
+
+export const errorContainer = style({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '50px',
+});
+
+export const errorButton = style({
+  width: 'fit-content',
+  padding: '15px',
+  background: '#d50c0c',
+  color: '#FFF',
+  fontWeight: 'bold',
+  fontSize: '16px',
+  borderRadius: '4px',
+  cursor: 'pointer',
 });
