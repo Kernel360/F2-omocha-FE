@@ -8,7 +8,7 @@ export const responsiveLayoutWrapper = style({
   display: 'grid',
   gridRowGap: '2vw',
   gap: '24px',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
   width: '100%',
   maxWidth: layout.maxLayoutWidth.maxWidth,
   height: 'auto',

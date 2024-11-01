@@ -2,6 +2,7 @@
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionList from '@/components/AuctionList';
+import MainCarousel from '@/components/MainCarousel';
 
 export default function Home() {
   const { data } = useGetBasicAuctionList({
@@ -18,6 +19,7 @@ export default function Home() {
 
   return (
     <div>
+      <MainCarousel />
       <AuctionList data={data} pathname="신규 경매 상품" />
       <AuctionList data={data} pathname="마감 임박 상품" />
       {isActive && <AuctionList data={data} isLink path="/liveauction" pathname="마감 임박 상품" />}

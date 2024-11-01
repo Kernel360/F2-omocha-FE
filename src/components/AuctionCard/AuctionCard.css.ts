@@ -20,8 +20,6 @@ export const heartStyle = style({
   position: 'absolute',
   top: '12px',
   right: '12px',
-  width: '30px',
-  height: '30px',
 });
 
 export const cardImage = style({
@@ -37,7 +35,7 @@ export const cardContent = style({
 });
 
 export const cardTitle = style([
-  typography.h4,
+  typography.bodyLarge,
   {
     display: 'inline-block',
     width: '100%',

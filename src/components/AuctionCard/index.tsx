@@ -1,7 +1,8 @@
+import { HeartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import HeartIcon from '@/assets/svg/heart.svg';
+// import HeartIcon from '@/assets/svg/heart.svg';
 
 import * as S from './AuctionCard.css';
 
@@ -22,7 +23,9 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   return (
     <Link className={S.cardWrapper} href={`basicauction/${id}`} scroll={false}>
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
-      <HeartIcon className={S.heartStyle} stroke="red" fill={isLike ? 'red' : 'none'} />
+      <button type="button" className={S.heartStyle}>
+        <HeartIcon size={20} stroke="red" fill={isLike ? 'red' : 'none'} />
+      </button>
       <Image
         src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image[0]}`}
         alt="Auction Image"
@@ -40,6 +43,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
           </div>
           <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
             <span>현재가(KRW)</span>
+            {/* // 바꾸기 */}
             <span>{nowPrice ? nowPrice.toLocaleString('ko-KR') : '-'}원</span>
           </div>
         </div>
