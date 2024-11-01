@@ -11,7 +11,6 @@ export const cardWrapper = style({
   flexDirection: 'column',
   width: '240px',
   borderRadius: '12px',
-  // backgroundColor: 'rgba(229, 229, 229, 0.3)',
   border: '1px solid rgba(229, 229, 229, 1)',
   boxShadow: shadow.box3,
   ':hover': {
@@ -51,9 +50,6 @@ export const cardContent = style({
 export const userIcon = style({
   display: 'flex',
   marginLeft: 'auto',
-  // position: 'absolute',
-  // bottom: '12px',
-  // left: '12px',
 });
 
 export const cardTitle = style([

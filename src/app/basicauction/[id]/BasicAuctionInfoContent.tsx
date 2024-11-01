@@ -9,9 +9,7 @@ interface BasicAuctionInfoContentProps {
 }
 
 function BasicAuctionInfoContent({ content }: BasicAuctionInfoContentProps) {
-  console.log(content);
   const contentArray = JSON.parse(content);
-  console.log(contentArray);
 
   const htmlContent = convertSlateToHTML(contentArray);
 

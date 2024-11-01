@@ -80,9 +80,7 @@ export const division = style({
 
 export const infoButton = style({
   backgroundColor: 'rgba(0, 0, 0, 1)',
-  // backgroundColor: colors.secondary9,
   color: colors.primary1,
-
   padding: '8px 12px',
   borderRadius: '8px',
   border: 'none',
@@ -116,7 +114,6 @@ export const bidButton = styleVariants({
 export const deleteButton = styleVariants({
   default: {
     marginTop: '20px',
-    // background: 'red',
     backgroundColor: colors.primary10,
     color: colors.primary1,
     borderRadius: '8px',
