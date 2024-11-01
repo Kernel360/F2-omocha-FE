@@ -1,4 +1,4 @@
-import { style, styleVariants, keyframes, globalStyle } from '@vanilla-extract/css';
+import { style, styleVariants, keyframes } from '@vanilla-extract/css';
 
 export const toastViewport = style({
   position: 'fixed',
@@ -8,16 +8,6 @@ export const toastViewport = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1rem',
-});
-
-export const warningIcon = style({
-  width: '24px',
-  height: '24px',
-});
-
-globalStyle(`${warningIcon} path`, {
-  fill: '#FF9800',
-  stroke: 'white',
 });
 
 export const toastRoot = style({

@@ -25,6 +25,7 @@
     "@vanilla-extract/next-plugin": "^2.4.5",
     "axios": "^1.7.7",
     "dompurify": "^3.1.7",
+    "lucide-react": "^0.454.0",
     "next": "14.2.11",
     "react": "^18",
     "react-dom": "^18",
