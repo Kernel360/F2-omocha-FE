@@ -1,6 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 
-import layout from '@/styles/layout';
+// import layout from '@/styles/layout';
 
 globalStyle('html, body, h1, h2, h3, h4, button, p, ul, ol, li', {
   margin: 0,
@@ -35,7 +35,5 @@ globalStyle('ul', {
 
 export const container = style({
   position: 'relative',
-  maxWidth: layout.maxLayoutWidth.maxWidth,
-  margin: '0 auto',
   minHeight: 'calc(100vh - 230px)',
 });
