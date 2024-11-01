@@ -221,7 +221,7 @@ export default function Home() {
         </div>
         <div className={S.buttonContainer}>
           <button className={S.button} type="submit">
-            경매 올리기
+            경매 등록하기
           </button>
         </div>
       </form>
