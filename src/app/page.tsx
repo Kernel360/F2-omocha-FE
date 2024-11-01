@@ -4,6 +4,7 @@ import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAu
 import AuctionList from '@/components/AuctionList';
 import MainCarousel from '@/components/MainCarousel';
 import MaxLayout from '@/components/MaxLayout';
+import SpecialSection from '@/components/SpecialSection';
 
 export default function Home() {
   const { data } = useGetBasicAuctionList({
@@ -21,6 +22,7 @@ export default function Home() {
   return (
     <div>
       <MainCarousel />
+      <SpecialSection />
       <MaxLayout>
         <AuctionList data={data} pathname="신규 경매 상품" />
         <AuctionList data={data} pathname="마감 임박 상품" />
