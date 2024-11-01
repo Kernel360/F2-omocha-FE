@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import colors from '@/styles/color';
-import calculateDDay from '@/utils/calculateDday';
+import calculateDDay from '@/utils/calculatedDDay';
 
 import * as S from './AuctionCard.css';
 
