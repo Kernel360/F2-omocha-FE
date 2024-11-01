@@ -5,12 +5,12 @@
 
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import usePostLogin from '@/apis/queryHooks/Auth/usePostLogin';
 import GoogleIcon from '@/assets/svg/google.svg';
 import NaverIcon from '@/assets/svg/naver.svg';
-import ErrorIcon from '@/assets/svg/triangle-alert.svg';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Login.css';
@@ -56,7 +56,7 @@ function Home() {
             />
             {errors.emailRequired && (
               <span className={S.inputError}>
-                <ErrorIcon />
+                <TriangleAlertIcon width={17} height={17} />
                 이메일을 입력해 주세요.
               </span>
             )}
@@ -71,7 +71,7 @@ function Home() {
             />
             {errors.passwordRequired && (
               <span className={S.inputError}>
-                <ErrorIcon />
+                <TriangleAlertIcon width={17} height={17} />
                 비밀번호를 입력해 주세요.
               </span>
             )}

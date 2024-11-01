@@ -2,6 +2,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
 import { BaseEditor, createEditor, Descendant } from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import {
@@ -14,7 +15,6 @@ import {
 } from 'slate-react';
 
 import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
-import ErrorIcon from '@/assets/svg/triangle-alert.svg';
 import BlockButton from '@/components/TextEditor/BlockButton';
 import Elements from '@/components/TextEditor/Elements';
 import Leaf from '@/components/TextEditor/Leaf';
@@ -90,10 +90,9 @@ function ContentRequired() {
           />
         </Slate>
       </div>
-
       {errors.contentRequired && (
         <span className={S.error}>
-          <ErrorIcon />
+          <TriangleAlertIcon width={17} height={17} />
           {errors.contentRequired?.message}
         </span>
       )}

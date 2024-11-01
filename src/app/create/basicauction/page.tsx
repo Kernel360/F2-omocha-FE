@@ -5,13 +5,13 @@
 import { useRef } from 'react';
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
+import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
 import Image from 'next/image';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import ContentRequired from '@/app/create/basicauction/components/contentrequired';
 import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
 import DeleteIcon from '@/assets/svg/delete.svg';
-import ErrorIcon from '@/assets/svg/triangle-alert.svg';
 import useDebounce from '@/hooks/useDebounce';
 import formatDate from '@/utils/formatDate';
 
@@ -23,6 +23,7 @@ export default function Home() {
     register,
     control,
     handleSubmit,
+
     formState: { errors },
   } = methods;
 
@@ -86,7 +87,7 @@ export default function Home() {
           />
           {errors.nameRequired && (
             <span className={S.error}>
-              <ErrorIcon />
+              <TriangleAlertIcon width={17} height={17} />
               {errors.nameRequired.message}
             </span>
           )}
@@ -109,7 +110,7 @@ export default function Home() {
             />
             {errors.startPriceRequired && (
               <span className={S.error}>
-                <ErrorIcon />
+                <TriangleAlertIcon width={17} height={17} />
                 {errors.startPriceRequired.message}
               </span>
             )}
@@ -131,7 +132,7 @@ export default function Home() {
             />
             {errors.bidUnitRequired && (
               <span className={S.error}>
-                <ErrorIcon />
+                <TriangleAlertIcon width={17} height={17} />
                 {errors.bidUnitRequired.message}
               </span>
             )}
@@ -180,7 +181,7 @@ export default function Home() {
           </div>
           {errors.imagesRequired && (
             <span className={S.error}>
-              <ErrorIcon />
+              <TriangleAlertIcon width={17} height={17} />
               {errors.imagesRequired.root?.message}
             </span>
           )}
@@ -211,7 +212,7 @@ export default function Home() {
               />
               {errors.endDateRequired && (
                 <span className={S.error}>
-                  <ErrorIcon />
+                  <TriangleAlertIcon width={17} height={17} />
                   {errors.endDateRequired?.message}
                 </span>
               )}

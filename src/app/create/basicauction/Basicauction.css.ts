@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 export const auctionLabel = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '20px',
+  gap: '15px',
   marginBottom: '30px',
 });
 
