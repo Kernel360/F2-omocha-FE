@@ -60,12 +60,13 @@ export const closeButton = style({
   color: 'gray',
   cursor: 'pointer',
   fontSize: '14px',
+  width: '18px',
 
   ':hover': {
     width: '18px',
     height: '18px',
     borderRadius: '4px',
-    backgroundColor: 'red',
+    backgroundColor: '#eee',
   },
 });
 
