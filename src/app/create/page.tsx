@@ -1,55 +1,237 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 'use client';
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRef } from 'react';
+import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
-import BasicAuctionIcon from '@/assets/svg/basicauction.svg';
-import LiveAuctionIcon from '@/assets/svg/liveauction.svg';
-import ModalFooter from '@/components/Modal/ModalFooter';
-import useBooleanState from '@/hooks/useBooleanState';
+import Image from 'next/image';
 
-import * as S from './Create.css';
+// import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
+// import ContentRequired from '@/app/create/basicauction/components/contentrequired';
+// import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
+import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
+import DeleteIcon from '@/assets/svg/delete.svg';
+import ErrorIcon from '@/assets/svg/error.svg';
+import CommonButton from '@/components/CommonButton';
+import MaxLayout from '@/components/MaxLayout';
+import useDebounce from '@/hooks/useDebounce';
+import formatDate from '@/utils/formatDate';
+
+import * as S from './Basicauction.css';
+import ContentRequired from './components/contentrequired';
+import { AuctionInputs } from './types/InputTypes';
 
 export default function Home() {
-  const { value: isOpen, setValue: setIsOpen } = useBooleanState(false);
-  const router = useRouter();
-  const isActive = true;
+  const methods = useForm<AuctionInputs>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'imagesRequired',
+    keyName: 'imageRequiredId',
+    rules: {
+      required: '이미지를 업로드해 주세요.',
+      validate: value => {
+        if (value.length > 10) {
+          return '이미지는 최대 10장 까지 업로드 가능합니다.';
+        }
+        return true;
+      },
+    },
+  });
+
+  const { mutate: postBasicAuction } = usePostBasicAuction();
+
+  const inputFile = useRef(null);
+
+  const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const uploadFile = Array.from(e.target.files);
+      const files = uploadFile.map(file => ({ file }));
+      append(files);
+    }
+  };
+
+  const onSubmit: SubmitHandler<AuctionInputs> = useDebounce(data => {
+    const formData = new FormData();
+
+    const auctionRequest = {
+      title: data.nameRequired,
+      content: data.contentRequired,
+      start_price: data.startPriceRequired,
+      bid_unit: data.bidUnitRequired,
+      auction_type: 'BASIC',
+      start_date: formatDate(new Date().toString()),
+      end_date: formatDate(data.endDateRequired),
+    };
+
+    formData.append('auctionRequest', JSON.stringify(auctionRequest));
+    data.imagesRequired.forEach(image => formData.append('images', image.file));
+
+    postBasicAuction(formData);
+  }, 500);
 
   return (
-    <div className={S.container}>
-      <div className={S.containerBox}>
-        <Link className={S.categoryLink} href="/create/basicauction" scroll={false}>
-          <div className={S.title}>일반 경매</div>
-          <div>
-            <BasicAuctionIcon />
+    <MaxLayout>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor="name" className={S.auctionLabel}>
+            <div className={S.title}>상품명</div>
+            <input
+              className={S.auctionInput}
+              id="name"
+              type="text"
+              placeholder="상품명"
+              {...register('nameRequired', { required: '상품명을 입력해 주세요.' })}
+            />
+            {errors.nameRequired && (
+              <span className={S.error}>
+                <ErrorIcon />
+                {errors.nameRequired.message}
+              </span>
+            )}
+          </label>
+          <div className={S.price}>
+            <label htmlFor="startPrice" className={S.auctionLabel}>
+              <div className={S.title}>시작가</div>
+              <input
+                className={S.auctionInput}
+                id="startPrice"
+                type="number"
+                placeholder="원"
+                {...register('startPriceRequired', {
+                  required: '시작가를 입력해 주세요.',
+                  pattern: {
+                    value: /^(0|[1-9]\d*)$/,
+                    message: '올바른 금액이 아닙니다.',
+                  },
+                })}
+              />
+              {errors.startPriceRequired && (
+                <span className={S.error}>
+                  <ErrorIcon />
+                  {errors.startPriceRequired.message}
+                </span>
+              )}
+            </label>
+            <label htmlFor="bidUnit" className={S.auctionLabel}>
+              <div className={S.title}>입찰 단위</div>
+              <input
+                className={S.auctionInput}
+                id="bidUnit"
+                type="number"
+                placeholder="원"
+                {...register('bidUnitRequired', {
+                  required: '입찰 단위를 입력해 주세요.',
+                  pattern: {
+                    value: /^(0|[1-9]\d*)$/,
+                    message: '올바른 금액이 아닙니다.',
+                  },
+                })}
+              />
+              {errors.bidUnitRequired && (
+                <span className={S.error}>
+                  <ErrorIcon />
+                  {errors.bidUnitRequired.message}
+                </span>
+              )}
+            </label>
           </div>
-          <div className={S.description}>
-            일반 경매는 정해진 기간 내에 경매를 진행합니다. 낙찰 이후에 구매자와 판매자는 1:1 채팅이
-            자동으로 연동됩니다.
+          <div className={S.auctionLabel}>
+            <div className={S.title}>사진</div>
+            <div className={S.count}>{fields.length}/10</div>
+            <div className={S.imageBoard}>
+              <label htmlFor="image" className={S.imageUpload}>
+                이미지 등록하기
+                <input
+                  className={S.imageInput}
+                  ref={inputFile}
+                  id="image"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={addImage}
+                />
+              </label>
+              <ul className={S.imageList}>
+                {fields
+                  .slice()
+                  .reverse()
+                  .map(({ imageRequiredId, file }, index) => (
+                    <li key={imageRequiredId} className={S.image}>
+                      <Image
+                        className={S.image}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        src={URL.createObjectURL(file)}
+                        alt={URL.createObjectURL(file)}
+                      />
+                      <button
+                        type="button"
+                        className={S.deleteButton}
+                        onClick={() => remove(fields.length - index - 1)}
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+            {errors.imagesRequired && (
+              <span className={S.error}>
+                <ErrorIcon />
+                {errors.imagesRequired.root?.message}
+              </span>
+            )}
           </div>
-        </Link>
-      </div>
-      <div className={S.containerBox}>
-        <button type="button" className={S.categoryLink} onClick={() => setIsOpen(true)}>
-          {isActive && <div className={S.dim}>준비중입니다.</div>}
-          <div className={S.title}>라이브 경매</div>
-          <div>
-            <LiveAuctionIcon />
+          <ContentRequired />
+          <div className={S.auctionLabel}>
+            <div className={S.title}>경매 기간</div>
+            <div className={S.period}>
+              <span className={S.description}>
+                경매 상품을 올리는 순간부터 경매가 시작됩니다. 종료 시간만을 입력해 주세요.
+              </span>
+              <label htmlFor="endDate" className={S.subTitle}>
+                종료 시간
+                <input
+                  id="endDate"
+                  type="datetime-local"
+                  className={S.auctionInput}
+                  min={new Date().toISOString().slice(0, 16)}
+                  {...register('endDateRequired', {
+                    required: '종료 시각을 입력해 주세요.',
+                    validate: value => {
+                      return (
+                        formatDate(value) > formatDate(new Date().toString()) ||
+                        '현재 시각보다 이전 시간은 선택할 수 없습니다.'
+                      );
+                    },
+                  })}
+                />
+                {errors.endDateRequired && (
+                  <span className={S.error}>
+                    <ErrorIcon />
+                    {errors.endDateRequired?.message}
+                  </span>
+                )}
+              </label>
+            </div>
           </div>
-          <div className={S.description}>
-            라이브 경매는 라이브 채팅이 포함된 경매입니다. 판매자는 경매 기간 동안 채팅을 통해
-            구매자들과 소통할 수 있습니다. 낙찰 이후에는 구매자와 1:1 채팅이 자동으로 연동됩니다.
+          <div className={S.buttonContainer}>
+            <CommonButton content="경매 올리기" type="submit" />
+            {/* <button className={S.button} type="submit">
+              경매 올리기
+            </button> */}
           </div>
-        </button>
-        <ModalFooter
-          isOpen={isOpen}
-          onOpenChange={open => setIsOpen(open)}
-          positiveButton="일반 경매로 이동"
-          positiveButtonEvent={() => router.push('/create/basicauction', { scroll: false })}
-        >
-          현재 준비중입니다. 일반 경매를 이용해 주세요.
-        </ModalFooter>
-      </div>
-    </div>
+        </form>
+      </FormProvider>
+    </MaxLayout>
   );
 }

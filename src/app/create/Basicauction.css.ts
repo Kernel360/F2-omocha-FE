@@ -112,7 +112,11 @@ export const subTitle = style({
 export const buttonContainer = style({
   display: 'flex',
   justifyContent: 'center',
+
+  margin: '0 auto',
   marginTop: '50px',
+  marginBottom: '50px',
+  width: '50%',
 });
 
 export const button = style({
