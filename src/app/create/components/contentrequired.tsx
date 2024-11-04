@@ -14,7 +14,7 @@ import {
   ReactEditor,
 } from 'slate-react';
 
-import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
+import { AuctionInputs } from '@/app/create/types/InputTypes';
 import BlockButton from '@/components/TextEditor/BlockButton';
 import Elements from '@/components/TextEditor/Elements';
 import Leaf from '@/components/TextEditor/Leaf';
@@ -85,7 +85,7 @@ function ContentRequired() {
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             spellCheck
-            autoFocus
+            autoFocus={false}
             onKeyDown={handleKeyDown}
           />
         </Slate>

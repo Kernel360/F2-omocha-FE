@@ -39,7 +39,7 @@ export const popularItem = style({
   marginTop: '24px',
   fontSize: '36px',
   fontWeight: 'bold',
-  color: colors.red,
+  color: colors.primary9,
 });
 
 export const specialAuction = style({
@@ -69,7 +69,7 @@ export const specialAuctionTitle = style({
 export const specialAuctionPriceTitle = style({
   fontSize: '16px',
   fontWeight: 'bold',
-  color: colors.red,
+  color: colors.primary9,
 });
 
 export const specialAuctionPrice = style({
