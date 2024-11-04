@@ -85,7 +85,7 @@ export const cardFlexColor = style([
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    color: 'rgba(200, 0, 0, 1)',
+    color: colors.primary9,
   },
 ]);
 

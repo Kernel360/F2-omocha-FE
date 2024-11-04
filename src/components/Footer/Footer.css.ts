@@ -8,8 +8,8 @@ export const footer = style({
   flexDirection: 'column',
   justifyContent: 'space-around',
   height: '130px',
-  backgroundColor: colors.gray2,
-  color: colors.gray11,
+  backgroundColor: 'rgb(25, 26, 29)',
+  color: colors.white,
   padding: '0 16px',
 });
 
@@ -26,7 +26,7 @@ export const topFooter = style({
 });
 
 export const logoButton = style({
-  color: colors.gray11,
+  color: colors.white,
 
   fontSize: '32px',
 });
@@ -51,5 +51,5 @@ export const bottomFooter = style({
 });
 
 export const categoryLink = style({
-  color: colors.gray11,
+  color: colors.white,
 });

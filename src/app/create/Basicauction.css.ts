@@ -1,10 +1,11 @@
 import { style } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+import shadow from '@/styles/shadow';
+
 export const auctionLabel = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '20px',
-  marginBottom: '30px',
 });
 
 export const title = style({
@@ -15,7 +16,7 @@ export const title = style({
 
 export const auctionInput = style({
   maxWidth: '368px',
-  borderRadius: '4px',
+  borderRadius: '8px',
   padding: '12px 16px',
   border: '1.5px solid black',
 });
@@ -23,13 +24,14 @@ export const auctionInput = style({
 export const count = style({
   fontSize: '14px',
   textAlign: 'right',
+  marginBottom: '10px',
 });
 
 export const imageBoard = style({
   display: 'flex',
   width: '100%',
   height: '150px',
-  backgroundColor: 'rgb(196, 196, 196)',
+  backgroundColor: '#f7f7f8',
   borderRadius: '4px',
   overflowX: 'scroll',
 });
@@ -49,7 +51,7 @@ export const image = style({
   width: '250px',
   height: 'auto',
   objectFit: 'contain',
-  border: '1.5px dashed white ',
+  border: `1.5px dashed ${colors.gray8} `,
   borderRadius: '10px',
 });
 
@@ -71,9 +73,11 @@ export const imageUpload = style({
   alignItems: 'center',
   margin: '10px',
   minWidth: '250px',
-  border: '1.5px dashed white',
+  border: `1.5px dashed ${colors.gray8} `,
   borderRadius: '10px',
   cursor: 'pointer',
+  color: colors.gray8,
+  fontSize: '18px',
 });
 
 export const info = style({
@@ -85,9 +89,9 @@ export const info = style({
 });
 
 export const price = style({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit,minmax(66px, auto))',
-  gap: '30px',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '80px',
 });
 
 export const period = style({
@@ -97,7 +101,8 @@ export const period = style({
 });
 
 export const description = style({
-  fontSize: '14px',
+  marginTop: '16px',
+  fontSize: '13px',
   color: 'rgb(142,142,142)',
 });
 
@@ -112,11 +117,10 @@ export const subTitle = style({
 export const buttonContainer = style({
   display: 'flex',
   justifyContent: 'center',
-
   margin: '0 auto',
   marginTop: '50px',
   marginBottom: '50px',
-  width: '50%',
+  width: '100%',
 });
 
 export const button = style({
@@ -134,7 +138,7 @@ export const error = style({
   display: 'flex',
   gap: '4px',
   alignItems: 'center',
-  color: '#FF0000',
+  color: colors.primary10,
   fontSize: '14px',
   paddingLeft: '8px',
   fontWeight: 'normal',
@@ -165,4 +169,40 @@ export const editorContent = style({
   fontSize: '16px',
   lineHeight: '1.5',
   color: '#374151',
+});
+
+export const backContainer = style({
+  width: '100%',
+  padding: '60px 0',
+  backgroundColor: '#F7F7F8',
+});
+
+export const container = style({
+  display: 'flex',
+  boxSizing: 'border-box',
+  flexDirection: 'column',
+  gap: '20px',
+  margin: '0 auto',
+  width: '100%',
+  padding: '20px',
+  borderRadius: '8px',
+  boxShadow: shadow.box3,
+  backgroundColor: colors.white,
+});
+
+export const topTitle = style({
+  fontWeight: '700',
+  fontSize: '20px',
+  display: 'flex',
+  width: '100%',
+  lineHeight: '32px',
+  color: colors.gray12,
+  letterSpacing: '-0.2px',
+  marginBottom: '20px',
+});
+
+export const formSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '30px',
 });

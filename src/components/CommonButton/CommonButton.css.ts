@@ -1,13 +1,12 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import shadow from '@/styles/shadow';
 
-export const button = style({
+export const baseButton = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: '12px',
   width: '100%',
   borderRadius: '16px',
   border: 'none',
@@ -24,4 +23,24 @@ export const button = style({
     color: '#000',
     cursor: 'not-allowed',
   },
+});
+export const buttonVariants = styleVariants({
+  sm: [
+    baseButton,
+    {
+      padding: '8px 12px',
+    },
+  ],
+  md: [
+    baseButton,
+    {
+      padding: '12px 16px',
+    },
+  ],
+  lg: [
+    baseButton,
+    {
+      padding: '16px 24px',
+    },
+  ],
 });

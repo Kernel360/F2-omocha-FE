@@ -6,7 +6,7 @@ interface CommonButtonProps {
   type: 'button' | 'submit' | 'reset';
   onClick?: () => void;
   disabled?: boolean;
-  className?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 function CommonButton({
@@ -14,15 +14,10 @@ function CommonButton({
   type = 'button',
   onClick,
   disabled = false,
-  className = '',
+  size = 'md',
 }: CommonButtonProps) {
   return (
-    <button
-      type={type}
-      disabled={disabled}
-      className={`${className} ${S.button}`}
-      onClick={onClick}
-    >
+    <button type={type} disabled={disabled} className={S.buttonVariants[size]} onClick={onClick}>
       <span>{content}</span>
     </button>
   );
