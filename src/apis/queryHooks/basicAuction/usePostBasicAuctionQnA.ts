@@ -14,6 +14,7 @@ function usePostBasicAuctionQnA() {
     mutationFn: (data: PostAuctionQnAParams) => postAuctionQnA(data),
     onSuccess: (_, params) => {
       queryClient.invalidateQueries({ queryKey: ['auctionQnAList', params.auction_id] });
+      showToast('success', 'QnA 답변 등록에 성공했습니다.');
     },
     onError: (e: AxiosError<Response<PostAuctionQnAResponseData>>) => {
       if (e.response) {
