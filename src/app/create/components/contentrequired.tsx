@@ -85,7 +85,7 @@ function ContentRequired() {
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             spellCheck
-            autoFocus
+            autoFocus={false}
             onKeyDown={handleKeyDown}
           />
         </Slate>

@@ -89,9 +89,9 @@ export const info = style({
 });
 
 export const price = style({
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '80px',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit,minmax(110px, 360px))',
+  gap: '30px',
 });
 
 export const period = style({
@@ -140,7 +140,7 @@ export const error = style({
   alignItems: 'center',
   color: colors.primary10,
   fontSize: '14px',
-  paddingLeft: '8px',
+  marginTop: '16px',
   fontWeight: 'normal',
 });
 
@@ -205,4 +205,9 @@ export const formSection = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '30px',
+});
+
+export const inputWrapper = style({
+  maxWidth: '368px',
+  width: '100%',
 });

@@ -12,12 +12,14 @@ interface CommonInputProps<T extends FieldValues> {
   label: string;
   type?: 'text' | 'number' | 'email' | 'password' | 'datetime-local';
   placeholder?: string;
-  register: UseFormRegister<T>; // 제네릭 타입으로 register 타입 설정
+  register?: UseFormRegister<T>; // 제네릭 타입으로 register 타입 설정
   error?: FieldError;
   validation?: RegisterOptions<T>; // 유효성 검사 옵션을 제네릭으로 설정
-  maxWith?: string;
   min?: number | string; // 데이트 피커에 활용
+  value?: string;
+  disabled?: boolean;
 }
+
 function CommonInput<T extends FieldValues>({
   id,
   label,
@@ -26,19 +28,23 @@ function CommonInput<T extends FieldValues>({
   register,
   error,
   validation = {},
-  maxWith = '100%',
+
   min,
+  value,
+  disabled,
 }: CommonInputProps<T>) {
   return (
-    <label htmlFor={String(id)} className={S.label} style={{ width: maxWith }}>
+    <label htmlFor={String(id)} className={S.label}>
       <div className={S.title}>{label}</div>
       <input
+        disabled={disabled}
+        value={value}
         className={S.input}
         id={String(id)}
         type={type}
         min={min}
         placeholder={placeholder}
-        {...register(id, validation)}
+        {...(register ? register(id, validation) : {})}
       />
       {error && (
         <span className={S.error}>
