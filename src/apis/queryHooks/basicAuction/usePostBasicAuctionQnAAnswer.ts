@@ -7,21 +7,23 @@ import {
   PostAuctionQnAAnswerResponseData,
 } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
+import { useToast } from '@/provider/toastProvider';
 
 function usePostAuctionQnAAnswer() {
   const queryClient = useQueryClient();
+  const { showToast } = useToast();
 
   const { mutate, error } = useMutation({
     mutationFn: (data: PostAuctionQnAAnswerParams) => postAuctionQnAAnswer(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auctionQnAList'] });
+      showToast('success', 'QnA 등록에 성공했습니다.');
     },
     onError: (e: AxiosError<Response<PostAuctionQnAAnswerResponseData>>) => {
       if (e.response) {
-        alert(`${e.response.data.result_msg}`);
+        showToast('error', `${e.response.data.result_msg}`);
       } else {
-        console.log('알 수 없는 오류 발생', e.message);
-        alert('알 수 없는 오류가 발생했습니다.');
+        showToast('error', '알 수 없는 오류가 발생했습니다. 새로고침을 진행해 주세요.');
       }
     },
   });
