@@ -82,49 +82,52 @@ export default function Home() {
         <div className={S.container}>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className={S.formSection}>
-              <CommonInput
-                id="nameRequired"
-                label="상품명"
-                type="text"
-                placeholder="상품명"
-                register={register}
-                validation={{ required: '상품명을 입력해 주세요.' }}
-                error={errors.nameRequired}
-                maxWith="360px"
-              />
+              <div className={S.inputWrapper}>
+                <CommonInput
+                  id="nameRequired"
+                  label="상품명"
+                  type="text"
+                  placeholder="상품명"
+                  register={register}
+                  validation={{ required: '상품명을 입력해 주세요.' }}
+                  error={errors.nameRequired}
+                />
+              </div>
               <div className={S.price}>
-                <CommonInput
-                  id="startPriceRequired"
-                  label="시작가"
-                  type="number"
-                  placeholder="원"
-                  register={register}
-                  validation={{
-                    required: '시작가를 입력해 주세요.',
-                    pattern: {
-                      value: /^(0|[1-9]\d*)$/,
-                      message: '올바른 금액이 아닙니다.',
-                    },
-                  }}
-                  error={errors.startPriceRequired}
-                  maxWith="360px"
-                />
-                <CommonInput
-                  id="bidUnitRequired"
-                  label="입찰 단위"
-                  type="number"
-                  placeholder="원"
-                  register={register}
-                  validation={{
-                    required: '입찰 단위를 입력해 주세요.',
-                    pattern: {
-                      value: /^(0|[1-9]\d*)$/,
-                      message: '올바른 금액이 아닙니다.',
-                    },
-                  }}
-                  error={errors.bidUnitRequired}
-                  maxWith="360px"
-                />
+                <div className={S.inputWrapper}>
+                  <CommonInput
+                    id="startPriceRequired"
+                    label="시작가"
+                    type="number"
+                    placeholder="원"
+                    register={register}
+                    validation={{
+                      required: '시작가를 입력해 주세요.',
+                      pattern: {
+                        value: /^(0|[1-9]\d*)$/,
+                        message: '올바른 금액이 아닙니다.',
+                      },
+                    }}
+                    error={errors.startPriceRequired}
+                  />
+                </div>
+                <div className={S.inputWrapper}>
+                  <CommonInput
+                    id="bidUnitRequired"
+                    label="입찰 단위"
+                    type="number"
+                    placeholder="원"
+                    register={register}
+                    validation={{
+                      required: '입찰 단위를 입력해 주세요.',
+                      pattern: {
+                        value: /^(0|[1-9]\d*)$/,
+                        message: '올바른 금액이 아닙니다.',
+                      },
+                    }}
+                    error={errors.bidUnitRequired}
+                  />
+                </div>
               </div>
               <div className={S.auctionLabel}>
                 <div className={S.title}>사진</div>
@@ -181,24 +184,25 @@ export default function Home() {
                   경매 상품을 올리는 순간부터 경매가 시작됩니다. 종료 시간만을 입력해 주세요.
                 </span>
               </div>
-              <CommonInput
-                id="endDateRequired"
-                label="종료 시간"
-                type="datetime-local"
-                min={new Date().toISOString().slice(0, 16)}
-                register={register}
-                maxWith="360px"
-                validation={{
-                  required: '종료 시각을 입력해 주세요.',
-                  validate: value => {
-                    return (
-                      formatDate(value as string) > formatDate(new Date().toString()) ||
-                      '현재 시각보다 이전 시간은 선택할 수 없습니다.'
-                    );
-                  },
-                }}
-                error={errors.endDateRequired}
-              />
+              <div className={S.inputWrapper}>
+                <CommonInput
+                  id="endDateRequired"
+                  label="종료 시간"
+                  type="datetime-local"
+                  min={new Date().toISOString().slice(0, 16)}
+                  register={register}
+                  validation={{
+                    required: '종료 시각을 입력해 주세요.',
+                    validate: value => {
+                      return (
+                        formatDate(value as string) > formatDate(new Date().toString()) ||
+                        '현재 시각보다 이전 시간은 선택할 수 없습니다.'
+                      );
+                    },
+                  }}
+                  error={errors.endDateRequired}
+                />
+              </div>
               <div className={S.buttonContainer}>
                 <CommonButton content="경매 올리기" type="submit" size="lg" />
               </div>
