@@ -140,7 +140,7 @@ export const error = style({
   alignItems: 'center',
   color: colors.primary10,
   fontSize: '14px',
-  paddingLeft: '8px',
+  marginTop: '16px',
   fontWeight: 'normal',
 });
 
