@@ -1,11 +1,11 @@
 import * as Accordion from '@radix-ui/react-accordion';
 
 import useGetAuctionTTTList from '@/apis/queryHooks/basicAuction/useGetBasicAutionQnAList';
-import { AuctionTTTData } from '@/apis/types/basicAuction';
+import { AuctionQnAData } from '@/apis/types/basicAuction';
 
-import * as S from './BasicAuctionInfoTTT.css';
+import * as S from './BasicAuctionInfoQnA.css';
+import QnAInputSection from './QnAInputSection';
 import QnAUnit from './QnAUnit';
-import TTTInputSection from './TTTInputSection';
 
 interface BasicAuctionInfoTTTProps {
   id: number;
@@ -21,12 +21,12 @@ function BasicAuctionInfoTTT({ id, isSeller, userEmail, userId }: BasicAuctionIn
 
   return (
     <div className={S.accordionContainer}>
-      {!isSeller && <TTTInputSection id={id} userId={userId} userEmail={userEmail} />}
+      {!isSeller && <QnAInputSection id={id} userId={userId} userEmail={userEmail} />}
       <Accordion.Root type="single" collapsible>
         {data.result_data.content.length === 0 && (
           <div className={S.NoTTT}>등록된 질문이 없습니다.</div>
         )}
-        {data.result_data.content.map((item: AuctionTTTData) => (
+        {data.result_data.content.map((item: AuctionQnAData) => (
           <QnAUnit
             key={item.question_response.question_id}
             item={item}

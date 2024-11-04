@@ -3,7 +3,7 @@ import * as Accordion from '@radix-ui/react-accordion';
 
 import useDeleteBasicAuctionQnA from '@/apis/queryHooks/basicAuction/useDeleteBasicAuctionQnA';
 import usePostBasicAuctionQnAAnswer from '@/apis/queryHooks/basicAuction/usePostBasicAuctionQnAAnswer';
-import { AuctionTTTData } from '@/apis/types/basicAuction';
+import { AuctionQnAData } from '@/apis/types/basicAuction';
 import ModalFooter from '@/components/Modal/ModalFooter';
 import useBooleanState from '@/hooks/useBooleanState';
 import maskEmail from '@/utils/maskEmail';
@@ -12,7 +12,7 @@ import ConfirmDeleteModal from './ConfirmDeleteModal';
 import * as S from './QnAUnit.css';
 
 interface QnAUnitProps {
-  item: AuctionTTTData;
+  item: AuctionQnAData;
   userId: number | undefined;
   isSeller: boolean;
 }

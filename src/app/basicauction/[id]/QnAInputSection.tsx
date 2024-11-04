@@ -6,7 +6,7 @@ import { Modal } from '@/components/Modal/Modal';
 import useBooleanState from '@/hooks/useBooleanState';
 
 import HaveToLoginNotiModal from './HaveToLoginNotiModal';
-import * as S from './TTTInputSection.css';
+import * as S from './QnAInputSection.css';
 
 interface TTTInputSectionProps {
   id: number;
