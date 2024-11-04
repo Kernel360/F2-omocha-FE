@@ -1,3 +1,5 @@
+'use client';
+
 import React, { MouseEventHandler, useRef } from 'react';
 
 import ChevronDownIcon from '@/assets/svg/chevron-down.svg';

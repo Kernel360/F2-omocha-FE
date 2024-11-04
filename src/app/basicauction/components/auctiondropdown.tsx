@@ -1,3 +1,5 @@
+'use client';
+
 import { Dropdown } from '@/components/Dropdown';
 import useSetSearchParam from '@/hooks/useSetSearchParam';
 import { AUCTIONPARAM_KEY, AUCTIONPARAM_VALUE } from '@/static/queryParam';
