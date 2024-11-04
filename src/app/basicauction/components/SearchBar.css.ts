@@ -1,3 +1,4 @@
+import typography from '@/styles/typo';
 import { style } from '@vanilla-extract/css';
 
 export const searchBar = style({
@@ -11,7 +12,7 @@ export const searchBar = style({
 export const searchInput = style({
   border: 'none',
   outline: 'none',
-  fontSize: '16px',
+  ...typography.body,
 });
 
 export const searchDelete = style({

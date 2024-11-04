@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 
-import DeleteIcon from '@/assets/svg/delete.svg';
+import { CircleXIcon } from 'lucide-react';
 
 import * as S from './Modal.css';
 
@@ -20,10 +20,9 @@ export default function ModalFooter(SAMPLE: ModalFooterProps) {
       <Dialog.Portal>
         <Dialog.Overlay className={S.overlay} />
         <Dialog.Content className={S.modal} aria-describedby={undefined}>
-          <Dialog.Title className="DialogTitle" />
           <Dialog.Close asChild>
             <div className={S.closeButton}>
-              <DeleteIcon />
+              <CircleXIcon />
             </div>
           </Dialog.Close>
           <div className={S.content}>{children}</div>

@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import DeleteIcon from '@/assets/svg/delete.svg';
+import { CircleXIcon } from 'lucide-react';
 import SearchIcon from '@/assets/svg/search.svg';
 import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
@@ -42,7 +42,7 @@ export default function SearchBar() {
         placeholder="경매 검색"
       />
       <button className={S.searchDelete} type="button" onClick={deleteSearch}>
-        <DeleteIcon />
+        <CircleXIcon />
       </button>
     </form>
   );

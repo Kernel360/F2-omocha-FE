@@ -11,7 +11,7 @@ import Image from 'next/image';
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import ContentRequired from '@/app/create/basicauction/components/contentrequired';
 import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
-import DeleteIcon from '@/assets/svg/delete.svg';
+import { CircleXIcon } from 'lucide-react';
 import useDebounce from '@/hooks/useDebounce';
 import formatDate from '@/utils/formatDate';
 
@@ -173,7 +173,7 @@ export default function Home() {
                       className={S.deleteButton}
                       onClick={() => remove(fields.length - index - 1)}
                     >
-                      <DeleteIcon />
+                      <CircleXIcon />
                     </button>
                   </li>
                 ))}
