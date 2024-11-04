@@ -51,13 +51,19 @@ export const errorContainer = style({
   gap: '50px',
 });
 
+export const errorButtons = style({
+  display: 'flex',
+  gap: '15px',
+});
+
 export const errorButton = style({
-  width: 'fit-content',
-  padding: '15px',
+  width: '110px',
+  padding: '12px',
+  boxSizing: 'content-box',
   background: '#d50c0c',
   color: '#FFF',
   fontWeight: 'bold',
-  fontSize: '16px',
+  fontSize: '14px',
   borderRadius: '4px',
   cursor: 'pointer',
 });
