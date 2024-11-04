@@ -56,7 +56,7 @@ export const accordionItem = style({
   },
 });
 
-export const NoQNA = style([
+export const NoTTT = style([
   typography.bodyLarge,
   {
     padding: '20px',

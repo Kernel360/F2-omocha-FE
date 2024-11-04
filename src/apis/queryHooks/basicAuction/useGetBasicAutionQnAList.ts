@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getAuctionQnAList } from '@/apis/queryFunctions/basicAuction';
 
-function useGetAuctionQNAList(id: number) {
+function useGetAuctionTTTList(id: number) {
   const { data } = useQuery({
     queryFn: () => getAuctionQnAList(id),
     queryKey: ['auctionQnAList', id],
@@ -10,4 +10,4 @@ function useGetAuctionQNAList(id: number) {
   return { data };
 }
 
-export default useGetAuctionQNAList;
+export default useGetAuctionTTTList;

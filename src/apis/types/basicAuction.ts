@@ -104,13 +104,13 @@ export interface AnswerResponse {
   created_at: string;
 }
 
-export interface AuctionQNAData {
+export interface AuctionTTTData {
   question_response: QuestionResponse;
   answer_response: AnswerResponse | null;
 }
 
 export interface GetAuctionQnAListDataResponseData {
-  content: AuctionQNAData[];
+  content: AuctionTTTData[];
   pageable: Pageable;
   total_pages: number;
   total_elements: number;
