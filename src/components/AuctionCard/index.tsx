@@ -1,8 +1,7 @@
-import { Clock, HeartIcon, UserCircle2Icon } from 'lucide-react';
+import { ClockIcon, HeartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import colors from '@/styles/color';
 import calculateDDay from '@/utils/calculatedDDay';
 
 import * as S from './AuctionCard.css';
@@ -33,7 +32,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       </button>
       {!isExpired && (
         <div className={S.floatTimer}>
-          <Clock size={14} />
+          <ClockIcon size={14} />
           <span>{`D-${dDay}`}</span>
         </div>
       )}
@@ -41,13 +40,13 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
         <Image
           src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image[0]}`}
           alt="Auction Image"
-          width={216}
-          height={200}
+          width={196}
+          height={196}
           className={S.cardImage}
         />
-        <div className={S.userIcon}>
+        {/* <div className={S.userIcon}>
           <UserCircle2Icon size={24} stroke={colors.gray10} />
-        </div>
+        </div> */}
         <span className={S.cardTitle}>{title}</span>
         {/* <hr className={S.division} /> */}
         {/* <div className={S.cardTimeWrapper}> */}

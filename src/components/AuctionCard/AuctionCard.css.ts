@@ -9,7 +9,8 @@ export const cardWrapper = style({
   color: 'rgba(0, 0, 0, 1)',
   display: 'flex',
   flexDirection: 'column',
-  width: '240px',
+  width: '220px',
+
   borderRadius: '12px',
   border: '1px solid rgba(229, 229, 229, 1)',
   boxShadow: shadow.box3,
@@ -37,7 +38,7 @@ export const cardImage = style({
   fontSize: '18px',
   lineHeight: '24px',
   fontWeight: '24px',
-  content: 'cover',
+  content: 'contain',
 });
 
 export const cardContent = style({
@@ -55,6 +56,7 @@ export const userIcon = style({
 export const cardTitle = style([
   typography.bodyLarge,
   {
+    marginTop: '8px',
     display: 'inline-block',
     width: '100%',
     overflow: 'hidden',
