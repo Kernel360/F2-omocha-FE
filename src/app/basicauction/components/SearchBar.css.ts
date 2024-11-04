@@ -1,23 +1,33 @@
+import { style, styleVariants } from '@vanilla-extract/css';
+
+import colors from '@/styles/color';
 import typography from '@/styles/typo';
-import { style } from '@vanilla-extract/css';
 
 export const searchBar = style({
   position: 'relative',
   display: 'flex',
   gap: '5px',
-  borderBottom: '1px solid black',
+  borderBottom: `1px solid ${colors.gray7}`,
   padding: '0 10px 5px',
 });
 
-export const searchInput = style({
-  border: 'none',
-  outline: 'none',
-  ...typography.body,
+const buttonBase = style({
+  display: 'flex',
+  alignItems: 'center',
 });
 
-export const searchDelete = style({
-  position: 'absolute',
-  right: '10px',
-  cursor: 'pointer',
-  color: 'rgb(0,0,0,0.5)',
+export const buttonIcon = styleVariants({
+  search: [buttonBase],
+  delete: [
+    buttonBase,
+    {
+      color: colors.gray8,
+    },
+  ],
+});
+
+export const searchInput = style({
+  ...typography.body,
+  border: 'none',
+  outline: 'none',
 });

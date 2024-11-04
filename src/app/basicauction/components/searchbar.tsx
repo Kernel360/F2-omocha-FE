@@ -1,9 +1,8 @@
 'use client';
 
+import { CircleXIcon, SearchIcon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { CircleXIcon } from 'lucide-react';
-import SearchIcon from '@/assets/svg/search.svg';
 import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
 import * as S from './SearchBar.css';
@@ -32,8 +31,8 @@ export default function SearchBar() {
 
   return (
     <form className={S.searchBar} onSubmit={onSubmit}>
-      <button type="submit">
-        <SearchIcon />
+      <button type="submit" className={S.buttonIcon.search}>
+        <SearchIcon width={16} height={16} />
       </button>
       <input
         className={S.searchInput}
@@ -41,8 +40,8 @@ export default function SearchBar() {
         defaultValue={searchKeywordParam || ''}
         placeholder="경매 검색"
       />
-      <button className={S.searchDelete} type="button" onClick={deleteSearch}>
-        <CircleXIcon />
+      <button className={S.buttonIcon.delete} type="button" onClick={deleteSearch}>
+        <CircleXIcon width={16} height={16} />
       </button>
     </form>
   );
