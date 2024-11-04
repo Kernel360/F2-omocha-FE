@@ -1,5 +1,8 @@
 import { style } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+import typography from '@/styles/typo';
+
 export const leftSection = style({
   display: 'flex',
   flexDirection: 'column',
@@ -7,16 +10,15 @@ export const leftSection = style({
 });
 
 export const label = style({
+  ...typography.caption,
   display: 'flex',
+  gap: '8px',
   alignItems: 'center',
-  gap: '10px',
-  cursor: 'pointer',
-  border: '1px solid rgb(228, 228, 231)',
-  padding: '10px',
-  fontSize: '16px',
-  height: '51px',
+  border: `1px solid ${colors.gray7}`,
   width: 'fit-content',
-  boxSizing: 'border-box',
+  padding: '8px',
+  borderRadius: '24px',
+  cursor: 'pointer',
 });
 
 export const checkbox = style({
@@ -24,8 +26,9 @@ export const checkbox = style({
 });
 
 export const checked = style({
-  color: 'black',
-  border: '1px solid black',
+  color: 'white',
+  background: colors.secondary7,
+  border: `1px solid ${colors.secondary7}`,
 });
 
 export const nonChecked = style({

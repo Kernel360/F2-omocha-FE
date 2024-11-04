@@ -28,7 +28,7 @@ export default function LeftSection() {
       <SearchBar />
       <label htmlFor="checkbox" className={`${S.label} ${isChecked ? S.checked : S.nonChecked}`}>
         경매중
-        <CheckIcon />
+        <CheckIcon size={16} />
         <input id="checkbox" type="checkbox" className={S.checkbox} onChange={toggle} />
       </label>
     </section>

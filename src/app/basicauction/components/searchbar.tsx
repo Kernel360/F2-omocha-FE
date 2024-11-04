@@ -32,7 +32,7 @@ export default function SearchBar() {
   return (
     <form className={S.searchBar} onSubmit={onSubmit}>
       <button type="submit" className={S.buttonIcon.search}>
-        <SearchIcon width={16} height={16} />
+        <SearchIcon size={16} />
       </button>
       <input
         className={S.searchInput}
@@ -41,7 +41,7 @@ export default function SearchBar() {
         placeholder="경매 검색"
       />
       <button className={S.buttonIcon.delete} type="button" onClick={deleteSearch}>
-        <CircleXIcon width={16} height={16} />
+        <CircleXIcon size={16} />
       </button>
     </form>
   );
