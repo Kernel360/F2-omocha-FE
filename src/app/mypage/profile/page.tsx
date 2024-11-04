@@ -4,7 +4,8 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import ErrorIcon from '@/assets/svg/error.svg';
+import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
+
 import useUserStore from '@/store/useUserStore';
 
 import * as S from './Profile.css';
@@ -56,7 +57,7 @@ function Home() {
           </label>
           {errors.currentPasswordRequired && (
             <span className={S.inputError}>
-              <ErrorIcon />
+              <TriangleAlertIcon width={17} height={17} />
               {errors.currentPasswordRequired.message}
             </span>
           )}
@@ -82,7 +83,7 @@ function Home() {
           </label>
           {errors.newPasswordRequired && (
             <span className={S.inputError}>
-              <ErrorIcon />
+              <TriangleAlertIcon width={17} height={17} />
               {errors.newPasswordRequired.message}
             </span>
           )}
@@ -100,7 +101,7 @@ function Home() {
           </label>
           {errors.newPasswordCheckRequired && (
             <span className={S.inputError}>
-              <ErrorIcon />
+              <TriangleAlertIcon width={17} height={17} />
               {errors.newPasswordCheckRequired.message}
             </span>
           )}

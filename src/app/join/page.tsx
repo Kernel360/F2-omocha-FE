@@ -6,6 +6,8 @@
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
+
 import useGetEmailValidation from '@/apis/queryHooks/Auth/useGetEmailValidation';
 import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
 import {
@@ -14,7 +16,6 @@ import {
   passwordValidation,
 } from '@/app/join/utils/joinValidation';
 import CheckIcon from '@/assets/svg/check.svg';
-import ErrorIcon from '@/assets/svg/error.svg';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Join.css';
@@ -122,7 +123,7 @@ function Home() {
             </div>
             {errors.emailRequired && (
               <span className={`${S.inputValidation} ${S.error}`}>
-                <ErrorIcon />
+                <TriangleAlertIcon width={17} height={17} />
                 {errors.emailRequired.message}
               </span>
             )}
@@ -143,7 +144,7 @@ function Home() {
             />
             {errors.passwordRequired && (
               <span className={`${S.inputValidation} ${S.error}`}>
-                <ErrorIcon />
+                <TriangleAlertIcon width={17} height={17} />
                 {errors.passwordRequired.message}
               </span>
             )}
@@ -158,7 +159,7 @@ function Home() {
             />
             {errors.passwordCheckRequired && (
               <span className={`${S.inputValidation} ${S.error}`}>
-                <ErrorIcon />
+                <TriangleAlertIcon width={17} height={17} />
                 {errors.passwordCheckRequired.message}
               </span>
             )}

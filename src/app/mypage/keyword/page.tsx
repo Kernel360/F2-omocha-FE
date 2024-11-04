@@ -5,7 +5,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import DeleteIcon from '@/assets/svg/delete.svg';
-import ErrorIcon from '@/assets/svg/error.svg';
 
 import * as S from './Keyword.css';
 
@@ -41,12 +40,7 @@ type Input = {
 };
 
 function Home() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Input>();
+  const { register, handleSubmit, watch } = useForm<Input>();
 
   const keywordRequired = watch('keywordRequired');
 
@@ -75,12 +69,6 @@ function Home() {
             등록
           </button>
         </form>
-        {errors.keywordRequired && (
-          <span className={S.inputError}>
-            <ErrorIcon />
-            {errors.keywordRequired.message}
-          </span>
-        )}
       </section>
       <section>
         <ul className={S.keywordContainer}>

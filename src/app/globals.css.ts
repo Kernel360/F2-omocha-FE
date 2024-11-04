@@ -33,5 +33,33 @@ globalStyle('ul', {
 
 export const container = style({
   position: 'relative',
-  minHeight: 'calc(100vh - 230px)',
+  minHeight: 'calc(100vh - 255px)',
+});
+
+export const errorContainer = style({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '50px',
+});
+
+export const errorButtons = style({
+  display: 'flex',
+  gap: '15px',
+});
+
+export const errorButton = style({
+  width: '110px',
+  padding: '12px',
+  boxSizing: 'content-box',
+  background: '#d50c0c',
+  color: '#FFF',
+  fontWeight: 'bold',
+  fontSize: '14px',
+  borderRadius: '4px',
+  cursor: 'pointer',
 });
