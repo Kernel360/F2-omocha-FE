@@ -13,7 +13,6 @@ import {
   ReactEditor,
 } from 'slate-react';
 
-import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
 import ErrorIcon from '@/assets/svg/error.svg';
 import BlockButton from '@/components/TextEditor/BlockButton';
 import Elements from '@/components/TextEditor/Elements';
@@ -24,6 +23,7 @@ import { TEXT_EDITOR_BLOCK_ICON, TEXT_EDITOR_MARK_ICON } from '@/static/icon';
 import countContentText from '@/utils/countContentText';
 
 import * as S from '../Basicauction.css';
+import { AuctionInputs } from '../types/InputTypes';
 
 type CustomText = { text: string };
 type CustomElement = { type: string; children: CustomText[] };

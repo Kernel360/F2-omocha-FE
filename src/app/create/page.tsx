@@ -5,22 +5,20 @@
 import { useRef } from 'react';
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
+import { CircleXIcon, TriangleAlertIcon } from 'lucide-react';
 import Image from 'next/image';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
-
-import ErrorIcon from '@/assets/svg/error.svg';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
 import useDebounce from '@/hooks/useDebounce';
+import colors from '@/styles/color';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
 import ContentRequired from './components/contentrequired';
 import { AuctionInputs } from './types/InputTypes';
-import { CircleXIcon, TriangleAlertIcon } from 'lucide-react';
-import colors from '@/styles/color';
 
 export default function Home() {
   const methods = useForm<AuctionInputs>();

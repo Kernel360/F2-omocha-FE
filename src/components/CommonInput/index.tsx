@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { UseFormRegister, FieldError, RegisterOptions, FieldValues, Path } from 'react-hook-form';
 
-import * as S from './CommonInput.css';
 import { TriangleAlertIcon } from 'lucide-react';
+
 import colors from '@/styles/color';
 
+import * as S from './CommonInput.css';
+
 interface CommonInputProps<T extends FieldValues> {
-  id: Path<T>; //react-hook-form의 Path 타입을 사용
+  id: Path<T>; // react-hook-form의 Path 타입을 사용
   label: string;
   type?: 'text' | 'number' | 'email' | 'password' | 'datetime-local';
   placeholder?: string;
