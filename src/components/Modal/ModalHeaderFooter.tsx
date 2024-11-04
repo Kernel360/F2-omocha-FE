@@ -1,5 +1,4 @@
 import * as Dialog from '@radix-ui/react-dialog';
-
 import { CircleXIcon } from 'lucide-react';
 
 import * as S from './Modal.css';

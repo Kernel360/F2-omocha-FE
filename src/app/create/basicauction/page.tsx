@@ -5,13 +5,12 @@
 import { useRef } from 'react';
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
-import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
+import { TriangleAlert as TriangleAlertIcon, CircleXIcon } from 'lucide-react';
 import Image from 'next/image';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import ContentRequired from '@/app/create/basicauction/components/contentrequired';
 import { AuctionInputs } from '@/app/create/basicauction/types/InputTypes';
-import { CircleXIcon } from 'lucide-react';
 import useDebounce from '@/hooks/useDebounce';
 import formatDate from '@/utils/formatDate';
 

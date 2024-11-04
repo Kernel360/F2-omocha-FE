@@ -2,7 +2,6 @@ import { style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import typography from '@/styles/typo';
-import exp from 'constants';
 
 const borderColor = `1px solid ${colors.gray6}`;
 const dropdownWidth = '130px';
