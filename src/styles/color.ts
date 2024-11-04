@@ -1,16 +1,31 @@
+// const primary = {
+//   primary1: '#fffcfc',
+//   primary2: '#fff7f6',
+//   primary3: '#ffebe7',
+//   primary4: '#ffdbd3',
+//   primary5: '#ffccc3',
+//   primary6: '#faa79b',
+//   primary7: '#f28b7d',
+//   primary8: '#d10005',
+//   primary9: '#c00000',
+//   primary10: '#c00000',
+//   primary11: '#d81310',
+//   primary12: '#68150f',
+// };
+
 const primary = {
   primary1: '#fffcfc',
-  primary2: '#fff7f6',
-  primary3: '#ffebe7',
-  primary4: '#ffdbd3',
-  primary5: '#ffccc3',
-  primary6: '#faa79b',
-  primary7: '#f28b7d',
-  primary8: '#d10005',
-  primary9: '#c00000',
-  primary10: '#c00000',
-  primary11: '#d81310',
-  primary12: '#68150f',
+  primary2: '#fff6f5',
+  primary3: '#ffeae9',
+  primary4: '#ffd7d4',
+  primary5: '#ffc8c3',
+  primary6: '#ffbab5',
+  primary7: '#f8a7a2',
+  primary8: '#ef8d88',
+  primary9: '#ff6263',
+  primary10: '#f35457',
+  primary11: '#d2373f',
+  primary12: '#5e2323',
 };
 
 const secondary = {

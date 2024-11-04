@@ -10,6 +10,7 @@ export const container = style({
   maxWidth: layout.maxLayoutWidth.maxWidth,
   width: '100%',
   margin: '0 auto',
+  marginBottom: '10px',
 });
 
 export const topHeader = style({
