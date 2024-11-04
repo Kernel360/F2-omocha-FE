@@ -33,9 +33,6 @@ globalStyle('ul', {
 
 export const container = style({
   position: 'relative',
-  maxWidth: '1216px', // 1280 - (32*2)
-  margin: '0 auto',
-  padding: '60px 32px',
   boxSizing: 'border-box',
   minHeight: 'calc(100vh - 230px)',
 });

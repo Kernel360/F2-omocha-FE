@@ -1,17 +1,20 @@
 import { style } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+import layout from '@/styles/layout';
+
 export const footer = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-around',
   height: '130px',
-  backgroundColor: 'rgb(0, 0, 0, 0.9)',
-  color: 'white',
+  backgroundColor: colors.gray2,
+  color: colors.gray11,
   padding: '0 16px',
 });
 
 export const container = style({
-  maxWidth: '1280px',
+  maxWidth: layout.maxLayoutWidth.maxWidth,
   width: '100%',
   margin: '0 auto',
 });
@@ -23,7 +26,8 @@ export const topFooter = style({
 });
 
 export const logoButton = style({
-  color: 'white',
+  color: colors.gray11,
+
   fontSize: '32px',
 });
 
@@ -47,5 +51,5 @@ export const bottomFooter = style({
 });
 
 export const categoryLink = style({
-  color: 'rgb(256, 256, 256)',
+  color: colors.gray11,
 });

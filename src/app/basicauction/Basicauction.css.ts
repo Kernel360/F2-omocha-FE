@@ -1,8 +1,12 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+import typography from '@/styles/typo';
+
 export const container = style({
   display: 'flex',
   gap: '20px',
+  marginTop: '40px',
 });
 
 export const leftSection = style({
@@ -17,19 +21,16 @@ export const count = style({
   gap: '5px',
 });
 
-globalStyle(`${count} span:nth-child(1)`, {
-  fontSize: '18px',
-});
+globalStyle(`${count} span:nth-child(1)`, typography.bodyLarge);
 
 globalStyle(`${count} span:nth-child(2)`, {
+  ...typography.body,
   display: 'flex',
   justifyContent: 'center',
-  fontSize: '18px',
-  fontWeight: 'bold',
-  color: 'rgb(196,39,39, 0.7)',
-  backgroundColor: 'rgb(196,39,39, 0.2)',
-  minWidth: '50px',
-  padding: '5px',
+  color: colors.primary11,
+  backgroundColor: colors.gray3,
+  minWidth: '30px',
+  padding: '5px 10px',
   borderRadius: '20px',
 });
 
