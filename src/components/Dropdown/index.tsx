@@ -7,26 +7,28 @@ import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
 import useDisclosure from '@/hooks/useDisclosure';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
-import * as S from './Dropdown.css';
-
 interface DropDownProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface DropDownTriggerProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface DropDownContentProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface DropDownItemProps {
   children: React.ReactNode;
   onClick: MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 }
 
-export function Dropdown({ children }: DropDownProps) {
+export function Dropdown({ children, className }: DropDownProps) {
   const { isOpen, onClose, onToggle } = useDisclosure();
   const triggerRef = useRef<HTMLDivElement>(null);
   const items = React.Children.toArray(children);
@@ -34,9 +36,9 @@ export function Dropdown({ children }: DropDownProps) {
   useOnClickOutside(triggerRef, onClose, 'click');
 
   return (
-    <div>
+    <>
       <div
-        className={S.dropdownData}
+        className={className}
         aria-hidden="true"
         role="button"
         ref={triggerRef}
@@ -48,24 +50,22 @@ export function Dropdown({ children }: DropDownProps) {
         </span>
       </div>
       {isOpen && items[1]}
-    </div>
+    </>
   );
 }
 
-Dropdown.Trigger = function DropdownTrigger({ children }: DropDownTriggerProps) {
-  return <span>{children}</span>;
+Dropdown.Trigger = function DropdownTrigger({ children, className }: DropDownTriggerProps) {
+  return <span className={className}>{children}</span>;
 };
 
-Dropdown.Content = function DropdownContent({ children }: DropDownContentProps) {
-  return <div className={S.dropdownContent}>{children}</div>;
+Dropdown.Content = function DropdownContent({ children, className }: DropDownContentProps) {
+  return <div className={className}>{children}</div>;
 };
 
-Dropdown.Item = function DropdownItem({ children, onClick }: DropDownItemProps) {
+Dropdown.Item = function DropdownItem({ children, onClick, className }: DropDownItemProps) {
   return (
-    <div className={S.dropdownItem}>
-      <button className={S.dropdownText} type="button" onClick={onClick}>
-        {children}
-      </button>
-    </div>
+    <button className={className} type="button" onClick={onClick}>
+      {children}
+    </button>
   );
 };
