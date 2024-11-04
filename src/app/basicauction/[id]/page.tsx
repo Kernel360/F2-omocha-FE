@@ -2,6 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 
 import { getBasicAuction } from '@/apis/queryFunctions/basicAuction';
 import { Breadcrumb } from '@/components/Breadcrumb';
+import MaxLayout from '@/components/MaxLayout';
 
 import BasicAuctionInfo from './BasicAuctionInfo';
 
@@ -20,7 +21,7 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
   });
 
   return (
-    <div>
+    <MaxLayout>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item href="/basicauction">Products</Breadcrumb.Item>
@@ -29,7 +30,7 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
       <HydrationBoundary state={dehydrate(queryClient)}>
         <BasicAuctionInfo id={params.id} />
       </HydrationBoundary>
-    </div>
+    </MaxLayout>
   );
 }
 

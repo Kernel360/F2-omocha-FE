@@ -1,11 +1,15 @@
 import { Suspense } from 'react';
 
+import MaxLayout from '@/components/MaxLayout';
+
 import BasicAuction from './basicauction';
 
 function Home() {
   return (
     <Suspense fallback={<div>loading..^^수정필요해용</div>}>
-      <BasicAuction />
+      <MaxLayout>
+        <BasicAuction />
+      </MaxLayout>
     </Suspense>
   );
 }

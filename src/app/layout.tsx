@@ -1,4 +1,4 @@
-import localFont from 'next/font/local';
+import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import { cookies } from 'next/headers';
 
@@ -13,15 +13,10 @@ import TanstackProviders from '@/provider/tanstackProviders';
 
 import type { Metadata, Viewport } from 'next';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -46,14 +41,13 @@ export default function RootLayout({
   const isLoggedIn = cookie.has('access');
 
   return (
-    <html lang="en">
+    <html lang="en" className={roboto.className}>
       <Head>
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <TanstackProviders>
           <NavigationEvents />
-
           <AuthProvider isLoggedIn={isLoggedIn}>
             <Header />
             <div className={S.container}>

@@ -16,7 +16,7 @@ const nextConfig = {
         pathname: '/omocha.storages/**',
       },
     ],
-    domains: ['via.placeholder.com'], // 허용할 도메인 추가
+    domains: ['imgstatic.10x10.co.kr', 'via.placeholder.com'], // 허용할 도메인 추가
   },
   webpack: config => {
     // SVG 파일 처리 설정

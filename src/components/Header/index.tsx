@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import Alarm from '@/components/Header/components/Alarm';
@@ -13,7 +13,6 @@ import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
 import * as S from './Header.css';
 
 function Header() {
-  const pathname = usePathname();
   const router = useRouter();
   const { value, setTrue, setFalse } = useBooleanState(false);
   const { isLoggedIn } = useAuth();
@@ -41,7 +40,12 @@ function Header() {
             }
             if (category.path) {
               return (
-                <Link key={category.id} href={category.path} scroll={false}>
+                <Link
+                  key={category.id}
+                  href={category.path}
+                  scroll={false}
+                  className={S.TopHeaderUnit}
+                >
                   {category.name}
                 </Link>
               );
@@ -49,6 +53,7 @@ function Header() {
             return (
               <button
                 style={{ cursor: 'pointer' }}
+                className={S.TopHeaderUnit}
                 key={category.id}
                 type="button"
                 onClick={() => {
@@ -67,12 +72,7 @@ function Header() {
       </section>
       <section className={S.bottomHeader}>
         {MAIN_CATEGORY.map(category => (
-          <Link
-            key={category.id}
-            href={category.path}
-            style={{ color: category.path === pathname ? 'red' : 'black' }}
-            scroll={false}
-          >
+          <Link key={category.id} href={category.path} className={S.buttonStyles} scroll={false}>
             {category.name}
           </Link>
         ))}

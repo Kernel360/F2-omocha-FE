@@ -1,5 +1,8 @@
 import { style, styleVariants, keyframes } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+import typography from '@/styles/typo';
+
 export const infoWrapper = style({
   display: 'flex',
   flexDirection: 'column',
@@ -34,10 +37,7 @@ export const nowPrice = style({
   color: 'red',
 });
 
-export const infoRowTitle = style({
-  fontSize: '18px',
-  fontWeight: '40px',
-});
+export const infoRowTitle = style(typography.bodyLarge);
 
 export const refreshCurrentPrice = style({
   display: 'flex',
@@ -80,9 +80,9 @@ export const division = style({
 
 export const infoButton = style({
   backgroundColor: 'rgba(0, 0, 0, 1)',
-  color: 'white',
+  color: colors.primary1,
   padding: '8px 12px',
-  borderRadius: '4px',
+  borderRadius: '8px',
   border: 'none',
   cursor: 'pointer',
 });
@@ -93,9 +93,9 @@ export const bidButton = styleVariants({
     fontSize: '16px',
     padding: '24px 24px',
     marginTop: '12px',
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    color: 'white',
-    borderRadius: '4px',
+    backgroundColor: colors.primary10,
+    color: colors.primary1,
+    borderRadius: '8px',
     border: 'none',
     cursor: 'pointer',
   },
@@ -114,9 +114,9 @@ export const bidButton = styleVariants({
 export const deleteButton = styleVariants({
   default: {
     marginTop: '20px',
-    background: 'red',
-    color: '#F0F0F0',
-    borderRadius: '4px',
+    backgroundColor: colors.primary10,
+    color: colors.primary1,
+    borderRadius: '8px',
     border: 'none',
     cursor: 'pointer',
     height: '80px',
