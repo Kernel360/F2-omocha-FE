@@ -5,17 +5,18 @@ import typography from '@/styles/typo';
 
 export const basicAuctionContainer = style({
   display: 'flex',
+  gap: '20px',
 });
 
 export const rightSection = style({
   display: 'flex',
   flexDirection: 'column',
+  width: 'calc(100% - 240px)',
 });
 
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  width: 'calc(100% - 219px)',
 });
 
 export const searchContainer = style({

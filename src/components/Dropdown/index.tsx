@@ -2,8 +2,8 @@
 
 import React, { MouseEventHandler, useRef } from 'react';
 
-import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
-import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
+import { ChevronUpIcon, ChevronDownIcon } from 'lucide-react';
+
 import useDisclosure from '@/hooks/useDisclosure';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
@@ -45,8 +45,12 @@ export function Dropdown({ children, className }: DropDownProps) {
         onClick={onToggle}
       >
         {items[0]}
-        <span style={{ pointerEvents: 'none' }}>
-          {isOpen ? <ChevronDownIcon /> : <ChevronUpIcon />}{' '}
+        <span style={{ pointerEvents: 'none', display: 'flex' }}>
+          {isOpen ? (
+            <ChevronDownIcon width={16} height={16} />
+          ) : (
+            <ChevronUpIcon width={16} height={16} />
+          )}
         </span>
       </div>
       {isOpen && items[1]}
