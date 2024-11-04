@@ -1,3 +1,5 @@
+import MaxLayout from '@/components/MaxLayout';
+
 export default function Page() {
-  return <div>howto 페이지</div>;
+  return <MaxLayout>How to Page</MaxLayout>;
 }

@@ -33,8 +33,7 @@ globalStyle('ul', {
 
 export const container = style({
   position: 'relative',
-  boxSizing: 'border-box',
-  minHeight: 'calc(100vh - 230px)',
+  minHeight: 'calc(100vh - 255px)',
 });
 
 export const errorContainer = style({

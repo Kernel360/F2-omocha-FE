@@ -6,5 +6,5 @@ export const container = style({
   position: 'relative',
   maxWidth: layout.maxLayoutWidth.maxWidth,
   margin: '0 auto',
-  minHeight: 'calc(100vh - 230px)',
+  minHeight: 'calc(100vh - 255px)',
 });
