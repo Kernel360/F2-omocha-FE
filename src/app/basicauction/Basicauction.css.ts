@@ -30,10 +30,10 @@ export const count = style({
   gap: '5px',
 });
 
-globalStyle(`${count} span:nth-child(1)`, typography.bodyLarge);
+globalStyle(`${count} span:nth-child(1)`, typography.body);
 
 globalStyle(`${count} span:nth-child(2)`, {
-  ...typography.body,
+  ...typography.bodyBold,
   display: 'flex',
   justifyContent: 'center',
   color: colors.primary11,
