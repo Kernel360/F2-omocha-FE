@@ -33,8 +33,8 @@ export const dropdownContent = style({
   flexDirection: 'column',
   border: borderColor,
   boxSizing: 'border-box',
-  background: 'white',
-  zIndex: 1,
+  backgroundColor: 'white',
+  zIndex: 10,
 });
 
 export const dropdownItem = style({
