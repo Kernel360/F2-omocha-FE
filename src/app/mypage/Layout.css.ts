@@ -7,7 +7,7 @@ export const backContainer = style({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
-  backgroundColor: '#F7F7F8',
+  backgroundColor: colors.backgroundGray1,
   padding: '60px',
 });
 
