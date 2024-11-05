@@ -38,7 +38,7 @@ export const cardImage = style({
   fontSize: '18px',
   lineHeight: '24px',
   fontWeight: '24px',
-  content: 'contain',
+  objectFit: 'contain',
 });
 
 export const cardContent = style({

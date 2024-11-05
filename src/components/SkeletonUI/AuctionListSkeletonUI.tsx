@@ -6,15 +6,15 @@ import SkeletonCard from './components/SkeletonCard';
 import SkeletonText from './components/SkeletonText';
 
 interface AuctionListSkeletonUIProps {
-  number?: number;
+  count?: number;
 }
 
-function AuctionListSkeletonUI({ number }: AuctionListSkeletonUIProps) {
+function AuctionListSkeletonUI({ count }: AuctionListSkeletonUIProps) {
   return (
     <div className={S.container}>
       <SkeletonCard width={82} height={30} />
       <ListLayout>
-        {Array.from({ length: number || 3 }).map((_, index) => (
+        {Array.from({ length: count || 4 }).map((_, index) => (
           <div key={index} className={S.cardContainer}>
             <SkeletonCard width={186} height={196} />
             <div className={S.textContainer}>

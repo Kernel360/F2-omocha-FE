@@ -15,7 +15,7 @@ function Home() {
         <LeftSection />
         <section className={S.rightSection}>
           <AuctionDropDown />
-          <Suspense fallback={<AuctionListSkeletonUI />}>
+          <Suspense fallback={<AuctionListSkeletonUI count={6} />}>
             <BasicAuction />
           </Suspense>
         </section>
