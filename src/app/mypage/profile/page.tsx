@@ -30,7 +30,7 @@ function Home() {
   const onSubmit: SubmitHandler<Inputs> = async data => {
     console.log(data);
   };
-  console.log('Profile render', user);
+
   return (
     <div className={S.profile}>
       <h2>회원 정보 수정</h2>
@@ -70,7 +70,6 @@ function Home() {
             }}
             error={errors.newPasswordRequired}
           />
-
           <CommonInput
             id="newPasswordCheckRequired"
             label="새 비밀번호 확인"
@@ -82,7 +81,6 @@ function Home() {
             }}
             error={errors.newPasswordCheckRequired}
           />
-
           <div className={S.buttonContainer}>
             <CommonButton disabled={!isValid} content=" 비밀번호 변경" type="submit" size="lg" />
           </div>

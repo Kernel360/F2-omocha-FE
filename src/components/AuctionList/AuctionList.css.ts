@@ -23,6 +23,11 @@ export const section = style({
   },
 });
 
+export const listWrapper = style({
+  padding: '32px 0px',
+  boxSizing: 'border-box',
+});
+
 export const title = style({
   display: 'flex',
   justifyContent: 'space-between',

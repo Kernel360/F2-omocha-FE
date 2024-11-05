@@ -4,8 +4,7 @@ export const profile = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
-  maxWidth: '180px',
-  width: '100%',
+  width: '180px',
   padding: '10px 0 30px 0',
   borderBottom: '1px solid #eaeaea',
 });

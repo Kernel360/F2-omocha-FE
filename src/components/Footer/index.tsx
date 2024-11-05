@@ -10,8 +10,8 @@ import * as S from './Footer.css';
 function Footer() {
   const router = useRouter();
   return (
-    <footer className={S.footer}>
-      <div className={S.container}>
+    <div className={S.container}>
+      <footer className={S.footer}>
         <div className={S.topFooter}>
           <button
             className={S.logoButton}
@@ -31,8 +31,8 @@ function Footer() {
           </ul>
         </div>
         <div className={S.bottomFooter}>Copyright ⓒ Omocha. All Rights Reserved</div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   );
 }
 

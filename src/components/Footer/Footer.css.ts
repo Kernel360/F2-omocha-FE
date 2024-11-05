@@ -3,20 +3,21 @@ import { style } from '@vanilla-extract/css';
 import colors from '@/styles/color';
 import layout from '@/styles/layout';
 
-export const footer = style({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  height: '130px',
-  backgroundColor: 'rgb(25, 26, 29)',
-  color: colors.white,
-  padding: '0 16px',
-});
-
 export const container = style({
-  maxWidth: layout.maxLayoutWidth.maxWidth,
   width: '100%',
   margin: '0 auto',
+  backgroundColor: 'rgb(25, 26, 29)',
+});
+
+export const footer = style({
+  display: 'flex',
+  margin: '0 auto',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  height: '130px',
+  maxWidth: layout.maxLayoutWidth.maxWidth,
+  padding: layout.maxLayoutWidth.padding,
+  color: colors.white,
 });
 
 export const topFooter = style({

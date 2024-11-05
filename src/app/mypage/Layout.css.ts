@@ -34,6 +34,8 @@ export const page = style({
   width: '100%',
   borderRadius: '8px',
   padding: '20px',
+  boxSizing: 'border-box',
+  maxWidth: '700px',
   boxShadow: shadow.box3,
   backgroundColor: colors.white,
 });

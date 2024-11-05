@@ -8,7 +8,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   maxWidth: layout.maxLayoutWidth.maxWidth,
-  width: '100%',
+  padding: layout.maxLayoutWidth.padding,
   margin: '0 auto',
   marginBottom: '10px',
 });
