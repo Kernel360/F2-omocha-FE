@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
-import * as S from './SearchBar.css';
+import * as S from './LeftSection.css';
 
 export default function SearchBar() {
   const router = useRouter();
