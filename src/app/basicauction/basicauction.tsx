@@ -22,8 +22,6 @@ function BasicAuction() {
     size: 20,
   });
 
-  if (!data) return null;
-
   return (
     <div className={S.container}>
       <div className={S.searchContainer}>
