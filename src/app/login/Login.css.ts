@@ -10,7 +10,7 @@ export const backContainer = style({
   height: 'calc(100vh - 230px)',
   boxSizing: 'border-box',
   alignItems: 'center',
-  backgroundColor: '#F7F7F8',
+  backgroundColor: colors.backgroundGray1,
 });
 
 export const container = style({

@@ -59,7 +59,7 @@ export const keywordContainer = style({
   maxHeight: '400px',
   height: '100%',
   overflow: 'scroll',
-  backgroundColor: '#F7F7F8',
+  backgroundColor: colors.backgroundGray1,
 });
 
 export const keywordList = style([

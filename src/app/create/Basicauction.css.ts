@@ -31,7 +31,7 @@ export const imageBoard = style({
   display: 'flex',
   width: '100%',
   height: '150px',
-  backgroundColor: '#f7f7f8',
+  backgroundColor: colors.backgroundGray1,
   borderRadius: '4px',
   overflowX: 'scroll',
 });
@@ -174,7 +174,7 @@ export const editorContent = style({
 export const backContainer = style({
   width: '100%',
   padding: '60px 0',
-  backgroundColor: '#F7F7F8',
+  backgroundColor: colors.backgroundGray1,
 });
 
 export const container = style({
