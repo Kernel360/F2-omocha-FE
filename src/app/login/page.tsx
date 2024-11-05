@@ -1,16 +1,14 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 'use client';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import usePostLogin from '@/apis/queryHooks/Auth/usePostLogin';
 import GoogleIcon from '@/assets/svg/google.svg';
 import NaverIcon from '@/assets/svg/naver.svg';
+import CommonButton from '@/components/CommonButton';
+import CommonInput from '@/components/CommonInput';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Login.css';
@@ -39,67 +37,58 @@ function Home() {
   };
 
   return (
-    <div className={S.container}>
-      <span className={S.title}>로그인하기</span>
-      <span className={S.welcomeTitle}>
-        <span className={S.hightLightTitle}>Omocha</span>에서 다양한 상품을 만나보세요!
-      </span>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={S.inputSection}>
-          <label className={S.inputLabel}>
-            이메일
-            <input
-              className={S.loginInput}
-              placeholder="아이디"
-              type="text"
-              {...register('emailRequired', { required: true })}
-            />
-            {errors.emailRequired && (
-              <span className={S.inputError}>
-                <TriangleAlertIcon width={17} height={17} />
-                이메일을 입력해 주세요.
-              </span>
-            )}
-          </label>
-          <label className={S.inputLabel}>
-            비밀번호
-            <input
-              className={S.loginInput}
-              placeholder="비밀번호"
-              type="password"
-              {...register('passwordRequired', { required: true })}
-            />
-            {errors.passwordRequired && (
-              <span className={S.inputError}>
-                <TriangleAlertIcon width={17} height={17} />
-                비밀번호를 입력해 주세요.
-              </span>
-            )}
-          </label>
+    <div className={S.backContainer}>
+      <div className={S.container}>
+        <span className={S.title}>로그인하기</span>
+        <span className={S.welcomeTitle}>
+          <span className={S.hightLightTitle}>Omocha</span>에서 다양한 상품을 만나보세요!
+        </span>
+        <form onSubmit={handleSubmit(onSubmit)} className={S.inputSection}>
+          <CommonInput
+            id="emailRequired"
+            label="이메일"
+            register={register}
+            validation={{
+              required: '이메일을 입력해 주세요.',
+            }}
+            error={errors.emailRequired}
+          />
+          <CommonInput
+            id="passwordRequired"
+            label="비밀번호"
+            type="password"
+            register={register}
+            validation={{
+              required: '비밀번호를 입력해 주세요.',
+            }}
+            error={errors.passwordRequired}
+          />
+          <div className={S.buttonWrapper}>
+            <CommonButton content="로그인" type="submit" size="lg" />
+          </div>
+        </form>
+        <ul className={S.optionSection}>
+          <li className={S.option}>아이디 찾기</li>
+          <hr className={S.division} />
+          <li className={S.option}>비밀번호 찾기</li>
+          <hr className={S.division} />
+          <Link href="join" rel="stylesheet" scroll={false}>
+            <li className={S.option}>회원가입 하기</li>
+          </Link>
+        </ul>
+        <span className={S.snsLoginTitle}>SNS계정으로 간편 로그인 / 회원가입</span>
+        <div className={S.snsLoginSection}>
+          <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v1/oauth/authorize/google`}>
+            <div className={S.snsLoginButton.goggle}>
+              <GoogleIcon />
+            </div>
+          </Link>
+          <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v1/oauth/authorize/naver`}>
+            <div className={S.snsLoginButton.naver}>
+              <NaverIcon />
+            </div>
+          </Link>
         </div>
-        <input className={S.submitButton} type="submit" value="로그인" />
-      </form>
-      <ul className={S.optionSection}>
-        <li className={S.option}>아이디 찾기</li>
-        <hr className={S.division} />
-        <li className={S.option}>비밀번호 찾기</li>
-        <hr className={S.division} />
-        <Link href="join" rel="stylesheet" scroll={false}>
-          <li className={S.option}>회원가입 하기</li>
-        </Link>
-      </ul>
-      <span className={S.snsLoginTitle}>SNS계정으로 간편 로그인 / 회원가입</span>
-      <div className={S.snsLoginSection}>
-        <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v1/oauth/authorize/google`}>
-          <div className={S.snsLoginButton.goggle}>
-            <GoogleIcon />
-          </div>
-        </Link>
-        <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v1/oauth/authorize/naver`}>
-          <div className={S.snsLoginButton.naver}>
-            <NaverIcon />
-          </div>
-        </Link>
       </div>
     </div>
   );

@@ -1,32 +1,54 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+import shadow from '@/styles/shadow';
+
+export const backContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  paddingTop: '60px',
+  height: 'calc(100vh - 230px)',
+  boxSizing: 'border-box',
+  alignItems: 'center',
+  backgroundColor: '#F7F7F8',
+});
+
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  height: 'calc(100vh - 230px)',
-  boxSizing: 'border-box',
+  borderRadius: '8px',
+  padding: '20px',
   alignItems: 'center',
+  boxShadow: shadow.box3,
+  backgroundColor: colors.white,
+  minWidth: '350px',
 });
 
 export const title = style({
   color: 'black ',
   textAlign: 'center',
-  fontSize: '32px',
+  fontSize: '28px',
 });
 
 export const welcomeTitle = style({
   marginTop: '20px',
   color: '#666',
   textAlign: 'center',
-  fontSize: '16px',
+  fontSize: '15px',
   fontStyle: 'normal',
   fontWeight: '400',
   lineHeight: 'normal',
 });
 
 export const hightLightTitle = style({
-  color: '#FF0000 ',
+  color: colors.primary9,
+});
+
+export const buttonWrapper = style({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '30px',
 });
 
 export const optionSection = style({
@@ -42,6 +64,7 @@ export const inputSection = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '16px',
+  width: '100%',
 });
 
 export const submitButton = style({
@@ -71,6 +94,7 @@ export const option = style({
   padding: '0',
   margin: '0',
   listStyle: 'none',
+  fontSize: '12px',
 });
 
 export const division = style({
@@ -83,7 +107,7 @@ export const division = style({
 export const snsLoginTitle = style({
   marginTop: '30px',
   color: '#666',
-  fontSize: '14px',
+  fontSize: '12px',
   fontStyle: 'normal',
   fontWeight: '400',
   lineHeight: 'normal',

@@ -50,7 +50,6 @@ export default function RootLayout({
         <ToastProvider>
           <TanstackProviders>
             <NavigationEvents />
-
             <AuthProvider isLoggedIn={isLoggedIn}>
               <Header />
               <div className={S.container}>

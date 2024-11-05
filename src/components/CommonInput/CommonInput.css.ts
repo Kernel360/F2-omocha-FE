@@ -6,7 +6,7 @@ import typography from '@/styles/typo';
 export const label = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '16px',
+  gap: '8px',
 });
 
 export const title = style([

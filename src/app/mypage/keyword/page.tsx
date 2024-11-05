@@ -1,14 +1,14 @@
-/* eslint-disable react/jsx-props-no-spreading */
-
 'use client';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import * as S from './Keyword.css';
-import CommonInput from '@/components/CommonInput';
-import CommonButton from '@/components/CommonButton';
 import { XIcon } from 'lucide-react';
+
+import CommonButton from '@/components/CommonButton';
+import CommonInput from '@/components/CommonInput';
 import colors from '@/styles/color';
+
+import * as S from './Keyword.css';
 
 const KEYWORDS = [
   {

@@ -1,8 +1,7 @@
-import colors from '@/styles/color';
-import shadow from '@/styles/shadow';
-import typography from '@/styles/typo';
 import { style, globalStyle } from '@vanilla-extract/css';
-import { shouldMergeNodesRemovePrevNode } from 'slate';
+
+import colors from '@/styles/color';
+import typography from '@/styles/typo';
 
 export const keyword = style({
   display: 'flex',
