@@ -16,7 +16,7 @@ interface CommonInputProps<T extends FieldValues> {
   error?: FieldError;
   validation?: RegisterOptions<T>; // 유효성 검사 옵션을 제네릭으로 설정
   min?: number | string; // 데이트 피커에 활용
-  value?: string;
+  value?: string | number;
   disabled?: boolean;
 }
 
@@ -28,14 +28,14 @@ function CommonInput<T extends FieldValues>({
   register,
   error,
   validation = {},
-
   min,
   value,
   disabled,
 }: CommonInputProps<T>) {
+  console.log('CommonInput render', value);
   return (
     <label htmlFor={String(id)} className={S.label}>
-      <div className={S.title}>{label}</div>
+      <div className={disabled ? S.disabledTitle : S.title}>{label}</div>
       <input
         disabled={disabled}
         value={value}

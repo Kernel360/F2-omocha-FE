@@ -17,6 +17,14 @@ export const title = style([
   },
 ]);
 
+export const disabledTitle = style([
+  typography.bodyLarge,
+  {
+    color: colors.gray10,
+    fontWeight: 'bold',
+  },
+]);
+
 export const input = style({
   display: 'flex',
   alignItems: 'center',

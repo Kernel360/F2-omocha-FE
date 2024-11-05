@@ -1,9 +1,19 @@
 import { style, globalStyle } from '@vanilla-extract/css';
 
-export const container = style({
+import colors from '@/styles/color';
+import shadow from '@/styles/shadow';
+
+export const backContainer = style({
   display: 'flex',
   justifyContent: 'center',
-  padding: '20px',
+  width: '100%',
+  padding: '60px 0',
+  backgroundColor: '#F7F7F8',
+});
+
+export const container = style({
+  display: 'flex',
+  width: '100%',
 });
 
 export const categoryList = style({
@@ -11,14 +21,19 @@ export const categoryList = style({
   flexDirection: 'column',
   listStyle: 'none',
   gap: '30px',
-  marginRight: '80px',
+  marginRight: '40px',
+  borderRadius: '8px',
+  padding: '20px',
+  boxShadow: shadow.box3,
+  backgroundColor: colors.white,
+  height: '480px',
 });
 
 export const profile = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
-  padding: '10px 10px 30px 10px',
+  padding: '10px 20px 30px 20px',
   borderBottom: '1px solid #eaeaea',
 });
 
@@ -50,5 +65,9 @@ export const categoryLink = style({
 });
 
 export const page = style({
-  width: 'calc(100% - 300px)',
+  width: '100%',
+  borderRadius: '8px',
+  padding: '20px',
+  boxShadow: shadow.box3,
+  backgroundColor: colors.white,
 });
