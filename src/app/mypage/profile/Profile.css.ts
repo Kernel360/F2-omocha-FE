@@ -14,6 +14,11 @@ export const section = style({
   gap: '15px',
 });
 
+export const sectionTitle = style({
+  fontSize: '18px',
+  fontWeight: '500',
+});
+
 export const label = style({
   display: 'flex',
   gap: '10px',

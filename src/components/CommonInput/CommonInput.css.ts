@@ -10,7 +10,7 @@ export const label = style({
 });
 
 export const title = style([
-  typography.bodyLarge,
+  typography.body,
   {
     color: colors.black1,
     fontWeight: 'bold',
@@ -18,7 +18,7 @@ export const title = style([
 ]);
 
 export const disabledTitle = style([
-  typography.bodyLarge,
+  typography.body,
   {
     color: colors.gray10,
     fontWeight: 'bold',

@@ -35,12 +35,11 @@ function Home() {
     <div className={S.profile}>
       <h2>회원 정보 수정</h2>
       <section className={S.section}>
-        <h3>계정</h3>
-
+        <h3 className={S.sectionTitle}>계정</h3>
         <CommonInput label="아이디" id="email" value={user.data?.email} disabled />
       </section>
       <section className={S.section}>
-        <h3>비밀번호 변경</h3>
+        <h3 className={S.sectionTitle}>비밀번호 변경</h3>
         <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
           <CommonInput
             id="currentPasswordRequired"
