@@ -1,6 +1,6 @@
 const maxLayoutWidth = {
   maxWidth: '960px',
-  padding: '0 20px',
+  padding: '0px 20px',
 };
 
 const spacing = {

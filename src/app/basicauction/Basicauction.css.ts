@@ -6,7 +6,7 @@ import typography from '@/styles/typo';
 export const container = style({
   display: 'flex',
   gap: '20px',
-  marginTop: '40px',
+  padding: '60px 0',
 });
 
 export const leftSection = style({

@@ -7,8 +7,8 @@ export const backContainer = style({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
-  padding: '60px 0',
   backgroundColor: '#F7F7F8',
+  padding: '60px',
 });
 
 export const container = style({

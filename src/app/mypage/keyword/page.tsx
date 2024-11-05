@@ -4,9 +4,11 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import DeleteIcon from '@/assets/svg/delete.svg';
-
 import * as S from './Keyword.css';
+import CommonInput from '@/components/CommonInput';
+import CommonButton from '@/components/CommonButton';
+import { XIcon } from 'lucide-react';
+import colors from '@/styles/color';
 
 const KEYWORDS = [
   {
@@ -53,21 +55,15 @@ function Home() {
       <h2>키워드</h2>
       <section className={S.section}>
         <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
-          <input
-            className={S.input}
-            type="text"
-            placeholder="알림 받을 키워드를 입력해 주세요."
-            {...register('keywordRequired', {
+          <CommonInput
+            id="keywordRequired"
+            label="알림 받을 키워드를 입력해 주세요."
+            register={register}
+            validation={{
               required: '키워드를 입력해 주세요.',
-            })}
+            }}
           />
-          <button
-            className={`${S.formButton} ${!keywordRequired ? S.disabledButton : ''}`}
-            type="submit"
-            disabled={!keywordRequired}
-          >
-            등록
-          </button>
+          <CommonButton disabled={!keywordRequired} content="키워드 등록" type="submit" size="md" />
         </form>
       </section>
       <section>
@@ -76,7 +72,7 @@ function Home() {
             <li className={S.keywordList} key={keyword.id}>
               {keyword.text}
               <button className={S.deleteButton} type="button">
-                <DeleteIcon />
+                <XIcon size={14} stroke={colors.gray10} />
               </button>
             </li>
           ))}

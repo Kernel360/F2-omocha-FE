@@ -8,5 +8,4 @@ export const container = style({
   padding: layout.maxLayoutWidth.padding,
   width: '100%',
   margin: '0 auto',
-  minHeight: 'calc(100vh - 255px)',
 });

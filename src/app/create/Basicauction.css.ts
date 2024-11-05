@@ -204,6 +204,7 @@ export const topTitle = style({
 export const formSection = style({
   display: 'flex',
   flexDirection: 'column',
+  marginTop: '10px',
   gap: '30px',
 });
 

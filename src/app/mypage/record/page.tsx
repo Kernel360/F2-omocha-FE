@@ -22,7 +22,6 @@ function Home() {
     <div className={S.record}>
       <h2>거래 내역</h2>
       <section className={S.section}>
-        <h3>일반 경매</h3>
         <TabsLayout
           defaultTriggerValue={TABS[0].value}
           triggerTitleList={TABS}
