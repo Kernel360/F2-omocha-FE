@@ -5,11 +5,15 @@ import typography from '@/styles/typo';
 
 export const infoWrapper = style({
   display: 'flex',
+  boxSizing: 'border-box',
   flexDirection: 'column',
   padding: '12px',
-  minWidth: '320px',
   width: '100%',
-  maxWidth: '450px',
+  '@media': {
+    'screen and (max-width: 960px)': {
+      marginLeft: '0px',
+    },
+  },
 });
 
 export const infoTitle = style({

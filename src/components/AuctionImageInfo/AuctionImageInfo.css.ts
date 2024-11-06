@@ -6,13 +6,14 @@ export const imageSection = style({
   width: '100%',
   display: 'flex',
   maxHeight: '500px',
-  minWidth: '540px',
+  justifyContent: 'center',
 });
 
 export const subImageWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',
+  marginRight: '10px',
   overflowY: 'auto',
 });
 
@@ -36,8 +37,8 @@ export const subImageWrapperButton = styleVariants({
 });
 
 export const subImage = style({
-  height: '70px',
-  width: '70px',
+  height: '60px',
+  width: '60px',
   objectFit: 'contain',
 });
 
@@ -51,8 +52,9 @@ export const mainImageWrapper = style({
 });
 
 export const mainImage = style({
-  height: '440px',
-  width: '440px',
+  maxHeight: '440px',
+  maxWidth: '440px',
+  width: '100%',
   objectFit: 'contain',
   border: 'none',
 });
