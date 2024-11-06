@@ -7,7 +7,7 @@ export const backContainer = style({
   display: 'flex',
   flexDirection: 'column',
   paddingTop: '60px',
-  height: 'calc(100vh - 230px)',
+  height: 'calc(100vh - 256px)',
   boxSizing: 'border-box',
   alignItems: 'center',
   backgroundColor: colors.backgroundGray1,
@@ -23,6 +23,7 @@ export const container = style({
   boxShadow: shadow.box3,
   backgroundColor: colors.white,
   minWidth: '350px',
+  width: '100%',
 });
 
 export const title = style({

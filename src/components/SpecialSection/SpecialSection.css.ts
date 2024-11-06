@@ -8,6 +8,7 @@ export const specialSection = style({
   alignItems: 'center',
   gap: '80px',
   height: '400px',
+  width: '100%',
   background: 'url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat',
 });
 

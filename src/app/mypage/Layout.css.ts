@@ -6,9 +6,8 @@ import shadow from '@/styles/shadow';
 export const backContainer = style({
   display: 'flex',
   justifyContent: 'center',
-  width: '100%',
   backgroundColor: colors.backgroundGray1,
-  padding: '60px',
+  padding: '60px 0px',
 });
 
 export const container = style({
