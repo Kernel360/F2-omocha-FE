@@ -1,6 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
-
-import DeleteIcon from '@/assets/svg/delete.svg';
+import { CircleXIcon } from 'lucide-react';
 
 import * as S from './Modal.css';
 
@@ -20,7 +19,7 @@ export function Modal(SAMPLE: ModalProps) {
         <Dialog.Content className={S.modal}>
           <Dialog.Close asChild>
             <div className={S.closeButton}>
-              <DeleteIcon />
+              <CircleXIcon />
             </div>
           </Dialog.Close>
           <div className={S.content}>{children}</div>

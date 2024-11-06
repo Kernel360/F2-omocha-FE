@@ -1,7 +1,11 @@
+'use client';
+
 import { Dropdown } from '@/components/Dropdown';
 import useSetSearchParam from '@/hooks/useSetSearchParam';
 import { AUCTIONPARAM_KEY, AUCTIONPARAM_VALUE } from '@/static/queryParam';
 import { SORT_TYPES, SortTypeProps } from '@/static/sort';
+
+import * as S from './AuctionDropDown.css';
 
 export default function AuctionDropDown() {
   const { searchParams, setMultipleSearchParams } = useSetSearchParam();
@@ -25,15 +29,21 @@ export default function AuctionDropDown() {
   };
 
   return (
-    <Dropdown>
-      <Dropdown.Trigger>{findSortType.label}</Dropdown.Trigger>
-      <Dropdown.Content>
-        {SORT_TYPES.map(sortType => (
-          <Dropdown.Item key={sortType.id} onClick={() => handleSortType(sortType)}>
-            {sortType.label}
-          </Dropdown.Item>
-        ))}
-      </Dropdown.Content>
-    </Dropdown>
+    <div className={S.dropdownContainer}>
+      <Dropdown className={S.dropdown}>
+        <Dropdown.Trigger>{findSortType.label}</Dropdown.Trigger>
+        <Dropdown.Content className={S.dropdownContent}>
+          {SORT_TYPES.map(sortType => (
+            <Dropdown.Item
+              className={`${S.dropdownItem} ${findSortType === sortType ? S.selectedDropdownItem : ''}`}
+              key={sortType.id}
+              onClick={() => handleSortType(sortType)}
+            >
+              {sortType.label}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
   );
 }

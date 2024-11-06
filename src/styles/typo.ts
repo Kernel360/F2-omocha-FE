@@ -53,6 +53,11 @@ const typography = {
     fontWeight: fontWeight.regular,
     lineHeight: lineHeight.bodyLarge,
   },
+  bodyBold: {
+    fontSize: fontSize.body,
+    fontWeight: fontWeight.bold,
+    lineHeight: lineHeight.body,
+  },
   body: {
     fontSize: fontSize.body,
     fontWeight: fontWeight.regular,
