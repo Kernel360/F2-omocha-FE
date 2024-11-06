@@ -1,22 +1,5 @@
 import { Descendant, Element, Text } from 'slate';
 
-type CustomText = {
-  text: string;
-  bold?: boolean;
-  italic?: boolean;
-  underline?: boolean;
-  code?: boolean;
-  children?: {
-    text: string;
-  };
-};
-
-export interface SlateNode {
-  type: string;
-  children: CustomText[];
-  align?: 'left' | 'center' | 'right' | 'justify';
-}
-
 function countContentText(data: Descendant[]) {
   let totalCount = 0;
 

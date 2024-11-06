@@ -1,17 +1,21 @@
+import * as S from '../app/basicauction/[id]/BasicAuctionInfoContent.css';
+
 type CustomText = {
   text: string;
   bold?: boolean;
   italic?: boolean;
   underline?: boolean;
   code?: boolean;
+  children?: SlateNode[];
 };
 
 export interface SlateNode {
   type: string;
-  children: CustomText[];
+  children: CustomText[] | SlateNode[]; // CustomText 배열로 자식 요소를 관리
   align?: 'left' | 'center' | 'right' | 'justify';
 }
 
+// alignment에 따른 스타일을 반환하는 함수
 const getAlignmentStyle = (alignment: string) => {
   switch (alignment) {
     case 'left':
@@ -27,10 +31,11 @@ const getAlignmentStyle = (alignment: string) => {
   }
 };
 
-const renderChildren = (children: CustomText[]) => {
+// CustomText 배열을 HTML로 변환하는 함수
+const renderChildren = (children: CustomText[]): string => {
   return (
-    children!
-      .map((child: CustomText) => {
+    children
+      .map(child => {
         let text = child.text || ''; // 텍스트가 없을 경우 빈 문자열
         if (child.bold) {
           text = `<strong>${text}</strong>`;
@@ -50,31 +55,36 @@ const renderChildren = (children: CustomText[]) => {
   ); // 자식이 없을 경우 빈 문자열 반환
 };
 
+const renderListItems = (children: SlateNode[]): string =>
+  children
+    .map(childNode => {
+      if (childNode.type === 'list-item') {
+        // 'list-item' 타입일 경우, 자식의 'CustomText[]'을 처리
+        return `<li>${renderChildren(childNode.children as CustomText[])}</li>`;
+      }
+      return ''; // 그 외에는 빈 문자열을 반환
+    })
+    .join('');
+
+// SlateNode 배열을 HTML로 변환하는 최상위 함수
 export function convertSlateToHTML(slateValue: SlateNode[]): string {
   return slateValue
     .map(node => {
-      // node의 필수 속성 검증
-      if (!node.type || !Array.isArray(node.children)) {
-        return '';
-      }
-
       const alignmentStyle = getAlignmentStyle(node.align || 'left'); // 기본 정렬
 
       switch (node.type) {
         case 'paragraph':
-          return `<p style="${alignmentStyle}">${renderChildren(node.children)}</p>`;
+          return `<p style="${alignmentStyle}">${renderChildren(node.children as CustomText[])}</p>`;
         case 'heading-one':
-          return `<h1>${renderChildren(node.children)}</h1>`;
+          return `<h1>${renderChildren(node.children as CustomText[])}</h1>`;
         case 'heading-two':
-          return `<h2>${renderChildren(node.children)}</h2>`;
+          return `<h2>${renderChildren(node.children as CustomText[])}</h2>`;
         case 'block-quote':
-          return `<blockquote>${renderChildren(node.children)}</blockquote>`;
+          return `<blockquote>${renderChildren(node.children as CustomText[])}</blockquote>`;
         case 'numbered-list':
-          return `<ol>${renderChildren(node.children)}</ol>`;
+          return `<ol class="${S.olStyle}">${renderListItems(node.children as SlateNode[])}</ol>`; // 'list-item' 처리
         case 'bulleted-list':
-          return `<ul>${renderChildren(node.children)}</ul>`;
-        case 'list-item':
-          return `<li>${renderChildren(node.children)}</li>`;
+          return `<ul class="${S.ulStyle}">${renderListItems(node.children as SlateNode[])}</ul>`; // 'list-item' 처리
         default:
           return '';
       }

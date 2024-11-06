@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { RenderElementProps } from 'slate-react';
 
+import colors from '@/styles/color';
+
 interface CustomElement {
   type: string;
   align?: 'left' | 'center' | 'right' | 'justify';
@@ -32,10 +34,10 @@ function Elements({ attributes, children, element }: RenderElementProps) {
 
   const blockquoteStyle = {
     ...style,
-    borderLeft: '2px solid #ddd',
+    borderLeft: `2px solid ${colors.gray5}`,
     margin: '0',
     paddingLeft: '10px',
-    color: '#aaa',
+    color: `${colors.gray7}`,
     fontStyle: 'italic',
   };
 
