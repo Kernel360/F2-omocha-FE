@@ -90,7 +90,7 @@ export const info = style({
 
 export const price = style({
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit,minmax(110px, 360px))',
+  gridTemplateColumns: 'repeat(auto-fit,minmax(70px, 360px))',
   gap: '30px',
 });
 

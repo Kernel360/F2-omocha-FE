@@ -2,59 +2,29 @@
 
 'use client';
 
-import { useRef } from 'react';
-import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
-
-import { CircleXIcon, TriangleAlertIcon } from 'lucide-react';
-import Image from 'next/image';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
+import ContentRequired from '@/app/create/components/contentrequired';
+import ImageRequired from '@/app/create/components/imagerequired';
+import { AuctionInputs } from '@/app/create/types/InputTypes';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
 import useDebounce from '@/hooks/useDebounce';
-import colors from '@/styles/color';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
-import ContentRequired from './components/contentrequired';
-import { AuctionInputs } from './types/InputTypes';
 
 export default function Home() {
   const methods = useForm<AuctionInputs>();
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
   } = methods;
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'imagesRequired',
-    keyName: 'imageRequiredId',
-    rules: {
-      required: '이미지를 업로드해 주세요.',
-      validate: value => {
-        if (value.length > 10) {
-          return '이미지는 최대 10장 까지 업로드 가능합니다.';
-        }
-        return true;
-      },
-    },
-  });
-
   const { mutate: postBasicAuction } = usePostBasicAuction();
-
-  const inputFile = useRef(null);
-
-  const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const uploadFile = Array.from(e.target.files);
-      const files = uploadFile.map(file => ({ file }));
-      append(files);
-    }
-  };
 
   const onSubmit: SubmitHandler<AuctionInputs> = useDebounce(data => {
     const formData = new FormData();
@@ -129,54 +99,7 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <div className={S.auctionLabel}>
-                <div className={S.title}>사진</div>
-                <div className={S.count}>{fields.length}/10</div>
-                <div className={S.imageBoard}>
-                  <label htmlFor="image" className={S.imageUpload}>
-                    +
-                    <input
-                      className={S.imageInput}
-                      ref={inputFile}
-                      id="image"
-                      type="file"
-                      accept="image/*"
-                      multiple
-                      onChange={addImage}
-                    />
-                  </label>
-                  <ul className={S.imageList}>
-                    {fields
-                      .slice()
-                      .reverse()
-                      .map(({ imageRequiredId, file }, index) => (
-                        <li key={imageRequiredId} className={S.image}>
-                          <Image
-                            className={S.image}
-                            width={0}
-                            height={0}
-                            sizes="100vw"
-                            src={URL.createObjectURL(file)}
-                            alt={URL.createObjectURL(file)}
-                          />
-                          <button
-                            type="button"
-                            className={S.deleteButton}
-                            onClick={() => remove(fields.length - index - 1)}
-                          >
-                            <CircleXIcon stroke={colors.gray10} />
-                          </button>
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-                {errors.imagesRequired && (
-                  <span className={S.error}>
-                    <TriangleAlertIcon size={16} stroke={colors.primary10} />
-                    {errors.imagesRequired.root?.message}
-                  </span>
-                )}
-              </div>
+              <ImageRequired />
               <ContentRequired />
               <div className={S.auctionLabel}>
                 <div className={S.title}>경매 기간</div>

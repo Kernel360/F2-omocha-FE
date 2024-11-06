@@ -57,12 +57,9 @@ function ContentRequired() {
   const contentLength = countContentText(JSON.parse(contentRequired));
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
-  const handleChange = useCallback(
-    (value: Descendant[]) => {
-      setValue('contentRequired', JSON.stringify(value));
-    },
-    [setValue],
-  );
+  const handleChange = (value: Descendant[]) => {
+    setValue('contentRequired', JSON.stringify(value));
+  };
 
   const renderElement = useCallback((props: RenderElementProps) => <Elements {...props} />, []);
   const renderLeaf = useCallback((props: RenderLeafProps) => <Leaf {...props} />, []);
