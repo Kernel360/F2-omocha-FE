@@ -1,9 +1,19 @@
-import { style, globalStyle } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+
+import colors from '@/styles/color';
+import shadow from '@/styles/shadow';
+
+export const backContainer = style({
+  display: 'flex',
+  justifyContent: 'center',
+  backgroundColor: colors.backgroundGray1,
+  padding: '60px 0px',
+});
 
 export const container = style({
   display: 'flex',
-  justifyContent: 'center',
-  padding: '20px',
+  gap: '40px',
+  width: '100%',
 });
 
 export const categoryList = style({
@@ -11,44 +21,20 @@ export const categoryList = style({
   flexDirection: 'column',
   listStyle: 'none',
   gap: '30px',
-  marginRight: '80px',
-});
-
-export const profile = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '20px',
-  padding: '10px 10px 30px 10px',
-  borderBottom: '1px solid #eaeaea',
-});
-
-export const heart = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '10px',
-});
-
-globalStyle(`${heart} span:nth-child(1)`, {
-  fontSize: '18px',
-});
-
-globalStyle(`${heart} span:nth-child(2)`, {
-  display: 'flex',
-  justifyContent: 'center',
-  fontSize: '18px',
-  fontWeight: 'bold',
-  color: 'rgb(196,39,39, 0.7)',
-  backgroundColor: 'rgb(196,39,39, 0.2)',
-  minWidth: '50px',
-  padding: '5px',
-  borderRadius: '20px',
-});
-
-export const categoryLink = style({
-  textDecoration: 'none',
-  padding: '10px',
+  borderRadius: '8px',
+  padding: '20px',
+  boxShadow: shadow.box3,
+  backgroundColor: colors.white,
+  height: '480px',
+  width: '220px',
 });
 
 export const page = style({
-  width: 'calc(100% - 300px)',
+  width: '100%',
+  borderRadius: '8px',
+  padding: '20px',
+  boxSizing: 'border-box',
+  maxWidth: '700px',
+  boxShadow: shadow.box3,
+  backgroundColor: colors.white,
 });

@@ -3,14 +3,20 @@ import { style, globalStyle, styleVariants } from '@vanilla-extract/css';
 export const profile = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '30px',
+  gap: '40px',
   boxSizing: 'border-box',
+  width: '100%',
 });
 
 export const section = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '15px',
+});
+
+export const sectionTitle = style({
+  fontSize: '18px',
+  fontWeight: '500',
 });
 
 export const label = style({
@@ -20,12 +26,12 @@ export const label = style({
 });
 
 globalStyle(`${label} span`, {
-  width: '120px',
+  minWidth: '120px',
   fontWeight: '500',
 });
 
 export const inputBase = style({
-  maxWidth: '368px',
+  // maxWidth: '368px',
   width: '100%',
   borderRadius: '4px',
   padding: '12px',
@@ -55,8 +61,7 @@ export const form = style({
 
 export const buttonContainer = style({
   display: 'flex',
-  maxWidth: '525px',
-  justifyContent: 'flex-end',
+  marginTop: '30px',
 });
 
 export const button = style({

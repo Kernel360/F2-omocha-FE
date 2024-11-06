@@ -3,14 +3,14 @@ import { style } from '@vanilla-extract/css';
 import layout from '@/styles/layout';
 
 export const responsiveLayoutWrapper = style({
-  padding: '32px 0',
   position: 'relative',
   display: 'grid',
   gridRowGap: '2vw',
   gap: '24px',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
   width: '100%',
   maxWidth: layout.maxLayoutWidth.maxWidth,
+  placeItems: 'center',
   height: 'auto',
 });
 
@@ -19,6 +19,6 @@ export const layoutWrapper = style({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
-  maxWidth: '1400px',
+  maxWidth: layout.maxLayoutWidth.maxWidth,
   margin: '0 auto',
 });

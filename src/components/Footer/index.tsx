@@ -5,34 +5,40 @@ import { useRouter } from 'next/navigation';
 
 import { MAIN_CATEGORY } from '@/static/category';
 
+import MaxLayout from '../MaxLayout';
+
 import * as S from './Footer.css';
 
 function Footer() {
   const router = useRouter();
   return (
-    <footer className={S.footer}>
-      <div className={S.container}>
-        <div className={S.topFooter}>
-          <button
-            className={S.logoButton}
-            type="button"
-            onClick={() => router.push('/', { scroll: false })}
-          >
-            LOGO
-          </button>
-          <ul className={S.categoryList}>
-            {MAIN_CATEGORY.map(category => (
-              <li className={S.category} key={category.id}>
-                <Link className={S.categoryLink} href={category.path} scroll={false}>
-                  {category.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+    <div className={S.backContainer}>
+      <MaxLayout>
+        <div className={S.container}>
+          <footer className={S.footer}>
+            <div className={S.topFooter}>
+              <button
+                className={S.logoButton}
+                type="button"
+                onClick={() => router.push('/', { scroll: false })}
+              >
+                LOGO
+              </button>
+              <ul className={S.categoryList}>
+                {MAIN_CATEGORY.map(category => (
+                  <li className={S.category} key={category.id}>
+                    <Link className={S.categoryLink} href={category.path} scroll={false}>
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={S.bottomFooter}>Copyright ⓒ Omocha. All Rights Reserved</div>
+          </footer>
         </div>
-        <div className={S.bottomFooter}>Copyright ⓒ Omocha. All Rights Reserved</div>
-      </div>
-    </footer>
+      </MaxLayout>
+    </div>
   );
 }
 

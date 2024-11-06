@@ -1,6 +1,9 @@
 function maskEmail(email: string): string {
   const [localPart, domain] = email.split('@');
-
+  if (localPart.length <= 1) {
+    // 로컬 부분이 1글자 이하인 경우 마스킹하지 않음
+    return '';
+  }
   if (localPart.length <= 2) {
     // 로컬 부분이 2글자 이하인 경우 마지막 글자만 마스킹
     return `${localPart[0]}*${localPart.slice(2)}@${domain}`;

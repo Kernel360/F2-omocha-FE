@@ -1,5 +1,8 @@
 import { style, globalStyle } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+import typography from '@/styles/typo';
+
 export const keyword = style({
   display: 'flex',
   flexDirection: 'column',
@@ -14,6 +17,7 @@ export const section = style({
 
 export const form = style({
   display: 'flex',
+  flexDirection: 'column',
   gap: '10px',
 });
 
@@ -50,28 +54,31 @@ export const keywordContainer = style({
   flex: '1',
   flexDirection: 'column',
   listStyle: 'none',
-  border: '1.5px solid black',
   borderRadius: '4px',
   padding: '15px',
   maxHeight: '400px',
   height: '100%',
   overflow: 'scroll',
+  backgroundColor: colors.backgroundGray1,
 });
 
-export const keywordList = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  border: '1px solid gray',
-  padding: '10px',
-  marginBottom: '15px',
-  cursor: 'pointer',
-
-  ':hover': {
-    border: '1px solid black',
-    boxShadow: '0 0 8px rgba(0, 0, 0, 0.1)',
+export const keywordList = style([
+  typography.body,
+  {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    border: `1px solid ${colors.gray4}`,
+    borderRadius: '4px',
+    padding: '10px',
+    marginBottom: '15px',
+    cursor: 'pointer',
+    backgroundColor: 'white',
+    ':hover': {
+      boxShadow: '0 0 8px rgba(0, 0, 0, 0.3)',
+    },
   },
-});
+]);
 
 globalStyle(`${keywordList}:nth-last-child(1)`, {
   marginBottom: '0px',

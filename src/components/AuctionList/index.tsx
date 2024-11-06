@@ -32,21 +32,23 @@ export default function AuctionList({
           </Link>
         ) : null}
       </div>
-      <ListLayout>
-        {data.result_data.content.map(item => (
-          <AuctionCard
-            key={item.auction_id}
-            id={item.auction_id}
-            image={item.image_keys}
-            title={item.title}
-            isLike={false}
-            startPrice={item.start_price}
-            startTime={item.start_date}
-            endTime={item.end_date}
-            nowPrice={item.now_price}
-          />
-        ))}
-      </ListLayout>
+      <div className={S.listWrapper}>
+        <ListLayout>
+          {data.result_data.content.map(item => (
+            <AuctionCard
+              key={item.auction_id}
+              id={item.auction_id}
+              image={item.image_keys}
+              title={item.title}
+              isLike={false}
+              startPrice={item.start_price}
+              startTime={item.start_date}
+              endTime={item.end_date}
+              nowPrice={item.now_price}
+            />
+          ))}
+        </ListLayout>
+      </div>
     </section>
   );
 }

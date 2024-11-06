@@ -70,6 +70,9 @@ const red = {
   red: '#FF0000',
 };
 
+const backgroundGray = {
+  backgroundGray1: '#f7f7f8',
+};
 const colors = {
   ...primary,
   ...secondary,
@@ -77,6 +80,7 @@ const colors = {
   ...black,
   ...white,
   ...red,
+  ...backgroundGray,
 };
 
 export default colors;

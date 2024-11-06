@@ -6,13 +6,21 @@ import typography from '@/styles/typo';
 export const label = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '16px',
+  gap: '8px',
 });
 
 export const title = style([
-  typography.bodyLarge,
+  typography.body,
   {
     color: colors.black1,
+    fontWeight: 'bold',
+  },
+]);
+
+export const disabledTitle = style([
+  typography.body,
+  {
+    color: colors.gray10,
     fontWeight: 'bold',
   },
 ]);

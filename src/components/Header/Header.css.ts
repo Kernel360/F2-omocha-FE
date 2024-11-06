@@ -1,16 +1,12 @@
 import { style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
-import layout from '@/styles/layout';
 import typography from '@/styles/typo';
 
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  maxWidth: layout.maxLayoutWidth.maxWidth,
-  width: '100%',
   margin: '0 auto',
-  marginBottom: '10px',
 });
 
 export const topHeader = style({

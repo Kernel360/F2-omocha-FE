@@ -1,10 +1,12 @@
-/* eslint-disable react/jsx-props-no-spreading */
-
 'use client';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { CircleXIcon } from 'lucide-react';
+import { XIcon } from 'lucide-react';
+
+import CommonButton from '@/components/CommonButton';
+import CommonInput from '@/components/CommonInput';
+import colors from '@/styles/color';
 
 import * as S from './Keyword.css';
 
@@ -53,21 +55,15 @@ function Home() {
       <h2>키워드</h2>
       <section className={S.section}>
         <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
-          <input
-            className={S.input}
-            type="text"
-            placeholder="알림 받을 키워드를 입력해 주세요."
-            {...register('keywordRequired', {
+          <CommonInput
+            id="keywordRequired"
+            label="알림 받을 키워드를 입력해 주세요."
+            register={register}
+            validation={{
               required: '키워드를 입력해 주세요.',
-            })}
+            }}
           />
-          <button
-            className={`${S.formButton} ${!keywordRequired ? S.disabledButton : ''}`}
-            type="submit"
-            disabled={!keywordRequired}
-          >
-            등록
-          </button>
+          <CommonButton disabled={!keywordRequired} content="키워드 등록" type="submit" size="md" />
         </form>
       </section>
       <section>
@@ -76,7 +72,7 @@ function Home() {
             <li className={S.keywordList} key={keyword.id}>
               {keyword.text}
               <button className={S.deleteButton} type="button">
-                <CircleXIcon />
+                <XIcon size={14} stroke={colors.gray10} />
               </button>
             </li>
           ))}

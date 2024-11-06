@@ -78,8 +78,8 @@ export default function Home() {
   return (
     <div className={S.backContainer}>
       <MaxLayout>
-        <h1 className={S.topTitle}>기본 경매 상품 등록</h1>
         <div className={S.container}>
+          <h2>기본 경매 상품 등록</h2>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className={S.formSection}>
               <div className={S.inputWrapper}>
@@ -184,6 +184,7 @@ export default function Home() {
                   경매 상품을 올리는 순간부터 경매가 시작됩니다. 종료 시간만을 입력해 주세요.
                 </span>
               </div>
+
               <div className={S.inputWrapper}>
                 <CommonInput
                   id="endDateRequired"
@@ -203,6 +204,7 @@ export default function Home() {
                   error={errors.endDateRequired}
                 />
               </div>
+
               <div className={S.buttonContainer}>
                 <CommonButton content="경매 올리기" type="submit" size="lg" />
               </div>

@@ -31,7 +31,7 @@ export const imageBoard = style({
   display: 'flex',
   width: '100%',
   height: '150px',
-  backgroundColor: '#f7f7f8',
+  backgroundColor: colors.backgroundGray1,
   borderRadius: '4px',
   overflowX: 'scroll',
 });
@@ -172,18 +172,21 @@ export const editorContent = style({
 });
 
 export const backContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
   width: '100%',
   padding: '60px 0',
-  backgroundColor: '#F7F7F8',
+  backgroundColor: colors.backgroundGray1,
 });
 
 export const container = style({
   display: 'flex',
   boxSizing: 'border-box',
   flexDirection: 'column',
+  width: '100%',
   gap: '20px',
   margin: '0 auto',
-  width: '100%',
   padding: '20px',
   borderRadius: '8px',
   boxShadow: shadow.box3,
@@ -204,6 +207,7 @@ export const topTitle = style({
 export const formSection = style({
   display: 'flex',
   flexDirection: 'column',
+  marginTop: '10px',
   gap: '30px',
 });
 
