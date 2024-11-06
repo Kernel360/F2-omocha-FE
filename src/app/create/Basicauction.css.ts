@@ -153,7 +153,7 @@ export const error = style({
 export const content = style({
   display: 'flex',
   flexDirection: 'column',
-  border: '1px solid #d1d5db',
+  border: `1px solid ${colors.gray8}`,
   borderRadius: '4px',
   overflow: 'scroll',
 });
@@ -163,16 +163,14 @@ export const editorSection = style({
   flexDirection: 'row',
   gap: '8px',
   padding: '8px',
-  backgroundColor: '#f9fafb',
-  borderBottom: '1px solid  #d1d5db',
+  backgroundColor: colors.backgroundGray1,
+  borderBottom: `1px solid  ${colors.gray8}`,
 });
 
 export const editorContent = style({
   padding: '16px',
-  backgroundColor: '#ffffff',
   minHeight: '200px',
   height: '100%',
   fontSize: '16px',
   lineHeight: '1.5',
-  color: '#374151',
 });

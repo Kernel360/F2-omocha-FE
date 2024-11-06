@@ -47,7 +47,7 @@ const renderChildren = (children: CustomText[]): string => {
           text = `<u>${text}</u>`;
         }
         if (child.code) {
-          text = `<code>${text}</code>`;
+          text = `<code class="${S.codeStyle}">${text}</code>`;
         }
         return text;
       })
@@ -80,7 +80,7 @@ export function convertSlateToHTML(slateValue: SlateNode[]): string {
         case 'heading-two':
           return `<h2>${renderChildren(node.children as CustomText[])}</h2>`;
         case 'block-quote':
-          return `<blockquote>${renderChildren(node.children as CustomText[])}</blockquote>`;
+          return `<blockquote class="${S.blackquoteStyle}">${renderChildren(node.children as CustomText[])}</blockquote>`;
         case 'numbered-list':
           return `<ol class="${S.olStyle}">${renderListItems(node.children as SlateNode[])}</ol>`; // 'list-item' 처리
         case 'bulleted-list':

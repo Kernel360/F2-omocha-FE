@@ -37,7 +37,7 @@ function Elements({ attributes, children, element }: RenderElementProps) {
     borderLeft: `2px solid ${colors.gray5}`,
     margin: '0',
     paddingLeft: '10px',
-    color: `${colors.gray7}`,
+    color: `${colors.gray8}`,
     fontStyle: 'italic',
   };
 

@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
 import typography from '@/styles/typo';
 
 export const content = style({
@@ -8,9 +9,9 @@ export const content = style({
 });
 
 export const blackquoteStyle = style({
-  borderLeft: '2px solid #f1f1f1',
+  borderLeft: `2px solid ${colors.gray5}`,
   paddingLeft: '10px',
-  color: '#aaaaaa',
+  color: colors.gray8,
   fontStyle: 'italic',
   marginInline: '0',
   marginBlock: '0',
@@ -31,4 +32,6 @@ export const ulStyle = style({
   listStyleType: 'disc',
 });
 
-export const codeStyle = style({});
+export const codeStyle = style({
+  backgroundColor: colors.gray3,
+});
