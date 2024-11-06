@@ -6,8 +6,8 @@ import shadow from '@/styles/shadow';
 export const backContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  paddingTop: '60px',
-  height: 'calc(100vh - 256px)',
+  padding: '60px 0',
+  minHeight: 'calc(100vh - 256px)',
   boxSizing: 'border-box',
   alignItems: 'center',
   backgroundColor: colors.backgroundGray1,
@@ -17,13 +17,14 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+
   borderRadius: '8px',
+  margin: '0 auto',
   padding: '20px',
   alignItems: 'center',
   boxShadow: shadow.box3,
   backgroundColor: colors.white,
-  minWidth: '350px',
-  width: '100%',
+  maxWidth: '400px',
 });
 
 export const title = style({

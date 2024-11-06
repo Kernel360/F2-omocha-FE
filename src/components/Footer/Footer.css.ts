@@ -3,10 +3,14 @@ import { style } from '@vanilla-extract/css';
 import colors from '@/styles/color';
 import layout from '@/styles/layout';
 
-export const container = style({
+export const backContainer = style({
   width: '100%',
   margin: '0 auto',
   backgroundColor: 'rgb(25, 26, 29)',
+});
+
+export const container = style({
+  width: '100%',
 });
 
 export const footer = style({
