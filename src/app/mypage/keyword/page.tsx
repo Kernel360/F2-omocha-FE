@@ -4,7 +4,7 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import DeleteIcon from '@/assets/svg/delete.svg';
+import { CircleXIcon } from 'lucide-react';
 
 import * as S from './Keyword.css';
 
@@ -76,7 +76,7 @@ function Home() {
             <li className={S.keywordList} key={keyword.id}>
               {keyword.text}
               <button className={S.deleteButton} type="button">
-                <DeleteIcon />
+                <CircleXIcon />
               </button>
             </li>
           ))}
