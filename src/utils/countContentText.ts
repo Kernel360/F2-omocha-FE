@@ -4,6 +4,9 @@ type CustomText = {
   italic?: boolean;
   underline?: boolean;
   code?: boolean;
+  children?: {
+    text: string;
+  };
 };
 
 export interface SlateNode {
@@ -20,9 +23,17 @@ function countContentText(data: SlateNode[]) {
   }
 
   function countCharacters(node: SlateNode) {
-    node.children.forEach(child => {
-      totalCount += child.text.length;
-    });
+    if (node.type === 'numbered-list' || node.type === 'bulleted-list') {
+      node.children.forEach(child => {
+        if (child.children && Array.isArray(child.children)) {
+          totalCount += child.children[0].text.length;
+        }
+      });
+    } else {
+      node.children.forEach(child => {
+        totalCount += child.text.length;
+      });
+    }
   }
 
   data.forEach(node => {

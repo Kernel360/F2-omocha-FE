@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
@@ -49,12 +49,36 @@ function ContentRequired() {
     watch,
     formState: { errors },
     setValue,
+    setError,
+    clearErrors,
   } = useFormContext<AuctionInputs>();
 
-  const contentRequired = watch('contentRequired') ? watch('contentRequired') : '0';
-  const contentLength = countContentText(JSON.parse(contentRequired));
+  const contentRequiredValue = watch('contentRequired');
+  const contentRequired = contentRequiredValue || '0';
 
+  const contentLength = countContentText(JSON.parse(contentRequired));
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
+
+  useEffect(() => {
+    if (contentLength === 0) {
+      setError('contentRequired', {
+        type: 'required',
+        message: '상품 정보를 입력해 주세요.',
+      });
+    } else if (contentLength > 0 && contentLength < 10) {
+      setError('contentRequired', {
+        type: 'manual',
+        message: '내용은 최소 10자 이상이어야 합니다.',
+      });
+    } else if (contentLength > MAX_CONTENT) {
+      setError('contentRequired', {
+        type: 'manual',
+        message: `내용은 ${MAX_CONTENT}자 이하여야 합니다.`,
+      });
+    } else {
+      clearErrors('contentRequired'); // 에러를 제거
+    }
+  }, [contentLength]);
 
   const handleChange = (value: Descendant[]) => {
     setValue('contentRequired', JSON.stringify(value));
@@ -100,4 +124,4 @@ function ContentRequired() {
   );
 }
 
-export default ContentRequired;
+export default React.memo(ContentRequired);

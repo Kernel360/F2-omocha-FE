@@ -32,7 +32,6 @@ function CommonInput<T extends FieldValues>({
   value,
   disabled,
 }: CommonInputProps<T>) {
-  console.log('CommonInput render', value);
   return (
     <label htmlFor={String(id)} className={S.label}>
       <div className={disabled ? S.disabledTitle : S.title}>{label}</div>
