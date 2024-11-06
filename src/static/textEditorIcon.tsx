@@ -1,18 +1,20 @@
 import { ReactElement } from 'react';
 
-import AlignCenterIcon from '@/assets/svg/text-editor/align-center.svg';
-import AlignJustifyIcon from '@/assets/svg/text-editor/align-justify.svg';
-import AlignLeftIcon from '@/assets/svg/text-editor/align-left.svg';
-import AlignRightIcon from '@/assets/svg/text-editor/align-right.svg';
-import BoldIcon from '@/assets/svg/text-editor/bold.svg';
-import CodeIcon from '@/assets/svg/text-editor/code.svg';
-import HeadingOneIcon from '@/assets/svg/text-editor/heading-1.svg';
-import HeadingTwoIcon from '@/assets/svg/text-editor/heading-2.svg';
-import ItalicIcon from '@/assets/svg/text-editor/italic.svg';
-import ListBulletIcon from '@/assets/svg/text-editor/list-bullet.svg';
-import ListNumberIcon from '@/assets/svg/text-editor/list-number.svg';
-import QuoteIcon from '@/assets/svg/text-editor/quote.svg';
-import UnderlineIcon from '@/assets/svg/text-editor/underline.svg';
+import {
+  AlignCenterIcon,
+  AlignJustifyIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
+  BoldIcon,
+  CodeIcon,
+  ItalicIcon,
+  QuoteIcon,
+  UnderlineIcon,
+  Heading1Icon,
+  Heading2Icon,
+  ListIcon,
+  ListOrderedIcon,
+} from 'lucide-react';
 
 interface TextEditorIcon {
   id: number;
@@ -47,12 +49,12 @@ export const TEXT_EDITOR_BLOCK_ICON: TextEditorIcon[] = [
   {
     id: 1,
     format: 'heading-one',
-    icon: <HeadingOneIcon />,
+    icon: <Heading1Icon />,
   },
   {
     id: 2,
     format: 'heading-two',
-    icon: <HeadingTwoIcon />,
+    icon: <Heading2Icon />,
   },
   {
     id: 3,
@@ -62,12 +64,12 @@ export const TEXT_EDITOR_BLOCK_ICON: TextEditorIcon[] = [
   {
     id: 4,
     format: 'numbered-list',
-    icon: <ListNumberIcon />,
+    icon: <ListOrderedIcon />,
   },
   {
     id: 5,
     format: 'bulleted-list',
-    icon: <ListBulletIcon />,
+    icon: <ListIcon />,
   },
   {
     id: 6,

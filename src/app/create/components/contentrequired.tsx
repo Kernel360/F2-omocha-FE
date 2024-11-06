@@ -20,7 +20,7 @@ import Elements from '@/components/TextEditor/Elements';
 import Leaf from '@/components/TextEditor/Leaf';
 import MarkButton from '@/components/TextEditor/MarkButton';
 import useEditorShortcuts from '@/components/TextEditor/hooks/useEditorShortcuts';
-import { TEXT_EDITOR_BLOCK_ICON, TEXT_EDITOR_MARK_ICON } from '@/static/icon';
+import { TEXT_EDITOR_BLOCK_ICON, TEXT_EDITOR_MARK_ICON } from '@/static/textEditorIcon';
 import countContentText from '@/utils/countContentText';
 
 import * as S from '../Basicauction.css';
