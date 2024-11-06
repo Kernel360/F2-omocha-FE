@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
+import React, { useCallback, useMemo } from 'react';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
 import { BaseEditor, createEditor, Descendant } from 'slate';
@@ -46,43 +46,23 @@ const initialValue: Descendant[] = [
 
 function ContentRequired() {
   const {
-    watch,
+    control,
     formState: { errors },
     setValue,
-    setError,
-    clearErrors,
   } = useFormContext<AuctionInputs>();
 
-  const contentRequiredValue = watch('contentRequired');
+  const contentRequiredValue = useWatch({ name: 'contentRequired', control });
   const contentRequired = contentRequiredValue || '0';
 
   const contentLength = countContentText(JSON.parse(contentRequired));
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
-  useEffect(() => {
-    if (contentLength === 0) {
-      setError('contentRequired', {
-        type: 'required',
-        message: '상품 정보를 입력해 주세요.',
-      });
-    } else if (contentLength > 0 && contentLength < 10) {
-      setError('contentRequired', {
-        type: 'manual',
-        message: '내용은 최소 10자 이상이어야 합니다.',
-      });
-    } else if (contentLength > MAX_CONTENT) {
-      setError('contentRequired', {
-        type: 'manual',
-        message: `내용은 ${MAX_CONTENT}자 이하여야 합니다.`,
-      });
-    } else {
-      clearErrors('contentRequired'); // 에러를 제거
-    }
-  }, [contentLength]);
-
-  const handleChange = (value: Descendant[]) => {
-    setValue('contentRequired', JSON.stringify(value));
-  };
+  const handleChange = useCallback(
+    (value: Descendant[]) => {
+      setValue('contentRequired', JSON.stringify(value));
+    },
+    [setValue],
+  );
 
   const renderElement = useCallback((props: RenderElementProps) => <Elements {...props} />, []);
   const renderLeaf = useCallback((props: RenderLeafProps) => <Leaf {...props} />, []);
@@ -95,24 +75,50 @@ function ContentRequired() {
         {contentLength} /{MAX_CONTENT}
       </div>
       <div className={S.content}>
-        <Slate editor={editor} initialValue={initialValue} onChange={handleChange}>
-          <section className={S.editorSection}>
-            {TEXT_EDITOR_MARK_ICON.map(mark => (
-              <MarkButton key={mark.id} format={mark.format} icon={mark.icon} />
-            ))}
-            {TEXT_EDITOR_BLOCK_ICON.map(block => (
-              <BlockButton key={block.id} format={block.format} icon={block.icon} />
-            ))}
-          </section>
-          <Editable
-            className={S.editorContent}
-            renderElement={renderElement}
-            renderLeaf={renderLeaf}
-            spellCheck
-            autoFocus={false}
-            onKeyDown={handleKeyDown}
-          />
-        </Slate>
+        <Controller
+          name="contentRequired"
+          control={control}
+          rules={{
+            validate: () => {
+              if (contentLength === 0) {
+                return '상품 정보를 입력해 주세요.';
+              }
+              if (contentLength < 10) {
+                return '내용은 최소 10자 이상이어야 합니다.';
+              }
+              if (contentLength > MAX_CONTENT) {
+                return `내용은 ${MAX_CONTENT}자 이하여야 합니다.`;
+              }
+              return true;
+            },
+          }}
+          render={({ field }) => (
+            <Slate
+              editor={editor}
+              initialValue={initialValue}
+              onChange={value => {
+                field.onChange(value);
+                handleChange(value);
+              }}
+            >
+              <section className={S.editorSection}>
+                {TEXT_EDITOR_MARK_ICON.map(mark => (
+                  <MarkButton key={mark.id} format={mark.format} icon={mark.icon} />
+                ))}
+                {TEXT_EDITOR_BLOCK_ICON.map(block => (
+                  <BlockButton key={block.id} format={block.format} icon={block.icon} />
+                ))}
+              </section>
+              <Editable
+                className={S.editorContent}
+                renderElement={renderElement}
+                renderLeaf={renderLeaf}
+                spellCheck
+                onKeyDown={handleKeyDown}
+              />
+            </Slate>
+          )}
+        />
       </div>
       {errors.contentRequired && (
         <span className={S.error}>
@@ -124,4 +130,4 @@ function ContentRequired() {
   );
 }
 
-export default React.memo(ContentRequired);
+export default ContentRequired;

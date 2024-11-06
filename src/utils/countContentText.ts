@@ -1,3 +1,5 @@
+import { Descendant, Element, Text } from 'slate';
+
 type CustomText = {
   text: string;
   bold?: boolean;
@@ -15,23 +17,19 @@ export interface SlateNode {
   align?: 'left' | 'center' | 'right' | 'justify';
 }
 
-function countContentText(data: SlateNode[]) {
+function countContentText(data: Descendant[]) {
   let totalCount = 0;
 
   if (!Array.isArray(data)) {
     return 0;
   }
 
-  function countCharacters(node: SlateNode) {
-    if (node.type === 'numbered-list' || node.type === 'bulleted-list') {
+  function countCharacters(node: Descendant) {
+    if (Text.isText(node)) {
+      totalCount += node.text.length;
+    } else if (Element.isElement(node)) {
       node.children.forEach(child => {
-        if (child.children && Array.isArray(child.children)) {
-          totalCount += child.children[0].text.length;
-        }
-      });
-    } else {
-      node.children.forEach(child => {
-        totalCount += child.text.length;
+        countCharacters(child);
       });
     }
   }
