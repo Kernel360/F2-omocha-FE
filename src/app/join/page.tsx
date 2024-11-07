@@ -6,8 +6,6 @@
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { TriangleAlert as TriangleAlertIcon } from 'lucide-react';
-
 import useGetEmailValidation from '@/apis/queryHooks/Auth/useGetEmailValidation';
 import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
 import {
@@ -19,6 +17,10 @@ import CheckIcon from '@/assets/svg/check.svg';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Join.css';
+import MaxLayout from '@/components/MaxLayout';
+import CommonButton from '@/components/CommonButton';
+import CommonInput from '@/components/CommonInput';
+import CommonButtonInput from '@/components/CommonButtonInput';
 
 type Inputs = {
   emailRequired: string;
@@ -89,84 +91,79 @@ function Home() {
     return S.checkButton.default;
   };
 
+  const getButtonStyleTwo = () => {
+    // 이메일이 비어 있음 or (이메일에 에러 존재 and 중복 검사가 완료되지 않은 상태)
+    if (emailRequired === '' || (checkEmailError && !emailValidationCheck)) {
+      return true;
+    }
+    // 유효성 검사 완료 and 중복 검사 완료
+    if (emailValidationCheck && canUseEmail) {
+      return false;
+    }
+    return false;
+  };
+
   return (
-    <div className={S.container}>
-      <span className={S.title}>회원가입하기</span>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={S.inputSection}>
-          <label className={S.inputLabel}>
-            이메일
-            <div className={S.checkInputWrapper}>
-              <input
-                className={S.joinInput}
-                placeholder="이메일을 입력하세요."
-                disabled={canUseEmail && emailValidationCheck}
-                type="email"
-                {...register('emailRequired', {
-                  ...emailValidation,
-                  onChange: () => {
-                    setEmailValidationCheck(false);
-                    clearErrors('emailRequired');
-                  },
-                })}
-              />
-              <button
-                type="button"
-                disabled={(canUseEmail && emailValidationCheck) || emailRequired === ''}
-                className={getButtonStyle()}
-                onClick={() => {
-                  handleCheckEmail();
-                }}
-              >
-                {emailValidationCheck ? '확인 완료' : '중복 확인'}
-              </button>
-            </div>
-            {errors.emailRequired && (
-              <span className={`${S.inputValidation} ${S.error}`}>
-                <TriangleAlertIcon width={17} height={17} />
-                {errors.emailRequired.message}
-              </span>
-            )}
+    <div className={S.backContainer}>
+      <MaxLayout>
+        <div className={S.container}>
+          <span className={S.title}>회원가입하기</span>
+          <form onSubmit={handleSubmit(onSubmit)} className={S.inputSection}>
+            <CommonButtonInput
+              id="emailRequired"
+              label="이메일"
+              button={
+                <div className={S.duplicateCheckButtonWrapper}>
+                  <CommonButton
+                    content="중복 확인"
+                    size="sm"
+                    disabled={getButtonStyleTwo()}
+                    onClick={handleCheckEmail}
+                    type={'button'}
+                  />
+                </div>
+              }
+              type="email"
+              placeholder="이메일을 입력하세요."
+              register={register}
+              validation={{
+                ...emailValidation,
+                onChange: () => {
+                  setEmailValidationCheck(false);
+                  clearErrors('emailRequired');
+                },
+              }}
+              error={errors.emailRequired}
+              onClick={handleCheckEmail}
+            />
             {emailValidationCheck && canUseEmail && (
               <span className={`${S.inputValidation} ${S.correct}`}>
                 <CheckIcon />
                 사용 가능한 이메일입니다.
               </span>
             )}
-          </label>
-          <label className={S.inputLabel}>
-            비밀번호
-            <input
-              className={S.joinInput}
-              placeholder="비밀번호를 입력하세요."
+            <CommonInput
+              id="passwordRequired"
+              label="비밀번호"
               type="password"
-              {...register('passwordRequired', passwordValidation)}
+              register={register}
+              validation={passwordValidation}
+              error={errors.passwordRequired}
             />
-            {errors.passwordRequired && (
-              <span className={`${S.inputValidation} ${S.error}`}>
-                <TriangleAlertIcon width={17} height={17} />
-                {errors.passwordRequired.message}
-              </span>
-            )}
-          </label>
-          <label className={S.inputLabel}>
-            비밀번호 확인
-            <input
-              className={S.joinInput}
-              placeholder="비밀번호를 입력하세요."
+            <CommonInput
+              id="passwordCheckRequired"
+              label="비밀번호 확인"
               type="password"
-              {...register('passwordCheckRequired', confirmPasswordValidation(passwordRequired))}
+              register={register}
+              validation={confirmPasswordValidation(passwordRequired)}
+              error={errors.passwordCheckRequired}
             />
-            {errors.passwordCheckRequired && (
-              <span className={`${S.inputValidation} ${S.error}`}>
-                <TriangleAlertIcon width={17} height={17} />
-                {errors.passwordCheckRequired.message}
-              </span>
-            )}
-          </label>
+            <div className={S.buttonWrapper}>
+              <CommonButton content="회원가입" type="submit" size="lg" />
+            </div>
+          </form>
         </div>
-        <input className={S.submitButton} type="submit" value="회원가입" />
-      </form>
+      </MaxLayout>
     </div>
   );
 }

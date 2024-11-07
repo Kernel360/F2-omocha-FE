@@ -5,11 +5,15 @@ import { TriangleAlertIcon } from 'lucide-react';
 
 import colors from '@/styles/color';
 
-import * as S from './CommonInput.css';
+import * as S from './CommonButtonInput.css';
+import { ReactNode } from 'react';
 
-interface CommonInputProps<T extends FieldValues> {
+interface CommonButtonInputProps<T extends FieldValues> {
   id: Path<T>; // react-hook-form의 Path 타입을 사용
   label: string;
+  onClick?: () => void;
+  button: ReactNode;
+  buttonValue?: string;
   type?: 'text' | 'number' | 'email' | 'password' | 'datetime-local';
   placeholder?: string;
   register?: UseFormRegister<T>; // 제네릭 타입으로 register 타입 설정
@@ -20,7 +24,7 @@ interface CommonInputProps<T extends FieldValues> {
   disabled?: boolean;
 }
 
-function CommonInput<T extends FieldValues>({
+function CommonButtonInput<T extends FieldValues>({
   id,
   label,
   type = 'text',
@@ -28,23 +32,29 @@ function CommonInput<T extends FieldValues>({
   register,
   error,
   validation = {},
+  button,
   min,
   value,
   disabled,
-}: CommonInputProps<T>) {
+}: CommonButtonInputProps<T>) {
+  console.log('CommonInput render', value);
+
   return (
     <label htmlFor={String(id)} className={S.label}>
       <div className={disabled ? S.disabledTitle : S.title}>{label}</div>
-      <input
-        disabled={disabled}
-        value={value}
-        className={S.input}
-        id={String(id)}
-        type={type}
-        min={min}
-        placeholder={placeholder}
-        {...(register ? register(id, validation) : {})}
-      />
+      <div className={S.inputWrapper}>
+        <input
+          disabled={disabled}
+          value={value}
+          className={S.input}
+          id={String(id)}
+          type={type}
+          min={min}
+          placeholder={placeholder}
+          {...(register ? register(id, validation) : {})}
+        />
+        {button}
+      </div>
       {error && (
         <span className={S.error}>
           <TriangleAlertIcon size={16} stroke={colors.primary10} />
@@ -55,4 +65,4 @@ function CommonInput<T extends FieldValues>({
   );
 }
 
-export default CommonInput;
+export default CommonButtonInput;
