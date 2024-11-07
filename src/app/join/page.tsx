@@ -86,7 +86,7 @@ function Home() {
     }
     // 유효성 검사 완료 and 중복 검사 완료
     if (emailValidationCheck && canUseEmail) {
-      return false;
+      return true;
     }
     return false;
   };

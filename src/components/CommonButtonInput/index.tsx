@@ -11,9 +11,7 @@ import * as S from './CommonButtonInput.css';
 interface CommonButtonInputProps<T extends FieldValues> {
   id: Path<T>; // react-hook-form의 Path 타입을 사용
   label: string;
-  onClick?: () => void;
   button: ReactNode;
-  buttonValue?: string;
   type?: 'text' | 'number' | 'email' | 'password' | 'datetime-local';
   placeholder?: string;
   register?: UseFormRegister<T>; // 제네릭 타입으로 register 타입 설정
@@ -37,8 +35,6 @@ function CommonButtonInput<T extends FieldValues>({
   value,
   disabled,
 }: CommonButtonInputProps<T>) {
-  console.log('CommonInput render', value);
-
   return (
     <label htmlFor={String(id)} className={S.label}>
       <div className={disabled ? S.disabledTitle : S.title}>{label}</div>

@@ -17,13 +17,9 @@ export const dots = style({
   margin: '0',
   listStyle: 'none',
   textAlign: 'center',
-
-  // justifyContent: 'center',
-  // gap: '5px',
 });
 
 export const carouselImage = style({
   width: '100%',
   margin: '0 auto',
-  borderRadius: '8px',
 });
