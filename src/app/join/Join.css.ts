@@ -1,6 +1,7 @@
+import { style, styleVariants } from '@vanilla-extract/css';
+
 import colors from '@/styles/color';
 import shadow from '@/styles/shadow';
-import { style, styleVariants } from '@vanilla-extract/css';
 
 export const backContainer = style({
   display: 'flex',

@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { ReactNode } from 'react';
 import { UseFormRegister, FieldError, RegisterOptions, FieldValues, Path } from 'react-hook-form';
 
 import { TriangleAlertIcon } from 'lucide-react';
@@ -6,7 +7,6 @@ import { TriangleAlertIcon } from 'lucide-react';
 import colors from '@/styles/color';
 
 import * as S from './CommonButtonInput.css';
-import { ReactNode } from 'react';
 
 interface CommonButtonInputProps<T extends FieldValues> {
   id: Path<T>; // react-hook-form의 Path 타입을 사용

@@ -14,13 +14,13 @@ import {
   passwordValidation,
 } from '@/app/join/utils/joinValidation';
 import CheckIcon from '@/assets/svg/check.svg';
+import CommonButton from '@/components/CommonButton';
+import CommonButtonInput from '@/components/CommonButtonInput';
+import CommonInput from '@/components/CommonInput';
+import MaxLayout from '@/components/MaxLayout';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Join.css';
-import MaxLayout from '@/components/MaxLayout';
-import CommonButton from '@/components/CommonButton';
-import CommonInput from '@/components/CommonInput';
-import CommonButtonInput from '@/components/CommonButtonInput';
 
 type Inputs = {
   emailRequired: string;
@@ -82,18 +82,6 @@ function Home() {
   const getButtonStyle = () => {
     // 이메일이 비어 있음 or (이메일에 에러 존재 and 중복 검사가 완료되지 않은 상태)
     if (emailRequired === '' || (checkEmailError && !emailValidationCheck)) {
-      return S.checkButton.disabled;
-    }
-    // 유효성 검사 완료 and 중복 검사 완료
-    if (emailValidationCheck && canUseEmail) {
-      return S.checkButton.confirm;
-    }
-    return S.checkButton.default;
-  };
-
-  const getButtonStyleTwo = () => {
-    // 이메일이 비어 있음 or (이메일에 에러 존재 and 중복 검사가 완료되지 않은 상태)
-    if (emailRequired === '' || (checkEmailError && !emailValidationCheck)) {
       return true;
     }
     // 유효성 검사 완료 and 중복 검사 완료
@@ -117,9 +105,9 @@ function Home() {
                   <CommonButton
                     content="중복 확인"
                     size="sm"
-                    disabled={getButtonStyleTwo()}
+                    disabled={getButtonStyle()}
                     onClick={handleCheckEmail}
-                    type={'button'}
+                    type="button"
                   />
                 </div>
               }
