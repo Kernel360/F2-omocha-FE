@@ -122,7 +122,6 @@ function Home() {
                 },
               }}
               error={errors.emailRequired}
-              onClick={handleCheckEmail}
             />
             {emailValidationCheck && canUseEmail && (
               <span className={`${S.inputValidation} ${S.correct}`}>
