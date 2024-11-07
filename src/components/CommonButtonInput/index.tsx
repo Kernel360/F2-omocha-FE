@@ -1,4 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
+// 레거시지만 혹시 모르니 남겨둡니다....
+// 회고로 작성하시길...
+
 import { ReactNode } from 'react';
 import { UseFormRegister, FieldError, RegisterOptions, FieldValues, Path } from 'react-hook-form';
 

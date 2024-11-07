@@ -62,8 +62,16 @@ function Home() {
             validation={{
               required: '키워드를 입력해 주세요.',
             }}
-          />
-          <CommonButton disabled={!keywordRequired} content="키워드 등록" type="submit" size="md" />
+          >
+            <div className={S.keywordAddButtonWrapper}>
+              <CommonButton
+                disabled={!keywordRequired}
+                content="키워드 등록"
+                type="submit"
+                size="md"
+              />
+            </div>
+          </CommonInput>
         </form>
       </section>
       <section>

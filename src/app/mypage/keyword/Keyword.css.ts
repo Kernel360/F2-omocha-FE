@@ -15,6 +15,11 @@ export const section = style({
   gap: '10px',
 });
 
+export const keywordAddButtonWrapper = style({
+  display: 'flex',
+  minWidth: '95px',
+});
+
 export const form = style({
   display: 'flex',
   flexDirection: 'column',

@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { ReactNode } from 'react';
 import { UseFormRegister, FieldError, RegisterOptions, FieldValues, Path } from 'react-hook-form';
 
 import { TriangleAlertIcon } from 'lucide-react';
@@ -18,6 +19,8 @@ interface CommonInputProps<T extends FieldValues> {
   min?: number | string; // 데이트 피커에 활용
   value?: string | number;
   disabled?: boolean;
+  // button?: ReactNode;
+  children?: ReactNode;
 }
 
 function CommonInput<T extends FieldValues>({
@@ -31,20 +34,25 @@ function CommonInput<T extends FieldValues>({
   min,
   value,
   disabled,
+  // button,
+  children,
 }: CommonInputProps<T>) {
   return (
     <label htmlFor={String(id)} className={S.label}>
       <div className={disabled ? S.disabledTitle : S.title}>{label}</div>
-      <input
-        disabled={disabled}
-        value={value}
-        className={S.input}
-        id={String(id)}
-        type={type}
-        min={min}
-        placeholder={placeholder}
-        {...(register ? register(id, validation) : {})}
-      />
+      <div className={S.inputWrapper}>
+        <input
+          disabled={disabled}
+          value={value}
+          className={S.input}
+          id={String(id)}
+          type={type}
+          min={min}
+          placeholder={placeholder}
+          {...(register ? register(id, validation) : {})}
+        />
+        {children}
+      </div>
       {error && (
         <span className={S.error}>
           <TriangleAlertIcon size={16} stroke={colors.primary10} />

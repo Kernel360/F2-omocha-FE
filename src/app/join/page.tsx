@@ -3,10 +3,10 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import useGetEmailValidation from '@/apis/queryHooks/Auth/useGetEmailValidation';
+import useCheckEmailValidation from '@/apis/queryHooks/Auth/useCheckEmailValidation';
 import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
 import {
   confirmPasswordValidation,
@@ -15,7 +15,6 @@ import {
 } from '@/app/join/utils/joinValidation';
 import CheckIcon from '@/assets/svg/check.svg';
 import CommonButton from '@/components/CommonButton';
-import CommonButtonInput from '@/components/CommonButtonInput';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
 import sha256 from '@/utils/sha256';
@@ -48,47 +47,56 @@ function Home() {
   const emailRequired = watch('emailRequired');
   const passwordRequired = watch('passwordRequired');
 
-  const checkEmailError = !!errors.emailRequired; // validation 에러
-  const [emailValidationCheck, setEmailValidationCheck] = useState(false); // validation 확인
-  const [emailApiCheck, setEmailApiCheck] = useState(false); // api 중복 검사
+  const checkEmailError = errors.emailRequired; // validation 에러
 
   const { mutate } = usePostRegister();
-  const { data: canUseEmail, error } = useGetEmailValidation(emailApiCheck ? emailRequired : null);
+
+  const { mutate: checkEmailNew, canUseEmail, setCanUseEmail, error } = useCheckEmailValidation(); // mutate로
 
   const handleCheckEmail = () => {
     if (emailRequired === '') return;
+    console.log('checkEmailError', checkEmailError);
 
-    if (!checkEmailError) {
-      setEmailValidationCheck(true);
-      setEmailApiCheck(true);
+    if (!checkEmailError || checkEmailError.message === '이메일 중복을 해야합니다.') {
+      // 에러가 존재(이메일 중복 검사를 진행하라)하지만 에러 중에서 중복 확인을 안한 에러에서는 해당 이벤트가 호출될 수 있어야함.
+      checkEmailNew(emailRequired);
     }
   };
 
   useEffect(() => {
-    if (emailApiCheck && canUseEmail) {
+    if (canUseEmail) {
       clearErrors('emailRequired');
     }
     if (error) {
-      setEmailApiCheck(false);
       setError('emailRequired', { type: 'manual', message: '중복된 이메일이 있습니다.' });
     }
-  }, [canUseEmail, clearErrors, emailApiCheck, error, setError]);
+  }, [canUseEmail, error]);
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     const newPassword = await sha256(data.passwordCheckRequired);
-    mutate({ email: data.emailRequired, password: newPassword });
+
+    if (!canUseEmail) {
+      setError('emailRequired', { type: 'manual', message: '이메일 중복을 해야합니다.' });
+    }
+    if (!checkEmailError && canUseEmail) {
+      mutate({ email: data.emailRequired, password: newPassword });
+    }
   };
 
   const getButtonStyle = () => {
-    // 이메일이 비어 있음 or (이메일에 에러 존재 and 중복 검사가 완료되지 않은 상태)
-    if (emailRequired === '' || (checkEmailError && !emailValidationCheck)) {
-      return true;
+    // 이메일이 비어 있음
+    if (emailRequired === '') {
+      return true; // 꺼진상태
     }
-    // 유효성 검사 완료 and 중복 검사 완료
-    if (emailValidationCheck && canUseEmail) {
-      return true;
+    // 유효성 검사 이상 없음 and 중복 검사 완료
+    if (!checkEmailError && canUseEmail) {
+      return true; // 꺼진상태
     }
-    return false;
+    // 유효성 검사 이상 없음 and 중복 검사 미완료
+    if (!checkEmailError && !canUseEmail) {
+      return false; // 꺼진상태
+    }
+    return false; // 켜진상태
   };
 
   return (
@@ -97,33 +105,32 @@ function Home() {
         <div className={S.container}>
           <span className={S.title}>회원가입하기</span>
           <form onSubmit={handleSubmit(onSubmit)} className={S.inputSection}>
-            <CommonButtonInput
+            <CommonInput
               id="emailRequired"
               label="이메일"
-              button={
-                <div className={S.duplicateCheckButtonWrapper}>
-                  <CommonButton
-                    content="중복 확인"
-                    size="sm"
-                    disabled={getButtonStyle()}
-                    onClick={handleCheckEmail}
-                    type="button"
-                  />
-                </div>
-              }
               type="email"
               placeholder="이메일을 입력하세요."
               register={register}
               validation={{
                 ...emailValidation,
                 onChange: () => {
-                  setEmailValidationCheck(false);
+                  setCanUseEmail(false);
                   clearErrors('emailRequired');
                 },
               }}
               error={errors.emailRequired}
-            />
-            {emailValidationCheck && canUseEmail && (
+            >
+              <div className={S.duplicateCheckButtonWrapper}>
+                <CommonButton
+                  content="중복 확인"
+                  size="sm"
+                  disabled={getButtonStyle()}
+                  onClick={handleCheckEmail}
+                  type="button"
+                />
+              </div>
+            </CommonInput>
+            {!checkEmailError && canUseEmail && (
               <span className={`${S.inputValidation} ${S.correct}`}>
                 <CheckIcon />
                 사용 가능한 이메일입니다.
