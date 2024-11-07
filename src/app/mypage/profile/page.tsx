@@ -33,7 +33,7 @@ function Home() {
 
   return (
     <div className={S.profile}>
-      <h2>회원 정보 수정</h2>
+      <h3>회원 정보 수정</h3>
       <section className={S.section}>
         <h3 className={S.sectionTitle}>계정</h3>
         <CommonInput label="아이디" id="email" value={user.data?.email} disabled />

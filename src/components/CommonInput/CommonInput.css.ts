@@ -29,7 +29,7 @@ export const disabledTitle = style([
 export const input = style({
   display: 'flex',
   alignItems: 'center',
-  height: '42px',
+  height: '36px',
   padding: '0 16px',
   borderRadius: '8px',
   border: `1.5px solid ${colors.gray7}`,

@@ -25,7 +25,7 @@ function Home() {
 
   return (
     <div className={S.heart}>
-      <h2>찜 ({user.data?.member_id})</h2>
+      <h3>찜 ({user.data?.member_id})</h3>
       <TabsLayout
         defaultTriggerValue={TABS[0].value}
         triggerTitleList={TABS}

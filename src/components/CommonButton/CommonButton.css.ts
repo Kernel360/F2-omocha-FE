@@ -8,7 +8,7 @@ export const baseButton = style({
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
-  borderRadius: '16px',
+  borderRadius: '8px',
   border: 'none',
   backgroundColor: colors.primary9,
   color: '#fff',

@@ -52,7 +52,7 @@ function Home() {
 
   return (
     <div className={S.keyword}>
-      <h2>키워드</h2>
+      <h3>키워드</h3>
       <section className={S.section}>
         <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
           <CommonInput

@@ -30,7 +30,7 @@ export const input = style({
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  height: '42px',
+  height: '36px',
   padding: '0 16px',
   borderRadius: '8px',
   border: `1.5px solid ${colors.gray7}`,
