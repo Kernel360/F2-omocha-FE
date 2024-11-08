@@ -1,19 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { RenderElementProps } from 'slate-react';
+import { RenderElementProps, useFocused, useSelected } from 'slate-react';
 
+import { type ImageElement } from '@/components/TextEditor/hooks/useImage';
 import colors from '@/styles/color';
 
-interface CustomElement {
+type CommonElement = {
   type: string;
   align?: 'left' | 'center' | 'right' | 'justify';
   children: unknown;
-}
+};
+
+type CustomElement = ImageElement | CommonElement;
 
 // 요소별 블록 스타일
 function Elements({ attributes, children, element }: RenderElementProps) {
   const customElement = element as CustomElement;
+  const selected = useSelected();
+  const focused = useFocused();
 
-  const style = { textAlign: customElement.align };
+  const style = { textAlign: 'align' in customElement ? customElement.align : 'left' };
 
   const olStyle = {
     ...style,
@@ -77,6 +82,21 @@ function Elements({ attributes, children, element }: RenderElementProps) {
         <ol style={olStyle} {...attributes}>
           {children}
         </ol>
+      );
+    case 'image':
+      return (
+        <div {...attributes} style={{ display: 'flex', justifyContent: 'center' }}>
+          <img
+            style={{
+              outline: selected && focused ? '1px solid blue' : 'none',
+              width: '50%',
+              height: '50%',
+            }}
+            src={(element as ImageElement).url}
+            alt={(element as ImageElement).url}
+          />
+          {children}
+        </div>
       );
     default:
       return (
