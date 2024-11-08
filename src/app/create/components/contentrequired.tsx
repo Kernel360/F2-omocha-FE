@@ -18,6 +18,7 @@ import {
 import { AuctionInputs } from '@/app/create/types/InputTypes';
 import BlockButton from '@/components/TextEditor/BlockButton';
 import Elements from '@/components/TextEditor/Elements';
+import ImageTooltip from '@/components/TextEditor/ImageTooltip';
 import Leaf from '@/components/TextEditor/Leaf';
 import MarkButton from '@/components/TextEditor/MarkButton';
 import useEditorShortcuts from '@/components/TextEditor/hooks/useEditorShortcuts';
@@ -160,6 +161,7 @@ function ContentRequired() {
                 {TEXT_EDITOR_BLOCK_ICON.map(block => (
                   <BlockButton key={block.id} format={block.format} icon={block.icon} />
                 ))}
+                <ImageTooltip />
               </section>
               <Editable
                 className={S.editorContent}
