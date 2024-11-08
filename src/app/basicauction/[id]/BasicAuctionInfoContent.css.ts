@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import typography from '@/styles/typo';
@@ -34,4 +34,14 @@ export const ulStyle = style({
 
 export const codeStyle = style({
   backgroundColor: colors.gray3,
+});
+
+export const imageStyle = style({
+  display: 'flex',
+  justifyContent: 'center',
+});
+
+globalStyle(`${imageStyle} img`, {
+  width: '50%',
+  height: '50%',
 });

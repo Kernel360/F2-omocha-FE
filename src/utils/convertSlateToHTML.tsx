@@ -12,6 +12,7 @@ type CustomText = {
 export interface SlateNode {
   type: string;
   children: CustomText[] | SlateNode[]; // CustomText 배열로 자식 요소를 관리
+  url?: string;
   align?: 'left' | 'center' | 'right' | 'justify';
 }
 
@@ -68,6 +69,7 @@ const renderListItems = (children: SlateNode[]): string =>
 
 // SlateNode 배열을 HTML로 변환하는 최상위 함수
 export function convertSlateToHTML(slateValue: SlateNode[]): string {
+  console.log(slateValue[2]);
   return slateValue
     .map(node => {
       const alignmentStyle = getAlignmentStyle(node.align || 'left'); // 기본 정렬
@@ -85,6 +87,8 @@ export function convertSlateToHTML(slateValue: SlateNode[]): string {
           return `<ol class="${S.olStyle}">${renderListItems(node.children as SlateNode[])}</ol>`; // 'list-item' 처리
         case 'bulleted-list':
           return `<ul class="${S.ulStyle}">${renderListItems(node.children as SlateNode[])}</ul>`; // 'list-item' 처리
+        case 'image':
+          return `<div class="${S.imageStyle}"><img src="${node.url}" alt="image" /></div>`;
         default:
           return '';
       }

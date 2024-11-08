@@ -23,7 +23,7 @@ import MarkButton from '@/components/TextEditor/MarkButton';
 import useEditorShortcuts from '@/components/TextEditor/hooks/useEditorShortcuts';
 import useImage, { type ImageElement } from '@/components/TextEditor/hooks/useImage';
 import { TEXT_EDITOR_BLOCK_ICON, TEXT_EDITOR_MARK_ICON } from '@/static/textEditorIcon';
-// import countContentText from '@/utils/countContentText';
+import countContentText from '@/utils/countContentText';
 
 import * as S from '../Basicauction.css';
 
@@ -100,9 +100,8 @@ function ContentRequired() {
 
   const contentRequiredValue = useWatch({ name: 'contentRequired', control });
   const contentRequired = contentRequiredValue || '0';
-  const contentLength = contentRequired.length;
 
-  // const contentLength = countContentText(JSON.parse(contentRequired));
+  const contentLength = countContentText(JSON.parse(contentRequired));
 
   const editor = useMemo(() => {
     const editorInstance = withHistory(withReact(createEditor()));
