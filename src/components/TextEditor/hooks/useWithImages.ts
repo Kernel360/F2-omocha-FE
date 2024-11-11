@@ -29,7 +29,7 @@ function useWithImages() {
 
       if (files && files.length > 0) {
         for (let i = 0; i < files.length; i += 1) {
-          if (files[i].size > MAX_SIZE) {
+          if (files[i].size >= MAX_SIZE) {
             showToast('error', '이미지 파일 크기는 1MB 이하만 업로드 가능합니다.');
             return;
           }
