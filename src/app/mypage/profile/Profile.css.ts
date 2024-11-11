@@ -15,8 +15,8 @@ export const section = style({
 });
 
 export const sectionTitle = style({
-  fontSize: '18px',
-  fontWeight: '500',
+  fontSize: '16px',
+  fontWeight: '800',
 });
 
 export const label = style({

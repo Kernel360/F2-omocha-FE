@@ -22,6 +22,7 @@ export const container = style({
 export const searchContainer = style({
   display: 'flex',
   justifyContent: 'space-between',
+  marginBottom: '20px',
 });
 
 export const count = style({

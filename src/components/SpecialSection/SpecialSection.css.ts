@@ -3,6 +3,7 @@ import { style } from '@vanilla-extract/css';
 import colors from '@/styles/color';
 
 export const specialSection = style({
+  marginTop: '65px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

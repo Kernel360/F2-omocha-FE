@@ -20,6 +20,7 @@ const fadeOutDown = keyframes({
 });
 
 export const scrollButton = style({
+  zIndex: 1000,
   position: 'fixed',
   left: '50%',
   bottom: '50px',

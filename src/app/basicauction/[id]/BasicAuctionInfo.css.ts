@@ -1,7 +1,13 @@
 import { style } from '@vanilla-extract/css';
 
 export const auctionInfoWrapper = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  padding: '30px',
+  padding: '30px 0',
+  display: 'grid',
+  gridTemplateColumns: 'minmax(510px, 1fr) minmax(430px, 1fr)',
+  '@media': {
+    'screen and (max-width: 960px)': {
+      gridTemplateColumns: '1fr',
+      width: '100%',
+    },
+  },
 });

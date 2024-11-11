@@ -1,33 +1,50 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+import shadow from '@/styles/shadow';
+
+export const backContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '60px 0',
+  minHeight: 'calc(100vh - 256px)',
+  boxSizing: 'border-box',
+  alignItems: 'center',
+  backgroundColor: colors.backgroundGray1,
+});
+
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  height: 'calc(100vh - 262px)',
-  boxSizing: 'border-box',
-  paddingTop: '50px',
+  justifyContent: 'center',
+
+  borderRadius: '8px',
+  margin: '0 auto',
+  padding: '20px',
   alignItems: 'center',
+  boxShadow: shadow.box3,
+  backgroundColor: colors.white,
+  maxWidth: '400px',
 });
 
 export const title = style({
   color: 'black ',
   textAlign: 'center',
-  fontSize: '32px',
+  fontSize: '22px',
 });
 
 export const inputSection = style({
-  paddingTop: '50px',
+  paddingTop: '20px',
   display: 'flex',
   flexDirection: 'column',
-  gap: '24px',
+  gap: '16px',
+  width: '100%',
 });
 
 export const inputLabel = style({ display: 'flex', flexDirection: 'column', gap: '6px' });
 
 export const joinInput = style({
   display: 'flex',
-  maxWidth: '368px',
-  width: '100%',
   borderRadius: '4px',
   padding: '12px 16px',
   alignItems: 'flex-start',
@@ -68,8 +85,10 @@ export const submitButton = style({
 const buttonBase = style({
   display: 'flex',
   color: '#FFF',
+  justifyItems: 'flex-end',
   fontSize: '14px',
   width: '80px',
+  height: '44px',
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '4px',
@@ -101,6 +120,18 @@ export const checkButton = styleVariants({
 
 export const checkInputWrapper = style({
   display: 'flex',
-  justifyContent: 'center ',
+  alignItems: 'end',
+  width: '100%',
   gap: '8px',
+});
+
+export const buttonWrapper = style({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '30px',
+});
+
+export const duplicateCheckButtonWrapper = style({
+  display: 'flex',
+  minWidth: '80px',
 });

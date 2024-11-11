@@ -37,7 +37,7 @@ function MainCarousel() {
         slidesToScroll={1}
         autoplay // 자동 캐러셀
         autoplaySpeed={2000}
-        // dotsClass={S.dots}
+        arrows={false}
       >
         {CAROUSEL_INFO.map(info => (
           <Link href={info.link} key={info.link}>

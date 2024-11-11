@@ -20,7 +20,7 @@ const TABS_CONTENT = [<BasicBid key="basicBid" />, <BasicSold key="basicSold" />
 function Home() {
   return (
     <div className={S.record}>
-      <h2>거래 내역</h2>
+      <h3>거래 내역</h3>
       <section className={S.section}>
         <TabsLayout
           defaultTriggerValue={TABS[0].value}
