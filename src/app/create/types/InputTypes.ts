@@ -1,4 +1,4 @@
-type ImageUpload = {
+export type ImageUpload = {
   file: File;
 };
 

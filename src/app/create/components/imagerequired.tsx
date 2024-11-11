@@ -5,6 +5,7 @@ import { CircleXIcon, TriangleAlertIcon } from 'lucide-react';
 import Image from 'next/image';
 
 import { AuctionInputs } from '@/app/create/types/InputTypes';
+import { imageValidation } from '@/app/create/utils/createValidation';
 import colors from '@/styles/color';
 
 import * as S from '../Basicauction.css';
@@ -19,15 +20,7 @@ function ImageRequired() {
     control,
     name: 'imagesRequired',
     keyName: 'imageRequiredId',
-    rules: {
-      required: '이미지를 업로드해 주세요.',
-      validate: value => {
-        if (value.length > 10) {
-          return '이미지는 최대 10장 까지 업로드 가능합니다.';
-        }
-        return true;
-      },
-    },
+    rules: imageValidation,
   });
 
   const inputFile = useRef(null);

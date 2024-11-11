@@ -36,6 +36,7 @@ export const codeStyle = style({
 export const tooltipButton = style({
   display: 'flex',
   padding: '6px',
+  marginLeft: 'auto',
 });
 
 export const tooltipContent = style({

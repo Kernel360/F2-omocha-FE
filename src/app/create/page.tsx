@@ -8,6 +8,11 @@ import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuct
 import ContentRequired from '@/app/create/components/contentrequired';
 import ImageRequired from '@/app/create/components/imagerequired';
 import { AuctionInputs } from '@/app/create/types/InputTypes';
+import {
+  bidUnitValidation,
+  endDateValidation,
+  startPriceValidation,
+} from '@/app/create/utils/createValidation';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
@@ -71,13 +76,7 @@ export default function Home() {
                     type="number"
                     placeholder="원"
                     register={register}
-                    validation={{
-                      required: '시작가를 입력해 주세요.',
-                      pattern: {
-                        value: /^(0|[1-9]\d*)$/,
-                        message: '올바른 금액이 아닙니다.',
-                      },
-                    }}
+                    validation={startPriceValidation}
                     error={errors.startPriceRequired}
                   />
                 </div>
@@ -88,13 +87,7 @@ export default function Home() {
                     type="number"
                     placeholder="원"
                     register={register}
-                    validation={{
-                      required: '입찰 단위를 입력해 주세요.',
-                      pattern: {
-                        value: /^(0|[1-9]\d*)$/,
-                        message: '올바른 금액이 아닙니다.',
-                      },
-                    }}
+                    validation={bidUnitValidation}
                     error={errors.bidUnitRequired}
                   />
                 </div>
@@ -115,15 +108,7 @@ export default function Home() {
                   type="datetime-local"
                   min={new Date().toISOString().slice(0, 16)}
                   register={register}
-                  validation={{
-                    required: '종료 시각을 입력해 주세요.',
-                    validate: value => {
-                      return (
-                        formatDate(value as string) > formatDate(new Date().toString()) ||
-                        '현재 시각보다 이전 시간은 선택할 수 없습니다.'
-                      );
-                    },
-                  }}
+                  validation={endDateValidation}
                   error={errors.endDateRequired}
                 />
               </div>
