@@ -12,7 +12,7 @@ export const bottomHeader = style([
 ]);
 
 export const buttonStyles = style([
-  typography.h3,
+  typography.h4,
   {
     padding: '12px 0px',
     borderRadius: '4px',
@@ -36,7 +36,7 @@ globalStyle('[data-radix-popper-content-wrapper]', {
   display: 'flex !important',
   boxSizing: 'border-box',
   left: '50% !important',
-  transform: 'translate(-50%, 126px) !important',
+  transform: 'translate(-50%, 122px) !important',
   width: '100%',
   height: '250px',
   margin: '0 auto',
@@ -66,6 +66,7 @@ export const subCategoryContainer = style({
 export const subCategoryTitle = style({
   display: 'flex',
   alignItems: 'center',
+  fontSize: '16px',
   gap: '4px',
 });
 
