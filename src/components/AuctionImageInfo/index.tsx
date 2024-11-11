@@ -2,6 +2,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
 
+import CommonImage from '../CommonImage';
+
 import * as S from './AuctionImageInfo.css';
 
 interface AuctionImageInfoProps {
@@ -32,19 +34,21 @@ function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
             }
             onClick={() => setFocusImage(image)}
           >
-            <img
+            <CommonImage
               src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image}`}
               alt="Auction Image"
-              className={S.subImage}
+              width={70}
+              height={70}
             />
           </button>
         ))}
       </div>
       <div className={S.mainImageWrapper}>
-        <img
+        <CommonImage
           src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${focusImage}`}
           alt="Auction Image"
-          className={S.mainImage}
+          width={440}
+          height={440}
         />
       </div>
     </div>

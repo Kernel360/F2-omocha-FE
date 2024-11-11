@@ -1,8 +1,9 @@
 import { ClockIcon, HeartIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import calculateDDay from '@/utils/calculatedDDay';
+
+import CommonImage from '../CommonImage';
 
 import * as S from './AuctionCard.css';
 
@@ -18,9 +19,9 @@ interface AuctionCardProps {
 }
 
 // 아래 부분은 변동이 많이 있을 것 같아 이전 코드를 주석으로 남깁니다.
-
 function AuctionCard(SAMPLE: AuctionCardProps) {
   const { id, image, title, isLike, endTime, nowPrice } = SAMPLE;
+
   const isExpired = new Date() > new Date(endTime);
   const dDay = calculateDDay(endTime);
 
@@ -37,7 +38,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
         </div>
       )}
       <div className={S.cardContent}>
-        <Image
+        <CommonImage
           src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image[0]}`}
           alt="Auction Image"
           width={196}

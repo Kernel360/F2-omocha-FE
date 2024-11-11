@@ -1,4 +1,6 @@
-import Image from 'next/image';
+'use client';
+
+import CommonImage from '@/components/CommonImage';
 
 import * as S from './BasicBid.css';
 
@@ -66,12 +68,11 @@ export default function BasicBid() {
     <ul className={S.basicBid}>
       {LISTS.map(list => (
         <li className={S.list} key={list.id}>
-          <Image
+          <CommonImage
             className={S.image}
             src={list.image}
-            width={0}
-            height={0}
-            sizes="100vw"
+            width={120}
+            height={130}
             alt="경매 사진"
           />
           <ul className={S.listRight}>

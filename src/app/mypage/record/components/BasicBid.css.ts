@@ -26,10 +26,7 @@ globalStyle(`${list}:nth-last-child(1)`, {
 });
 
 export const image = style({
-  width: '200px',
-  height: 'auto',
   borderRadius: '4px',
-  boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
 });
 
 export const listRight = style({

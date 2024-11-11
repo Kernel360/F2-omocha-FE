@@ -48,8 +48,6 @@ export const image = style({
   display: 'flex',
   gap: '10px',
   justifyContent: 'center',
-  width: '250px',
-  height: 'auto',
   objectFit: 'contain',
   border: `1.5px dashed ${colors.gray8} `,
   borderRadius: '10px',

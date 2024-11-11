@@ -110,7 +110,6 @@ export const dim = style([
   typography.h4,
   {
     position: 'absolute',
-    zIndex: 1,
     top: '0',
     left: '0',
     width: '100%',

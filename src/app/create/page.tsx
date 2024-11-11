@@ -6,10 +6,12 @@ import { useRef } from 'react';
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
 import { CircleXIcon, TriangleAlertIcon } from 'lucide-react';
-import Image from 'next/image';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
+import ContentRequired from '@/app/create/components/contentrequired';
+import { AuctionInputs } from '@/app/create/types/InputTypes';
 import CommonButton from '@/components/CommonButton';
+import CommonImage from '@/components/CommonImage';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
 import useDebounce from '@/hooks/useDebounce';
@@ -17,8 +19,6 @@ import colors from '@/styles/color';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
-import ContentRequired from './components/contentrequired';
-import { AuctionInputs } from './types/InputTypes';
 
 export default function Home() {
   const methods = useForm<AuctionInputs>();
@@ -151,11 +151,9 @@ export default function Home() {
                       .reverse()
                       .map(({ imageRequiredId, file }, index) => (
                         <li key={imageRequiredId} className={S.image}>
-                          <Image
-                            className={S.image}
-                            width={0}
-                            height={0}
-                            sizes="100vw"
+                          <CommonImage
+                            width={250}
+                            height={127}
                             src={URL.createObjectURL(file)}
                             alt={URL.createObjectURL(file)}
                           />
