@@ -19,7 +19,7 @@ import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectTo
 
 export const postBasicAuction = async (param: FormData) => {
   const response = await apiClient.post<Response<PostBasicAuctionResponseData>>(
-    '/v1/auction',
+    '/v2/auction',
     param,
   );
 
@@ -27,7 +27,7 @@ export const postBasicAuction = async (param: FormData) => {
 };
 
 export const getBasicAuction = async (id: number) => {
-  const response = await apiClient.get<Response<BasicAuctionResponseData>>(`/v1/auction/${id}`);
+  const response = await apiClient.get<Response<BasicAuctionResponseData>>(`/v2/auction/${id}`);
 
   return response.data;
 };
@@ -36,21 +36,21 @@ export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => 
   const queryString = convertQueryParamsObjectToString<GetBasicAuctionListParams>(params);
 
   const response = await apiClient.get<Response<AuctionListResponseData>>(
-    `/v1/auction/basic-list?${queryString}`,
+    `/v2/auction/basic-list?${queryString}`,
   );
 
   return response.data;
 };
 
 export const getBasicAuctionBidList = async (id: number) => {
-  const response = await apiClient.get<Response<GetBasicAuctionBidInfo[]>>(`/v1/bid/${id}`);
+  const response = await apiClient.get<Response<GetBasicAuctionBidInfo[]>>(`/v2/bid/${id}`);
 
   return response.data;
 };
 
 export const postBasicAuctionBid = async (id: number, param: PostBasicAuctionBidParams) => {
   const response = await apiClient.post<Response<PostBasicAuctionBidResponseData>>(
-    `/v1/bid/${id}`,
+    `/v2/bid/${id}`,
     param,
   );
 
