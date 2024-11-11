@@ -1,8 +1,8 @@
 import { CalendarClock } from 'lucide-react';
-import Image from 'next/image';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import { AuctionData } from '@/apis/types/basicAuction';
+import CommonImage from '@/components/CommonImage';
 
 import * as S from './SpecialSection.css';
 
@@ -32,7 +32,7 @@ function SpecialSection() {
       <div className={S.specialAuction}>
         {data.result_data.content.map((auction: AuctionData) => (
           <div key={auction.auction_id} className={S.specialAuctionItem}>
-            <Image
+            <CommonImage
               src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${auction.image_keys[0]}`}
               className={S.specialAuctionImage}
               width={180}
