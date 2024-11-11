@@ -1,7 +1,9 @@
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import { cookies } from 'next/headers';
 
+import { getCategory } from '@/apis/queryFunctions/category';
 import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
@@ -33,13 +35,20 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = new QueryClient();
+
   const cookie = cookies();
   const isLoggedIn = cookie.has('access');
+
+  await queryClient.prefetchQuery({
+    queryKey: ['category'],
+    queryFn: () => getCategory(),
+  });
 
   return (
     <html lang="en" className={roboto.className}>
@@ -51,7 +60,9 @@ export default function RootLayout({
           <TanstackProviders>
             <NavigationEvents />
             <AuthProvider isLoggedIn={isLoggedIn}>
-              <Header />
+              <HydrationBoundary state={dehydrate(queryClient)}>
+                <Header />
+              </HydrationBoundary>
               <div className={S.container}>
                 {children}
                 <ChattingIconButton />

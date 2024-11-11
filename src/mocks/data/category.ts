@@ -6,12 +6,12 @@ export const category = [
     sub_categories: [
       {
         category_id: 2,
-        name: '영화1',
+        name: '해리포터',
         parent_id: 1,
         sub_categories: [
           {
             category_id: 3,
-            name: '영화2',
+            name: '해리포터 아즈카반의 죄수',
             parent_id: 2,
             sub_categories: [],
           },
