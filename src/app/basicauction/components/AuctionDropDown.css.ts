@@ -19,6 +19,7 @@ export const dropdown = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   gap: '10px',
+  borderRadius: '4px',
   width: dropdownWidth,
   padding: dropdownSpacing,
   border: borderColor,
@@ -35,6 +36,7 @@ export const dropdownContent = style({
   boxSizing: 'border-box',
   backgroundColor: 'white',
   zIndex: 10,
+  borderRadius: '0px 0px 4px 4px',
 });
 
 export const dropdownItem = style({

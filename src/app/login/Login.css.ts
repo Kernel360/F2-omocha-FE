@@ -30,7 +30,7 @@ export const container = style({
 export const title = style({
   color: 'black ',
   textAlign: 'center',
-  fontSize: '28px',
+  fontSize: '22px',
 });
 
 export const welcomeTitle = style({

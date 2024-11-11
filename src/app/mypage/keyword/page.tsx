@@ -52,7 +52,7 @@ function Home() {
 
   return (
     <div className={S.keyword}>
-      <h2>키워드</h2>
+      <h3>키워드</h3>
       <section className={S.section}>
         <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
           <CommonInput
@@ -62,8 +62,16 @@ function Home() {
             validation={{
               required: '키워드를 입력해 주세요.',
             }}
-          />
-          <CommonButton disabled={!keywordRequired} content="키워드 등록" type="submit" size="md" />
+          >
+            <div className={S.keywordAddButtonWrapper}>
+              <CommonButton
+                disabled={!keywordRequired}
+                content="키워드 등록"
+                type="submit"
+                size="md"
+              />
+            </div>
+          </CommonInput>
         </form>
       </section>
       <section>
