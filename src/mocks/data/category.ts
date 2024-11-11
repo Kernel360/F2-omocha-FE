@@ -63,8 +63,20 @@ export const category = [
         parent_id: 7,
         sub_categories: [
           {
+            category_id: 12,
+            name: '소녀시대',
+            parent_id: 10,
+            sub_categories: [],
+          },
+          {
             category_id: 11,
             name: '에스파',
+            parent_id: 10,
+            sub_categories: [],
+          },
+          {
+            category_id: 13,
+            name: '레드벨벳',
             parent_id: 10,
             sub_categories: [],
           },

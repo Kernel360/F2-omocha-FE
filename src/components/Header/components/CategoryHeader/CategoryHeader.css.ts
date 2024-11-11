@@ -44,10 +44,38 @@ globalStyle('[data-radix-popper-content-wrapper]', {
   backgroundColor: 'white',
 });
 
+///
+
 export const customPopperContent = style({
+  display: 'flex !important',
+  gap: '20px',
   width: '100%',
   maxWidth: '960px',
   margin: '0 auto',
   padding: '0 20px',
   zIndex: 1000,
+});
+
+export const subCategoryContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+  minWidth: '150px',
+});
+
+export const subCategoryTitle = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
+});
+
+export const subCategoryWrapper = style({});
+
+export const subCategory = style({
+  fontSize: '13px',
+  padding: '4px ',
+
+  ':hover': {
+    fontWeight: '700',
+  },
 });

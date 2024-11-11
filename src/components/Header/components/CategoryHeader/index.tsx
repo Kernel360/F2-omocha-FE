@@ -1,24 +1,13 @@
 import { useState } from 'react';
 
 import * as HoverCard from '@radix-ui/react-hover-card';
+import { ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
+import colors from '@/styles/color';
 
 import * as S from './CategoryHeader.css';
-
-const changeCategory = (type: string) => {
-  if (type === '영화') {
-    return 'movie';
-  }
-  if (type === '애니') {
-    return 'amime';
-  }
-  if (type === '아이돌') {
-    return 'Idol';
-  }
-  return 'movie';
-};
 
 export interface Category {
   category_id: number;
@@ -34,6 +23,7 @@ function CategoryHeader() {
     setOpenCategory(category);
   };
   const { data: categoryData } = useGetCategory();
+
   return (
     <HoverCard.Root openDelay={0}>
       <div className={S.bottomHeader}>
@@ -44,7 +34,7 @@ function CategoryHeader() {
             onMouseEnter={() => handleHover(category)}
           >
             <Link
-              href={`/category/${changeCategory(category.name)}`}
+              href={`/basicauction/?categoryId=${category.category_id}`}
               className={S.buttonStyles}
               scroll={false}
             >
@@ -57,7 +47,24 @@ function CategoryHeader() {
         <HoverCard.Content asChild>
           <div className={S.customPopperContent}>
             {openCategory?.sub_categories.map(sub_category => (
-              <div key={sub_category.category_id}>{sub_category.name}</div>
+              <div key={sub_category.category_id} className={S.subCategoryContainer}>
+                <Link href={`/basicauction/?categoryId=${sub_category.category_id}`}>
+                  <div className={S.subCategoryTitle}>
+                    {sub_category.name}
+                    <ChevronRightIcon size={14} color={colors.gray10} />
+                  </div>
+                </Link>
+                <ul className={S.subCategoryWrapper}>
+                  {sub_category.sub_categories.map(sub_sub_category => (
+                    <Link
+                      key={sub_sub_category.category_id}
+                      href={`/basicauction/?categoryId=${sub_sub_category.category_id}`}
+                    >
+                      <li className={S.subCategory}>{sub_sub_category.name}</li>
+                    </Link>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </HoverCard.Content>
