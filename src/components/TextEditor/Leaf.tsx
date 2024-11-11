@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { RenderLeafProps } from 'slate-react';
 
+import * as S from './TextEditor.css';
+
 type CustomText = {
   text: string;
   bold?: true;
@@ -24,7 +26,7 @@ function Leaf({ attributes, children, leaf }: RenderLeafProps) {
   }
 
   if (leaf.code) {
-    styledChildren = <code>{styledChildren}</code>;
+    styledChildren = <code className={S.codeStyle}>{styledChildren}</code>;
   }
 
   if (leaf.italic) {

@@ -1,21 +1,21 @@
 import { style, keyframes } from '@vanilla-extract/css';
 
-const slideUpAndFade = keyframes({
+export const slideUpAndFade = keyframes({
   from: { opacity: 0, transform: 'translateY(2px)' },
   to: { opacity: 1, transform: 'translateY(0)' },
 });
 
-const slideRightAndFade = keyframes({
+export const slideRightAndFade = keyframes({
   from: { opacity: 0, transform: 'translateX(-2px)' },
   to: { opacity: 1, transform: 'translateX(0)' },
 });
 
-const slideDownAndFade = keyframes({
+export const slideDownAndFade = keyframes({
   from: { opacity: 0, transform: 'translateY(-2px)' },
   to: { opacity: 1, transform: 'translateY(0)' },
 });
 
-const slideLeftAndFade = keyframes({
+export const slideLeftAndFade = keyframes({
   from: { opacity: 0, transform: 'translateX(2px)' },
   to: { opacity: 1, transform: 'translateX(0)' },
 });
