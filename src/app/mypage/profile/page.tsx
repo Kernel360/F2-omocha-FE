@@ -2,9 +2,10 @@
 
 'use client';
 
-import { CircleUserRoundIcon, User2 } from 'lucide-react';
-import Image from 'next/image';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { UserIcon } from 'lucide-react';
+import Image from 'next/image';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import CommonButton from '@/components/CommonButton';
@@ -12,7 +13,6 @@ import CommonInput from '@/components/CommonInput';
 import { Modal } from '@/components/Modal/Modal';
 import ImageUploadModal from '@/components/MypageProfileClientPage/components/ImageUploadModal';
 import useBooleanState from '@/hooks/useBooleanState';
-
 import colors from '@/styles/color';
 
 import * as S from './Profile.css';
@@ -61,7 +61,7 @@ function Home() {
                 alt="프로필 이미지"
               />
             ) : (
-              <CircleUserRoundIcon size={100} strokeWidth={1} stroke={colors.gray5} />
+              <UserIcon size={100} strokeWidth={1} stroke={colors.gray5} />
             )}
           </button>
         </div>

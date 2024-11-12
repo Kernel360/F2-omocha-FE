@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { CircleUserRoundIcon, CirclePlusIcon, TriangleAlertIcon } from 'lucide-react';
+import { UserIcon, CirclePlusIcon, TriangleAlertIcon } from 'lucide-react';
 import Image from 'next/image';
 
+import usePatchProfileImage from '@/apis/queryHooks/User/usePatchProfileImage';
+import useDebounce from '@/hooks/useDebounce';
 import colors from '@/styles/color';
 
 import * as S from './ImageUploadModal.css';
-import useDebounce from '@/hooks/useDebounce';
-import usePatchProfileImage from '@/apis/queryHooks/User/usePatchProfileImage';
 
 type Input = {
   imageRequired: File | null;
@@ -32,7 +32,6 @@ function ImageUploadModal({ onClose, defaultImage }: ImageUploadModalProps) {
   const onSubmit: SubmitHandler<Input> = useDebounce(data => {
     const formData = new FormData();
     if (data.imageRequired) {
-      console.log('34', data.imageRequired);
       formData.append('profileImage', data.imageRequired);
 
       patchProfileImage(formData);
@@ -79,7 +78,7 @@ function ImageUploadModal({ onClose, defaultImage }: ImageUploadModalProps) {
 
     return (
       <div className={S.imageWrapper}>
-        <CircleUserRoundIcon size={100} strokeWidth={1} stroke={colors.gray5} />
+        <UserIcon size={100} strokeWidth={1} stroke={colors.gray5} />
       </div>
     );
   };

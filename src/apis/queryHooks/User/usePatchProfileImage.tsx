@@ -1,8 +1,9 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+
 import { patchProfileImage } from '@/apis/queryFunctions/User';
 import { Response } from '@/apis/types/common';
 import { useToast } from '@/provider/toastProvider';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 function usePatchProfileImage() {
   const queryClient = useQueryClient();

@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import typography from '@/styles/typo';
@@ -16,6 +16,7 @@ export const imageWrapper = style({
   alignItems: 'center',
   borderRadius: '50%',
   color: colors.gray5,
+  border: `3px solid ${colors.gray5}`,
 });
 
 export const imageProfile = style({

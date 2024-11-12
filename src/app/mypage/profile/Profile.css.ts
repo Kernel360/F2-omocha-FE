@@ -1,5 +1,7 @@
 import { style, globalStyle, styleVariants } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+
 export const profile = style({
   display: 'flex',
   flexDirection: 'column',
@@ -26,6 +28,8 @@ export const image = style({
 
 export const imageButton = style({
   display: 'flex',
+  border: `3px solid ${colors.gray7}`,
+  borderRadius: '50%',
   cursor: 'pointer',
 });
 
