@@ -13,13 +13,11 @@ function AuctionCategory() {
   if (!categoryData) return null;
 
   return (
-    <>
-      <div className={S.container}>
-        {categoryData.map(category => (
-          <UnitTest key={category.category_id} unit={category} />
-        ))}
-      </div>
-    </>
+    <div className={S.container}>
+      {categoryData.map(category => (
+        <UnitTest key={category.category_id} unit={category} />
+      ))}
+    </div>
   );
 }
 

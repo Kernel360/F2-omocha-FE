@@ -1,18 +1,12 @@
 'use client';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
+import { ChevronUpIcon } from 'lucide-react';
 
+import { Category } from '@/apis/types/category';
 import useBooleanState from '@/hooks/useBooleanState';
 
 import * as S from './CategoryUnit.css';
-import { ChevronUpIcon } from 'lucide-react';
-
-export interface Category {
-  category_id: number;
-  name: string;
-  parent_id: number | null;
-  sub_categories: Category[];
-}
 
 interface CategoryUnitProps {
   unit: Category;

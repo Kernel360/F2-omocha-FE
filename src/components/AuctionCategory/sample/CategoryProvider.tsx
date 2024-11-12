@@ -1,13 +1,8 @@
 import { createContext, useMemo, useState } from 'react';
 
-import useWrappingContext from './useWrappingContext';
+import { Category } from '@/apis/types/Category';
 
-export interface Category {
-  category_id: number;
-  name: string;
-  parent_id: number | null;
-  sub_categories: Category[];
-}
+import useWrappingContext from './useWrappingContext';
 
 interface CategorySelectorState {
   title: string;

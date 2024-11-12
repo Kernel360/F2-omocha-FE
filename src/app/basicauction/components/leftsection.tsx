@@ -1,7 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { getCategory } from '@/apis/queryFunctions/category';
-import Checkbox from '@/app/basicauction/components/checkbox';
 import AuctionCategory from '@/components/AuctionCategory';
 
 import * as S from './LeftSection.css';
