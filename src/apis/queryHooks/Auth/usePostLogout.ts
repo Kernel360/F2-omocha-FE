@@ -6,12 +6,10 @@ import { postLogout } from '@/apis/queryFunctions/Auth';
 import { Response } from '@/apis/types/common';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
-import useUserStore from '@/store/useUserStore';
 
 function usePostLogout() {
   const router = useRouter();
   const { setIsLoggedIn } = useAuth();
-  const removeUser = useUserStore(state => state.removeUser);
   const { showToast } = useToast();
 
   const { mutate, error } = useMutation({
@@ -19,7 +17,6 @@ function usePostLogout() {
     onSuccess: async () => {
       router.push('/', { scroll: false });
       setIsLoggedIn(false);
-      removeUser();
       showToast('success', '로그아웃에 성공했습니다.');
     },
     onError: (e: AxiosError<Response<string>>) => {
