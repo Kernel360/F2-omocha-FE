@@ -18,5 +18,5 @@ export interface LoginParams {
 }
 
 export interface CheckEmailParams {
-  email: string | null;
+  email: string;
 }

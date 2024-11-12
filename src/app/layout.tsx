@@ -46,7 +46,7 @@ export default function RootLayout({
       <Head>
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
-      <body>
+      <body suppressHydrationWarning>
         <ToastProvider>
           <TanstackProviders>
             <NavigationEvents />

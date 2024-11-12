@@ -55,7 +55,6 @@ function Home() {
 
   const handleCheckEmail = () => {
     if (emailRequired === '') return;
-    console.log('checkEmailError', checkEmailError);
 
     if (!checkEmailError || checkEmailError.message === '이메일 중복을 해야합니다.') {
       // 에러가 존재(이메일 중복 검사를 진행하라)하지만 에러 중에서 중복 확인을 안한 에러에서는 해당 이벤트가 호출될 수 있어야함.

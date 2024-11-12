@@ -8,7 +8,7 @@ function useCheckEmailValidation() {
   const [canUseEmail, setCanUseEmail] = useState(false);
 
   const { mutate, error } = useMutation({
-    mutationFn: (email: string | null) => getEmailValidation({ email }),
+    mutationFn: (email: string) => getEmailValidation({ email }),
     onSuccess: () => {
       return setCanUseEmail(true);
     },
