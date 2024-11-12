@@ -16,7 +16,6 @@ export default async function LeftSection() {
 
   return (
     <section className={S.leftSection}>
-      <Checkbox />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <AuctionCategory />
       </HydrationBoundary>

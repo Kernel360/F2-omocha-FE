@@ -1,4 +1,4 @@
-import { globalStyle, style } from '@vanilla-extract/css';
+import { globalStyle, keyframes, style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import typography from '@/styles/typo';
@@ -49,6 +49,46 @@ globalStyle('[data-radix-popper-content-wrapper]', {
   margin: '0 auto',
   padding: '0 20px',
   backgroundColor: colors.white,
+});
+
+const slideDown = keyframes({
+  '0%': {
+    opacity: 0,
+    transform: 'translateY(-10px)', // 위에서 아래로 이동
+  },
+  '100%': {
+    opacity: 1,
+    transform: 'translateY(0)',
+  },
+});
+
+const slideUp = keyframes({
+  '0%': {
+    opacity: 1,
+    transform: 'translateY(0)',
+  },
+  '100%': {
+    opacity: 0,
+    transform: 'translateY(-10px)',
+  },
+});
+
+export const customPopperContainer = style({
+  animation: `${slideDown} 0.3s ease-out`, // 애니메이션 설정
+  opacity: 0,
+  transform: 'translateY(-10px)',
+
+  selectors: {
+    '&[data-state="open"]': {
+      opacity: 1,
+      transform: 'translateY(0)',
+    },
+    '&[data-state="closed"]': {
+      opacity: 0,
+      transform: 'translateY(-10px)',
+      animation: `${slideUp} 0.3s ease-in`,
+    },
+  },
 });
 
 export const customPopperContent = style({

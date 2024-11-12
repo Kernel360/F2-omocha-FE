@@ -27,7 +27,7 @@ function CategoryHeader() {
 
   return (
     <section className={S.bottomHeaderWrapper}>
-      <HoverCard.Root openDelay={0}>
+      <HoverCard.Root openDelay={200}>
         <div className={S.bottomHeader}>
           {categoryData?.map(category => (
             <HoverCard.Trigger
@@ -46,7 +46,7 @@ function CategoryHeader() {
           ))}
         </div>
         <HoverCard.Portal>
-          <HoverCard.Content asChild>
+          <HoverCard.Content asChild className={S.customPopperContainer}>
             <div className={S.customPopperContent}>
               {openCategory?.sub_categories.map(sub_category => (
                 <div key={sub_category.category_id} className={S.subCategoryContainer}>

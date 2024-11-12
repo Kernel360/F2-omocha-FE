@@ -7,6 +7,8 @@ export const leftSection = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '30px',
+  maxWidth: '160px',
+  width: '100%',
 });
 
 // --- Checkbox.css.ts ---
@@ -16,10 +18,11 @@ export const label = style({
   display: 'flex',
   gap: '8px',
   alignItems: 'center',
-  border: `1px solid ${colors.gray7}`,
+  border: `1px solid ${colors.gray6}`,
+
   width: 'fit-content',
   padding: '8px',
-  borderRadius: '24px',
+  borderRadius: '4px',
   cursor: 'pointer',
 });
 
@@ -29,8 +32,8 @@ export const checkbox = style({
 
 export const checked = style({
   color: 'white',
-  background: colors.secondary7,
-  border: `1px solid ${colors.secondary7}`,
+  background: colors.primary7,
+  border: `1px solid ${colors.primary7}`,
 });
 
 export const nonChecked = style({

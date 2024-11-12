@@ -4,6 +4,7 @@ import LeftSection from '@/app/basicauction/components/leftsection';
 import MaxLayout from '@/components/MaxLayout';
 
 import * as S from './Basicauction.css';
+import Checkbox from './components/checkbox';
 
 function Home() {
   return (
@@ -11,7 +12,10 @@ function Home() {
       <div className={S.basicAuctionContainer}>
         <LeftSection />
         <section className={S.rightSection}>
-          <AuctionDropDown />
+          <div className={S.topInfoSection}>
+            <Checkbox />
+            <AuctionDropDown />
+          </div>
           <BasicAuction />
         </section>
       </div>

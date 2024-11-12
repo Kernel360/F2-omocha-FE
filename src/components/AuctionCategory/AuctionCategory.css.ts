@@ -1,3 +1,4 @@
+import colors from '@/styles/color';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
@@ -6,12 +7,6 @@ export const container = style({
   width: '100%',
   boxSizing: 'border-box',
   padding: '20px',
-  border: '1px solid #e5e5e5',
+  borderTop: `4px solid ${colors.gray10}`,
+  gap: '10px',
 });
-
-export const unitButton = style({
-  fontSize: '16px',
-  border: '1px solid black',
-});
-
-export const unitContent = style({});

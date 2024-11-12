@@ -10,4 +10,11 @@ export const rightSection = style({
   display: 'flex',
   flexDirection: 'column',
   width: 'calc(100% - 240px)',
+  marginLeft: 'auto',
+});
+
+export const topInfoSection = style({
+  display: 'flex',
+  gap: '20px',
+  justifyContent: 'end',
 });
