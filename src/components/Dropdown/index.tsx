@@ -47,9 +47,9 @@ export function Dropdown({ children, className }: DropDownProps) {
         {items[0]}
         <span style={{ pointerEvents: 'none', display: 'flex' }}>
           {isOpen ? (
-            <ChevronDownIcon width={16} height={16} />
-          ) : (
             <ChevronUpIcon width={16} height={16} />
+          ) : (
+            <ChevronDownIcon width={16} height={16} />
           )}
         </span>
       </div>
