@@ -93,7 +93,7 @@ export const customPopperContainer = style({
 
 export const customPopperContent = style({
   display: 'flex !important',
-  gap: '20px',
+  gap: '30px',
   width: '100%',
   maxWidth: '960px',
   margin: '0 auto',
@@ -111,7 +111,7 @@ export const subCategoryContainer = style({
 export const subCategoryTitle = style({
   display: 'flex',
   alignItems: 'center',
-  fontSize: '16px',
+  fontSize: '14px',
   gap: '4px',
 });
 

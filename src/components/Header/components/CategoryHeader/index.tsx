@@ -4,32 +4,28 @@ import * as HoverCard from '@radix-ui/react-hover-card';
 import { ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
-import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
+import { Category } from '@/apis/types/category';
 import SearchBar from '@/app/basicauction/components/searchbar';
 import colors from '@/styles/color';
 
 import * as S from './CategoryHeader.css';
 
-export interface Category {
-  category_id: number;
-  name: string;
-  parent_id: number | null;
-  sub_categories: Category[];
+interface CategoryHeaderProps {
+  data: Category[];
 }
 
-function CategoryHeader() {
+function CategoryHeader({ data }: CategoryHeaderProps) {
   const [openCategory, setOpenCategory] = useState<Category | null>();
 
   const handleHover = (category: Category) => {
     setOpenCategory(category);
   };
-  const { data: categoryData } = useGetCategory();
 
   return (
     <section className={S.bottomHeaderWrapper}>
       <HoverCard.Root openDelay={200}>
         <div className={S.bottomHeader}>
-          {categoryData?.map(category => (
+          {data.map(category => (
             <HoverCard.Trigger
               asChild
               key={category.category_id}
@@ -56,7 +52,7 @@ function CategoryHeader() {
                       <ChevronRightIcon size={14} color={colors.gray10} />
                     </div>
                   </Link>
-                  <ul className={S.subCategoryWrapper}>
+                  <ul>
                     {sub_category.sub_categories.map(sub_sub_category => (
                       <Link
                         key={sub_sub_category.category_id}
