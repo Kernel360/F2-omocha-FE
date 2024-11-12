@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
@@ -11,6 +11,7 @@ function usePostLogout() {
   const router = useRouter();
   const { setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
+  const queryClient = useQueryClient();
 
   const { mutate, error } = useMutation({
     mutationFn: () => postLogout(),
@@ -18,6 +19,7 @@ function usePostLogout() {
       router.push('/', { scroll: false });
       setIsLoggedIn(false);
       showToast('success', '로그아웃에 성공했습니다.');
+      queryClient.clear();
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
