@@ -40,6 +40,9 @@ export const nonChecked = style({
 // --- SearchBar.css.ts ---
 
 export const searchBar = style({
+  maxWidth: '220px',
+  height: '30px',
+  width: '100%',
   position: 'relative',
   display: 'flex',
   gap: '5px',
@@ -58,6 +61,7 @@ export const buttonIcon = styleVariants({
     buttonBase,
     {
       color: colors.gray8,
+      marginLeft: 'auto',
     },
   ],
 });

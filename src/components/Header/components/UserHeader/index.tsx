@@ -7,11 +7,13 @@ import { SUB_CATEGORY } from '@/static/category';
 
 import * as S from './UserHeader.css';
 
-interface UserHeaderProps {
-  setTrue: () => void;
-}
+// 현재 알림 기능 없음으로 주석처리
+// interface UserHeaderProps {
+//   setTrue: () => void;
+// }
+// { setTrue }: UserHeaderProps
 
-function UserHeader({ setTrue }: UserHeaderProps) {
+function UserHeader() {
   const router = useRouter();
   const { isLoggedIn } = useAuth();
   const { mutate: logout } = usePostLogout();
@@ -55,7 +57,7 @@ function UserHeader({ setTrue }: UserHeaderProps) {
               type="button"
               onClick={() => {
                 if (isLoggedIn) {
-                  setTrue();
+                  // setTrue();
                 } else {
                   router.push('/login', { scroll: false });
                 }

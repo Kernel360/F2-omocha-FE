@@ -3,6 +3,13 @@ import { globalStyle, style } from '@vanilla-extract/css';
 import colors from '@/styles/color';
 import typography from '@/styles/typo';
 
+export const bottomHeaderWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '20px',
+});
+
 export const bottomHeader = style([
   typography.h3,
   {
@@ -36,15 +43,13 @@ globalStyle('[data-radix-popper-content-wrapper]', {
   display: 'flex !important',
   boxSizing: 'border-box',
   left: '50% !important',
-  transform: 'translate(-50%, 122px) !important',
+  transform: 'translate(-50%, 158px) !important',
   width: '100%',
   height: '250px',
   margin: '0 auto',
   padding: '0 20px',
-  backgroundColor: 'white',
+  backgroundColor: colors.white,
 });
-
-///
 
 export const customPopperContent = style({
   display: 'flex !important',
@@ -60,7 +65,7 @@ export const subCategoryContainer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
-  minWidth: '150px',
+  minWidth: '100px',
 });
 
 export const subCategoryTitle = style({

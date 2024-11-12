@@ -1,8 +1,9 @@
 'use client';
 
-import Alarm from '@/components/Header/components/Alarm';
-import SlideSideNav from '@/components/SlideSideNav';
-import useBooleanState from '@/hooks/useBooleanState';
+// 현재 알림 기능 api 없음으로 주석처리
+// import Alarm from '@/components/Header/components/Alarm';
+// import SlideSideNav from '@/components/SlideSideNav';
+// import useBooleanState from '@/hooks/useBooleanState';
 
 import MaxLayout from '../MaxLayout';
 
@@ -11,17 +12,18 @@ import CategoryHeader from './components/CategoryHeader';
 import UserHeader from './components/UserHeader';
 
 function Header() {
-  const { value, setTrue, setFalse } = useBooleanState(false);
+  // const { value, setTrue, setFalse } = useBooleanState(false);
 
   return (
     <div className={S.stickyHeader}>
       <MaxLayout>
         <header className={S.container}>
-          <UserHeader setTrue={setTrue} />
+          <UserHeader />
+          {/* <UserHeader setTrue={setTrue} /> */}
           <CategoryHeader />
-          <SlideSideNav isOpen={value} onClose={setFalse}>
+          {/* <SlideSideNav isOpen={value} onClose={setFalse}>
             <Alarm content="준비중입니다!" />
-          </SlideSideNav>
+          </SlideSideNav> */}
         </header>
       </MaxLayout>
     </div>
