@@ -3,8 +3,6 @@
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 
 import * as S from './AuctionCategory.css';
-// import CategoryProvider from './CategoryProvider';
-// import CategoryTest from './CategoryTest';
 import UnitTest from './CategoryUnit';
 
 function AuctionCategory() {

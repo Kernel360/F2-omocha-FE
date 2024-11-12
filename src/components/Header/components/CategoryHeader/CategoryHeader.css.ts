@@ -54,7 +54,7 @@ globalStyle('[data-radix-popper-content-wrapper]', {
 const slideDown = keyframes({
   '0%': {
     opacity: 0,
-    transform: 'translateY(-10px)', // 위에서 아래로 이동
+    transform: 'translateY(-10px)',
   },
   '100%': {
     opacity: 1,
@@ -74,7 +74,7 @@ const slideUp = keyframes({
 });
 
 export const customPopperContainer = style({
-  animation: `${slideDown} 0.3s ease-out`, // 애니메이션 설정
+  animation: `${slideDown} 0.3s ease-out`,
   opacity: 0,
   transform: 'translateY(-10px)',
 
@@ -114,8 +114,6 @@ export const subCategoryTitle = style({
   fontSize: '16px',
   gap: '4px',
 });
-
-export const subCategoryWrapper = style({});
 
 export const subCategory = style({
   fontSize: '13px',
