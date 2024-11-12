@@ -19,6 +19,21 @@ export const sectionTitle = style({
   fontWeight: '800',
 });
 
+export const image = style({
+  display: 'flex',
+  justifyContent: 'center',
+});
+
+export const imageButton = style({
+  display: 'flex',
+  cursor: 'pointer',
+});
+
+export const profileImage = style({
+  borderRadius: '50%',
+  cursor: 'pointer',
+});
+
 export const label = style({
   display: 'flex',
   gap: '10px',
@@ -31,7 +46,6 @@ globalStyle(`${label} span`, {
 });
 
 export const inputBase = style({
-  // maxWidth: '368px',
   width: '100%',
   borderRadius: '4px',
   padding: '12px',

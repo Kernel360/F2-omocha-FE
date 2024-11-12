@@ -1,10 +1,19 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 'use client';
 
+import { CircleUserRoundIcon, User2 } from 'lucide-react';
+import Image from 'next/image';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
+import { Modal } from '@/components/Modal/Modal';
+import ImageUploadModal from '@/components/MypageProfileClientPage/components/ImageUploadModal';
+import useBooleanState from '@/hooks/useBooleanState';
+
+import colors from '@/styles/color';
 
 import * as S from './Profile.css';
 
@@ -15,7 +24,10 @@ type Inputs = {
 };
 
 function Home() {
-  const user = useGetUser();
+  const { data: user } = useGetUser();
+
+  const { value: isOpenImageUploadModal, toggle: setIsOpenImageUploadModal } = useBooleanState();
+
   const {
     register,
     handleSubmit,
@@ -31,12 +43,36 @@ function Home() {
     console.log(data);
   };
 
+  if (!user) return null;
+
   return (
     <div className={S.profile}>
       <h3>회원 정보 수정</h3>
       <section className={S.section}>
-        <h3 className={S.sectionTitle}>계정</h3>
-        <CommonInput label="아이디" id="email" value={user.data?.email} disabled />
+        <h3 className={S.sectionTitle}>프로필</h3>
+        <div className={S.image}>
+          <button type="button" onClick={setIsOpenImageUploadModal} className={S.imageButton}>
+            {user.profile_image_url ? (
+              <Image
+                className={S.profileImage}
+                src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${user.profile_image_url}`}
+                width={100}
+                height={100}
+                alt="프로필 이미지"
+              />
+            ) : (
+              <CircleUserRoundIcon size={100} strokeWidth={1} stroke={colors.gray5} />
+            )}
+          </button>
+        </div>
+        <Modal isOpen={isOpenImageUploadModal} onOpenChange={setIsOpenImageUploadModal}>
+          <ImageUploadModal
+            defaultImage={user.profile_image_url!}
+            onClose={setIsOpenImageUploadModal}
+          />
+        </Modal>
+        <CommonInput label="아이디" id="email" value={user.email} disabled />
+        <CommonInput label="닉네임" id="nickname" value={user.email} disabled />
       </section>
       <section className={S.section}>
         <h3 className={S.sectionTitle}>비밀번호 변경</h3>
