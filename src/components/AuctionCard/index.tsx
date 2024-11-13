@@ -8,7 +8,7 @@ import * as S from './AuctionCard.css';
 
 interface AuctionCardProps {
   id: number;
-  image: string[];
+  image: string;
   title: string;
   isLike: boolean;
   startPrice: number;
@@ -38,7 +38,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       )}
       <div className={S.cardContent}>
         <Image
-          src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image[0]}`}
+          src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image}`}
           alt="Auction Image"
           width={196}
           height={196}

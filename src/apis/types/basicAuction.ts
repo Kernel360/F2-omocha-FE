@@ -9,15 +9,23 @@ export type BasicAuctionResponseData = Omit<AuctionData, 'auction_id'> & {
 };
 
 //------
+
+export interface CategoryData {}
 export interface AuctionData {
   auction_id: number;
+  member_id: number;
   title: string;
   start_price: number;
+  bid_unit: number;
+  auction_status: 'NO_BIDS';
+  thumbnail_path: string;
+  now_price: number;
+  conclude_price: number;
+  bid_count: number;
   start_date: string;
   end_date: string;
-  image_keys: string[];
-  bid_count: number;
-  now_price: number;
+  created_at: string;
+  category_response: CategoryData[];
 }
 
 export interface Pageable {
@@ -59,6 +67,7 @@ export interface PostBasicAuctionResponseData {
 // -----
 
 export interface GetBasicAuctionListParams {
+  category?: number;
   title?: string;
   auctionStatus?: string;
   direction?: string;

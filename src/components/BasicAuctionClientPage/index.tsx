@@ -35,7 +35,7 @@ function BasicAuctionClientPage() {
           <AuctionCard
             key={item.auction_id}
             id={item.auction_id}
-            image={item.image_keys}
+            image={item.thumbnail_path}
             title={item.title}
             isLike={false}
             startPrice={item.start_price}
