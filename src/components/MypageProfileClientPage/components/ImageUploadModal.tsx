@@ -5,6 +5,7 @@ import { UserIcon, CirclePlusIcon, TriangleAlertIcon } from 'lucide-react';
 import Image from 'next/image';
 
 import usePatchProfileImage from '@/apis/queryHooks/User/usePatchProfileImage';
+import CommonButton from '@/components/CommonButton';
 import useDebounce from '@/hooks/useDebounce';
 import colors from '@/styles/color';
 
@@ -104,10 +105,7 @@ function ImageUploadModal({ onClose, defaultImage }: ImageUploadModalProps) {
           {errors.imageRequired.message}
         </span>
       )}
-
-      <button type="submit" className={S.buttonSubmit}>
-        이미지 업로드
-      </button>
+      <CommonButton type="submit" size="md" content="이미지 업로드" />
     </form>
   );
 }
