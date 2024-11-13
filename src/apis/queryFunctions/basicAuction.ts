@@ -16,11 +16,12 @@ import {
 } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+
 import devApiClient from './devApiClient';
 
 export const postBasicAuction = async (param: FormData) => {
-  const response = await apiClient.post<Response<PostBasicAuctionResponseData>>(
-    '/v1/auction',
+  const response = await devApiClient.post<Response<PostBasicAuctionResponseData>>(
+    '/v2/auction',
     param,
   );
 
@@ -28,8 +29,8 @@ export const postBasicAuction = async (param: FormData) => {
 };
 
 export const getBasicAuction = async (id: number) => {
-  const response = await apiClient.get<Response<BasicAuctionResponseData>>(`/v1/auction/${id}`);
-
+  // const response = await apiClient.get<Response<BasicAuctionResponseData>>(`/v1/auction/${id}`);
+  const response = await devApiClient.get<Response<BasicAuctionResponseData>>(`/v2/auction/${id}`);
   return response.data;
 };
 

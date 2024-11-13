@@ -2,21 +2,18 @@
 
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { ChevronUpIcon } from 'lucide-react';
+import Link from 'next/link';
 
 import { Category } from '@/apis/types/category';
-import useBooleanState from '@/hooks/useBooleanState';
 
 import * as S from './CategoryUnit.css';
-import Link from 'next/link';
 
 interface CategoryUnitProps {
   unit: Category;
 }
 function CategoryUnit({ unit }: CategoryUnitProps) {
-  const { value: open, setValue: setOpen } = useBooleanState(false);
-
   return (
-    <Collapsible.Root className="CollapsibleRoot" open={open} onOpenChange={setOpen}>
+    <Collapsible.Root className="CollapsibleRoot" defaultOpen={!!unit.isOpen}>
       <Collapsible.Trigger asChild>
         <Link href={`/basicauction/?categoryName=${unit.name}&categoryId=${unit.category_id}`}>
           <div className={S.unitButton}>
@@ -24,7 +21,7 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
             <ChevronUpIcon
               size={16}
               className={S.chevronIcon}
-              data-state={open ? 'open' : 'closed'}
+              // data-state={open ? 'open' : 'closed'}
             />
           </div>
         </Link>
@@ -35,12 +32,10 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
             <CategoryUnit key={sub_category.category_id} unit={sub_category} />
           ) : (
             <Link
+              key={sub_category.category_id}
               href={`/basicauction/?categoryName=${sub_category.name}&categoryId=${sub_category.category_id}`}
             >
-              <div
-                key={sub_category.category_id}
-                className={`${S.unitContent} ${S.unitContentForSpan}`}
-              >
+              <div className={`${S.unitContent} ${S.unitContentForSpan}`}>
                 <span className={S.unitButtonSpan}>{sub_category.name}</span>
               </div>
             </Link>

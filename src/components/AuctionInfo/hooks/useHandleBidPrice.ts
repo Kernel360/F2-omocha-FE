@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 interface HandleBidPriceProps {
-  nowPrice: number | undefined;
+  nowPrice: number | null;
   startPrice: number;
   bidUnit: number;
 }

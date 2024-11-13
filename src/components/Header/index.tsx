@@ -1,6 +1,9 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
+
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
+
 // 현재 알림 기능 api 없음으로 주석처리
 // import Alarm from '@/components/Header/components/Alarm';
 // import SlideSideNav from '@/components/SlideSideNav';
@@ -14,10 +17,15 @@ import UserHeader from './components/UserHeader';
 
 function Header() {
   // const { value, setTrue, setFalse } = useBooleanState(false);
-  const { data } = useGetCategory();
-  if (!data) return null;
+  const searchParams = useSearchParams();
+  const pickCategory = Number(searchParams.get('categoryId'));
 
-  console.log(data);
+  const { data } = useGetCategory({ targetCategoryId: pickCategory });
+
+  // console.log(data?.result_data);
+  // console.log('newData', newData);
+
+  if (!data) return null;
 
   return (
     <div className={S.stickyHeader}>

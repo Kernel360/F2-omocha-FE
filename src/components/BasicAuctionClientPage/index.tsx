@@ -14,10 +14,8 @@ function BasicAuctionClientPage() {
   const searchKeywordParam = searchParams.get(AUCTIONPARAM_KEY.Q);
   const pickCategory = Number(searchParams.get('categoryId'));
 
-  console.log('pickCategory', pickCategory);
-
   const { data } = useGetBasicAuctionList({
-    categoryId: pickCategory,
+    categoryId: pickCategory || undefined,
     title: searchKeywordParam || '',
     auctionStatus: searchParams.get(AUCTIONPARAM_KEY.AUCTIONSTATUS) || '',
     sort: searchParams.get(AUCTIONPARAM_KEY.SORT) || '',
@@ -39,13 +37,13 @@ function BasicAuctionClientPage() {
           <AuctionCard
             key={item.auction_id}
             id={item.auction_id}
-            image={item.image_keys}
+            image={item.thumbnail_path}
             title={item.title}
             isLike={false}
             startPrice={item.start_price}
             startTime={item.start_date}
             endTime={item.end_date}
-            nowPrice={item.now_price}
+            nowPrice={item?.now_price}
           />
         ))}
       </ListLayout>

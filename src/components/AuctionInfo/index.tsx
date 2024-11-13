@@ -24,7 +24,7 @@ interface AuctionInfoProps {
   id: number;
   title: string;
   startPrice: number;
-  nowPrice?: number;
+  nowPrice: number | null;
   endTime: string;
   bidCount: number;
   bidUnit: number;

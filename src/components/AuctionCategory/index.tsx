@@ -1,12 +1,17 @@
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
+import deleteQueryParamsInUrl from '@/utils/deleteQueryParamsInUrl';
 
 import * as S from './AuctionCategory.css';
 import CategoryUnit from './CategoryUnit';
-import deleteQueryParamsInUrl from '@/utils/deleteQueryParamsInUrl';
-import Link from 'next/link';
 
 function AuctionCategory() {
-  const { data: categoryData } = useGetCategory();
+  const searchParams = useSearchParams();
+  const pickCategory = Number(searchParams.get('categoryId'));
+
+  const { data: categoryData } = useGetCategory({ targetCategoryId: pickCategory });
 
   if (!categoryData) return null;
 

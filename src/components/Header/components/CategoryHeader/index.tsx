@@ -1,12 +1,7 @@
-import { useState } from 'react';
-
-import * as HoverCard from '@radix-ui/react-hover-card';
-import { ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { Category } from '@/apis/types/category';
 import SearchBar from '@/app/basicauction/components/searchbar';
-import colors from '@/styles/color';
 
 import * as S from './CategoryHeader.css';
 
@@ -15,33 +10,22 @@ interface CategoryHeaderProps {
 }
 
 function CategoryHeader({ data }: CategoryHeaderProps) {
-  const [openCategory, setOpenCategory] = useState<Category | null>();
-
-  const handleHover = (category: Category) => {
-    setOpenCategory(category);
-  };
-
   return (
     <section className={S.bottomHeaderWrapper}>
-      <HoverCard.Root openDelay={200}>
-        <div className={S.bottomHeader}>
-          {data.map(category => (
-            <HoverCard.Trigger
-              asChild
-              key={category.category_id}
-              onMouseEnter={() => handleHover(category)}
-            >
-              <Link
-                href={`/basicauction/?categoryId=${category.category_id}`}
-                className={S.buttonStyles}
-                scroll={false}
-              >
-                {category.name}
-              </Link>
-            </HoverCard.Trigger>
-          ))}
-        </div>
-        <HoverCard.Portal>
+      {/* <HoverCard.Root openDelay={200}> */}
+      <div className={S.bottomHeader}>
+        {data.map(category => (
+          <Link
+            key={category.category_id}
+            href={`/basicauction/?categoryName=${category.name}&categoryId=${category.category_id}`}
+            className={S.buttonStyles}
+            scroll={false}
+          >
+            {category.name}
+          </Link>
+        ))}
+      </div>
+      {/* <HoverCard.Portal>
           <HoverCard.Content asChild className={S.hoverCardContent}>
             <div>
               {openCategory?.sub_categories.map(sub_category => (
@@ -68,8 +52,8 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
               ))}
             </div>
           </HoverCard.Content>
-        </HoverCard.Portal>
-      </HoverCard.Root>
+        </HoverCard.Portal> */}
+      {/* </HoverCard.Root> */}
       <SearchBar />
     </section>
   );

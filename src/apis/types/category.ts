@@ -3,4 +3,5 @@ export interface Category {
   name: string;
   parent_id: number | null;
   sub_categories: Category[];
+  isOpen?: boolean;
 }

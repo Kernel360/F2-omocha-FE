@@ -64,9 +64,11 @@ export default function Home() {
       content: data.contentRequired,
       start_price: data.startPriceRequired,
       bid_unit: data.bidUnitRequired,
-      auction_type: 'BASIC',
+      // auction_type: 'BASIC',
       start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
+      category_ids: [37], // 임시값
+      thumbnailPath: 'auction/upload/images/6481087e-6883-4da3-9f70-2397fd7dea04.PNG', // 임시값
     };
 
     formData.append('auctionRequest', JSON.stringify(auctionRequest));
