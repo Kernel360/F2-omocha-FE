@@ -63,8 +63,10 @@ export const buttonStyles = style([
 export const logoutButton = style({
   cursor: 'pointer',
   color: colors.gray11,
+  fontSize: '12px',
 });
 
 export const TopHeaderUnit = style({
   color: colors.gray11,
+  fontSize: '12px',
 });
