@@ -77,6 +77,16 @@ export const form = style({
   gap: '15px',
 });
 
+export const commonInputContainer = style({
+  position: 'relative',
+});
+
+export const blind = style({
+  position: 'absolute',
+  right: '10px',
+  top: '38px',
+});
+
 export const buttonContainer = style({
   display: 'flex',
   marginTop: '30px',

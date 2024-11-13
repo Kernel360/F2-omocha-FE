@@ -1,5 +1,9 @@
 import apiClient from '@/apis/queryFunctions/apiClient';
-import { PatchProfileImageResponseData, UserResponseData } from '@/apis/types/User';
+import {
+  PatchPasswordParams,
+  PatchProfileImageResponseData,
+  UserResponseData,
+} from '@/apis/types/User';
 import { Response } from '@/apis/types/common';
 
 export const getUser = async () => {
@@ -12,5 +16,10 @@ export const patchProfileImage = async (param: FormData) => {
     '/v2/myinfo/profile-image',
     param,
   );
+  return response.data;
+};
+
+export const patchPassword = async (param: PatchPasswordParams) => {
+  const response = await apiClient.patch<Response<null>>('/v2/myinfo/password', param);
   return response.data;
 };

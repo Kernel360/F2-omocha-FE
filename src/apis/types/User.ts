@@ -12,3 +12,8 @@ export interface UserResponseData {
 export interface PatchProfileImageResponseData {
   image_url: string;
 }
+
+export interface PatchPasswordParams {
+  current_password: string;
+  new_password: string;
+}

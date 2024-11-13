@@ -4,16 +4,23 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { UserIcon } from 'lucide-react';
+import { UserIcon, EyeOffIcon, EyeIcon } from 'lucide-react';
 import Image from 'next/image';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
+import usePatchPassword from '@/apis/queryHooks/User/usePatchPassword';
+import {
+  currentPasswordValidation,
+  newPasswordCheckValidation,
+  newPasswordValidation,
+} from '@/app/mypage/profile/utils/profileValidation';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import { Modal } from '@/components/Modal/Modal';
 import ImageUploadModal from '@/components/MypageProfileClientPage/components/ImageUploadModal';
 import useBooleanState from '@/hooks/useBooleanState';
 import colors from '@/styles/color';
+import sha256 from '@/utils/sha256';
 
 import * as S from './Profile.css';
 
@@ -27,6 +34,7 @@ function Home() {
   const { data: user } = useGetUser();
 
   const { value: isOpenImageUploadModal, toggle: setIsOpenImageUploadModal } = useBooleanState();
+  const { value: isBlind, toggle: setIsBlind } = useBooleanState();
 
   const {
     register,
@@ -39,8 +47,15 @@ function Home() {
 
   const newPasswordValue = watch('newPasswordRequired');
 
+  const { mutate: patchPassword } = usePatchPassword();
+
   const onSubmit: SubmitHandler<Inputs> = async data => {
-    console.log(data);
+    const currentPasswordSha = await sha256(data.currentPasswordRequired);
+    const newPasswordSha = await sha256(data.newPasswordCheckRequired);
+    patchPassword({
+      current_password: currentPasswordSha,
+      new_password: newPasswordSha,
+    });
   };
 
   if (!user) return null;
@@ -77,46 +92,45 @@ function Home() {
       <section className={S.section}>
         <h3 className={S.sectionTitle}>비밀번호 변경</h3>
         <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
-          <CommonInput
-            id="currentPasswordRequired"
-            label="현재 비밀번호"
-            type="password"
-            register={register}
-            validation={{
-              required: '현재 비밀번호를 입력해 주세요.',
-            }}
-            error={errors.currentPasswordRequired}
-          />
-
-          <CommonInput
-            id="newPasswordRequired"
-            label="새 비밀번호"
-            type="password"
-            register={register}
-            validation={{
-              required: '새 비밀번호를 입력해 주세요.',
-              validate: {
-                minLength: value => value.length >= 8 || '비밀번호는 최소 8글자 이상이어야 합니다.',
-                number: value => /[0-9]/.test(value) || '비밀번호에는 숫자가 포함되어야 합니다.',
-                letter: value =>
-                  /[a-zA-Z]/.test(value) || '비밀번호에는 알파벳이 포함되어야 합니다.',
-                specialChar: value =>
-                  /[\W_]/.test(value) || '비밀번호에는 특수문자가 포함되어야 합니다.',
-              },
-            }}
-            error={errors.newPasswordRequired}
-          />
-          <CommonInput
-            id="newPasswordCheckRequired"
-            label="새 비밀번호 확인"
-            type="password"
-            register={register}
-            validation={{
-              required: '새 비밀번호 확인을 입력해 주세요.',
-              validate: value => value === newPasswordValue || '비밀번호가 일치하지 않습니다.',
-            }}
-            error={errors.newPasswordCheckRequired}
-          />
+          <div className={S.commonInputContainer}>
+            <CommonInput
+              id="currentPasswordRequired"
+              label="현재 비밀번호"
+              type={isBlind ? 'text' : 'password'}
+              register={register}
+              validation={currentPasswordValidation}
+              error={errors.currentPasswordRequired}
+            />
+            <button className={S.blind} type="button" onClick={setIsBlind}>
+              {isBlind ? <EyeIcon size={20} /> : <EyeOffIcon size={20} color={colors.gray8} />}
+            </button>
+          </div>
+          <div className={S.commonInputContainer}>
+            <CommonInput
+              id="newPasswordRequired"
+              label="새 비밀번호"
+              type={isBlind ? 'text' : 'password'}
+              register={register}
+              validation={newPasswordValidation}
+              error={errors.newPasswordRequired}
+            />
+            <button className={S.blind} type="button" onClick={setIsBlind}>
+              {isBlind ? <EyeIcon size={20} /> : <EyeOffIcon size={20} color={colors.gray8} />}
+            </button>
+          </div>
+          <div className={S.commonInputContainer}>
+            <CommonInput
+              id="newPasswordCheckRequired"
+              label="새 비밀번호 확인"
+              type={isBlind ? 'text' : 'password'}
+              register={register}
+              validation={newPasswordCheckValidation(newPasswordValue)}
+              error={errors.newPasswordCheckRequired}
+            />
+            <button className={S.blind} type="button" onClick={setIsBlind}>
+              {isBlind ? <EyeIcon size={20} /> : <EyeOffIcon size={20} color={colors.gray8} />}
+            </button>
+          </div>
           <div className={S.buttonContainer}>
             <CommonButton disabled={!isValid} content=" 비밀번호 변경" type="submit" size="lg" />
           </div>
