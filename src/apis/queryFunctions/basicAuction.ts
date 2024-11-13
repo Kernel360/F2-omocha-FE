@@ -16,6 +16,7 @@ import {
 } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+import devApiClient from './devApiClient';
 
 export const postBasicAuction = async (param: FormData) => {
   const response = await apiClient.post<Response<PostBasicAuctionResponseData>>(
@@ -35,10 +36,12 @@ export const getBasicAuction = async (id: number) => {
 export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => {
   const queryString = convertQueryParamsObjectToString<GetBasicAuctionListParams>(params);
 
-  const response = await apiClient.get<Response<AuctionListResponseData>>(
-    `/v1/auction/basic-list?${queryString}`,
+  // const response = await apiClient.get<Response<AuctionListResponseData>>(
+  //   `/v1/auction/basic-list?${queryString}`,
+  // );
+  const response = await devApiClient.get<Response<AuctionListResponseData>>(
+    `/v2/auction/basic-list?${queryString}`,
   );
-
   return response.data;
 };
 

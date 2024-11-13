@@ -80,7 +80,9 @@ function Home() {
           </ul>
           <span className={S.snsLoginTitle}>SNS계정으로 간편 로그인 / 회원가입</span>
           <div className={S.snsLoginSection}>
-            <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v1/oauth/authorize/google`}>
+            <Link
+              href={`${process.env.NEXT_PUBLIC_SERVER_DEV_API_URL}/api/v1/oauth/authorize/google`}
+            >
               <div className={S.snsLoginButton.goggle}>
                 <GoogleIcon />
               </div>

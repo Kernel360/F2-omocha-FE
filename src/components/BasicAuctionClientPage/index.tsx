@@ -12,8 +12,12 @@ import * as S from './BasicAuctionClientPage.css';
 function BasicAuctionClientPage() {
   const searchParams = useSearchParams();
   const searchKeywordParam = searchParams.get(AUCTIONPARAM_KEY.Q);
+  const pickCategory = Number(searchParams.get('categoryId'));
+
+  console.log('pickCategory', pickCategory);
 
   const { data } = useGetBasicAuctionList({
+    categoryId: pickCategory,
     title: searchKeywordParam || '',
     auctionStatus: searchParams.get(AUCTIONPARAM_KEY.AUCTIONSTATUS) || '',
     sort: searchParams.get(AUCTIONPARAM_KEY.SORT) || '',

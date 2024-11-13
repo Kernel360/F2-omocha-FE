@@ -51,47 +51,33 @@ globalStyle('[data-radix-popper-content-wrapper]', {
   backgroundColor: colors.white,
 });
 
-const slideDown = keyframes({
-  '0%': {
-    opacity: 0,
-    transform: 'translateY(-10px)',
-  },
-  '100%': {
-    opacity: 1,
-    transform: 'translateY(0)',
-  },
-});
-
 const slideUp = keyframes({
-  '0%': {
+  from: {
+    opacity: 0,
+    transform: 'translateY(10px)',
+  },
+  to: {
     opacity: 1,
     transform: 'translateY(0)',
   },
-  '100%': {
+});
+
+// slideDown 애니메이션 정의
+const slideDown = keyframes({
+  from: {
     opacity: 0,
     transform: 'translateY(-10px)',
   },
-});
-
-export const customPopperContainer = style({
-  animation: `${slideDown} 0.3s ease-out`,
-  opacity: 0,
-  transform: 'translateY(-10px)',
-
-  selectors: {
-    '&[data-state="open"]': {
-      opacity: 1,
-      transform: 'translateY(0)',
-    },
-    '&[data-state="closed"]': {
-      opacity: 0,
-      transform: 'translateY(-10px)',
-      animation: `${slideUp} 0.3s ease-in`,
-    },
+  to: {
+    opacity: 1,
+    transform: 'translateY(0)',
   },
 });
 
-export const customPopperContent = style({
+// HoverCardContent 스타일 정의
+export const hoverCardContent = style({
+  animationDuration: '0.6s',
+  animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
   display: 'flex !important',
   gap: '30px',
   width: '100%',
@@ -99,6 +85,14 @@ export const customPopperContent = style({
   margin: '0 auto',
   padding: '0 20px',
   zIndex: 1000,
+  selectors: {
+    '&[data-side="top"]': {
+      animationName: slideUp,
+    },
+    '&[data-side="bottom"]': {
+      animationName: slideDown,
+    },
+  },
 });
 
 export const subCategoryContainer = style({

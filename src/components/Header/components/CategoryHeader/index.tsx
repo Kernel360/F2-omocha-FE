@@ -42,11 +42,13 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
           ))}
         </div>
         <HoverCard.Portal>
-          <HoverCard.Content asChild className={S.customPopperContainer}>
-            <div className={S.customPopperContent}>
+          <HoverCard.Content asChild className={S.hoverCardContent}>
+            <div>
               {openCategory?.sub_categories.map(sub_category => (
                 <div key={sub_category.category_id} className={S.subCategoryContainer}>
-                  <Link href={`/basicauction/?categoryId=${sub_category.category_id}`}>
+                  <Link
+                    href={`/basicauction/?categoryName=${sub_category.name}&categoryId=${sub_category.category_id}`}
+                  >
                     <div className={S.subCategoryTitle}>
                       {sub_category.name}
                       <ChevronRightIcon size={14} color={colors.gray10} />
@@ -56,7 +58,7 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
                     {sub_category.sub_categories.map(sub_sub_category => (
                       <Link
                         key={sub_sub_category.category_id}
-                        href={`/basicauction/?categoryId=${sub_sub_category.category_id}`}
+                        href={`/basicauction/?categoryName=${sub_sub_category.name}&categoryId=${sub_sub_category.category_id}`}
                       >
                         <li className={S.subCategory}>{sub_sub_category.name}</li>
                       </Link>

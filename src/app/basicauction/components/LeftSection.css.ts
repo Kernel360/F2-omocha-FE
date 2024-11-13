@@ -6,9 +6,16 @@ import typography from '@/styles/typo';
 export const leftSection = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '30px',
+  gap: '16px',
   maxWidth: '160px',
   width: '100%',
+});
+
+export const pickCategory = style({
+  ...typography.h3,
+  color: colors.black1,
+  fontWeight: 'bold',
+  textAlign: 'center',
 });
 
 // --- Checkbox.css.ts ---
