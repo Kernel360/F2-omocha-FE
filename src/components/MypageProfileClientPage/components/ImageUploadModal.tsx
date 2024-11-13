@@ -16,7 +16,7 @@ type Input = {
 };
 
 interface ImageUploadModalProps {
-  defaultImage: string | null;
+  defaultImage: string | null | undefined;
   onClose: () => void;
 }
 
