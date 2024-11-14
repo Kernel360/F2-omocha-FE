@@ -1,9 +1,9 @@
 import { UserData } from '@/apis/types/User';
 import { Response } from '@/apis/types/common';
 
-import devApiClient from './devApiClient';
+import apiClient from './apiClient';
 
 export const getUser = async () => {
-  const response = await devApiClient.get<Response<UserData>>('/v2/myinfo/me');
+  const response = await apiClient.get<Response<UserData>>('/v2/myinfo/me');
   return response.data.result_data;
 };

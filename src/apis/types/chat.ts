@@ -16,7 +16,7 @@ export interface ChatroomData {
 }
 
 export interface Sort {
-  orders: string[]; // `any`는 적절한 타입으로 수정 가능
+  orders: string[];
 }
 
 export interface ChatroomListResponseData {

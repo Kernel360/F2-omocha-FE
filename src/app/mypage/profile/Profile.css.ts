@@ -31,7 +31,6 @@ globalStyle(`${label} span`, {
 });
 
 export const inputBase = style({
-  // maxWidth: '368px',
   width: '100%',
   borderRadius: '4px',
   padding: '12px',
