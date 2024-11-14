@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
+import logoIcon from '@/assets/png/logo.png';
 import { useAuth } from '@/provider/authProvider';
 import { SUB_CATEGORY } from '@/static/category';
 
@@ -20,8 +22,9 @@ function UserHeader() {
 
   return (
     <section className={S.topHeader}>
-      <Link href="/" scroll={false}>
-        <div className={S.logo}>LOGO</div>
+      <Link href="/" scroll={false} className={S.topHeaderLogo}>
+        <Image width={40} height={40} src={logoIcon} alt="logo" className={S.logo} />
+        <div className={S.logo}>OMOCHA</div>
       </Link>
       <div className={S.topCategory}>
         {SUB_CATEGORY.map(category => {

@@ -9,8 +9,15 @@ export const topHeader = style({
   padding: '32px 0 16px 0',
 });
 
+export const topHeaderLogo = style({
+  display: 'flex',
+  alignItems: 'end',
+  justifyContent: 'center',
+  gap: '10px',
+});
+
 export const logo = style({
-  fontSize: '32px',
+  fontSize: '24px',
   color: colors.primary9,
 });
 
