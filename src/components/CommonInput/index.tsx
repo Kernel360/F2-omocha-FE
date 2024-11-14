@@ -19,7 +19,6 @@ interface CommonInputProps<T extends FieldValues> {
   min?: number | string; // 데이트 피커에 활용
   value?: string | number;
   disabled?: boolean;
-  // button?: ReactNode;
   children?: ReactNode;
 }
 
@@ -34,7 +33,6 @@ function CommonInput<T extends FieldValues>({
   min,
   value,
   disabled,
-  // button,
   children,
 }: CommonInputProps<T>) {
   return (
