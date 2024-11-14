@@ -1,8 +1,8 @@
-import BasicBid from '@/app/mypage/record/components/basicbid';
 import BasicSold from '@/app/mypage/record/components/basicsold';
 import TabsLayout from '@/components/TabsLayout';
 
 import * as S from './Record.css';
+import BasicBidAuctionSection from './components/BasicBidAuctionSection';
 
 const TABS = [
   {
@@ -15,7 +15,7 @@ const TABS = [
   },
 ];
 
-const TABS_CONTENT = [<BasicBid key="basicBid" />, <BasicSold key="basicSold" />];
+const TABS_CONTENT = [<BasicBidAuctionSection key="basicBid" />, <BasicSold key="basicSold" />];
 
 function Home() {
   return (
