@@ -7,7 +7,7 @@ export const backContainer = style({
   display: 'flex',
   flexDirection: 'column',
   padding: '60px 0',
-  minHeight: 'calc(100vh - 256px)',
+  minHeight: 'calc(100vh - 288px)',
   boxSizing: 'border-box',
   alignItems: 'center',
   backgroundColor: colors.backgroundGray1,

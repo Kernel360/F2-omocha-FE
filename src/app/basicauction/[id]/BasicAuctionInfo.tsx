@@ -33,7 +33,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
 
   if (!data) return null;
 
-  const sellerId = data.result_data.seller_id;
+  const sellerId = data.result_data.member_id; // 판매자 아이디가 member_id?
   const userId = user.data?.member_id;
   const userEmail = user.data?.email;
   const isSeller = sellerId === userId;
@@ -41,7 +41,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
   return (
     <div>
       <div className={S.auctionInfoWrapper}>
-        <AuctionImageInfo imageList={data.result_data.image_keys} />
+        <AuctionImageInfo imageList={data.result_data.image_paths} />
         <AuctionInfo
           id={id}
           title={data.result_data.title}
@@ -50,7 +50,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
           endTime={data.result_data.end_date}
           bidCount={data.result_data.bid_count}
           bidUnit={data.result_data.bid_unit}
-          sellerId={data.result_data.seller_id}
+          sellerId={data.result_data.member_id}
         />
       </div>
       <TabsLayout

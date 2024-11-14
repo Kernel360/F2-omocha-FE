@@ -8,13 +8,13 @@ import useBooleanState from '@/hooks/useBooleanState';
 import HaveToLoginNotiModal from './HaveToLoginNotiModal';
 import * as S from './QnAInputSection.css';
 
-interface TTTInputSectionProps {
+interface QnAInputSectionProps {
   id: number;
   userId: number | undefined;
   userEmail: string | undefined;
 }
 
-function TTTInputSection({ id, userId, userEmail }: TTTInputSectionProps) {
+function QnAInputSection({ id, userId, userEmail }: QnAInputSectionProps) {
   const { mutate: postQnAMutate } = usePostBasicAuctionQnA();
   const { value: open, setValue: setOpen } = useBooleanState();
   const {
@@ -93,4 +93,4 @@ function TTTInputSection({ id, userId, userEmail }: TTTInputSectionProps) {
   );
 }
 
-export default TTTInputSection;
+export default QnAInputSection;

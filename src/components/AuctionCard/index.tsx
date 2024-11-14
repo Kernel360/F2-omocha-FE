@@ -14,7 +14,7 @@ interface AuctionCardProps {
   startPrice: number;
   startTime: string;
   endTime: string;
-  nowPrice?: number;
+  nowPrice: number | null;
 }
 
 // 아래 부분은 변동이 많이 있을 것 같아 이전 코드를 주석으로 남깁니다.

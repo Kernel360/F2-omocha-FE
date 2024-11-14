@@ -28,7 +28,6 @@ export const postBasicAuction = async (param: FormData) => {
 
 export const getBasicAuction = async (id: number) => {
   const response = await apiClient.get<Response<BasicAuctionResponseData>>(`/v2/auction/${id}`);
-
   return response.data;
 };
 
@@ -38,7 +37,6 @@ export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => 
   const response = await apiClient.get<Response<AuctionListResponseData>>(
     `/v2/auction/basic-list?${queryString}`,
   );
-
   return response.data;
 };
 
@@ -58,15 +56,14 @@ export const postBasicAuctionBid = async (id: number, param: PostBasicAuctionBid
 };
 
 export const deleteAuction = async (id: number) => {
-  const response = await apiClient.delete<Response<null>>(`/v1/auction/${id}`);
+  const response = await apiClient.delete<Response<null>>(`/v2/auction/${id}`);
 
   return response.data;
 };
 
 export const getAuctionQnAList = async (id: number) => {
   const response = await apiClient.get<Response<GetAuctionQnAListDataResponseData>>(
-    `/v1/question/${id}/qna-list`,
-    /// api/v1/question/{auctionId}/question-list
+    `/v2/question/${id}/qna-list`,
   );
 
   return response.data;
@@ -74,7 +71,7 @@ export const getAuctionQnAList = async (id: number) => {
 
 export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
   const response = await apiClient.post<Response<PostAuctionQnAResponseData>>(
-    `/v1/question`,
+    `/v2/question`,
     param,
   );
 
@@ -83,7 +80,7 @@ export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
 
 export const postAuctionQnAAnswer = async (param: PostAuctionQnAAnswerParams) => {
   const response = await apiClient.post<Response<PostAuctionQnAAnswerResponseData>>(
-    `/v1/answer`,
+    `/v2/answer`,
     param,
   );
 
@@ -91,14 +88,14 @@ export const postAuctionQnAAnswer = async (param: PostAuctionQnAAnswerParams) =>
 };
 
 export const deleteAuctionQnA = async (id: number) => {
-  const response = await apiClient.delete<Response<null>>(`/v1/question/${id}`);
+  const response = await apiClient.delete<Response<null>>(`/v2/question/${id}`);
 
   return response.data;
 };
 
 export const getNowPrice = async (id: number) => {
   const response = await apiClient.get<Response<GetNowPriceResponseData>>(
-    `/v1/bid/${id}/now-price`,
+    `/v2/bid/${id}/now-price`,
   );
 
   return response.data;

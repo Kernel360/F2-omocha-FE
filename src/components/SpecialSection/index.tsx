@@ -42,7 +42,7 @@ function SpecialSection() {
             <div className={S.specialAuctionTitle}> {auction.title}</div>
             <div className={S.specialAuctionPrice}>
               <span className={S.specialAuctionPriceTitle}>현재가 </span>
-              {auction.now_price?.toLocaleString()} 원
+              {auction.now_price ? auction.now_price.toLocaleString() : '-'} 원
             </div>
           </div>
         ))}

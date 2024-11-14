@@ -4,7 +4,7 @@ export const toastViewport = style({
   position: 'fixed',
   top: '16px',
   right: '16px',
-  zIndex: 1,
+  zIndex: 100000,
   display: 'flex',
   flexDirection: 'column',
   gap: '1rem',

@@ -1,103 +1,45 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
-import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
-import Alarm from '@/components/Header/components/Alarm';
-import SlideSideNav from '@/components/SlideSideNav';
-import useBooleanState from '@/hooks/useBooleanState';
-import { useAuth } from '@/provider/authProvider';
-import { MAIN_CATEGORY, SUB_CATEGORY } from '@/static/category';
+import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
+
+// 현재 알림 기능 api 없음으로 주석처리
+// import Alarm from '@/components/Header/components/Alarm';
+// import SlideSideNav from '@/components/SlideSideNav';
+// import useBooleanState from '@/hooks/useBooleanState';
 
 import MaxLayout from '../MaxLayout';
 
 import * as S from './Header.css';
+import CategoryHeader from './components/CategoryHeader';
+import UserHeader from './components/UserHeader';
 
 function Header() {
-  const router = useRouter();
-  const { value, setTrue, setFalse } = useBooleanState(false);
-  const { isLoggedIn } = useAuth();
-  const { mutate: logout } = usePostLogout();
-  const pathname = usePathname();
+  // const { value, setTrue, setFalse } = useBooleanState(false);
+  const searchParams = useSearchParams();
+  const pickCategory = Number(searchParams.get('categoryId'));
+
+  const { data } = useGetCategory({ targetCategoryId: pickCategory });
+
+  // console.log(data?.result_data);
+  // console.log('newData', newData);
+
+  if (!data) return null;
 
   return (
-    <MaxLayout>
-      <header className={S.container}>
-        <section className={S.topHeader}>
-          <Link href="/" scroll={false}>
-            <div className={S.logo}>LOGO</div>
-          </Link>
-          <div className={S.topCategory}>
-            {SUB_CATEGORY.map(category => {
-              if (category.name === '로그인' && isLoggedIn) {
-                return (
-                  <button
-                    className={S.logoutButton}
-                    key={category.id}
-                    type="button"
-                    onClick={() => logout()}
-                  >
-                    로그아웃
-                  </button>
-                );
-              }
-              if (category.path) {
-                if (category.name === '로그인') {
-                  return (
-                    <Link
-                      key={category.id}
-                      href={`${category.path}?prevUrl=${pathname}`}
-                      scroll={false}
-                      className={S.TopHeaderUnit}
-                    >
-                      {category.name}
-                    </Link>
-                  );
-                }
-                return (
-                  <Link
-                    key={category.id}
-                    href={category.path}
-                    scroll={false}
-                    className={S.TopHeaderUnit}
-                  >
-                    {category.name}
-                  </Link>
-                );
-              }
-              return (
-                <button
-                  style={{ cursor: 'pointer' }}
-                  className={S.TopHeaderUnit}
-                  key={category.id}
-                  type="button"
-                  onClick={() => {
-                    if (isLoggedIn) {
-                      setTrue();
-                    } else {
-                      router.push('/login', { scroll: false });
-                    }
-                  }}
-                >
-                  {category.name}
-                </button>
-              );
-            })}
-          </div>
-        </section>
-        <section className={S.bottomHeader}>
-          {MAIN_CATEGORY.map(category => (
-            <Link key={category.id} href={category.path} className={S.buttonStyles} scroll={false}>
-              {category.name}
-            </Link>
-          ))}
-        </section>
-        <SlideSideNav isOpen={value} onClose={setFalse}>
-          <Alarm content="준비중입니다!" />
-        </SlideSideNav>
-      </header>
-    </MaxLayout>
+    <div className={S.stickyHeader}>
+      <MaxLayout>
+        <header className={S.container}>
+          <UserHeader />
+          {/* <UserHeader setTrue={setTrue} /> */}
+          <CategoryHeader data={data} />
+          {/* <SlideSideNav isOpen={value} onClose={setFalse}>
+            <Alarm content="준비중입니다!" />
+          </SlideSideNav> */}
+        </header>
+      </MaxLayout>
+    </div>
   );
 }
 

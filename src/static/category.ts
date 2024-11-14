@@ -9,14 +9,14 @@ export const SUB_CATEGORY = [
   { id: 1, name: '경매 등록', path: '/create' },
   { id: 2, name: '마이페이지', path: '/mypage/profile' },
   { id: 3, name: '찜', path: '/mypage/heart' },
-  { id: 4, name: '알림' },
+  // { id: 4, name: '알림' },
   { id: 5, name: '로그인', path: '/login' },
 ];
 
 export const MAIN_CATEGORY = [
   { id: 1, name: 'Home', path: '/' },
   { id: 2, name: 'Normal', path: '/basicauction' },
-  { id: 4, name: 'How To', path: '/howto' },
+  { id: 3, name: 'How To', path: '/howto' },
 ];
 
 export const MYPAGE_CATEGORY = [
