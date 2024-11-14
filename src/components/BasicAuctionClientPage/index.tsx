@@ -15,7 +15,7 @@ function BasicAuctionClientPage() {
   const pickCategory = Number(searchParams.get('categoryId'));
 
   const { data } = useGetBasicAuctionList({
-    categoryId: pickCategory || undefined,
+    categoryId: pickCategory || '',
     title: searchKeywordParam || '',
     auctionStatus: searchParams.get(AUCTIONPARAM_KEY.AUCTIONSTATUS) || '',
     sort: searchParams.get(AUCTIONPARAM_KEY.SORT) || '',
