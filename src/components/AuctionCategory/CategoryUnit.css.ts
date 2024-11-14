@@ -1,5 +1,6 @@
+import { globalStyle, style } from '@vanilla-extract/css';
+
 import color from '@/styles/color';
-import { style } from '@vanilla-extract/css';
 
 export const unitButton = style({
   cursor: 'pointer',
@@ -20,16 +21,24 @@ export const unitButtonSpan = style({
   fontSize: '14px',
 });
 
+export const pickUnitButtonSpan = style({
+  display: 'flex',
+  fontSize: '14px',
+  color: color.primary10,
+});
+
 export const chevronIcon = style({
   marginLeft: 'auto',
   transition: 'transform 0.3s',
   color: color.gray11,
-  selectors: {
-    '&[data-state="open"]': {},
-    '&[data-state="closed"]': {
-      transform: 'rotate(180deg)',
-    },
-  },
+});
+
+globalStyle(`${unitButton}[data-state="open"] .${chevronIcon}`, {
+  transform: 'rotate(180deg)',
+});
+
+globalStyle(`${unitButton}[data-state="closed"] .${chevronIcon}`, {
+  transform: 'rotate(0deg)',
 });
 
 export const unitContent = style({

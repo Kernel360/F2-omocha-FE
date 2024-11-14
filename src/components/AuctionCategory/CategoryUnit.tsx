@@ -3,6 +3,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { ChevronUpIcon } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 import { Category } from '@/apis/types/category';
 
@@ -12,20 +13,21 @@ interface CategoryUnitProps {
   unit: Category;
 }
 function CategoryUnit({ unit }: CategoryUnitProps) {
+  const searchParams = useSearchParams();
+  const pickCategory = Number(searchParams.get('categoryId'));
+
+  const isPick = unit.category_id === pickCategory;
+
   return (
     <Collapsible.Root className="CollapsibleRoot" defaultOpen={!!unit.isOpen}>
-      <Collapsible.Trigger asChild>
-        <Link href={`/basicauction/?categoryName=${unit.name}&categoryId=${unit.category_id}`}>
+      <Link href={`/basicauction/?categoryName=${unit.name}&categoryId=${unit.category_id}`}>
+        <Collapsible.Trigger asChild>
           <div className={S.unitButton}>
-            <span className={S.unitButtonSpan}>{unit.name}</span>
-            <ChevronUpIcon
-              size={16}
-              className={S.chevronIcon}
-              // data-state={open ? 'open' : 'closed'}
-            />
+            <span className={isPick ? S.pickUnitButtonSpan : S.unitButtonSpan}>{unit.name}</span>
+            <ChevronUpIcon size={16} className={S.chevronIcon} />
           </div>
-        </Link>
-      </Collapsible.Trigger>
+        </Collapsible.Trigger>
+      </Link>
       <Collapsible.Content className={S.unitContent}>
         {unit.sub_categories.map(sub_category =>
           sub_category.sub_categories.length > 0 ? (
@@ -36,7 +38,15 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
               href={`/basicauction/?categoryName=${sub_category.name}&categoryId=${sub_category.category_id}`}
             >
               <div className={`${S.unitContent} ${S.unitContentForSpan}`}>
-                <span className={S.unitButtonSpan}>{sub_category.name}</span>
+                <span
+                  className={
+                    sub_category.category_id === pickCategory
+                      ? S.pickUnitButtonSpan
+                      : S.unitButtonSpan
+                  }
+                >
+                  {sub_category.name}
+                </span>
               </div>
             </Link>
           ),
