@@ -33,7 +33,7 @@ globalStyle('ul', {
 
 export const container = style({
   position: 'relative',
-  minHeight: 'calc(100vh - 256px)',
+  minHeight: 'calc(100vh - 288px)',
 });
 
 export const errorContainer = style({

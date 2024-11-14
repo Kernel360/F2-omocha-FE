@@ -33,7 +33,7 @@ function SpecialSection() {
         {data.result_data.content.map((auction: AuctionData) => (
           <div key={auction.auction_id} className={S.specialAuctionItem}>
             <CommonImage
-              src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${auction.image_keys[0]}`}
+              src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${auction.thumbnail_path}`}
               className={S.specialAuctionImage}
               width={180}
               height={180}
@@ -42,7 +42,7 @@ function SpecialSection() {
             <div className={S.specialAuctionTitle}> {auction.title}</div>
             <div className={S.specialAuctionPrice}>
               <span className={S.specialAuctionPriceTitle}>현재가 </span>
-              {auction.now_price.toLocaleString()} 원
+              {auction.now_price ? auction.now_price.toLocaleString() : '-'} 원
             </div>
           </div>
         ))}
