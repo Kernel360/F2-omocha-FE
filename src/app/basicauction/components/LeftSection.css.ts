@@ -18,7 +18,7 @@ export const pickCategory = style({
   textAlign: 'center',
 });
 
-// --- Checkbox.css.ts ---
+// --- checkbox.tsx ---
 
 export const label = style({
   ...typography.caption,
@@ -47,7 +47,7 @@ export const nonChecked = style({
   color: 'rgb(228, 228, 231)',
 });
 
-// --- SearchBar.css.ts ---
+// --- searchbar.tsx ---
 
 export const searchBar = style({
   maxWidth: '220px',
