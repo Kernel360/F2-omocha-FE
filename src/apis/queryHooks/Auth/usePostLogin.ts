@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import { postLogin } from '@/apis/queryFunctions/Auth';
 import { LoginParams } from '@/apis/types/Auth';
@@ -10,18 +10,15 @@ import { useToast } from '@/provider/toastProvider';
 
 function usePostLogin() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const prevUrl = searchParams.get('prevUrl');
   const { setIsLoggedIn } = useAuth();
-  const previousUrl = sessionStorage.getItem('PREVIOUS_URL');
   const { showToast } = useToast();
 
   const { mutate, error } = useMutation({
     mutationFn: (param: LoginParams) => postLogin(param),
     onSuccess: () => {
-      if (previousUrl?.includes('/join') || previousUrl?.includes('/login')) {
-        router.push('/', { scroll: false });
-      }
-      router.push(previousUrl || '/', { scroll: false });
-
+      router.push(prevUrl || '/', { scroll: false });
       setIsLoggedIn(true);
       showToast('success', '로그인에 성공했습니다.');
     },

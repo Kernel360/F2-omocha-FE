@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import Alarm from '@/components/Header/components/Alarm';
@@ -19,6 +19,7 @@ function Header() {
   const { value, setTrue, setFalse } = useBooleanState(false);
   const { isLoggedIn } = useAuth();
   const { mutate: logout } = usePostLogout();
+  const pathname = usePathname();
 
   return (
     <MaxLayout>
@@ -42,6 +43,18 @@ function Header() {
                 );
               }
               if (category.path) {
+                if (category.name === '로그인') {
+                  return (
+                    <Link
+                      key={category.id}
+                      href={`${category.path}?prevUrl=${pathname}`}
+                      scroll={false}
+                      className={S.TopHeaderUnit}
+                    >
+                      {category.name}
+                    </Link>
+                  );
+                }
                 return (
                   <Link
                     key={category.id}
