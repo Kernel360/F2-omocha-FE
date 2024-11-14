@@ -20,14 +20,16 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
 
   return (
     <Collapsible.Root className="CollapsibleRoot" defaultOpen={!!unit.isOpen}>
-      <Link href={`/basicauction/?categoryId=${unit.category_id}`}>
-        <Collapsible.Trigger asChild>
-          <div className={S.unitButton}>
-            <span className={isPick ? S.pickUnitButtonSpan : S.unitButtonSpan}>{unit.name}</span>
-            <ChevronUpIcon size={16} className={S.chevronIcon} />
-          </div>
-        </Collapsible.Trigger>
-      </Link>
+      <Collapsible.Trigger asChild>
+        <div className={S.unitButton}>
+          <Collapsible.Trigger asChild>
+            <Link href={`/basicauction/?categoryId=${unit.category_id}`}>
+              <span className={isPick ? S.pickUnitButtonSpan : S.unitButtonSpan}>{unit.name}</span>
+            </Link>
+          </Collapsible.Trigger>
+          <ChevronUpIcon size={16} className={S.chevronIcon} />
+        </div>
+      </Collapsible.Trigger>
       <Collapsible.Content className={S.unitContent}>
         {unit.sub_categories.map(sub_category =>
           sub_category.sub_categories.length > 0 ? (

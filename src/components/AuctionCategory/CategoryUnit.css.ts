@@ -10,10 +10,15 @@ export const unitButton = style({
   gap: '4px',
   padding: '4px 0 4px 4px',
   alignItems: 'center',
+  width: '100%',
   ':hover': {
     fontWeight: '700',
     color: color.primary10,
   },
+});
+
+export const unitButtonLink = style({
+  width: '100%',
 });
 
 export const unitButtonSpan = style({
@@ -28,7 +33,6 @@ export const pickUnitButtonSpan = style({
 });
 
 export const chevronIcon = style({
-  marginLeft: 'auto',
   transition: 'transform 0.3s',
   color: color.gray11,
 });
@@ -55,21 +59,5 @@ export const unitContentForSpan = style({
 
   ':hover': {
     fontWeight: '700',
-    color: color.primary10,
   },
 });
-
-//-----
-
-export const categoryContainer = style({});
-
-//-----
-
-export const categorySelectorContainer = style({});
-export const categoryItemList = style({});
-
-//----
-
-export const categoryItemWrapper = style({});
-export const selected = style({});
-export const item = style({});

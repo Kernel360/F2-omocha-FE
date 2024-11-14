@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 export const basicAuctionContainer = style({
   display: 'flex',
   gap: '20px',
-  padding: '60px 0',
+  padding: '30px 0',
 });
 
 export const rightSection = style({
