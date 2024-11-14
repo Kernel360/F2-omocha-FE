@@ -2,11 +2,6 @@ import { style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 
-export const sectionTitle = style({
-  fontSize: '16px',
-  fontWeight: '800',
-});
-
 export const image = style({
   display: 'flex',
   justifyContent: 'center',

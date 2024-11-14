@@ -1,4 +1,5 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import { cookies } from 'next/headers';
@@ -70,6 +71,7 @@ export default async function RootLayout({
               </div>
             </AuthProvider>
             <Footer />
+            <ReactQueryDevtools initialIsOpen={false} />
           </TanstackProviders>
           <div id="root-portal" />
         </ToastProvider>

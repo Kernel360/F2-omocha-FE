@@ -13,3 +13,8 @@ export const section = style({
   flexDirection: 'column',
   gap: '15px',
 });
+
+export const sectionTitle = style({
+  fontSize: '16px',
+  fontWeight: '800',
+});

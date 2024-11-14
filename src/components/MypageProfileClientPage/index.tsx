@@ -12,6 +12,7 @@ import colors from '@/styles/color';
 
 import * as S from './MypageProfileClientPage.css';
 
+// 닉네임 추후 추가 예정
 function MypageProfileClientPage() {
   const { data: user } = useGetUser();
 
@@ -19,7 +20,6 @@ function MypageProfileClientPage() {
 
   return (
     <>
-      <h3 className={S.sectionTitle}>프로필</h3>
       <div className={S.image}>
         <button type="button" onClick={setIsOpenImageUploadModal} className={S.imageButton}>
           {user?.profile_image_url ? (
@@ -43,7 +43,7 @@ function MypageProfileClientPage() {
         />
       </Modal>
       <CommonInput label="아이디" id="email" value={user?.email} disabled />
-      <CommonInput label="닉네임" id="nickname" value={user?.email} disabled />
+      {/* <CommonInput label="닉네임" id="nickname" value={user?.nick_name} disabled /> */}
     </>
   );
 }
