@@ -31,6 +31,7 @@ function ChangePassword() {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isValid },
   } = useForm<Inputs>({
     mode: 'onChange',
@@ -47,6 +48,9 @@ function ChangePassword() {
       current_password: currentPasswordSha,
       new_password: newPasswordSha,
     });
+    setValue('currentPasswordRequired', '');
+    setValue('newPasswordRequired', '');
+    setValue('newPasswordCheckRequired', '');
   };
 
   return (

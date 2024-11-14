@@ -15,7 +15,7 @@ function usePatchPassword() {
     mutationFn: (param: PatchPasswordParams) => patchPassword(param),
     onSuccess: () => {
       showToast('success', '비밀번호 변경이 완료되었습니다.🎉');
-      router.push('/mypage', { scroll: false });
+      router.push('/mypage/profile', { scroll: false });
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
