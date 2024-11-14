@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_SERVER_DEV_API_URL}/api`,
+  baseURL: `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api`,
   timeout: 100000,
   withCredentials: true,
 });
