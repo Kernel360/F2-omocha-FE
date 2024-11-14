@@ -64,11 +64,10 @@ export default function Home() {
       content: data.contentRequired,
       start_price: data.startPriceRequired,
       bid_unit: data.bidUnitRequired,
-      // auction_type: 'BASIC',
       start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
-      category_ids: [37], // 임시값
-      thumbnailPath: 'auction/upload/images/6481087e-6883-4da3-9f70-2397fd7dea04.PNG', // 임시값
+      category_ids: [37], // V2로 바꾸는 과정에서 쓰이는 임시값. post 클라쪽 수정 후 실제 값으로 변경 예정
+      thumbnailPath: 'auction/upload/images/6481087e-6883-4da3-9f70-2397fd7dea04.PNG', // V2로 바꾸는 과정에서 쓰이는 임시값. post 클라쪽 수정 후 실제 값으로 변경 예정
     };
 
     formData.append('auctionRequest', JSON.stringify(auctionRequest));

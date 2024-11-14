@@ -15,7 +15,7 @@ export type BasicAuctionResponseData = {
   end_date: string;
   created_at: string;
   image_paths: string[];
-  categories: Category[]; // 여기 수정 피룡
+  categories: Category[];
 };
 
 //------
@@ -34,7 +34,7 @@ export interface AuctionData {
   start_date: string;
   end_date: string;
   created_at: string;
-  category_response: Category[]; // 여기 수정 피룡
+  category_response: Category[];
 }
 
 export interface Pageable {
