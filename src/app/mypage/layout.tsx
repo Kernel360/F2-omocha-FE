@@ -11,7 +11,7 @@ import * as S from './Layout.css';
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const queryClient = await usePrefetchQueryWithCookie<UserResponseData, ['userInfo']>({
     queryKey: ['userInfo'],
-    api: '/api/v2/myinfo/me',
+    api: '/v2/myinfo/me',
   });
 
   return (

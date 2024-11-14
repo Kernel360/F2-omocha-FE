@@ -22,7 +22,7 @@ async function usePrefetchQueryWithCookie<T, TQueryKey extends QueryKey>({
     queryFn: async () => {
       try {
         const response = await axios.get<Response<T>>(
-          `${process.env.NEXT_PUBLIC_SERVER_API_URL}${api}`,
+          `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api${api}`,
           {
             headers: {
               Cookie: cookie.toString(),
@@ -31,9 +31,7 @@ async function usePrefetchQueryWithCookie<T, TQueryKey extends QueryKey>({
           },
         );
 
-        const { data } = response;
-
-        return data.result_data;
+        return response.data;
       } catch (e) {
         console.log(e);
         return null;

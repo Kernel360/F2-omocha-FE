@@ -8,7 +8,7 @@ import { Response } from '@/apis/types/common';
 
 export const getUser = async () => {
   const response = await apiClient.get<Response<UserResponseData>>('/v2/myinfo/me');
-  return response.data.result_data;
+  return response.data;
 };
 
 export const patchProfileImage = async (param: FormData) => {
