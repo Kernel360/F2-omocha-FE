@@ -7,6 +7,7 @@ import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import NavigationEvents from '@/components/NavigationEvents';
+import PreviousPageEvent from '@/components/PreviousPageEvent';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
@@ -50,6 +51,7 @@ export default function RootLayout({
         <ToastProvider>
           <TanstackProviders>
             <NavigationEvents />
+            <PreviousPageEvent />
             <AuthProvider isLoggedIn={isLoggedIn}>
               <Header />
               <div className={S.container}>

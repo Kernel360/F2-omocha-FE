@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { UserIcon, CirclePlusIcon } from 'lucide-react';
