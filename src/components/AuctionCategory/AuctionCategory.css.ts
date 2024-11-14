@@ -1,6 +1,6 @@
-import color from '@/styles/color';
-import colors from '@/styles/color';
 import { style } from '@vanilla-extract/css';
+
+import colors from '@/styles/color';
 
 export const container = style({
   display: 'flex',
@@ -26,7 +26,7 @@ export const unitContentForSpan = style({
 
   ':hover': {
     fontWeight: '700',
-    color: color.primary10,
+    color: colors.primary10,
   },
 });
 
