@@ -10,7 +10,7 @@ export const bidAuctionHistories = {
     {
       auction_id: 18,
       title: '18',
-      auction_status: 'BIDDING',
+      auction_status: 'CONCLUDED',
       thumbnail_path: 'auction/upload/images/41a685f4-76c9-49dc-ab15-c816f4012b8b.jpg',
       my_status: 'DEFEAT',
     },

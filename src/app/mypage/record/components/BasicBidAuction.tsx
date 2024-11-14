@@ -27,6 +27,13 @@ interface BasicBidAuctionProps {
 function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
   return (
     <li className={S.list} key={bidAuctionHistory.auction_id}>
+      {bidAuctionHistory.auction_status === 'BIDDING' && (
+        <div className={S.bidding}>
+          <span className={`${S.listValue} ${getBidStatusStyle(bidAuctionHistory.auction_status)}`}>
+            {bidAuctionHistory.auction_status}진행중
+          </span>
+        </div>
+      )}
       <Image
         className={S.image}
         src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${bidAuctionHistory.thumbnail_path}`}
@@ -39,12 +46,6 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
         <li>
           <span className={S.listName}>상품명</span>
           <span className={S.listValue}>{bidAuctionHistory.title}</span>
-        </li>
-        <li>
-          <span className={S.listName}>옥션 상태</span>
-          <span className={`${S.listValue} ${getBidStatusStyle(bidAuctionHistory.auction_status)}`}>
-            {bidAuctionHistory.auction_status}
-          </span>
         </li>
         <li>
           <span className={S.listName}>상태</span>

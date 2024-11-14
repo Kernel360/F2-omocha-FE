@@ -1,6 +1,7 @@
-import { style, globalStyle, styleVariants } from '@vanilla-extract/css';
+import { style, globalStyle, styleVariants, keyframes } from '@vanilla-extract/css';
 
 export const list = style({
+  position: 'relative',
   display: 'flex',
   gap: '15px',
   cursor: 'pointer',
@@ -12,14 +13,31 @@ export const list = style({
   },
 });
 
+const blinkAnimation = keyframes({
+  '0%': { opacity: 1 },
+  '50%': { opacity: 0.3 },
+  '100%': { opacity: 1 },
+});
+
+export const bidding = style({
+  fontSize: '12px',
+  position: 'absolute',
+  padding: '5px 10px',
+  borderRadius: '20px',
+  border: '1.5px solid red',
+  right: '30px',
+  top: '20px',
+  animation: `${blinkAnimation} 1.5s ease-in-out infinite`,
+});
+
 globalStyle(`${list}:nth-last-child(1)`, {
   borderBottom: 'none',
 });
 
 export const image = style({
-  maxWidth: '200px',
+  maxWidth: '120px',
   width: '100%',
-  maxHeight: '200px',
+  maxHeight: '120px',
   height: '100%',
   objectFit: 'contain',
   borderRadius: '4px',

@@ -1,7 +1,10 @@
+import * as Collapsible from '@radix-ui/react-collapsible';
+
 import useGetBidAuctionHistories from '@/apis/queryHooks/User/useGetBidAuctionHistories';
 
 import * as S from './BasicBid.css';
 import BasicBidAuction from './BasicBidAuction';
+import BasicBidAuctionBidList from './BasicBidAuctionBidList';
 
 export default function BasicBidAuctionSection() {
   const { data: bidAuctionHistories } = useGetBidAuctionHistories();
@@ -13,8 +16,14 @@ export default function BasicBidAuctionSection() {
   return (
     <ul className={S.basicBid}>
       {bidAuctionHistories.content.map(bidAuctionHistory => (
-        <BasicBidAuction key={bidAuctionHistory.auction_id} bidAuctionHistory={bidAuctionHistory} />
-        // BasicBidAuction를 트리거로 쓰고content에 해당auction의 실질적인 bid list를 담는 방식으로 구현
+        <Collapsible.Root className="CollapsibleRoot" key={bidAuctionHistory.auction_id}>
+          <Collapsible.Trigger asChild>
+            <BasicBidAuction bidAuctionHistory={bidAuctionHistory} />
+          </Collapsible.Trigger>
+          <Collapsible.Content>
+            <BasicBidAuctionBidList />
+          </Collapsible.Content>
+        </Collapsible.Root>
       ))}
     </ul>
   );
