@@ -1,10 +1,12 @@
-import apiClient from '@/apis/queryFunctions/apiClient';
+import createApiClient from '@/apis/queryFunctions/apiClient';
 import {
   PatchPasswordParams,
   PatchProfileImageResponseData,
   UserResponseData,
 } from '@/apis/types/User';
 import { Response } from '@/apis/types/common';
+
+const apiClient = createApiClient();
 
 export const getUser = async () => {
   const response = await apiClient.get<Response<UserResponseData>>('/v2/myinfo/me');

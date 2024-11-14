@@ -1,4 +1,4 @@
-import apiClient from '@/apis/queryFunctions/apiClient';
+import createApiClient from '@/apis/queryFunctions/apiClient';
 import {
   LoginParams,
   RegisterParams,
@@ -6,6 +6,8 @@ import {
   PostRegisterResponseData,
 } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
+
+const apiClient = createApiClient();
 
 export const postRegister = (param: RegisterParams) =>
   apiClient.post<Response<PostRegisterResponseData>>('/v2/auth/register', param);

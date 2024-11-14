@@ -1,16 +1,17 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import { cookies } from 'next/headers';
 
-import { getCategory } from '@/apis/queryFunctions/category';
+import { Category } from '@/apis/types/category';
 import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
+import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCoookie';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 import { ToastProvider } from '@/provider/toastProvider';
@@ -41,14 +42,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const queryClient = new QueryClient();
-
   const cookie = cookies();
   const isLoggedIn = cookie.has('access');
 
-  await queryClient.prefetchQuery({
+  const queryClient = await usePrefetchQueryWithCookie<Category[], ['category']>({
     queryKey: ['category'],
-    queryFn: () => getCategory(),
+    api: '/v2/categories',
   });
 
   return (

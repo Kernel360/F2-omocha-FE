@@ -1,4 +1,5 @@
-import apiClient from '@/apis/queryFunctions/apiClient';
+import createApiClient from '@/apis/queryFunctions/apiClient';
+// import apiClient from '@/apis/queryFunctions/apiClient';
 import {
   AuctionListResponseData,
   GetBasicAuctionListParams,
@@ -16,6 +17,8 @@ import {
 } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+
+const apiClient = createApiClient();
 
 export const postBasicAuction = async (param: FormData) => {
   const response = await apiClient.post<Response<PostBasicAuctionResponseData>>(
