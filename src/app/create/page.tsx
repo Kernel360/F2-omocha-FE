@@ -9,11 +9,7 @@ import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuct
 import ContentRequired from '@/app/create/components/contentrequired';
 import ImageRequired from '@/app/create/components/imagerequired';
 import { AuctionInputs } from '@/app/create/types/InputTypes';
-import {
-  bidUnitValidation,
-  endDateValidation,
-  startPriceValidation,
-} from '@/app/create/utils/createValidation';
+import { endDateValidation } from '@/app/create/utils/createValidation';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
@@ -21,19 +17,7 @@ import MaxLayout from '@/components/MaxLayout';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
-
-const AUCTION_TYPE = [
-  {
-    label: '일반 경매',
-    value: 'BASIC_BID',
-    returnComponent: 't',
-  },
-  {
-    label: '즉시 구매',
-    value: 'NOW_BID',
-    returnComponent: '1',
-  },
-];
+import TypePriceRequired from './components/typepricerequired';
 
 export default function Home() {
   const methods = useForm<AuctionInputs>();
@@ -44,7 +28,6 @@ export default function Home() {
   } = methods;
 
   const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [auctionType, setAuctionType] = useState('BASIC_BID');
 
   const { mutate: postBasicAuction } = usePostBasicAuction();
 
@@ -89,65 +72,7 @@ export default function Home() {
                   error={errors.nameRequired}
                 />
               </div>
-              <div>
-                <div className={S.auctionTypeTitle}>경매 방식</div>
-                <div className={S.auctionTypeButtonWrapper}>
-                  {AUCTION_TYPE.map(type => (
-                    <button
-                      key={type.label}
-                      type="button"
-                      onClick={() => setAuctionType(type.value)}
-                      className={
-                        auctionType === type.value
-                          ? S.auctionTypeTitleButton.selected
-                          : S.auctionTypeTitleButton.default
-                      }
-                    >
-                      {type.label}
-                    </button>
-                  ))}
-                </div>
-                <div className={S.price}>
-                  <div className={S.inputWrapper}>
-                    <CommonInput
-                      id="startPriceRequired"
-                      label="시작가"
-                      type="number"
-                      placeholder="원"
-                      register={register}
-                      validation={startPriceValidation}
-                      error={errors.startPriceRequired}
-                    />
-                  </div>
-                  <div className={S.inputWrapper}>
-                    <CommonInput
-                      id="bidUnitRequired"
-                      label="입찰 단위"
-                      type="number"
-                      placeholder="원"
-                      register={register}
-                      validation={bidUnitValidation}
-                      error={errors.bidUnitRequired}
-                    />
-                  </div>
-                </div>
-                {auctionType === 'NOW_BID' && (
-                  <div className={S.nowBidPrice}>
-                    <div className={S.inputWrapper}>
-                      <CommonInput
-                        id="startPriceRequired"
-                        label="즉시 구매가"
-                        type="number"
-                        placeholder="원"
-                        register={register}
-                        validation={startPriceValidation}
-                        error={errors.startPriceRequired}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
+              <TypePriceRequired register={register} errors={errors} />
               <ImageRequired thumbnail={thumbnail} setThumbnail={setThumbnail} />
               <ContentRequired />
               <div className={S.auctionLabel}>
