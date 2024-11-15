@@ -22,6 +22,19 @@ import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
 
+const AUCTION_TYPE = [
+  {
+    label: '일반 경매',
+    value: 'BASIC_BID',
+    returnComponent: 't',
+  },
+  {
+    label: '즉시 구매',
+    value: 'NOW_BID',
+    returnComponent: '1',
+  },
+];
+
 export default function Home() {
   const methods = useForm<AuctionInputs>();
   const {
@@ -31,6 +44,8 @@ export default function Home() {
   } = methods;
 
   const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [auctionType, setAuctionType] = useState('BASIC_BID');
+
   const { mutate: postBasicAuction } = usePostBasicAuction();
 
   const onSubmit: SubmitHandler<AuctionInputs> = data => {
@@ -74,30 +89,65 @@ export default function Home() {
                   error={errors.nameRequired}
                 />
               </div>
-              <div className={S.price}>
-                <div className={S.inputWrapper}>
-                  <CommonInput
-                    id="startPriceRequired"
-                    label="시작가"
-                    type="number"
-                    placeholder="원"
-                    register={register}
-                    validation={startPriceValidation}
-                    error={errors.startPriceRequired}
-                  />
+              <div>
+                <div className={S.auctionTypeTitle}>경매 방식</div>
+                <div className={S.auctionTypeButtonWrapper}>
+                  {AUCTION_TYPE.map(type => (
+                    <button
+                      key={type.label}
+                      type="button"
+                      onClick={() => setAuctionType(type.value)}
+                      className={
+                        auctionType === type.value
+                          ? S.auctionTypeTitleButton.selected
+                          : S.auctionTypeTitleButton.default
+                      }
+                    >
+                      {type.label}
+                    </button>
+                  ))}
                 </div>
-                <div className={S.inputWrapper}>
-                  <CommonInput
-                    id="bidUnitRequired"
-                    label="입찰 단위"
-                    type="number"
-                    placeholder="원"
-                    register={register}
-                    validation={bidUnitValidation}
-                    error={errors.bidUnitRequired}
-                  />
+                <div className={S.price}>
+                  <div className={S.inputWrapper}>
+                    <CommonInput
+                      id="startPriceRequired"
+                      label="시작가"
+                      type="number"
+                      placeholder="원"
+                      register={register}
+                      validation={startPriceValidation}
+                      error={errors.startPriceRequired}
+                    />
+                  </div>
+                  <div className={S.inputWrapper}>
+                    <CommonInput
+                      id="bidUnitRequired"
+                      label="입찰 단위"
+                      type="number"
+                      placeholder="원"
+                      register={register}
+                      validation={bidUnitValidation}
+                      error={errors.bidUnitRequired}
+                    />
+                  </div>
                 </div>
+                {auctionType === 'NOW_BID' && (
+                  <div className={S.nowBidPrice}>
+                    <div className={S.inputWrapper}>
+                      <CommonInput
+                        id="startPriceRequired"
+                        label="즉시 구매가"
+                        type="number"
+                        placeholder="원"
+                        register={register}
+                        validation={startPriceValidation}
+                        error={errors.startPriceRequired}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
+
               <ImageRequired thumbnail={thumbnail} setThumbnail={setThumbnail} />
               <ContentRequired />
               <div className={S.auctionLabel}>
@@ -118,7 +168,6 @@ export default function Home() {
                   error={errors.endDateRequired}
                 />
               </div>
-
               <div className={S.buttonContainer}>
                 <CommonButton content="경매 올리기" type="submit" size="lg" />
               </div>

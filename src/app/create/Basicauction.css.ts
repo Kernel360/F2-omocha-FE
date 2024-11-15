@@ -2,6 +2,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import shadow from '@/styles/shadow';
+import typography from '@/styles/typo';
 
 // --- page.tsx ---
 
@@ -45,6 +46,12 @@ export const price = style({
   gap: '30px',
 });
 
+export const nowBidPrice = style({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: '30px',
+});
+
 export const auctionLabel = style({
   display: 'flex',
   flexDirection: 'column',
@@ -54,6 +61,48 @@ export const title = style({
   display: 'flex',
   fontSize: '18px',
   fontWeight: 'bold',
+});
+
+export const auctionTypeTitle = style([
+  typography.body,
+  {
+    color: colors.black1,
+    fontWeight: 'bold',
+  },
+]);
+
+export const auctionTypeButtonWrapper = style({
+  display: 'flex',
+  gap: '10px',
+  margin: '10px 0 20px 0',
+});
+
+export const auctionTypeTitleButtonBase = style({
+  cursor: 'pointer',
+  padding: '4px 8px',
+  fontSize: '11px',
+  color: colors.gray8,
+  borderRadius: '30px',
+
+  border: `1px solid ${colors.gray8}`,
+  ':hover': {
+    color: colors.primary10,
+    fontWeight: 'bold',
+    border: `1.5px solid ${colors.primary9}`,
+    backgroundColor: colors.primary3,
+  },
+});
+
+export const auctionTypeTitleButton = styleVariants({
+  default: [auctionTypeTitleButtonBase, {}],
+  selected: [
+    auctionTypeTitleButtonBase,
+    {
+      color: colors.primary10,
+      border: `1px solid ${colors.primary9}`,
+      backgroundColor: colors.primary3,
+    },
+  ],
 });
 
 export const flexWrapper = style({
