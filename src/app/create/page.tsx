@@ -16,10 +16,11 @@ import {
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
-import useDebounce from '@/hooks/useDebounce';
+// import useDebounce from '@/hooks/useDebounce';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
+import { useState } from 'react';
 
 export default function Home() {
   const methods = useForm<AuctionInputs>();
@@ -29,9 +30,10 @@ export default function Home() {
     formState: { errors },
   } = methods;
 
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
   const { mutate: postBasicAuction } = usePostBasicAuction();
 
-  const onSubmit: SubmitHandler<AuctionInputs> = useDebounce(data => {
+  const onSubmit: SubmitHandler<AuctionInputs> = data => {
     const formData = new FormData();
 
     const auctionRequest = {
@@ -41,15 +43,18 @@ export default function Home() {
       bid_unit: data.bidUnitRequired,
       start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
-      category_ids: [37], // V2로 바꾸는 과정에서 쓰이는 임시값. post 클라쪽 수정 후 실제 값으로 변경 예정
-      thumbnailPath: 'auction/upload/images/6481087e-6883-4da3-9f70-2397fd7dea04.PNG', // V2로 바꾸는 과정에서 쓰이는 임시값. post 클라쪽 수정 후 실제 값으로 변경 예정
+      category_ids: [37], // V2로 바꾸는 과정에서 쓰이는 임시값. post 클라쪽 수정 후 실제 값으로 변경 예정 // 타이ㅏㅂ 추가해줘야함
     };
 
     formData.append('auctionRequest', JSON.stringify(auctionRequest));
     data.imagesRequired.forEach(image => formData.append('images', image.file));
 
+    formData.append('thumbnailPath', thumbnail || data.imagesRequired[0].file);
+
+    // useDebounce(() => postBasicAuction(formData), 500);
+    // useDebounce로 감싸면 에러가 나서 일단 주석처리함
     postBasicAuction(formData);
-  }, 500);
+  };
 
   return (
     <div className={S.backContainer}>
@@ -93,7 +98,7 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <ImageRequired />
+              <ImageRequired thumbnail={thumbnail} setThumbnail={setThumbnail} />
               <ContentRequired />
               <div className={S.auctionLabel}>
                 <div className={S.title}>경매 기간</div>

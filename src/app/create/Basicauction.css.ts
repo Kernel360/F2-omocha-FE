@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import shadow from '@/styles/shadow';
@@ -56,6 +56,13 @@ export const title = style({
   fontWeight: 'bold',
 });
 
+export const flexWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '10px',
+});
+
 export const description = style({
   marginTop: '16px',
   fontSize: '13px',
@@ -82,7 +89,6 @@ export const period = style({
 export const count = style({
   fontSize: '14px',
   textAlign: 'right',
-  marginBottom: '10px',
 });
 
 export const imageBoard = style({
@@ -118,6 +124,18 @@ export const imageList = style({
   gap: '10px',
 });
 
+export const imageWrapper = style({
+  position: 'relative',
+  display: 'flex',
+  gap: '10px',
+  justifyContent: 'center',
+  width: '250px',
+  height: 'auto',
+  objectFit: 'contain',
+  // border: `1.5px dashed ${colors.gray8} `,
+  borderRadius: '10px',
+});
+
 export const image = style({
   position: 'relative',
   display: 'flex',
@@ -128,6 +146,38 @@ export const image = style({
   objectFit: 'contain',
   border: `1.5px dashed ${colors.gray8} `,
   borderRadius: '10px',
+});
+
+export const thumbnailButtonBase = style({
+  cursor: 'pointer',
+  position: 'absolute',
+  top: '5px',
+  left: '18px',
+  zIndex: '1',
+  padding: '4px',
+  fontSize: '12px',
+  color: colors.gray8,
+  borderRadius: '4px',
+
+  border: `1px solid ${colors.gray8}`,
+  ':hover': {
+    color: colors.primary10,
+    fontWeight: 'bold',
+    border: `1.5px solid ${colors.primary9}`,
+    backgroundColor: colors.primary3,
+  },
+});
+
+export const thumbnailButton = styleVariants({
+  default: [thumbnailButtonBase, {}],
+  selected: [
+    thumbnailButtonBase,
+    {
+      color: colors.primary10,
+      border: `1.5px solid ${colors.primary9}`,
+      backgroundColor: colors.primary3,
+    },
+  ],
 });
 
 export const deleteButton = style({

@@ -10,7 +10,12 @@ import colors from '@/styles/color';
 
 import * as S from '../Basicauction.css';
 
-function ImageRequired() {
+interface ImageRequiredProps {
+  thumbnail: File | null;
+  setThumbnail: React.Dispatch<React.SetStateAction<File | null>>;
+}
+
+function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
   const {
     formState: { errors },
     control,
@@ -33,10 +38,23 @@ function ImageRequired() {
     }
   };
 
+  const isSelected = (imageUrl: File) => {
+    if (thumbnail === imageUrl) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div className={S.auctionLabel}>
       <div className={S.title}>사진</div>
-      <div className={S.count}>{fields.length}/10</div>
+      <div className={S.flexWrapper}>
+        <span className={S.description}>
+          대표 이미지 미선택시 첫 번째 이미지가 대표 이미지로 설정됩니다.
+        </span>
+        <div className={S.count}>{fields.length}/10</div>
+      </div>
+
       <div className={S.imageBoard}>
         <label htmlFor="image" className={S.imageUpload}>
           +
@@ -55,7 +73,16 @@ function ImageRequired() {
             .slice()
             .reverse()
             .map(({ imageRequiredId, file }, index) => (
-              <li key={imageRequiredId} className={S.image}>
+              <li key={imageRequiredId} className={S.imageWrapper}>
+                <button type="button" onClick={() => setThumbnail(file)}>
+                  <div
+                    className={
+                      isSelected(file) ? S.thumbnailButton.selected : S.thumbnailButton.default
+                    }
+                  >
+                    대표
+                  </div>
+                </button>
                 <Image
                   className={S.image}
                   width={0}

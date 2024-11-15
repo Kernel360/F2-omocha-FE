@@ -83,9 +83,16 @@ function ContentRequired() {
   return (
     <label htmlFor="info" className={S.auctionLabel}>
       <span className={S.title}>상품 정보</span>
-      <div className={S.count}>
-        {contentLength} /{MAX_CONTENT}
+
+      <div className={S.flexWrapper}>
+        <span className={S.description}>
+          상품의 다양한 사진 및 정보를 입력해주세요. 최대 500자까지 입력 가능합니다.
+        </span>
+        <div className={S.count}>
+          {contentLength} /{MAX_CONTENT}
+        </div>
       </div>
+
       <div className={S.content}>
         <Controller
           name="contentRequired"
