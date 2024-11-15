@@ -2,6 +2,7 @@
 
 'use client';
 
+import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
@@ -20,7 +21,6 @@ import MaxLayout from '@/components/MaxLayout';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
-import { useState } from 'react';
 
 export default function Home() {
   const methods = useForm<AuctionInputs>();
