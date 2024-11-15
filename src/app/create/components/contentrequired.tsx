@@ -86,7 +86,7 @@ function ContentRequired() {
 
       <div className={S.flexWrapper}>
         <span className={S.description}>
-          상품의 다양한 사진 및 정보를 입력해주세요. 최대 500자까지 입력 가능합니다.
+          상품의 다양한 사진 및 정보를 입력해주세요.
           <br />
           사진은 드래그하여 넣을 수 있습니다.
         </span>

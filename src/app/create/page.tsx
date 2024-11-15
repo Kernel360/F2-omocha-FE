@@ -41,6 +41,7 @@ export default function Home() {
       bid_unit: data.bidUnitRequired,
       start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
+      instantBuyPrice: data.instantBuyPrice,
       category_ids: [37], // V2로 바꾸는 과정에서 쓰이는 임시값. post 클라쪽 수정 후 실제 값으로 변경 예정 // 타이ㅏㅂ 추가해줘야함
     };
 

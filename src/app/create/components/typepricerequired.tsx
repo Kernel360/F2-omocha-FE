@@ -1,24 +1,14 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
+
+import * as Toggle from '@radix-ui/react-toggle';
 
 import { bidUnitValidation, startPriceValidation } from '@/app/create/utils/createValidation';
 import CommonInput from '@/components/CommonInput';
+import useBooleanState from '@/hooks/useBooleanState';
 
 import * as S from '../Basicauction.css';
 import { AuctionInputs } from '../types/InputTypes';
-
-const AUCTION_TYPE = [
-  {
-    label: '일반 경매',
-    value: 'BASIC_BID',
-    returnComponent: 't',
-  },
-  {
-    label: '즉시 구매',
-    value: 'NOW_BID',
-    returnComponent: '1',
-  },
-];
 
 interface TypePriceRequiredProps {
   register: UseFormRegister<AuctionInputs>;
@@ -26,26 +16,19 @@ interface TypePriceRequiredProps {
 }
 
 function TypePriceRequired({ register, errors }: TypePriceRequiredProps) {
-  const [auctionType, setAuctionType] = useState('BASIC_BID');
+  const { value: isInstantBuyEnabled, toggle: toggleIsInstantBuyEnabled } = useBooleanState();
 
   return (
     <div>
-      <div className={S.auctionTypeTitle}>경매 방식</div>
+      <div className={S.title}>가격</div>
       <div className={S.auctionTypeButtonWrapper}>
-        {AUCTION_TYPE.map(type => (
-          <button
-            key={type.label}
-            type="button"
-            onClick={() => setAuctionType(type.value)}
-            className={
-              auctionType === type.value
-                ? S.auctionTypeTitleButton.selected
-                : S.auctionTypeTitleButton.default
-            }
-          >
-            {type.label}
-          </button>
-        ))}
+        <Toggle.Root
+          pressed={isInstantBuyEnabled}
+          onPressedChange={toggleIsInstantBuyEnabled}
+          className={S.auctionTypeTitleButtonBase}
+        >
+          즉시 구매 허용
+        </Toggle.Root>
       </div>
       <div className={S.price}>
         <div className={S.inputWrapper}>
@@ -71,11 +54,11 @@ function TypePriceRequired({ register, errors }: TypePriceRequiredProps) {
           />
         </div>
       </div>
-      {auctionType === 'NOW_BID' && (
+      {isInstantBuyEnabled && (
         <div className={S.nowBidPrice}>
           <div className={S.inputWrapper}>
             <CommonInput
-              id="startPriceRequired"
+              id="instantBuyPrice"
               label="즉시 구매가"
               type="number"
               placeholder="원"

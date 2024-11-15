@@ -30,7 +30,7 @@ function EndDateRequired({ register, errors }: EndDateRequiredProps) {
           validation={endDateValidation}
           error={errors.endDateRequired}
         />
-      </div>{' '}
+      </div>
     </>
   );
 }

@@ -61,6 +61,7 @@ export const title = style({
   display: 'flex',
   fontSize: '18px',
   fontWeight: 'bold',
+  marginBottom: '12px',
 });
 
 export const auctionTypeTitle = style([
@@ -74,7 +75,7 @@ export const auctionTypeTitle = style([
 export const auctionTypeButtonWrapper = style({
   display: 'flex',
   gap: '10px',
-  margin: '10px 0 20px 0',
+  marginBottom: '10px',
 });
 
 export const auctionTypeTitleButtonBase = style({
@@ -91,18 +92,13 @@ export const auctionTypeTitleButtonBase = style({
     border: `1.5px solid ${colors.primary9}`,
     backgroundColor: colors.primary3,
   },
-});
-
-export const auctionTypeTitleButton = styleVariants({
-  default: [auctionTypeTitleButtonBase, {}],
-  selected: [
-    auctionTypeTitleButtonBase,
-    {
+  selectors: {
+    '&[data-state="on"]': {
       color: colors.primary10,
       border: `1px solid ${colors.primary9}`,
       backgroundColor: colors.primary3,
     },
-  ],
+  },
 });
 
 export const flexWrapper = style({
@@ -113,7 +109,6 @@ export const flexWrapper = style({
 });
 
 export const description = style({
-  marginTop: '16px',
   fontSize: '13px',
   color: 'rgb(142,142,142)',
 });
