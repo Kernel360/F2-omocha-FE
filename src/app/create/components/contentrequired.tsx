@@ -82,7 +82,7 @@ function ContentRequired() {
 
   return (
     <label htmlFor="info" className={S.auctionLabel}>
-      <span className={S.title}>상품 정보</span>
+      <h2 className={S.title}>상품 정보</h2>
 
       <div className={S.flexWrapper}>
         <span className={S.description}>

@@ -67,6 +67,7 @@ export const title = style({
 export const auctionTypeTitle = style([
   typography.body,
   {
+    marginTop: '30px',
     color: colors.black1,
     fontWeight: 'bold',
   },

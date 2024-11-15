@@ -28,18 +28,18 @@ function Header() {
   if (!data) return null;
 
   return (
-    <div className={S.stickyHeader}>
+    <header className={S.stickyHeader}>
       <MaxLayout>
-        <header className={S.container}>
+        <div className={S.container}>
           <UserHeader />
           {/* <UserHeader setTrue={setTrue} /> */}
           <CategoryHeader data={data} />
           {/* <SlideSideNav isOpen={value} onClose={setFalse}>
             <Alarm content="준비중입니다!" />
           </SlideSideNav> */}
-        </header>
+        </div>
       </MaxLayout>
-    </div>
+    </header>
   );
 }
 

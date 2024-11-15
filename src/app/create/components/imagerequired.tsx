@@ -47,7 +47,7 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
 
   return (
     <div className={S.auctionLabel}>
-      <div className={S.title}>사진</div>
+      <h2 className={S.title}>사진</h2>
       <div className={S.flexWrapper}>
         <span className={S.description}>
           대표 이미지 미선택시 첫 번째 이미지가 대표 이미지로 설정됩니다.

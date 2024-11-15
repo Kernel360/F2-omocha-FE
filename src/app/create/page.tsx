@@ -59,11 +59,10 @@ export default function Home() {
     <div className={S.backContainer}>
       <MaxLayout>
         <div className={S.container}>
-          <h2>기본 경매 상품 등록</h2>
+          <h1>기본 경매 상품 등록</h1>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className={S.formSection}>
               <NameRequiredProps register={register} errors={errors} />
-              {/* 카테고리 추가해야함 */}
               <TypePriceRequired register={register} errors={errors} />
               <ImageRequired thumbnail={thumbnail} setThumbnail={setThumbnail} />
               <ContentRequired />

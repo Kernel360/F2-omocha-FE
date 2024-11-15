@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 import * as Toggle from '@radix-ui/react-toggle';
@@ -20,7 +19,7 @@ function TypePriceRequired({ register, errors }: TypePriceRequiredProps) {
 
   return (
     <div>
-      <div className={S.title}>가격</div>
+      <h2 className={S.title}>가격</h2>
       <div className={S.auctionTypeButtonWrapper}>
         <Toggle.Root
           pressed={isInstantBuyEnabled}
