@@ -33,7 +33,7 @@ function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
             onClick={() => setFocusImage(image)}
           >
             <img
-              src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image}`}
+              src={`${process.env.NEXT_PUBLIC_S3_URL}${image}`}
               alt="Auction Image"
               className={S.subImage}
             />
@@ -42,7 +42,7 @@ function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
       </div>
       <div className={S.mainImageWrapper}>
         <img
-          src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${focusImage}`}
+          src={`${process.env.NEXT_PUBLIC_S3_URL}${focusImage}`}
           alt="Auction Image"
           className={S.mainImage}
         />

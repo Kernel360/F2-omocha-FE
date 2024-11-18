@@ -25,7 +25,7 @@ function MypageProfileClientPage() {
           {user?.profile_image_url ? (
             <Image
               className={S.profileImage}
-              src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${user.profile_image_url}`}
+              src={`${process.env.NEXT_PUBLIC_S3_URL}${user.profile_image_url}`}
               width={100}
               height={100}
               priority

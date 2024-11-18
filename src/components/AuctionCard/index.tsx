@@ -17,8 +17,6 @@ interface AuctionCardProps {
   nowPrice: number | null;
 }
 
-// 아래 부분은 변동이 많이 있을 것 같아 이전 코드를 주석으로 남깁니다.
-
 function AuctionCard(SAMPLE: AuctionCardProps) {
   const { id, image, title, isLike, endTime, nowPrice } = SAMPLE;
   const isExpired = new Date() > new Date(endTime);
@@ -38,39 +36,18 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       )}
       <div className={S.cardContent}>
         <Image
-          src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${image}`}
+          src={`${process.env.NEXT_PUBLIC_S3_URL}${image}`}
           alt="Auction Image"
           width={196}
           height={196}
           className={S.cardImage}
         />
-        {/* <div className={S.userIcon}>
-          <UserCircle2Icon size={24} stroke={colors.gray10} />
-        </div> */}
         <span className={S.cardTitle}>{title}</span>
-        {/* <hr className={S.division} /> */}
-        {/* <div className={S.cardTimeWrapper}> */}
-        {/* <div className={S.cardFlex}>
-            <span>시작가(KRW)</span>
-            <span>{startPrice.toLocaleString('ko-KR')}원</span>
-          </div> */}
         <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
           <span>현재가(KRW)</span>
           {/* // 바꾸기 */}
           <span>{nowPrice ? nowPrice.toLocaleString('ko-KR') : '-'}원</span>
         </div>
-        {/* </div> */}
-        {/* <hr className={S.division} /> */}
-        {/* <div className={S.cardTimeWrapper}>
-          <div className={S.cardFlex}>
-            <span>시작</span>
-            <span>{startTime} (KST)</span>
-          </div>
-          <div className={S.cardFlex}>
-            <span>종료</span>
-            <span>{endTime} (KST)</span>
-          </div>
-        </div> */}
       </div>
     </Link>
   );

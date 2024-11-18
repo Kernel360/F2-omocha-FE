@@ -33,7 +33,7 @@ function SpecialSection() {
         {data.result_data.content.map((auction: AuctionData) => (
           <div key={auction.auction_id} className={S.specialAuctionItem}>
             <Image
-              src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${auction.thumbnail_path}`}
+              src={`${process.env.NEXT_PUBLIC_S3_URL}${auction.thumbnail_path}`}
               className={S.specialAuctionImage}
               width={180}
               height={180}

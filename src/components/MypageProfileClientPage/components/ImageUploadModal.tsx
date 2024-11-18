@@ -69,7 +69,7 @@ function ImageUploadModal({ onClose, defaultImage }: ImageUploadModalProps) {
       return (
         <Image
           className={S.imageProfile}
-          src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${defaultImage}`}
+          src={`${process.env.NEXT_PUBLIC_S3_URL}${defaultImage}`}
           width={100}
           height={100}
           alt="프로필 이미지"
