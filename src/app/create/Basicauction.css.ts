@@ -192,7 +192,6 @@ export const imageWrapper = style({
   width: '250px',
   height: 'auto',
   objectFit: 'contain',
-  // border: `1.5px dashed ${colors.gray8} `,
   borderRadius: '10px',
 });
 
