@@ -2,12 +2,13 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
-
 // 현재 알림 기능 api 없음으로 주석처리
 // import Alarm from '@/components/Header/components/Alarm';
 // import SlideSideNav from '@/components/SlideSideNav';
 // import useBooleanState from '@/hooks/useBooleanState';
+
+import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
+import { Category } from '@/apis/types/category';
 
 import MaxLayout from '../MaxLayout';
 
@@ -33,7 +34,7 @@ function Header() {
         <div className={S.container}>
           <UserHeader />
           {/* <UserHeader setTrue={setTrue} /> */}
-          <CategoryHeader data={data} />
+          <CategoryHeader data={data as Category[]} />
           {/* <SlideSideNav isOpen={value} onClose={setFalse}>
             <Alarm content="준비중입니다!" />
           </SlideSideNav> */}

@@ -38,25 +38,29 @@ const transformCategoriesToOptions = (categories: Category[]): TransformCategori
   }));
 };
 
-function useGetCategory({ targetCategoryId, categoryType }: UseGetCategoryParams) {
+function useGetCategory<T extends UseGetCategoryParams>({ targetCategoryId, categoryType }: T) {
   const { data } = useQuery({
     queryKey: ['category'],
     queryFn: () => getCategory(),
   });
 
+  if (!data) return { data: [] as Category[] };
+
   if (data && targetCategoryId) {
-    const addIsOpenPropertyData = data.result_data.map(category =>
+    const addIsOpenPropertyData: Category[] = data.result_data.map(category =>
       addIsOpenProperty(targetCategoryId, category),
     );
 
-    return { data: addIsOpenPropertyData };
+    return {
+      data: addIsOpenPropertyData,
+    };
   }
 
   if (data && categoryType === 'create') {
     return { data: transformCategoriesToOptions(data?.result_data) };
   }
 
-  return { data: data?.result_data };
+  return { data: data.result_data as Category[] };
 }
 
 export default useGetCategory;
