@@ -1,15 +1,23 @@
-import { Pageable } from './basicAuction';
-
-export interface UserData {
+export interface UserResponseData {
   member_id: number;
   email: string;
-  user_name: string | null;
-  nick_name: string | null;
-  phone_number: string | null;
-  birth: string | null;
-  role: string; // ROLE_USER 타입 정의 필요
-  profile_image: string | null;
+  user_name: null | string;
+  nick_name: null | string;
+  phone_number: null | string;
+  birth: null | string;
+  role: 'ROLE_USER';
+  profile_image_url: null | string;
 }
+
+export interface PatchProfileImageResponseData {
+  image_url: string;
+}
+
+export interface PatchPasswordParams {
+  current_password: string;
+  new_password: string;
+}
+
 export interface BidAuctionHistoriesData {
   auction_id: number;
   title: string;

@@ -1,4 +1,4 @@
-import apiClient from '@/apis/queryFunctions/apiClient';
+import createApiClient from '@/apis/queryFunctions/apiClient';
 import { Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 
@@ -7,6 +7,8 @@ import {
   GetChatroomListParams,
   GetLastChatResponseData,
 } from '../types/chat';
+
+const apiClient = createApiClient();
 
 export const getChatroomList = async (param: GetChatroomListParams) => {
   const queryString = convertQueryParamsObjectToString<GetChatroomListParams>(param);

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import logoIcon from '@/assets/png/logo.png';
@@ -19,6 +19,7 @@ function UserHeader() {
   const router = useRouter();
   const { isLoggedIn } = useAuth();
   const { mutate: logout } = usePostLogout();
+  const pathname = usePathname();
 
   return (
     <section className={S.topHeader}>
@@ -41,6 +42,18 @@ function UserHeader() {
             );
           }
           if (category.path) {
+            if (category.name === '로그인') {
+              return (
+                <Link
+                  key={category.id}
+                  href={`${category.path}?prevUrl=${pathname}`}
+                  scroll={false}
+                  className={S.TopHeaderUnit}
+                >
+                  {category.name}
+                </Link>
+              );
+            }
             return (
               <Link
                 key={category.id}

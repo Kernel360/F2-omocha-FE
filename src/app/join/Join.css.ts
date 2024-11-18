@@ -17,7 +17,6 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-
   borderRadius: '8px',
   margin: '0 auto',
   padding: '20px',
@@ -116,13 +115,6 @@ export const checkButton = styleVariants({
       cursor: 'not-allowed',
     },
   ],
-});
-
-export const checkInputWrapper = style({
-  display: 'flex',
-  alignItems: 'end',
-  width: '100%',
-  gap: '8px',
 });
 
 export const buttonWrapper = style({

@@ -31,6 +31,11 @@ export const heartStyle = style({
   justifyContent: 'center',
   alignItems: 'center',
   boxShadow: shadow.box3,
+  cursor: 'pointer',
+
+  ':hover': {
+    filter: 'brightness(0.9)',
+  },
 });
 
 export const cardImage = style({
@@ -110,7 +115,6 @@ export const dim = style([
   typography.h4,
   {
     position: 'absolute',
-    zIndex: 1,
     top: '0',
     left: '0',
     width: '100%',

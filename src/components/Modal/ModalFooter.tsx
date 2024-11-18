@@ -1,4 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { CircleXIcon } from 'lucide-react';
 
 import * as S from './Modal.css';
@@ -20,6 +21,9 @@ export default function ModalFooter(SAMPLE: ModalFooterProps) {
         <Dialog.Overlay className={S.overlay} />
         <Dialog.Content className={S.modal} aria-describedby={undefined}>
           <Dialog.Close asChild>
+            <VisuallyHidden.Root asChild>
+              <Dialog.Title />
+            </VisuallyHidden.Root>
             <div className={S.closeButton}>
               <CircleXIcon />
             </div>
