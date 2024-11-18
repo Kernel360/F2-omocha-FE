@@ -9,6 +9,10 @@ export const startPriceValidation = {
   },
 };
 
+export const instantBuyPriceValidation = {
+  required: '즉시 구매가를 입력해 주세요.',
+};
+
 export const bidUnitValidation = {
   required: '입찰 단위를 입력해 주세요.',
   pattern: {
@@ -19,7 +23,7 @@ export const bidUnitValidation = {
 
 export const endDateValidation = {
   required: '종료 시각을 입력해 주세요.',
-  validate: (value: string | ImageUpload | ImageUpload[] | File) => {
+  validate: (value: string | ImageUpload | ImageUpload[] | File | number[] | number | null) => {
     return (
       formatDate(value as string) > formatDate(new Date().toString()) ||
       '현재 시각보다 이전 시간은 선택할 수 없습니다.'
