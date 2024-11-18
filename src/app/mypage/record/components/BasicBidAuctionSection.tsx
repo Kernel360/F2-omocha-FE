@@ -45,7 +45,11 @@ export default function BasicBidAuctionSection() {
         bidAuctionListHistories.content.map(bidAuctionListHistory => (
           <Collapsible.Root className="CollapsibleRoot" key={bidAuctionListHistory.auction_id}>
             <Collapsible.Trigger asChild>
-              <button type="button" onClick={() => clickBidUnit(bidAuctionListHistory.auction_id)}>
+              <button
+                type="button"
+                className={S.collapsibleTrigger}
+                onClick={() => clickBidUnit(bidAuctionListHistory.auction_id)}
+              >
                 <BasicBidAuction bidAuctionHistory={bidAuctionListHistory} />
               </button>
             </Collapsible.Trigger>

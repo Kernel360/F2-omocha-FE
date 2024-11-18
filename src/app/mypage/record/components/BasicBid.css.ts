@@ -29,3 +29,8 @@ export const noListButton = style({
   fontSize: '14px',
   cursor: 'pointer',
 });
+
+export const collapsibleTrigger = style({
+  width: '100%',
+  cursor: 'pointer',
+});
