@@ -36,7 +36,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       )}
       <div className={S.cardContent}>
         <Image
-          src={`${process.env.NEXT_PUBLIC_S3_URL}${image}`}
+          src={`${process.env.NEXT_PUBLIC_S3_URL}${thumbnailImage}`}
           alt="Auction Image"
           width={196}
           height={196}
