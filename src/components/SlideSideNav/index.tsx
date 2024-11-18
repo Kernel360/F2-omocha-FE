@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 
-import XIcon from '@/assets/svg/x.svg';
+import { XIcon } from 'lucide-react';
+
 import Portal from '@/components/Portal';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 

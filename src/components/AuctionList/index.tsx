@@ -1,8 +1,8 @@
+import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { AuctionData } from '@/apis/types/basicAuction';
 import { ListResponse, Response } from '@/apis/types/common';
-import ArrowRightIcon from '@/assets/svg/arrow-right.svg';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 

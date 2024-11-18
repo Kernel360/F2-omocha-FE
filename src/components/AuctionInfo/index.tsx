@@ -1,12 +1,11 @@
 import { useRef, useState } from 'react';
 
+import { ChevronDownIcon, ChevronUpIcon, RotateCwIcon } from 'lucide-react';
+
 import useDeleteBasicAuction from '@/apis/queryHooks/basicAuction/useDeleteBasicAuction';
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import useGetBasicAuctionNowPrice from '@/apis/queryHooks/basicAuction/useGetBasicAuctionNowPrice';
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
-import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
-import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
-import RefreshIcon from '@/assets/svg/refresh.svg';
 import AuctionBidConfirmModal from '@/components/AuctionInfo/AuctionBidConfirmModal';
 import AuctionBidListModal from '@/components/AuctionInfo/AuctionBidListModal';
 import AuctionCountdown from '@/components/AuctionInfo/AuctionCountdown';
@@ -121,7 +120,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
           className={S.refreshCurrentPrice}
           onClick={refreshCurrentPrice}
         >
-          <RefreshIcon className={isRotating ? S.rotating : ''} />
+          <RotateCwIcon size={16} className={isRotating ? S.rotating : ''} />
         </button>
       </div>
       <hr className={S.division} />
