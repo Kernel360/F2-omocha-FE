@@ -19,7 +19,7 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
     ['basicAuction', typeof params.id]
   >({
     queryKey: ['basicAuction', params.id],
-    api: `/v2/auction/${params.id}`,
+    api: `/v2/auctions/${params.id}`,
   });
 
   return (

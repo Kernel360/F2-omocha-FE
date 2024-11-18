@@ -24,7 +24,7 @@ async function BasicAuction() {
     ['basicAuctionList', typeof params]
   >({
     queryKey: ['basicAuctionList', params],
-    api: `/v2/auction/basic-list?${convertQueryParamsObjectToString<GetBasicAuctionListParams>(params)}`,
+    api: `/v2/auctions?${convertQueryParamsObjectToString<GetBasicAuctionListParams>(params)}`,
   });
 
   return (
