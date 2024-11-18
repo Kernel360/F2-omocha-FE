@@ -1,8 +1,12 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 import * as Toggle from '@radix-ui/react-toggle';
 
-import { bidUnitValidation, startPriceValidation } from '@/app/create/utils/createValidation';
+import {
+  bidUnitValidation,
+  instantBuyPriceValidation,
+  startPriceValidation,
+} from '@/app/create/utils/createValidation';
 import CommonInput from '@/components/CommonInput';
 import useBooleanState from '@/hooks/useBooleanState';
 
@@ -10,12 +14,20 @@ import * as S from '../Basicauction.css';
 import { AuctionInputs } from '../types/InputTypes';
 
 interface TypePriceRequiredProps {
+  setValue: UseFormSetValue<AuctionInputs>;
   register: UseFormRegister<AuctionInputs>;
   errors: FieldErrors<AuctionInputs>;
 }
 
-function TypePriceRequired({ register, errors }: TypePriceRequiredProps) {
+function TypePriceRequired({ setValue, register, errors }: TypePriceRequiredProps) {
   const { value: isInstantBuyEnabled, toggle: toggleIsInstantBuyEnabled } = useBooleanState();
+
+  const handleToggleChange = () => {
+    toggleIsInstantBuyEnabled();
+    if (!isInstantBuyEnabled) {
+      setValue('instantBuyPrice', null); // instantBuyPrice 값을 지움
+    }
+  };
 
   return (
     <div>
@@ -23,7 +35,7 @@ function TypePriceRequired({ register, errors }: TypePriceRequiredProps) {
       <div className={S.auctionTypeButtonWrapper}>
         <Toggle.Root
           pressed={isInstantBuyEnabled}
-          onPressedChange={toggleIsInstantBuyEnabled}
+          onPressedChange={handleToggleChange}
           className={S.auctionTypeTitleButtonBase}
         >
           즉시 구매 허용
@@ -62,8 +74,8 @@ function TypePriceRequired({ register, errors }: TypePriceRequiredProps) {
               type="number"
               placeholder="원"
               register={register}
-              validation={startPriceValidation}
-              error={errors.startPriceRequired}
+              validation={instantBuyPriceValidation}
+              error={errors.instantBuyPrice}
             />
           </div>
         </div>

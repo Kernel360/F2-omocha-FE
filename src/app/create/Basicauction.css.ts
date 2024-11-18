@@ -85,6 +85,7 @@ export const auctionTypeTitle = style([
   typography.body,
   {
     color: colors.black1,
+    marginBottom: '8px',
     fontWeight: 'bold',
   },
 ]);
@@ -127,6 +128,7 @@ export const flexWrapper = style({
 
 export const description = style({
   fontSize: '13px',
+  lineHeight: '1.5',
   color: 'rgb(142,142,142)',
 });
 

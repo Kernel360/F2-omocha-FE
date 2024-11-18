@@ -24,6 +24,7 @@ export default function Home() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = methods;
 
@@ -60,11 +61,11 @@ export default function Home() {
     <div className={S.backContainer}>
       <MaxLayout>
         <div className={S.container}>
-          <h1>기본 경매 상품 등록</h1>
+          <h1>경매 상품 등록</h1>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className={S.formSection}>
               <NameRequiredProps register={register} errors={errors} />
-              <TypePriceRequired register={register} errors={errors} />
+              <TypePriceRequired setValue={setValue} register={register} errors={errors} />
               <ImageRequired thumbnail={thumbnail} setThumbnail={setThumbnail} />
               <ContentRequired />
               <EndDateRequired register={register} errors={errors} />

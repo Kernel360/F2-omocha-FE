@@ -17,7 +17,6 @@ import {
 import { AuctionInputs } from '@/app/create/types/InputTypes';
 import BlockButton from '@/components/TextEditor/BlockButton';
 import Elements from '@/components/TextEditor/Elements';
-import ImageTooltip from '@/components/TextEditor/ImageTooltip';
 import Leaf from '@/components/TextEditor/Leaf';
 import MarkButton from '@/components/TextEditor/MarkButton';
 import useEditorShortcuts from '@/components/TextEditor/hooks/useEditorShortcuts';
@@ -83,7 +82,6 @@ function ContentRequired() {
   return (
     <label htmlFor="info" className={S.auctionLabel}>
       <h2 className={S.title}>상품 정보</h2>
-
       <div className={S.flexWrapper}>
         <span className={S.description}>
           상품의 다양한 사진 및 정보를 입력해주세요.
@@ -129,7 +127,6 @@ function ContentRequired() {
                 {TEXT_EDITOR_BLOCK_ICON.map(block => (
                   <BlockButton key={block.id} format={block.format} icon={block.icon} />
                 ))}
-                <ImageTooltip />
               </section>
               <Editable
                 className={S.editorContent}

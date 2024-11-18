@@ -9,6 +9,10 @@ export const startPriceValidation = {
   },
 };
 
+export const instantBuyPriceValidation = {
+  required: '즉시 구매가를 입력해 주세요.',
+};
+
 export const bidUnitValidation = {
   required: '입찰 단위를 입력해 주세요.',
   pattern: {
