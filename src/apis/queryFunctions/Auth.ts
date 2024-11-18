@@ -1,12 +1,19 @@
-import apiClient from '@/apis/queryFunctions/apiClient';
-import { LoginParams, RegisterParams, CheckEmailParams } from '@/apis/types/Auth';
+import createApiClient from '@/apis/queryFunctions/apiClient';
+import {
+  LoginParams,
+  RegisterParams,
+  CheckEmailParams,
+  PostRegisterResponseData,
+} from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
 
+const apiClient = createApiClient();
+
 export const postRegister = (param: RegisterParams) =>
-  apiClient.post<Response<string>>('/v2/auth/register', param);
+  apiClient.post<Response<PostRegisterResponseData>>('/v2/auth/register', param);
 
 export const postLogin = (param: LoginParams) =>
-  apiClient.post<Response<string>>('/v2/auth/login', param);
+  apiClient.post<Response<null>>('/v2/auth/login', param);
 
 export const postLogout = () => apiClient.post<Response<null>>('v2/auth/logout');
 

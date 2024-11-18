@@ -1,25 +1,21 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
-import { postLogout } from '@/apis/queryFunctions/Auth';
+import { patchPassword } from '@/apis/queryFunctions/User';
+import { PatchPasswordParams } from '@/apis/types/User';
 import { Response } from '@/apis/types/common';
-import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
 
-function usePostLogout() {
-  const router = useRouter();
-  const { setIsLoggedIn } = useAuth();
+function usePatchPassword() {
   const { showToast } = useToast();
-  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { mutate, error } = useMutation({
-    mutationFn: () => postLogout(),
-    onSuccess: async () => {
-      router.push('/', { scroll: false });
-      setIsLoggedIn(false);
-      showToast('success', '로그아웃에 성공했습니다.');
-      queryClient.clear();
+    mutationFn: (param: PatchPasswordParams) => patchPassword(param),
+    onSuccess: () => {
+      showToast('success', '비밀번호 변경이 완료되었습니다.🎉');
+      router.push('/mypage/profile', { scroll: false });
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
@@ -34,4 +30,4 @@ function usePostLogout() {
   return { mutate, error };
 }
 
-export default usePostLogout;
+export default usePatchPassword;

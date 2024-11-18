@@ -1,4 +1,5 @@
-import apiClient from '@/apis/queryFunctions/apiClient';
+import createApiClient from '@/apis/queryFunctions/apiClient';
+// import apiClient from '@/apis/queryFunctions/apiClient';
 import {
   AuctionListResponseData,
   GetBasicAuctionListParams,
@@ -16,6 +17,8 @@ import {
 } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+
+const apiClient = createApiClient();
 
 export const postBasicAuction = async (param: FormData) => {
   const response = await apiClient.post<Response<PostBasicAuctionResponseData>>(
@@ -63,7 +66,7 @@ export const deleteAuction = async (id: number) => {
 
 export const getAuctionQnAList = async (id: number) => {
   const response = await apiClient.get<Response<GetAuctionQnAListDataResponseData>>(
-    `/v2/question/${id}/qna-list`,
+    `/v2/questions/${id}`,
   );
 
   return response.data;
@@ -71,7 +74,7 @@ export const getAuctionQnAList = async (id: number) => {
 
 export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
   const response = await apiClient.post<Response<PostAuctionQnAResponseData>>(
-    `/v2/question`,
+    `/v2/questions`,
     param,
   );
 
@@ -80,7 +83,7 @@ export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
 
 export const postAuctionQnAAnswer = async (param: PostAuctionQnAAnswerParams) => {
   const response = await apiClient.post<Response<PostAuctionQnAAnswerResponseData>>(
-    `/v2/answer`,
+    `/v2/answers`,
     param,
   );
 
@@ -88,7 +91,7 @@ export const postAuctionQnAAnswer = async (param: PostAuctionQnAAnswerParams) =>
 };
 
 export const deleteAuctionQnA = async (id: number) => {
-  const response = await apiClient.delete<Response<null>>(`/v2/question/${id}`);
+  const response = await apiClient.delete<Response<null>>(`/v2/questions/${id}`);
 
   return response.data;
 };

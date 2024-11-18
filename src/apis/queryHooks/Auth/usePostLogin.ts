@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { usePathname, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import { postLogin } from '@/apis/queryFunctions/Auth';
 import { LoginParams } from '@/apis/types/Auth';
@@ -10,20 +10,15 @@ import { useToast } from '@/provider/toastProvider';
 
 function usePostLogin() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const prevUrl = searchParams.get('prevUrl');
   const { setIsLoggedIn } = useAuth();
-  const { referrer } = document;
-  const isOmochaAuctionPage = referrer.includes('omocha-auction');
   const { showToast } = useToast();
-  const pathname = usePathname();
 
   const { mutate, error } = useMutation({
     mutationFn: (param: LoginParams) => postLogin(param),
     onSuccess: () => {
-      if (referrer && isOmochaAuctionPage && !pathname.includes('/join')) {
-        router.back();
-      } else {
-        router.push('/', { scroll: false });
-      }
+      router.push(prevUrl || '/', { scroll: false });
       setIsLoggedIn(true);
       showToast('success', '로그인에 성공했습니다.');
     },

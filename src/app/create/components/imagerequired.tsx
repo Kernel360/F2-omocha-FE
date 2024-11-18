@@ -1,4 +1,3 @@
-import React, { useRef } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { CircleXIcon, TriangleAlertIcon } from 'lucide-react';
@@ -27,8 +26,6 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
     keyName: 'imageRequiredId',
     rules: imageValidation,
   });
-
-  const inputFile = useRef(null);
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -60,7 +57,6 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
           +
           <input
             className={S.imageInput}
-            ref={inputFile}
             id="image"
             type="file"
             accept="image/*"

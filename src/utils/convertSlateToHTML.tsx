@@ -69,7 +69,6 @@ const renderListItems = (children: SlateNode[]): string =>
 
 // SlateNode 배열을 HTML로 변환하는 최상위 함수
 export function convertSlateToHTML(slateValue: SlateNode[]): string {
-  console.log(slateValue[2]);
   return slateValue
     .map(node => {
       const alignmentStyle = getAlignmentStyle(node.align || 'left'); // 기본 정렬

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { MYPAGE_CATEGORY } from '@/static/category';
+import colors from '@/styles/color';
 
 import * as S from './MypageCategory.css';
 
@@ -15,7 +16,7 @@ function MypageCategory() {
       <Link
         className={S.categoryLink}
         href={category.path}
-        style={{ color: category.path === pathname ? 'red' : 'black' }}
+        style={{ color: category.path === pathname ? colors.primary9 : 'black' }}
         scroll={false}
       >
         {category.name}

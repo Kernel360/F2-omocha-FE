@@ -1,15 +1,16 @@
 import { Suspense } from 'react';
 
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import { getBasicAuctionList } from '@/apis/queryFunctions/basicAuction';
+import { AuctionListResponseData, GetBasicAuctionListParams } from '@/apis/types/basicAuction';
 import BasicAuctionClientPage from '@/components/BasicAuctionClientPage';
 import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
+import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCoookie';
+import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 
 async function BasicAuction() {
-  const queryClient = new QueryClient();
-
-  const params = {
+  const params: GetBasicAuctionListParams = {
+    categoryId: '',
     title: '',
     auctionStatus: '',
     sort: '',
@@ -18,9 +19,12 @@ async function BasicAuction() {
     size: 20,
   };
 
-  await queryClient.prefetchQuery({
+  const queryClient = await usePrefetchQueryWithCookie<
+    AuctionListResponseData,
+    ['basicAuctionList', typeof params]
+  >({
     queryKey: ['basicAuctionList', params],
-    queryFn: () => getBasicAuctionList(params),
+    api: `/v2/auctions?${convertQueryParamsObjectToString<GetBasicAuctionListParams>(params)}`,
   });
 
   return (
