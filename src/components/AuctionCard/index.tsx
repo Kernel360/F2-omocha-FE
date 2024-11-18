@@ -2,6 +2,7 @@ import { ClockIcon, HeartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import usePostAuctionLike from '@/apis/queryHooks/basicAuction/usePostAuctionLike';
 import calculateDDay from '@/utils/calculatedDDay';
 
 import * as S from './AuctionCard.css';
@@ -21,12 +22,18 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   const { id, image, title, isLike, endTime, nowPrice } = SAMPLE;
   const isExpired = new Date() > new Date(endTime);
   const dDay = calculateDDay(endTime);
+  const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);
+
+  const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    postAuctionLike({ auction_id: id });
+  };
 
   return (
     <Link className={S.cardWrapper} href={`basicauction/${id}`} scroll={false}>
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
-      <button type="button" className={S.heartStyle}>
-        <HeartIcon size={16} stroke="red" fill={isLike ? 'red' : 'none'} />
+      <button type="button" className={S.heartStyle} onClick={handleLike}>
+        <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />
       </button>
       {!isExpired && (
         <div className={S.floatTimer}>

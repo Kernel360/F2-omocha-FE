@@ -39,7 +39,7 @@ function BasicAuctionClientPage() {
             id={item.auction_id}
             image={item.thumbnail_path}
             title={item.title}
-            isLike={false}
+            isLike={item.is_liked}
             startPrice={item.start_price}
             startTime={item.start_date}
             endTime={item.end_date}
