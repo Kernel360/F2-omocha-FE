@@ -40,7 +40,21 @@ export const inputSection = style({
   width: '100%',
 });
 
-export const inputLabel = style({ display: 'flex', flexDirection: 'column', gap: '6px' });
+export const commonInputContainer = style({
+  position: 'relative',
+});
+
+export const blind = style({
+  position: 'absolute',
+  right: '10px',
+  top: '38px',
+});
+
+export const inputLabel = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '6px',
+});
 
 export const joinInput = style({
   display: 'flex',
