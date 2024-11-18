@@ -1,5 +1,6 @@
-import colors from '@/styles/color';
 import { style } from '@vanilla-extract/css';
+
+import colors from '@/styles/color';
 
 export const basicBid = style({
   display: 'flex',

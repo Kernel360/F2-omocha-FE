@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
+import { useRouter } from 'next/navigation';
 
 import useGetBidAuctionHistories from '@/apis/queryHooks/User/useGetBidAuctionHistories';
 import useGetBidAuctionHistoriesUnit from '@/apis/queryHooks/User/useGetBidAuctionHistoriesUnit';
@@ -10,7 +11,6 @@ import useGetBidAuctionHistoriesUnit from '@/apis/queryHooks/User/useGetBidAucti
 import * as S from './BasicBid.css';
 import BasicBidAuction from './BasicBidAuction';
 import BasicBidAuctionBidList from './BasicBidAuctionBidList';
-import { useRouter } from 'next/navigation';
 
 export default function BasicBidAuctionSection() {
   const router = useRouter();
