@@ -1,7 +1,25 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import shadow from '@/styles/shadow';
+import typography from '@/styles/typo';
+
+// Define sample
+export const inputWrapperCategory = style({
+  display: 'flex',
+  gap: '8px',
+  width: '100%',
+});
+
+export const inputCategory = style({
+  display: 'flex',
+  alignItems: 'center',
+  height: '36px',
+  width: '100%',
+  padding: '0 16px',
+  borderRadius: '8px',
+  border: `1.5px solid ${colors.gray7}`,
+});
 
 // --- page.tsx ---
 
@@ -45,6 +63,12 @@ export const price = style({
   gap: '30px',
 });
 
+export const nowBidPrice = style({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: '30px',
+});
+
 export const auctionLabel = style({
   display: 'flex',
   flexDirection: 'column',
@@ -54,11 +78,57 @@ export const title = style({
   display: 'flex',
   fontSize: '18px',
   fontWeight: 'bold',
+  marginBottom: '12px',
+});
+
+export const auctionTypeTitle = style([
+  typography.body,
+  {
+    color: colors.black1,
+    marginBottom: '8px',
+    fontWeight: 'bold',
+  },
+]);
+
+export const auctionTypeButtonWrapper = style({
+  display: 'flex',
+  gap: '10px',
+  marginBottom: '10px',
+});
+
+export const auctionTypeTitleButtonBase = style({
+  cursor: 'pointer',
+  padding: '4px 8px',
+  fontSize: '11px',
+  color: colors.gray8,
+  borderRadius: '30px',
+
+  border: `1px solid ${colors.gray8}`,
+  ':hover': {
+    color: colors.primary10,
+    fontWeight: 'bold',
+    border: `1.5px solid ${colors.primary9}`,
+    backgroundColor: colors.primary3,
+  },
+  selectors: {
+    '&[data-state="on"]': {
+      color: colors.primary10,
+      border: `1px solid ${colors.primary9}`,
+      backgroundColor: colors.primary3,
+    },
+  },
+});
+
+export const flexWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '10px',
 });
 
 export const description = style({
-  marginTop: '16px',
   fontSize: '13px',
+  lineHeight: '1.5',
   color: 'rgb(142,142,142)',
 });
 
@@ -66,7 +136,6 @@ export const buttonContainer = style({
   display: 'flex',
   justifyContent: 'center',
   margin: '0 auto',
-  marginTop: '50px',
   marginBottom: '50px',
   width: '100%',
 });
@@ -82,7 +151,6 @@ export const period = style({
 export const count = style({
   fontSize: '14px',
   textAlign: 'right',
-  marginBottom: '10px',
 });
 
 export const imageBoard = style({
@@ -118,6 +186,17 @@ export const imageList = style({
   gap: '10px',
 });
 
+export const imageWrapper = style({
+  position: 'relative',
+  display: 'flex',
+  gap: '10px',
+  justifyContent: 'center',
+  width: '250px',
+  height: 'auto',
+  objectFit: 'contain',
+  borderRadius: '10px',
+});
+
 export const image = style({
   position: 'relative',
   display: 'flex',
@@ -128,6 +207,38 @@ export const image = style({
   objectFit: 'contain',
   border: `1.5px dashed ${colors.gray8} `,
   borderRadius: '10px',
+});
+
+export const thumbnailButtonBase = style({
+  cursor: 'pointer',
+  position: 'absolute',
+  top: '5px',
+  left: '18px',
+  zIndex: '1',
+  padding: '4px',
+  fontSize: '12px',
+  color: colors.gray8,
+  borderRadius: '4px',
+
+  border: `1px solid ${colors.gray8}`,
+  ':hover': {
+    color: colors.primary10,
+    fontWeight: 'bold',
+    border: `1.5px solid ${colors.primary9}`,
+    backgroundColor: colors.primary3,
+  },
+});
+
+export const thumbnailButton = styleVariants({
+  default: [thumbnailButtonBase, {}],
+  selected: [
+    thumbnailButtonBase,
+    {
+      color: colors.primary10,
+      border: `1.5px solid ${colors.primary9}`,
+      backgroundColor: colors.primary3,
+    },
+  ],
 });
 
 export const deleteButton = style({
