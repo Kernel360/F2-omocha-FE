@@ -1,4 +1,26 @@
-import { style, globalStyle, styleVariants } from '@vanilla-extract/css';
+import { style, globalStyle, styleVariants, keyframes } from '@vanilla-extract/css';
+
+import colors from '@/styles/color';
+
+export const noListWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '20px',
+  marginTop: '70px',
+});
+
+export const noListTitle = style({ fontSize: '16px', fontWeight: '500', color: colors.gray10 });
+
+export const noListButton = style({
+  padding: '10px 20px',
+  backgroundColor: colors.primary9,
+  color: colors.white,
+  borderRadius: '8px',
+  fontSize: '14px',
+  cursor: 'pointer',
+});
 
 export const basicSold = style({
   display: 'flex',
@@ -10,6 +32,7 @@ export const basicSold = style({
 });
 
 export const list = style({
+  position: 'relative',
   display: 'flex',
   gap: '15px',
   cursor: 'pointer',
@@ -26,8 +49,12 @@ globalStyle(`${list}:nth-last-child(1)`, {
 });
 
 export const image = style({
-  width: '200px',
-  height: 'auto',
+  maxWidth: '120px',
+  width: '100%',
+  maxHeight: '120px',
+  height: '100%',
+  contain: 'contain',
+
   borderRadius: '4px',
   boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
 });
@@ -38,20 +65,38 @@ export const listRight = style({
   justifyContent: 'center',
   gap: '10px',
   listStyle: 'none',
-  margin: '15px 0',
+  margin: '10px 0',
 });
 
 export const listName = style({
   display: 'inline-block',
   fontSize: '14px',
-  width: '60px',
+  width: '70px',
   textAlign: 'end',
   marginRight: '10px',
   fontWeight: '600',
 });
 
+const blinkAnimation = keyframes({
+  '0%': { opacity: 1 },
+  '50%': { opacity: 0.3 },
+  '100%': { opacity: 1 },
+});
+
+export const bidding = style({
+  fontSize: '12px',
+  position: 'absolute',
+  padding: '5px 10px',
+  borderRadius: '20px',
+  border: '1.5px solid red',
+  right: '30px',
+  top: '20px',
+  animation: `${blinkAnimation} 1.5s ease-in-out infinite`,
+});
+
 export const listValue = style({
   fontWeight: '500',
+  fontSize: '14px',
 });
 
 export const soldStatus = styleVariants({
@@ -59,6 +104,39 @@ export const soldStatus = styleVariants({
     listValue,
     {
       color: 'black',
+    },
+  ],
+  bidding: [
+    listValue,
+    {
+      color: 'red',
+    },
+  ],
+  concluded: [
+    listValue,
+    {
+      color: 'rgb(35, 167, 80)',
+    },
+  ],
+  defeat: [
+    listValue,
+    {
+      color: 'rgb(95, 99, 104)',
+    },
+  ],
+});
+
+export const bidStatus = styleVariants({
+  default: [
+    listValue,
+    {
+      color: 'black',
+    },
+  ],
+  complete: [
+    listValue,
+    {
+      color: 'blue',
     },
   ],
   bidding: [

@@ -1,109 +1,103 @@
+'use client';
+
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import useGetAuctionHistories from '@/apis/queryHooks/User/useGetAuctionHistories';
 
 import * as S from './BasicSold.css';
 
-const LISTS = [
-  {
-    id: 1,
-    title: '팔아요',
-    image: 'https://via.placeholder.com/280x200',
-    soldStatus: '판매 완료',
-    startPice: 10000,
-    currentPrice: 20000,
-    endDate: '2024-10-14 11:43:34',
-  },
-  {
-    id: 2,
-    title: '팔아요',
-    image: 'https://via.placeholder.com/280x200',
-    soldStatus: '유찰',
-    startPice: 10000,
-    currentPrice: 0,
-    endDate: '2024-10-14 11:43:34',
-  },
-  {
-    id: 3,
-    title: '팔아요',
-    image: 'https://via.placeholder.com/280x200',
-    soldStatus: '판매중',
-    startPice: 10000,
-    currentPrice: 30000,
-    endDate: '2024-10-14 11:43:34',
-  },
-  {
-    id: 5,
-    title: '팔아요',
-    image: 'https://via.placeholder.com/280x200',
-    soldStatus: '판매중',
-    startPice: 10000,
-    currentPrice: 20000,
-    endDate: '2024-10-14 11:43:34',
-  },
-];
-
 export default function BasicSold() {
-  const getStatusStyle = (soldStatus: string) => {
-    if (soldStatus === '판매 완료') {
-      return S.soldStatus.concluded;
+  const { data: auctionHistories } = useGetAuctionHistories();
+  const router = useRouter();
+
+  const getBidStatusStyle = (bidStatus: string) => {
+    if (bidStatus === 'CONCLUDED') {
+      return S.bidStatus.concluded;
     }
 
-    if (soldStatus === '판매중') {
-      return S.soldStatus.bidding;
+    if (bidStatus === 'BIDDING') {
+      return S.bidStatus.bidding;
     }
 
-    if (soldStatus === '유찰') {
-      return S.soldStatus.defeat;
+    if (bidStatus === 'NO_BIDS') {
+      return S.bidStatus.defeat;
     }
 
-    return S.soldStatus.default;
+    if (bidStatus === 'COMPLETE') {
+      return S.bidStatus.complete;
+    }
+
+    return S.bidStatus.default;
   };
+
+  if (!auctionHistories) {
+    return null;
+  }
 
   return (
     <ul className={S.basicSold}>
-      {LISTS.map(list => {
-        const priceDifference = list.currentPrice - list.startPice;
-        const newPriceDifference = priceDifference > 0 ? priceDifference : 0;
-
-        return (
-          <li className={S.list} key={list.id}>
-            <Image
-              className={S.image}
-              src={list.image}
-              width={0}
-              height={0}
-              sizes="100vw"
-              alt="경매 사진"
-            />
-            <ul className={S.listRight}>
-              <li>
-                <span className={S.listName}>상품명</span>
-                <span className={S.listValue}>{list.title}</span>
-              </li>
-              <li>
-                <span className={S.listName}>상태</span>
-                <span className={`${S.listValue} ${getStatusStyle(list.soldStatus)}`}>
-                  {list.soldStatus}
-                </span>
-              </li>
-              <li>
-                <span className={S.listName}>시작가</span>
-                <span className={S.listValue}>{`${list.startPice} 원`}</span>
-              </li>
-              <li>
-                <span className={S.listName}>현재가</span>
-                <span className={S.listValue}>{`${list.currentPrice} 원 `}</span>
-                <span
-                  className={`${S.listValue} ${getStatusStyle(list.soldStatus)}`}
-                >{`(+${newPriceDifference}원)`}</span>
-              </li>
-              <li>
-                <span className={S.listName}>종료</span>
-                <span className={S.listValue}>{list.endDate}</span>
-              </li>
-            </ul>
-          </li>
-        );
-      })}
+      {auctionHistories.content.length === 0 ? (
+        <div className={S.noListWrapper}>
+          <div className={S.noListTitle}>아직 판매한 물품이 없습니다.</div>
+          <button
+            className={S.noListButton}
+            type="button"
+            onClick={() => router.push('/create', { scroll: false })}
+          >
+            상품 등록하러 가기
+          </button>
+        </div>
+      ) : (
+        auctionHistories.content.map(history => (
+          <Link
+            key={history.auction_id}
+            href={`/basicauction/${history.auction_id}`}
+            scroll={false}
+          >
+            <li className={S.list}>
+              {history.auction_status === 'BIDDING' && (
+                <div className={S.bidding}>
+                  <span className={`${S.listValue} ${getBidStatusStyle(history.auction_status)}`}>
+                    {history.auction_status}진행중
+                  </span>
+                </div>
+              )}
+              <Image
+                className={S.image}
+                src={`${process.env.NEXT_PUBLIC_S3_URL}${history.thumbnail_path}`}
+                width={0}
+                height={0}
+                sizes="100vw"
+                alt="경매 사진"
+              />
+              <ul className={S.listRight}>
+                <li>
+                  <span className={S.listName}>상품명</span>
+                  <span className={S.listValue}>{history.title}</span>
+                </li>
+                <li>
+                  <span className={S.listName}>경매 상태</span>
+                  <span className={`${S.listValue} ${getBidStatusStyle(history.auction_status)}`}>
+                    {history.auction_status}
+                  </span>
+                </li>
+                <li>
+                  <span className={S.listName}>현재가</span>
+                  <span
+                    className={S.listValue}
+                  >{`${history.now_price ? history.now_price : '-'} 원 `}</span>
+                </li>
+                <li>
+                  <span className={S.listName}>종료</span>
+                  <span className={S.listValue}>{history.end_date}</span>
+                </li>
+              </ul>
+            </li>
+          </Link>
+        ))
+      )}
     </ul>
   );
 }

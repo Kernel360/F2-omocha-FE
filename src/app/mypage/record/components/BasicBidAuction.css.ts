@@ -47,7 +47,6 @@ export const image = style({
 export const listRight = style({
   display: 'flex',
   flexDirection: 'column',
-
   alignItems: 'baseline',
   gap: '10px',
   listStyle: 'none',
@@ -57,7 +56,7 @@ export const listRight = style({
 export const listName = style({
   display: 'inline-block',
   fontSize: '14px',
-  width: '50px',
+  width: '70px',
   textAlign: 'end',
   marginRight: '10px',
   fontWeight: '600',

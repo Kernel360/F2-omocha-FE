@@ -4,22 +4,6 @@ import { BidAuctionHistoriesData } from '@/apis/types/User';
 
 import * as S from './BasicBidAuction.css';
 
-const getBidStatusStyle = (bidStatus: string) => {
-  if (bidStatus === '낙찰') {
-    return S.bidStatus.concluded;
-  }
-
-  if (bidStatus === '입찰중') {
-    return S.bidStatus.bidding;
-  }
-
-  if (bidStatus === '패찰') {
-    return S.bidStatus.defeat;
-  }
-
-  return S.bidStatus.default;
-};
-
 interface BasicBidAuctionProps {
   bidAuctionHistory: BidAuctionHistoriesData;
 }
@@ -29,7 +13,7 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
     <li className={S.list} key={bidAuctionHistory.auction_id}>
       {bidAuctionHistory.auction_status === 'BIDDING' && (
         <div className={S.bidding}>
-          <span className={`${S.listValue} ${getBidStatusStyle(bidAuctionHistory.auction_status)}`}>
+          <span className={`${S.listValue} ${S.bidStatus.concluded}`}>
             {bidAuctionHistory.auction_status}진행중
           </span>
         </div>
@@ -48,7 +32,7 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
           <span className={S.listValue}>{bidAuctionHistory.title}</span>
         </li>
         <li>
-          <span className={S.listName}>상태</span>
+          <span className={S.listName}>입찰 상태</span>
           <span
             className={
               bidAuctionHistory.bid_status === '낙찰'

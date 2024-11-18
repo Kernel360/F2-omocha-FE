@@ -67,3 +67,29 @@ export interface BidAuctionHistoriesUnitDataResponseData {
   first: boolean;
   empty: boolean;
 }
+
+export interface AuctionHistoriesData {
+  auction_id: number;
+  title: string;
+  auction_status: string;
+  now_price: number | null;
+  end_date: string;
+  thumbnail_path: string;
+}
+export interface AuctionHistoriesDataResponseData {
+  content: AuctionHistoriesData[];
+  pageable: Pageable;
+  total_pages: number;
+  total_elements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: {
+    empty: boolean;
+    unsorted: boolean;
+    sorted: boolean;
+  };
+  number_of_elements: number;
+  first: boolean;
+  empty: boolean;
+}

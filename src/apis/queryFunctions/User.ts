@@ -5,6 +5,7 @@ import {
   UserResponseData,
   BidAuctionHistoriesDataResponseData,
   BidAuctionHistoriesUnitDataResponseData,
+  AuctionHistoriesDataResponseData,
 } from '@/apis/types/User';
 import { Response } from '@/apis/types/common';
 
@@ -38,5 +39,11 @@ export const getBidAuctionHistoriesUnit = async (auctionId: number | null) => {
   const response = await apiClient.get<Response<BidAuctionHistoriesUnitDataResponseData>>(
     `/v2/bids/me/${auctionId}`,
   );
+  return response.data;
+};
+
+export const getAuctionHistories = async () => {
+  const response =
+    await apiClient.get<Response<AuctionHistoriesDataResponseData>>('/v2/auctions/me');
   return response.data;
 };
