@@ -1,4 +1,4 @@
-import { globalStyle, keyframes, style } from '@vanilla-extract/css';
+import { keyframes, style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import typography from '@/styles/typo';
@@ -39,17 +39,17 @@ export const buttonStyles = style([
   },
 ]);
 
-globalStyle('[data-radix-popper-content-wrapper]', {
-  display: 'flex !important',
-  boxSizing: 'border-box',
-  left: '50% !important',
-  transform: 'translate(-50%, 158px) !important',
-  width: '100%',
-  height: '250px',
-  margin: '0 auto',
-  padding: '0 20px',
-  backgroundColor: colors.white,
-});
+// globalStyle('[data-radix-popper-content-wrapper]', {
+//   // display: 'flex !important',
+//   // boxSizing: 'border-box',
+//   // left: '50% !important',
+//   // transform: 'translate(-50%, 158px) !important',
+//   // width: '100%',
+//   // height: '250px',
+//   // margin: '0 auto',
+//   // padding: '0 20px',
+//   // backgroundColor: colors.white,
+// });
 
 const slideUp = keyframes({
   from: {

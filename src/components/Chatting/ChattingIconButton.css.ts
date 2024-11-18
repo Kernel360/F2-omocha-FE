@@ -128,6 +128,7 @@ export const popoverClose = style({
 
 export const iconButton = style({
   position: 'fixed',
+  zIndex: '1',
   bottom: '50px',
   right: '20px',
   borderRadius: '100%',
