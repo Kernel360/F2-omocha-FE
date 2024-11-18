@@ -135,5 +135,5 @@ export interface PostLikeParams {
 export interface PostLikeResponseData {
   auction_id: number;
   member_id: number;
-  like_type: string; // 'LIKE'
+  like_type: 'LIKE' | 'UNLIKE';
 }

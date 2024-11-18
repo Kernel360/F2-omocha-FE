@@ -41,7 +41,6 @@ export const useAuth = () => {
   const context = useContext(AuthContext);
 
   if (!context) {
-    console.log('AuthProvider로 감싸지 않았습니다!');
     throw new Error('useAuth는 AuthProvider 내에서만 사용할 수 있습니다.');
   }
 

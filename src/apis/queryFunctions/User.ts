@@ -1,10 +1,11 @@
 import createApiClient from '@/apis/queryFunctions/apiClient';
 import {
+  GetAuctionLikeData,
   PatchPasswordParams,
   PatchProfileImageResponseData,
   UserResponseData,
 } from '@/apis/types/User';
-import { Response } from '@/apis/types/common';
+import { ListParams, ListResponse, Response } from '@/apis/types/common';
 
 const apiClient = createApiClient();
 
@@ -23,5 +24,15 @@ export const patchProfileImage = async (param: FormData) => {
 
 export const patchPassword = async (param: PatchPasswordParams) => {
   const response = await apiClient.patch<Response<null>>('/v2/member/password', param);
+  return response.data;
+};
+
+// 찜 목록
+export const getAuctionLikeList = async (param: ListParams) => {
+  const response = await apiClient.get<Response<ListResponse<GetAuctionLikeData[]>>>(
+    `/v2/auctions/likes`,
+    { params: param },
+  );
+
   return response.data;
 };

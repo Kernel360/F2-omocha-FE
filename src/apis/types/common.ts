@@ -34,3 +34,10 @@ export interface ListResponse<T> {
   first: boolean;
   empty: boolean;
 }
+
+export interface ListParams {
+  sort?: string;
+  direction?: string;
+  page?: number;
+  size?: number;
+}
