@@ -59,6 +59,9 @@ globalStyle(`.${selectPrefix}-menu-item-selected`, {
 
 globalStyle(`.${selectPrefix}-menu-item-active`, {
   background: colors.primary5,
+  display: 'flex',
+  justifyContent: 'center',
+  gap: '8px',
 });
 
 globalStyle(`.${selectPrefix}-menu-item-disabled`, {
@@ -66,14 +69,22 @@ globalStyle(`.${selectPrefix}-menu-item-disabled`, {
 });
 
 globalStyle(`.${selectPrefix}-menu-item-content`, {
-  flex: 'auto',
+  maxWidth: '120px',
+  fontSize: '14px',
+
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+});
+
+globalStyle(`.${selectPrefix}-menu-item-expand`, {
+  marginLeft: 'auto',
+  display: 'flex',
+  justifyContent: 'center',
+  gap: '8px',
 });
 
 globalStyle(`.${selectPrefix}-menu-item-expand-icon`, {
-  position: 'absolute',
-  right: '4px',
-  top: '50%',
-  transform: 'translateY(-50%)',
+  marginLeft: 'auto',
 });
 
 globalStyle(`.${selectPrefix}-checkbox`, {

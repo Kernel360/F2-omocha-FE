@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getCategory } from '@/apis/queryFunctions/category';
-import { Category } from '@/apis/types/category';
+import { Category, TransformCategoriesToOptions } from '@/apis/types/category';
 
 interface UseGetCategoryParams {
   targetCategoryId?: number;
+  categoryType?: string;
 }
 
 function addIsOpenProperty(
@@ -27,7 +28,17 @@ function addIsOpenProperty(
   return { ...category, sub_categories: updatedSubCategory, isOpen };
 }
 
-function useGetCategory({ targetCategoryId }: UseGetCategoryParams) {
+const transformCategoriesToOptions = (categories: Category[]): TransformCategoriesToOptions[] => {
+  return categories.map(category => ({
+    value: category.category_id.toString(),
+    label: category.name,
+    children: category.sub_categories.length
+      ? transformCategoriesToOptions(category.sub_categories)
+      : undefined,
+  }));
+};
+
+function useGetCategory({ targetCategoryId, categoryType }: UseGetCategoryParams) {
   const { data } = useQuery({
     queryKey: ['category'],
     queryFn: () => getCategory(),
@@ -39,6 +50,10 @@ function useGetCategory({ targetCategoryId }: UseGetCategoryParams) {
     );
 
     return { data: addIsOpenPropertyData };
+  }
+
+  if (data && categoryType === 'create') {
+    return { data: transformCategoriesToOptions(data?.result_data) };
   }
 
   return { data: data?.result_data };

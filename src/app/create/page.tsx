@@ -28,6 +28,7 @@ export default function Home() {
   } = methods;
 
   const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [pickCategory, setPickCategory] = useState<number | null>();
 
   const { mutate: postBasicAuction } = usePostBasicAuction();
 
@@ -42,7 +43,7 @@ export default function Home() {
       start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
       instantBuyPrice: data.instantBuyPrice,
-      category_ids: [37], // V2로 바꾸는 과정에서 쓰이는 임시값. post 클라쪽 수정 후 실제 값으로 변경 예정 // 타이ㅏㅂ 추가해줘야함
+      category_ids: [pickCategory],
     };
 
     formData.append('auctionRequest', JSON.stringify(auctionRequest));
@@ -52,6 +53,7 @@ export default function Home() {
 
     // useDebounce(() => postBasicAuction(formData), 500);
     // useDebounce로 감싸면 에러가 나서 일단 주석처리함
+
     postBasicAuction(formData);
   };
 
@@ -62,7 +64,11 @@ export default function Home() {
           <h1>기본 경매 상품 등록</h1>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className={S.formSection}>
-              <NameRequiredProps register={register} errors={errors} />
+              <NameRequiredProps
+                register={register}
+                errors={errors}
+                setPickCategory={setPickCategory}
+              />
               <TypePriceRequired register={register} errors={errors} />
               <ImageRequired thumbnail={thumbnail} setThumbnail={setThumbnail} />
               <ContentRequired />

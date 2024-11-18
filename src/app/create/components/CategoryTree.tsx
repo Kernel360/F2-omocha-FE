@@ -1,99 +1,27 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import Cascader, { CascaderProps } from 'rc-cascader';
 
+import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
+import { TransformCategoriesToOptions } from '@/apis/types/category';
 import * as S from '@/components/CommonInput/CommonInput.css';
 
 import './CategoryTree.css';
 
-interface Option {
-  value: string;
-  label: string;
-  children?: Option[];
+interface CategoryTreeProps {
+  setPickCategory: Dispatch<SetStateAction<number | null | undefined>>;
 }
 
-const addressOptions = [
-  {
-    label: '1',
-    value: 'fj',
-    children: [
-      {
-        label: '1-1',
-        value: 'fuzhou',
-        children: [
-          {
-            label: '1-1-1',
-            value: 'mawei',
-            children: [
-              {
-                label: '1-1-1-1',
-                value: 'mawei',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        label: '1-2',
-        value: 'quanzhou',
-      },
-    ],
-  },
-  {
-    label: '2',
-    value: 'zj',
-    children: [
-      {
-        label: '2-1',
-        value: 'hangzhou',
-        children: [
-          {
-            label: '2-1-1',
-            value: 'yuhang',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: '3',
-    value: 'bj',
-    children: [
-      {
-        label: '3-1',
-        value: 'chaoyang',
-      },
-      {
-        label: '3-2',
-        value: 'haidian',
-      },
-    ],
-  },
-  {
-    label: '4',
-    value: 'tw',
-    children: [
-      {
-        label: '4-1',
-        value: 'taipei',
-        children: [
-          {
-            label: '4-1-1',
-            value: 'zhongzheng',
-          },
-        ],
-      },
-    ],
-  },
-];
-
-function CategoryTree() {
-  // const { data } = useGetCategory({});
-  // console.log(data);
+function CategoryTree({ setPickCategory }: CategoryTreeProps) {
+  const { data } = useGetCategory({ categoryType: 'create' });
 
   const [inputValue, setInputValue] = useState('');
 
-  const onChange: CascaderProps<Option>['onChange'] = (value, selectedOptions) => {
+  const onChange: CascaderProps<TransformCategoriesToOptions>['onChange'] = (
+    value,
+    selectedOptions,
+  ) => {
+    setPickCategory(Number(selectedOptions[selectedOptions.length - 1].value));
     setInputValue(selectedOptions.map(o => o.label).join('> '));
   };
 
@@ -105,7 +33,12 @@ function CategoryTree() {
           maxWidth: '368px',
         }}
       >
-        <Cascader expandTrigger="hover" options={addressOptions} onChange={onChange}>
+        {/* <Controller> */}
+        <Cascader
+          expandTrigger="hover"
+          options={data as TransformCategoriesToOptions[]}
+          onChange={onChange}
+        >
           <div className={S.inputWrapper}>
             <input
               placeholder="카테고리를 선택해주세요."
@@ -115,6 +48,7 @@ function CategoryTree() {
             />
           </div>
         </Cascader>
+        {/* </Controller> */}
       </div>
     </div>
   );
