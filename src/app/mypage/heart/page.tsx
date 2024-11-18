@@ -29,7 +29,7 @@ function Home() {
             <AuctionCard
               key={item.auction_id}
               id={item.auction_id}
-              image={item.thumbnail_path}
+              thumbnailImage={item.thumbnail_path}
               title={item.title}
               isLike
               startPrice={item.start_price}

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { ClockIcon, HeartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,10 +21,15 @@ interface AuctionCardProps {
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
-  const { id, thumbnailImage, title, isLike, endTime, nowPrice } = SAMPLE;
+  const { id, thumbnailImage, title, isLike: initialLike, endTime, nowPrice } = SAMPLE;
   const isExpired = new Date() > new Date(endTime);
+  const [isLike, setIsLike] = useState(false); // 서버와 클라이언트의 불일치 문제 해결을 위해 isLike를 상태로 관리
   const dDay = calculateDDay(endTime);
   const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);
+
+  useEffect(() => {
+    setIsLike(initialLike);
+  }, [initialLike]);
 
   const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
