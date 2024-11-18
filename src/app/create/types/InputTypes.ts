@@ -10,4 +10,6 @@ export type AuctionInputs = {
   contentRequired: string;
   startDateRequired: string;
   endDateRequired: string;
+  instantBuyPrice: number | null;
+  categoryIdsRequired: number[];
 };

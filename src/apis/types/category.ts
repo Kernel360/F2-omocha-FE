@@ -5,3 +5,8 @@ export interface Category {
   sub_categories: Category[];
   isOpen?: boolean;
 }
+export interface TransformCategoriesToOptions {
+  value: string;
+  label: string;
+  children?: TransformCategoriesToOptions[];
+}

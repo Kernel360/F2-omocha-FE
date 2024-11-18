@@ -32,6 +32,10 @@ globalStyle('ul', {
   paddingLeft: '0px ',
 });
 
+globalStyle('rc-cascader-menu-item', {
+  display: 'flex',
+});
+
 export const container = style({
   position: 'relative',
   minHeight: 'calc(100vh - 288px)',

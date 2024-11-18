@@ -37,7 +37,7 @@ function CommonInput<T extends FieldValues>({
 }: CommonInputProps<T>) {
   return (
     <label htmlFor={String(id)} className={S.label}>
-      <div className={disabled ? S.disabledTitle : S.title}>{label}</div>
+      <h3 className={disabled ? S.disabledTitle : S.title}>{label}</h3>
       <div className={S.inputWrapper}>
         <input
           disabled={disabled}

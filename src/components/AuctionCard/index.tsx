@@ -8,7 +8,7 @@ import * as S from './AuctionCard.css';
 
 interface AuctionCardProps {
   id: number;
-  image: string;
+  thumbnailImage: string;
   title: string;
   isLike: boolean;
   startPrice: number;
@@ -18,7 +18,7 @@ interface AuctionCardProps {
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
-  const { id, image, title, isLike, endTime, nowPrice } = SAMPLE;
+  const { id, thumbnailImage, title, isLike, endTime, nowPrice } = SAMPLE;
   const isExpired = new Date() > new Date(endTime);
   const dDay = calculateDDay(endTime);
 
@@ -36,7 +36,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       )}
       <div className={S.cardContent}>
         <Image
-          src={`${process.env.NEXT_PUBLIC_S3_URL}${image}`}
+          src={`${process.env.NEXT_PUBLIC_S3_URL}${thumbnailImage}`}
           alt="Auction Image"
           width={196}
           height={196}
