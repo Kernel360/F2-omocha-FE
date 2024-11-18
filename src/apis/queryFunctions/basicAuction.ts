@@ -41,14 +41,14 @@ export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => 
 };
 
 export const getBasicAuctionBidList = async (id: number) => {
-  const response = await apiClient.get<Response<GetBasicAuctionBidInfo[]>>(`/v2/bid/${id}`);
+  const response = await apiClient.get<Response<GetBasicAuctionBidInfo[]>>(`/v2/bids/${id}`);
 
   return response.data;
 };
 
 export const postBasicAuctionBid = async (id: number, param: PostBasicAuctionBidParams) => {
   const response = await apiClient.post<Response<PostBasicAuctionBidResponseData>>(
-    `/v2/bid/${id}`,
+    `/v2/bids/${id}`,
     param,
   );
 
@@ -95,7 +95,7 @@ export const deleteAuctionQnA = async (id: number) => {
 
 export const getNowPrice = async (id: number) => {
   const response = await apiClient.get<Response<GetNowPriceResponseData>>(
-    `/v2/bid/${id}/now-price`,
+    `/v2/bids/${id}/now-price`,
   );
 
   return response.data;
