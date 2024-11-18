@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import { AuctionListResponseData } from '@/apis/types/basicAuction';
-import { Response } from '@/apis/types/common';
+import { AuctionData } from '@/apis/types/basicAuction';
+import { ListResponse, Response } from '@/apis/types/common';
 import ArrowRightIcon from '@/assets/svg/arrow-right.svg';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
@@ -9,7 +9,7 @@ import ListLayout from '@/components/ListLayout';
 import * as S from './AuctionList.css';
 
 export interface AuctionListProps {
-  data: Response<AuctionListResponseData>;
+  data: Response<ListResponse<AuctionData[]>>;
   isLink?: boolean;
   path?: string;
   pathname: string;
