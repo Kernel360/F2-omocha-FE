@@ -1,12 +1,13 @@
 export interface UserResponseData {
   member_id: number;
   email: string;
-  user_name: null | string;
-  nick_name: null | string;
-  phone_number: null | string;
-  birth: null | string;
-  role: 'ROLE_USER';
-  profile_image_url: null | string;
+  user_name: string | null;
+  nick_name: string | null;
+  phone_number: string | null;
+  birth: string | null;
+  profile_image_url: string | null;
+  login_type: 'general' | 'naver' | 'google';
+  like_count: number;
 }
 
 export interface PatchProfileImageResponseData {

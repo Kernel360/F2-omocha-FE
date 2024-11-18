@@ -38,7 +38,5 @@ export const useIntersectionObserver = ({
     return () => observer.disconnect();
   }, [endCursorRef, getNextData, threshold]);
 
-  console.log('endCursorRef', endCursorRef);
-
   return { endCursorRef };
 };

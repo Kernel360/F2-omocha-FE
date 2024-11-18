@@ -37,7 +37,7 @@ export const title = style({
 
 export const link = style({
   display: 'flex',
-  alignItems: 'stretch',
+  alignItems: 'center',
   fontSize: '14px',
 });
 

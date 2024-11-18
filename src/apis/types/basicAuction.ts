@@ -16,6 +16,7 @@ export type BasicAuctionResponseData = {
   created_at: string;
   image_paths: string[];
   is_liked: boolean;
+  like_count: number;
   categories: Category[];
 };
 
@@ -35,6 +36,7 @@ export interface AuctionData {
   end_date: string;
   created_at: string;
   is_liked: boolean;
+  like_count: number;
   category_response: Category[];
 }
 
