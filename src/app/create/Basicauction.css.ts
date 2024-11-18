@@ -4,6 +4,23 @@ import colors from '@/styles/color';
 import shadow from '@/styles/shadow';
 import typography from '@/styles/typo';
 
+// Define sample
+export const inputWrapperCategory = style({
+  display: 'flex',
+  gap: '8px',
+  width: '100%',
+});
+
+export const inputCategory = style({
+  display: 'flex',
+  alignItems: 'center',
+  height: '36px',
+  width: '100%',
+  padding: '0 16px',
+  borderRadius: '8px',
+  border: `1.5px solid ${colors.gray7}`,
+});
+
 // --- page.tsx ---
 
 export const backContainer = style({

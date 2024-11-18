@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 import CommonInput from '@/components/CommonInput';
@@ -11,10 +10,9 @@ import CategoryTree from './CategoryTree';
 interface NameRequiredProps {
   register: UseFormRegister<AuctionInputs>;
   errors: FieldErrors<AuctionInputs>;
-  setPickCategory: Dispatch<SetStateAction<number | null | undefined>>;
 }
 
-function NameRequired({ register, errors, setPickCategory }: NameRequiredProps) {
+function NameRequired({ register, errors }: NameRequiredProps) {
   return (
     <>
       <div className={S.title}>상품 정보</div>
@@ -30,11 +28,7 @@ function NameRequired({ register, errors, setPickCategory }: NameRequiredProps) 
             error={errors.nameRequired}
           />
         </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <div className={S.auctionTypeTitle}>상품 카테고리</div>
-          <CategoryTree setPickCategory={setPickCategory} />
-        </div>
+        <CategoryTree />
       </div>
     </>
   );
