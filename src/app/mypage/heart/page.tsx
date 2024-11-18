@@ -21,11 +21,11 @@ const TABS = [
 const TABS_CONTENT = [<BasicHeart key="basicHeart" />, <LiveHeart key="liveHeart" />];
 
 function Home() {
-  const user = useGetUser();
+  const { data: user } = useGetUser();
 
   return (
     <div className={S.heart}>
-      <h3>찜 ({user.data?.member_id})</h3>
+      <h3>찜 ({user?.member_id})</h3>
       <TabsLayout
         defaultTriggerValue={TABS[0].value}
         triggerTitleList={TABS}

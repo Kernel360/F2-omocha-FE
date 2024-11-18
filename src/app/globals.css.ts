@@ -19,6 +19,7 @@ globalStyle('::-webkit-scrollbar', {
 globalStyle('button', {
   border: 'none',
   backgroundColor: 'transparent',
+  fontFamily: 'inherit',
 });
 
 globalStyle('a', {

@@ -10,7 +10,8 @@ function useGetUser() {
     queryFn: () => getUser(),
     enabled: !!isLoggedIn,
   });
-  return { data };
+
+  return { data: data?.result_data };
 }
 
 export default useGetUser;
