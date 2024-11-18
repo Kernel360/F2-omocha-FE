@@ -1,3 +1,5 @@
+import { Pageable } from './basicAuction';
+
 export interface UserResponseData {
   member_id: number;
   email: string;
@@ -21,13 +23,35 @@ export interface PatchPasswordParams {
 export interface BidAuctionHistoriesData {
   auction_id: number;
   title: string;
-  auction_status: string; // AUCTION_STATUS 타입 정의 필요
+  auction_status: string;
   thumbnail_path: string;
-  my_status: string; // 'CONCLUDED' | 'FAIL'; // 여기서 추가적으로 내가 해당 경매와 어떤 상태인지를 알 수 있는 즉 리뷰를 남길 수 있는 상태인지를 줄 수 잇는 요소가 필요
+  bid_status: string;
 }
 
 export interface BidAuctionHistoriesDataResponseData {
   content: BidAuctionHistoriesData[];
+  pageable: Pageable;
+  total_pages: number;
+  total_elements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: {
+    empty: boolean;
+    unsorted: boolean;
+    sorted: boolean;
+  };
+  number_of_elements: number;
+  first: boolean;
+  empty: boolean;
+}
+
+export interface BidAuctionHistoriesUnitData {
+  bid_price: number;
+  created_at: string;
+}
+export interface BidAuctionHistoriesUnitDataResponseData {
+  content: BidAuctionHistoriesUnitData[];
   pageable: Pageable;
   total_pages: number;
   total_elements: number;

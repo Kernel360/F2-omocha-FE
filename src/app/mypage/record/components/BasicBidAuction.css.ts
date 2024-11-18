@@ -47,16 +47,17 @@ export const image = style({
 export const listRight = style({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
+
+  alignItems: 'baseline',
   gap: '10px',
   listStyle: 'none',
-  margin: '15px 0',
+  margin: '10px 0px',
 });
 
 export const listName = style({
   display: 'inline-block',
   fontSize: '14px',
-  width: '60px',
+  width: '50px',
   textAlign: 'end',
   marginRight: '10px',
   fontWeight: '600',

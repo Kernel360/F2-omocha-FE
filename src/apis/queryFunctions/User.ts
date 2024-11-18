@@ -4,6 +4,7 @@ import {
   PatchProfileImageResponseData,
   UserResponseData,
   BidAuctionHistoriesDataResponseData,
+  BidAuctionHistoriesUnitDataResponseData,
 } from '@/apis/types/User';
 import { Response } from '@/apis/types/common';
 
@@ -28,8 +29,14 @@ export const patchPassword = async (param: PatchPasswordParams) => {
 };
 
 export const getBidAuctionHistories = async () => {
-  const response = await apiClient.get<Response<BidAuctionHistoriesDataResponseData>>(
-    'api/v2/my-info/histories/bids',
+  const response =
+    await apiClient.get<Response<BidAuctionHistoriesDataResponseData>>('/v2/auctions/bid/me');
+  return response.data;
+};
+
+export const getBidAuctionHistoriesUnit = async (auctionId: number | null) => {
+  const response = await apiClient.get<Response<BidAuctionHistoriesUnitDataResponseData>>(
+    `/v2/bids/me/${auctionId}`,
   );
-  return response.data.result_data;
+  return response.data;
 };

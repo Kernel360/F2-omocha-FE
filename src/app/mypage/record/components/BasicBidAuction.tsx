@@ -9,7 +9,7 @@ const getBidStatusStyle = (bidStatus: string) => {
     return S.bidStatus.concluded;
   }
 
-  if (bidStatus === 'BIDDING') {
+  if (bidStatus === '입찰중') {
     return S.bidStatus.bidding;
   }
 
@@ -51,23 +51,13 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
           <span className={S.listName}>상태</span>
           <span
             className={
-              bidAuctionHistory.my_status === 'CONCLUDED'
+              bidAuctionHistory.bid_status === '낙찰'
                 ? S.myBidStatus.concluded
                 : S.myBidStatus.defeat
             }
           >
-            {bidAuctionHistory.my_status}
+            {bidAuctionHistory.bid_status}
           </span>
-        </li>
-        <li>
-          {/* 없어질 수 있는 속성 */}
-          <span className={S.listName}>현재가</span>
-          <span className={S.listValue}>1000 원</span>
-        </li>
-        <li>
-          {/* 없어질 수 있는 속성 */}
-          <span className={S.listName}>종료</span>
-          <span className={S.listValue}>2024-10-14 11:43:34</span>
         </li>
       </ul>
     </li>

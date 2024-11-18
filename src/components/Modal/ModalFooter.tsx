@@ -12,8 +12,8 @@ interface ModalFooterProps {
   positiveButtonEvent: () => void;
 }
 
-export default function ModalFooter(SAMPLE: ModalFooterProps) {
-  const { isOpen, children, onOpenChange, positiveButton, positiveButtonEvent } = SAMPLE;
+export default function ModalFooter(props: ModalFooterProps) {
+  const { isOpen, children, onOpenChange, positiveButton, positiveButtonEvent } = props;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -21,12 +21,14 @@ export default function ModalFooter(SAMPLE: ModalFooterProps) {
         <Dialog.Overlay className={S.overlay} />
         <Dialog.Content className={S.modal} aria-describedby={undefined}>
           <Dialog.Close asChild>
-            <VisuallyHidden.Root asChild>
-              <Dialog.Title />
-            </VisuallyHidden.Root>
-            <div className={S.closeButton}>
-              <CircleXIcon />
-            </div>
+            <>
+              <VisuallyHidden.Root asChild>
+                <Dialog.Title />
+              </VisuallyHidden.Root>
+              <div className={S.closeButton}>
+                <CircleXIcon />
+              </div>
+            </>
           </Dialog.Close>
           <div className={S.content}>{children}</div>
           <div className={S.footerButton}>
