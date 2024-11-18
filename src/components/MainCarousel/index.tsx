@@ -13,11 +13,11 @@ import * as S from './MainCarousel.css';
 const CAROUSEL_INFO = [
   {
     img: sampleResizeBannerImage,
-    link: 'https://www.hanwhaeagles.co.kr/index.do',
+    link: '/basicauction',
   },
   {
     img: sampleResizeBannerImage2,
-    link: 'https://tigers.co.kr/',
+    link: 'basicauction',
   },
 ];
 
