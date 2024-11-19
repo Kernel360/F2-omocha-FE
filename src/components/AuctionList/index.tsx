@@ -15,12 +15,7 @@ export interface AuctionListProps {
   pathname: string;
 }
 
-export default function AuctionList({
-  data,
-  isLink = false,
-  path = '',
-  pathname,
-}: AuctionListProps) {
+export default function AuctionList({ data, isLink, path = '', pathname }: AuctionListProps) {
   return (
     <section className={S.section}>
       <div className={S.title}>
@@ -40,7 +35,7 @@ export default function AuctionList({
               id={item.auction_id}
               thumbnailImage={item.thumbnail_path}
               title={item.title}
-              isLike={false}
+              isLike={item.is_liked}
               startPrice={item.start_price}
               startTime={item.start_date}
               endTime={item.end_date}

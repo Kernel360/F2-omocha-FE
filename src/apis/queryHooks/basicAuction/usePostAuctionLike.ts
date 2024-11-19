@@ -13,7 +13,7 @@ function usePostAuctionLike(id: number, isLike: boolean) {
   const { mutate, error } = useMutation({
     mutationFn: (param: PostLikeParams) => postAuctionLike(id, param),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['like'] });
+      queryClient.invalidateQueries({ queryKey: ['auctionLikeList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuction', id] });
 
