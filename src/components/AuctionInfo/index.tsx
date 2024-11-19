@@ -95,8 +95,6 @@ function AuctionInfo(props: AuctionInfoProps) {
     }
   }, [auctionStatus]);
 
-  console.log('AuctionInfo canNotBid', auctionStatus, canNotBid());
-
   const handleBidButton = useDebounce(() => {
     if (bidInputRef.current) {
       const bidAmount = bidInputRef.current.value;
