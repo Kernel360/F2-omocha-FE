@@ -11,7 +11,7 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
   const { setSingleSearchParam } = useSetSearchParams();
 
   const handleCategory = () => {
-    setSingleSearchParam('categoryId', '0');
+    setSingleSearchParam('categoryId', '');
   };
 
   return (

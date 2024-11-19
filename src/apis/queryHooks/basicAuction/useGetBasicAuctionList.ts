@@ -2,17 +2,14 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { getBasicAuctionList } from '@/apis/queryFunctions/basicAuction';
 import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
+import filteredParams from '@/utils/filteredParams';
 
 function useGetBasicAuctionList(params: GetBasicAuctionListParams) {
-  const filteredParams = Object.fromEntries(
-    Object.entries(params).filter(
-      ([, value]) => value !== null && value !== undefined && value !== '',
-    ),
-  );
+  const newParams = filteredParams<GetBasicAuctionListParams>(params);
 
   const { data } = useSuspenseQuery({
-    queryKey: ['basicAuctionList', filteredParams],
-    queryFn: () => getBasicAuctionList(filteredParams),
+    queryKey: ['basicAuctionList', newParams],
+    queryFn: () => getBasicAuctionList(newParams),
   });
 
   return { data };

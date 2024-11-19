@@ -22,7 +22,7 @@ export default function LeftSection() {
 
   return (
     <section className={S.leftSection}>
-      <div className={S.pickCategory}>{rootCategory || '전체보기'}</div>
+      <div className={S.pickCategory}>{rootCategory || 'ALL'}</div>
       <AuctionCategory categoryData={categoryData as Category[]} />
     </section>
   );

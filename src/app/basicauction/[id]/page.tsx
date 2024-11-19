@@ -3,7 +3,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { BasicAuctionResponseData } from '@/apis/types/basicAuction';
 import { Breadcrumb } from '@/components/Breadcrumb';
 import MaxLayout from '@/components/MaxLayout';
-import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCoookie';
+import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 
 import BasicAuctionInfo from './BasicAuctionInfo';
 

@@ -11,7 +11,7 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
-import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCoookie';
+import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 import { ToastProvider } from '@/provider/toastProvider';

@@ -25,7 +25,7 @@ async function usePrefetchQueryWithCookie<T, TQueryKey extends QueryKey>({
         const response = await apiClient.get<Response<T>>(api);
         return response.data;
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         return null;
       }
     },
