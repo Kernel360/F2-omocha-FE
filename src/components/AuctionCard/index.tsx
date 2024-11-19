@@ -18,11 +18,21 @@ interface AuctionCardProps {
   startTime: string;
   endTime: string;
   nowPrice: number | null;
+  auctionStatus: string;
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
-  const { id, thumbnailImage, title, isLike: initialLike, endTime, nowPrice } = SAMPLE;
-  const isExpired = new Date() > new Date(endTime);
+  const {
+    id,
+    thumbnailImage,
+    title,
+    isLike: initialLike,
+    endTime,
+    nowPrice,
+    auctionStatus,
+  } = SAMPLE;
+  console.log(SAMPLE);
+  const isExpired = auctionStatus !== 'BIDDING'; // new Date() > new Date(endTime);
   const [isLike, setIsLike] = useState(false); // 서버와 클라이언트의 불일치 문제 해결을 위해 isLike를 상태로 관리
   const dDay = calculateDDay(endTime);
   const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);

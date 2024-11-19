@@ -95,7 +95,6 @@ export const infoButton = style({
 
 export const bidButtonWrapper = style({
   display: 'flex',
-  // flexDirection: 'column',
   gap: '12px',
   marginTop: '12px',
 });
@@ -125,22 +124,22 @@ export const bidButton = styleVariants({
 
 export const deleteButton = styleVariants({
   default: {
-    marginTop: '20px',
+    width: '100%',
+    height: '50px',
+    fontSize: '14px',
     backgroundColor: colors.primary10,
     color: colors.primary1,
     borderRadius: '8px',
     border: 'none',
     cursor: 'pointer',
-    height: '80px',
-    fontSize: '16px',
-    padding: '24px 24px',
   },
   disabled: {
-    padding: '24px 24px',
-    marginTop: '12px',
-    borderRadius: '4px',
+    width: '100%',
+    height: '50px',
+    fontSize: '14px',
+    borderRadius: '8px',
     border: 'none',
-    backgroundColor: 'darkred',
+    backgroundColor: 'gray',
     color: 'darkgray',
     cursor: 'not-allowed',
   },

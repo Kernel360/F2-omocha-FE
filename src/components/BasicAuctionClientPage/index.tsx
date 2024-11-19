@@ -44,6 +44,7 @@ function BasicAuctionClientPage() {
             startTime={item.start_date}
             endTime={item.end_date}
             nowPrice={item?.now_price}
+            auctionStatus={item.auction_status}
           />
         ))}
       </ListLayout>

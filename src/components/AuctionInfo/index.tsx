@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { ChevronDownIcon, ChevronUpIcon, RotateCwIcon } from 'lucide-react';
 
@@ -6,6 +6,7 @@ import useDeleteBasicAuction from '@/apis/queryHooks/basicAuction/useDeleteBasic
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import useGetBasicAuctionNowPrice from '@/apis/queryHooks/basicAuction/useGetBasicAuctionNowPrice';
 import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicAuctionBid';
+import usePostBasicAuctionInstantBuy from '@/apis/queryHooks/basicAuction/usePostBasicAuctionInstantBuy';
 import AuctionBidConfirmModal from '@/components/AuctionInfo/AuctionBidConfirmModal';
 import AuctionBidListModal from '@/components/AuctionInfo/AuctionBidListModal';
 import AuctionCountdown from '@/components/AuctionInfo/AuctionCountdown';
@@ -18,10 +19,12 @@ import useBooleanState from '@/hooks/useBooleanState';
 import useDebounce from '@/hooks/useDebounce';
 
 import * as S from './AuctionInfo.css';
+import AuctionInstantBuyConfirmModal from './AuctionInstantBuyConfirmModal';
 
 interface AuctionInfoProps {
   id: number;
   title: string;
+  auctionStatus: string;
   startPrice: number;
   nowPrice: number | null;
   endTime: string;
@@ -32,10 +35,21 @@ interface AuctionInfoProps {
 }
 
 function AuctionInfo(props: AuctionInfoProps) {
-  const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit, sellerId, instantBuyPrice } =
-    props;
+  const {
+    id,
+    title,
+    auctionStatus,
+    startPrice,
+    nowPrice,
+    bidCount,
+    endTime,
+    bidUnit,
+    sellerId,
+    instantBuyPrice,
+  } = props;
 
   const { mutate: postBidMutate } = usePostBasicAuctionBid();
+  const { mutate: postInstantBuyMutate } = usePostBasicAuctionInstantBuy(id);
   const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
   const { data: currentPrice, refetch } = useGetBasicAuctionNowPrice(id);
   const { refetch: refetchBasicAuction } = useGetBasicAuction(id);
@@ -53,6 +67,12 @@ function AuctionInfo(props: AuctionInfoProps) {
   } = useBooleanState();
 
   const {
+    value: isOpenInstantBuyConfirmModal,
+    toggle: setIsOpenInstantBuyConfirmModal,
+    setTrue: openInstantBuyConfirmModal,
+  } = useBooleanState();
+
+  const {
     value: isOpenDeleteConfirmModal,
     toggle: setIsOpenDeleteConfirmModal,
     setTrue: openDeleteConfirmModal,
@@ -65,6 +85,17 @@ function AuctionInfo(props: AuctionInfoProps) {
   });
 
   const { expired, setExpired, user, canNotBid, canDelete } = usePermissionBidPrice(sellerId);
+
+  useEffect(() => {
+    if (auctionStatus === 'COMPLETED') {
+      setExpired('completed');
+    }
+    if (auctionStatus === 'CONCLUDED') {
+      setExpired('concluded');
+    }
+  }, [auctionStatus]);
+
+  console.log('AuctionInfo canNotBid', auctionStatus, canNotBid());
 
   const handleBidButton = useDebounce(() => {
     if (bidInputRef.current) {
@@ -79,6 +110,11 @@ function AuctionInfo(props: AuctionInfoProps) {
     setIsOpenBidConfirmModal();
   }, 300);
 
+  const handleInstantBuyButton = useDebounce(() => {
+    postInstantBuyMutate();
+    setIsOpenInstantBuyConfirmModal();
+  }, 300);
+
   const iconRef = useRef<HTMLButtonElement>(null);
 
   const [isRotating, setIsRotating] = useState(false);
@@ -87,7 +123,6 @@ function AuctionInfo(props: AuctionInfoProps) {
     setIsRotating(true);
     refetch();
     refetchBasicAuction();
-
     // 로직이 끝난 후 애니메이션을 멈추기 위해 일정 시간이 지난 후 false로 설정
     setTimeout(() => {
       setIsRotating(false);
@@ -129,7 +164,7 @@ function AuctionInfo(props: AuctionInfoProps) {
       <hr className={S.division} />
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>남은 시간</span>
-        <AuctionCountdown endTime={endTime} setExpired={setExpired} />
+        <AuctionCountdown endTime={endTime} setExpired={setExpired} auctionStatus={auctionStatus} />
       </div>
       <div className={S.endTimeDescription}>{endTime}</div>
       <div className={S.infoRow}>
@@ -174,25 +209,26 @@ function AuctionInfo(props: AuctionInfoProps) {
           </div>
         </div>
       </div>
-
       {canDelete ? (
-        <button
-          type="button"
-          disabled={bidCount > 0}
-          className={bidCount > 0 ? S.deleteButton.disabled : S.deleteButton.default}
-          onClick={openDeleteConfirmModal}
-        >
-          삭제하기
-          {bidCount > 0 && (
-            <p className={S.bidButtonExplain}>현재 입찰이 걸려 게시글을 삭제할 수 없습니다.</p>
-          )}
-        </button>
+        <div className={S.bidButtonWrapper}>
+          <button
+            type="button"
+            disabled={bidCount > 0}
+            className={bidCount > 0 ? S.deleteButton.disabled : S.deleteButton.default}
+            onClick={openDeleteConfirmModal}
+          >
+            삭제하기
+            {bidCount > 0 && (
+              <p className={S.bidButtonExplain}>현재 입찰이 걸려 게시글을 삭제할 수 없습니다.</p>
+            )}
+          </button>
+        </div>
       ) : (
         <div className={S.bidButtonWrapper}>
           <button
-            disabled={expired || !user}
+            disabled={expired !== '' || !user}
             type="button"
-            className={expired || !user ? S.bidButton.disabled : S.bidButton.default}
+            className={expired !== '' || !user ? S.bidButton.disabled : S.bidButton.default}
             onClick={openBidConfirmModal}
           >
             입찰하기
@@ -200,10 +236,10 @@ function AuctionInfo(props: AuctionInfoProps) {
           </button>
           {instantBuyPrice && (
             <button
-              disabled={expired || !user}
+              disabled={expired !== '' || !user}
               type="button"
-              className={expired || !user ? S.bidButton.disabled : S.bidButton.default}
-              onClick={openBidConfirmModal}
+              className={expired !== '' || !user ? S.bidButton.disabled : S.bidButton.default}
+              onClick={openInstantBuyConfirmModal}
             >
               즉시 구매하기
               <p className={S.bidButtonExplain}>{canNotBid()}</p>
@@ -211,7 +247,6 @@ function AuctionInfo(props: AuctionInfoProps) {
           )}
         </div>
       )}
-
       <ModalFooter
         isOpen={isOpenBidConfirmModal}
         onOpenChange={setIsOpenBidConfirmModal}
@@ -220,7 +255,16 @@ function AuctionInfo(props: AuctionInfoProps) {
       >
         <AuctionBidConfirmModal bidPrice={bidInputRef?.current?.value} />
       </ModalFooter>
-
+      {instantBuyPrice && (
+        <ModalFooter
+          isOpen={isOpenInstantBuyConfirmModal}
+          onOpenChange={setIsOpenInstantBuyConfirmModal}
+          positiveButton="확인"
+          positiveButtonEvent={handleInstantBuyButton}
+        >
+          <AuctionInstantBuyConfirmModal InstantBuyPrice={instantBuyPrice} />
+        </ModalFooter>
+      )}
       <ModalFooter
         isOpen={isOpenDeleteConfirmModal}
         onOpenChange={setIsOpenDeleteConfirmModal}
