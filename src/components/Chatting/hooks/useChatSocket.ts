@@ -1,26 +1,17 @@
 import { useRef, useState } from 'react';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
-import { ChatMessage } from '@/apis/types/chat';
+import { Message } from '@/apis/types/chat';
 import useSocket from '@/hooks/useSocket';
 
 interface UseChatSocketParams {
   roomId: number;
-  lastChat: ChatMessage[];
-  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
+  lastChat: Message[];
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   refetch: () => void;
   onConnect?: () => void;
   onMessage?: (senderId: number) => void;
   checkBottom?: () => boolean;
-}
-
-interface ReceivedMessage {
-  created_date: string;
-  message: string;
-  room_id: number;
-  sender_id: number;
-  sender_nick_name: null | string;
-  type: 'CHAT';
 }
 
 function useChatSocket({
@@ -32,44 +23,47 @@ function useChatSocket({
   onMessage,
   checkBottom,
 }: UseChatSocketParams) {
-  const [newMessage, setNewMessage] = useState<ChatMessage | null>(null);
+  const [newMessage, setNewMessage] = useState<Message | null>(null);
   const user = useGetUser();
   const timerRef = useRef<NodeJS.Timeout | null>(null); // 타이머 ID 저장
 
-  const pushMessage = (
-    newPostMessage: string,
-    newDate: string,
-    sender_id: number,
-    type: 'CHAT',
-  ) => {
+  const pushMessage = ({
+    nickname,
+    sender_profile_image,
+    message,
+    sender_member_id,
+    message_type,
+  }: Message) => {
     // 메시지를 보내는 이벤트 입니다.
     setMessages(prevMessages => [
       ...prevMessages,
       {
-        message: newPostMessage,
+        message_type,
+        sender_member_id,
         room_id: roomId,
-        sender_nick_name: null,
-        created_date: newDate,
-        sender_id,
-        type,
+        nickname,
+        sender_profile_image,
+        message,
+        created_at: new Date().toISOString(),
       },
     ]);
 
     if (onMessage) {
-      onMessage(sender_id);
+      onMessage(sender_member_id);
     }
 
     if (checkBottom) {
       const isBottom = checkBottom();
 
-      if (!isBottom && sender_id !== user.data?.member_id) {
+      if (!isBottom && sender_member_id !== user.data?.member_id) {
         setNewMessage({
-          message: newPostMessage,
+          message_type,
+          sender_member_id,
           room_id: roomId,
-          sender_nick_name: null,
-          created_date: newDate,
-          sender_id,
-          type,
+          nickname,
+          sender_profile_image,
+          message,
+          created_at: new Date().toISOString(),
         });
         if (timerRef.current) {
           clearTimeout(timerRef.current);
@@ -108,14 +102,17 @@ function useChatSocket({
       if (_client) {
         _client.subscribe(`/sub/channel/${roomId}`, received_message => {
           console.log('received_message: useSocket.ts', received_message);
-          const receivedMessage: ReceivedMessage = JSON.parse(received_message.body);
+          const receivedMessage: Message = JSON.parse(received_message.body);
 
-          pushMessage(
-            receivedMessage.message,
-            receivedMessage.created_date,
-            receivedMessage.sender_id,
-            'CHAT',
-          );
+          pushMessage({
+            room_id: receivedMessage.room_id,
+            message_type: receivedMessage.message_type,
+            sender_member_id: receivedMessage.sender_member_id,
+            nickname: receivedMessage.nickname,
+            sender_profile_image: receivedMessage.sender_profile_image,
+            message: receivedMessage.message,
+            created_at: receivedMessage.created_at,
+          });
           refetch();
         });
       }

@@ -5,7 +5,7 @@ import { ArrowRightIcon } from 'lucide-react';
 import { getLastChat } from '@/apis/queryFunctions/chat';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
-import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
+import { OpenAuctionInfo, Message } from '@/apis/types/chat';
 import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
 import useBooleanState from '@/hooks/useBooleanState';
 
@@ -15,7 +15,7 @@ import useChatSocket from './hooks/useChatSocket';
 export interface ChatroomProps {
   roomId: number;
   openAuctionInfo: OpenAuctionInfo | null;
-  lastChat: ChatMessage[];
+  lastChat: Message[];
 }
 
 function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
@@ -24,19 +24,16 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
     pageable: 0,
   });
 
-  const [messages, setMessages] = useState<ChatMessage[]>(lastChat);
-
-  const seller = openAuctionInfo?.seller_name || `${openAuctionInfo?.seller_id}번 사용자`;
-  const buyer = openAuctionInfo?.buyer_name || `${openAuctionInfo?.buyer_id}번 사용자`;
+  const [messages, setMessages] = useState<Message[]>(lastChat);
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const isScrollToBottomRef = useRef<boolean>(false);
   const { value: bottomScrollButtonValue, setTrue, setFalse } = useBooleanState(false);
 
   const fetchLastChat = useCallback(async () => {
-    const reversedMessages = await getLastChat(roomId, messages[0].created_date);
+    const reversedMessages = await getLastChat(roomId, messages[0].created_at);
     if (reversedMessages) {
-      const newLastChat = reversedMessages.messages.content.map(message => message).reverse();
+      const newLastChat = reversedMessages.content.map(message => message).reverse();
       setMessages(prevMessages => [...newLastChat, ...prevMessages]);
     }
   }, [roomId, messages]);
@@ -113,7 +110,7 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
       body: JSON.stringify({
         message_type: 'CHAT',
         message,
-        sender_id: user?.member_id,
+        sender_member_id: user?.member_id,
       }),
     });
   };
@@ -147,31 +144,39 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
       <div className={S.chatroomHeader}>
         <span className={S.chatroomName}>{openAuctionInfo?.room_name}</span>
         <div className={S.chatroomUserSection}>
-          <span className={S.user}>{`판매자: ${seller}`}</span>
-          <span className={S.user}>{`구매자: ${buyer}`}</span>
+          <span
+            className={S.user}
+          >{`구매자: ${openAuctionInfo?.buyer_name || openAuctionInfo?.buyer_id}`}</span>
+          <span
+            className={S.user}
+          >{`판매자: ${openAuctionInfo?.seller_name || openAuctionInfo?.seller_id}`}</span>
         </div>
       </div>
       <div ref={chatContainerCallbackRef} className={S.chatListWrapper}>
         {messages.map(msg => {
           return (
             <div
-              key={`${msg.created_date}+${msg.message}+${msg.sender_id}`}
-              className={msg.sender_id === user?.member_id ? S.msgBox.myMsg : S.msgBox.opponentMsg}
+              key={`${msg.created_at}+${msg.message}+${msg.sender_member_id}`}
+              className={
+                msg.sender_member_id === user?.member_id ? S.msgBox.myMsg : S.msgBox.opponentMsg
+              }
               // 이 삼항 연산 부분 리팩토링 필요
             >
               <div
                 className={
-                  msg.sender_id === user?.member_id ? S.msgWrapper.myMsg : S.msgWrapper.opponentMsg
+                  msg.sender_member_id === user?.member_id
+                    ? S.msgWrapper.myMsg
+                    : S.msgWrapper.opponentMsg
                 }
               >
                 <span className={S.msg}>{msg.message}</span>
               </div>
               <p
                 className={
-                  msg.sender_id === user?.member_id ? S.msgDate.myMsg : S.msgDate.opponentMsg
+                  msg.sender_member_id === user?.member_id ? S.msgDate.myMsg : S.msgDate.opponentMsg
                 }
               >
-                {msg.created_date}
+                {msg.created_at}
               </p>
             </div>
           );
