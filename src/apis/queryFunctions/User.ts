@@ -1,5 +1,6 @@
 import createApiClient from '@/apis/queryFunctions/apiClient';
 import {
+  GetAuctionLikeData,
   PatchPasswordParams,
   PatchProfileImageResponseData,
   UserResponseData,
@@ -7,7 +8,7 @@ import {
   BidAuctionHistoriesUnitDataResponseData,
   AuctionHistoriesDataResponseData,
 } from '@/apis/types/User';
-import { Response } from '@/apis/types/common';
+import { ListParams, ListResponse, Response } from '@/apis/types/common';
 
 const apiClient = createApiClient();
 
@@ -45,5 +46,14 @@ export const getBidAuctionHistoriesUnit = async (auctionId: number | null) => {
 export const getAuctionHistories = async () => {
   const response =
     await apiClient.get<Response<AuctionHistoriesDataResponseData>>('/v2/auctions/me');
+  return response.data;
+};
+
+export const getAuctionLikeList = async (param: ListParams) => {
+  const response = await apiClient.get<Response<ListResponse<GetAuctionLikeData[]>>>(
+    `/v2/auctions/likes`,
+    { params: param },
+  );
+
   return response.data;
 };

@@ -1,26 +1,21 @@
+import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
-import { AuctionListResponseData } from '@/apis/types/basicAuction';
-import { Response } from '@/apis/types/common';
-import ArrowRightIcon from '@/assets/svg/arrow-right.svg';
+import { AuctionData } from '@/apis/types/basicAuction';
+import { ListResponse, Response } from '@/apis/types/common';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 
 import * as S from './AuctionList.css';
 
 export interface AuctionListProps {
-  data: Response<AuctionListResponseData>;
+  data: Response<ListResponse<AuctionData[]>>;
   isLink?: boolean;
   path?: string;
   pathname: string;
 }
 
-export default function AuctionList({
-  data,
-  isLink = false,
-  path = '',
-  pathname,
-}: AuctionListProps) {
+export default function AuctionList({ data, isLink, path = '', pathname }: AuctionListProps) {
   return (
     <section className={S.section}>
       <div className={S.title}>
@@ -40,7 +35,7 @@ export default function AuctionList({
               id={item.auction_id}
               thumbnailImage={item.thumbnail_path}
               title={item.title}
-              isLike={false}
+              isLike={item.is_liked}
               startPrice={item.start_price}
               startTime={item.start_date}
               endTime={item.end_date}

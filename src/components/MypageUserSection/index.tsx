@@ -15,7 +15,7 @@ function MypageUserSection() {
       <Link href="/mypage/heart" scroll={false}>
         <div className={S.heart}>
           <span>찜</span>
-          <span>{user?.member_id}</span>
+          <span>{user?.like_count}</span>
         </div>
       </Link>
     </div>

@@ -1,21 +1,22 @@
 import createApiClient from '@/apis/queryFunctions/apiClient';
-// import apiClient from '@/apis/queryFunctions/apiClient';
 import {
-  AuctionListResponseData,
   GetBasicAuctionListParams,
   BasicAuctionResponseData,
   GetBasicAuctionBidInfo,
   PostBasicAuctionBidParams,
   PostBasicAuctionBidResponseData,
   PostBasicAuctionResponseData,
-  GetAuctionQnAListDataResponseData,
   PostAuctionQnAParams,
   PostAuctionQnAResponseData,
   PostAuctionQnAAnswerResponseData,
   PostAuctionQnAAnswerParams,
   GetNowPriceResponseData,
+  PostLikeParams,
+  PostLikeResponseData,
+  AuctionData,
+  AuctionQnAData,
 } from '@/apis/types/basicAuction';
-import { Response } from '@/apis/types/common';
+import { ListResponse, Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 
 const apiClient = createApiClient();
@@ -37,7 +38,7 @@ export const getBasicAuction = async (id: number) => {
 export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => {
   const queryString = convertQueryParamsObjectToString<GetBasicAuctionListParams>(params);
 
-  const response = await apiClient.get<Response<AuctionListResponseData>>(
+  const response = await apiClient.get<Response<ListResponse<AuctionData[]>>>(
     `/v2/auctions?${queryString}`,
   );
   return response.data;
@@ -65,7 +66,7 @@ export const deleteAuction = async (id: number) => {
 };
 
 export const getAuctionQnAList = async (id: number) => {
-  const response = await apiClient.get<Response<GetAuctionQnAListDataResponseData>>(
+  const response = await apiClient.get<Response<ListResponse<AuctionQnAData[]>>>(
     `/v2/questions/${id}`,
   );
 
@@ -101,5 +102,15 @@ export const getNowPrice = async (id: number) => {
     `/v2/bids/${id}/now-price`,
   );
 
+  return response.data;
+};
+
+// 찜 ----
+
+export const postAuctionLike = async (id: number, params: PostLikeParams) => {
+  const response = await apiClient.post<Response<PostLikeResponseData>>(
+    `v2/auctions/likes/${id}`,
+    params,
+  );
   return response.data;
 };

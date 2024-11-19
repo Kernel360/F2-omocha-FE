@@ -2,7 +2,8 @@ import { Suspense } from 'react';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import { AuctionListResponseData, GetBasicAuctionListParams } from '@/apis/types/basicAuction';
+import { AuctionData, GetBasicAuctionListParams } from '@/apis/types/basicAuction';
+import { ListResponse } from '@/apis/types/common';
 import BasicAuctionClientPage from '@/components/BasicAuctionClientPage';
 import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCoookie';
@@ -20,7 +21,7 @@ async function BasicAuction() {
   };
 
   const queryClient = await usePrefetchQueryWithCookie<
-    AuctionListResponseData,
+    ListResponse<AuctionData[]>,
     ['basicAuctionList', typeof params]
   >({
     queryKey: ['basicAuctionList', params],

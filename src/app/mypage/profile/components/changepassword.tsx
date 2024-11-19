@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { EyeOffIcon, EyeIcon } from 'lucide-react';
 
+import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import usePatchPassword from '@/apis/queryHooks/User/usePatchPassword';
 import {
   currentPasswordValidation,
@@ -25,6 +26,7 @@ type Inputs = {
 };
 
 function ChangePassword() {
+  const { data: user } = useGetUser();
   const { value: isBlind, toggle: setIsBlind } = useBooleanState();
 
   const {
@@ -65,6 +67,7 @@ function ChangePassword() {
             register={register}
             validation={currentPasswordValidation}
             error={errors.currentPasswordRequired}
+            disabled={user?.login_type !== 'general'}
           />
           <button className={S.blind} type="button" onClick={setIsBlind}>
             {isBlind ? <EyeIcon size={20} /> : <EyeOffIcon size={20} color={colors.gray8} />}
@@ -78,6 +81,7 @@ function ChangePassword() {
             register={register}
             validation={newPasswordValidation}
             error={errors.newPasswordRequired}
+            disabled={user?.login_type !== 'general'}
           />
           <button className={S.blind} type="button" onClick={setIsBlind}>
             {isBlind ? <EyeIcon size={20} /> : <EyeOffIcon size={20} color={colors.gray8} />}
@@ -91,6 +95,7 @@ function ChangePassword() {
             register={register}
             validation={newPasswordCheckValidation(newPasswordValue)}
             error={errors.newPasswordCheckRequired}
+            disabled={user?.login_type !== 'general'}
           />
           <button className={S.blind} type="button" onClick={setIsBlind}>
             {isBlind ? <EyeIcon size={20} /> : <EyeOffIcon size={20} color={colors.gray8} />}
