@@ -46,24 +46,24 @@ function QnAUnit({ item, userId, isSeller }: QnAUnitProps) {
 
   return (
     <Accordion.Item
-      key={item.question_response.question_id}
-      value={String(item.question_response.question_id)}
+      key={item.question_details.question_id}
+      value={String(item.question_details.question_id)}
       className={S.accordionItem}
     >
       <AccordionTrigger className={S.accordionTrigger}>
         <div className={S.questionWrapper}>
-          <div>{item.question_response.title}</div>
+          <div>{item.question_details.title}</div>
           <div className={S.accordionAuthorContent}>
-            <div className={S.userEmail}>{maskEmail(item.question_response.email!)}</div>
-            <div className={S.createAt}>{item.question_response.created_at}</div>
+            <div className={S.userEmail}>{maskEmail(item.question_details.email!)}</div>
+            <div className={S.createAt}>{item.question_details.created_at}</div>
             <div
-              className={item.answer_response ? S.haveAnswerVariants.yes : S.haveAnswerVariants.no}
+              className={item.answer_details ? S.haveAnswerVariants.yes : S.haveAnswerVariants.no}
             >
-              {item.answer_response ? 'yes' : 'no'}
+              {item.answer_details ? 'yes' : 'no'}
             </div>
           </div>
         </div>
-        {item.question_response.member_id === userId && (
+        {item.question_details.member_id === userId && (
           <button type="button" className={S.questionDeleteButton} onClick={openDeleteConfirmModal}>
             <span>삭제</span>
           </button>
@@ -73,28 +73,28 @@ function QnAUnit({ item, userId, isSeller }: QnAUnitProps) {
         isOpen={isOpenDeleteConfirmModal}
         onOpenChange={setIsOpenDeleteConfirmModal}
         positiveButton="삭제"
-        positiveButtonEvent={() => deleteQuestion(item.question_response.question_id)}
+        positiveButtonEvent={() => deleteQuestion(item.question_details.question_id)}
       >
         <ConfirmDeleteModal />
       </ModalFooter>
       <AccordionContent className={S.accordionContent}>
-        {item.question_response.content}
-        {!isSeller && item.answer_response && (
+        {item.question_details.content}
+        {!isSeller && item.answer_details && (
           <>
             <span className={S.answerTitle}>답변</span>
-            {item.answer_response.content}
+            {item.answer_details.content}
           </>
         )}
-        {isSeller && item.answer_response && (
+        {isSeller && item.answer_details && (
           <>
             <span className={S.answerTitle}>답변</span>
-            {item.answer_response.content}
+            {item.answer_details.content}
           </>
         )}
-        {isSeller && !item.answer_response && (
+        {isSeller && !item.answer_details && (
           <form
             className={S.postQnASection}
-            onSubmit={e => onsubmitAnswer(e, item.question_response.question_id)}
+            onSubmit={e => onsubmitAnswer(e, item.question_details.question_id)}
           >
             <div className={S.answerPostSection}>
               <textarea name="answer" className={S.postQnATextAreaContent} required />
