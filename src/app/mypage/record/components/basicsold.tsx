@@ -1,7 +1,7 @@
 'use client';
 
+import { ChevronRightIcon } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import useGetAuctionHistories from '@/apis/queryHooks/User/useGetAuctionHistories';
@@ -51,11 +51,7 @@ export default function BasicSold() {
         </div>
       ) : (
         auctionHistories.content.map(history => (
-          <Link
-            key={history.auction_id}
-            href={`/basicauction/${history.auction_id}`}
-            scroll={false}
-          >
+          <div key={history.auction_id}>
             <li className={S.list}>
               {history.auction_status === 'BIDDING' && (
                 <div className={S.bidding}>
@@ -74,8 +70,14 @@ export default function BasicSold() {
               />
               <ul className={S.listRight}>
                 <li>
-                  <span className={S.listName}>상품명</span>
-                  <span className={S.listValue}>{history.title}</span>
+                  <button
+                    type="button"
+                    onClick={() => router.push(`/basicauction/${history.auction_id}`)}
+                    className={S.bidTitle}
+                  >
+                    {history.title}
+                    <ChevronRightIcon size={14} />
+                  </button>
                 </li>
                 <li>
                   <span className={S.listName}>경매 상태</span>
@@ -95,7 +97,7 @@ export default function BasicSold() {
                 </li>
               </ul>
             </li>
-          </Link>
+          </div>
         ))
       )}
     </ul>

@@ -18,6 +18,7 @@ function usePostBasicAuctionBid() {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionBidList', params.id] });
       queryClient.invalidateQueries({ queryKey: ['nowPrice', params.id] });
+      queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
       showToast('success', '입찰에 성공했습니다.');
     },
     onError: (e: AxiosError<Response<string>>, params) => {

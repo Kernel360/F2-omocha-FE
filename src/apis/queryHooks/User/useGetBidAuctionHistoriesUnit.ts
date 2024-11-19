@@ -4,7 +4,7 @@ import { getBidAuctionHistoriesUnit } from '@/apis/queryFunctions/User';
 
 function useGetBidAuctionHistoriesUnit(auctionId: number | null) {
   const { data } = useQuery({
-    queryKey: ['bidAuctionHistoriesUnit'],
+    queryKey: ['bidAuctionHistories', auctionId],
     queryFn: () => getBidAuctionHistoriesUnit(auctionId),
     enabled: !!auctionId,
   });

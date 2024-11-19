@@ -1,5 +1,7 @@
 import { style, globalStyle, styleVariants, keyframes } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+
 export const list = style({
   position: 'relative',
   display: 'flex',
@@ -46,18 +48,28 @@ export const image = style({
 
 export const listRight = style({
   display: 'flex',
+  width: '100%',
   flexDirection: 'column',
   alignItems: 'baseline',
   gap: '10px',
   listStyle: 'none',
-  margin: '10px 0px',
+});
+
+export const bidTitle = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '140px',
+  fontSize: '15px',
+  padding: '5px 10px',
+  borderRadius: '4px',
+  border: `1px solid ${colors.gray7} `,
+  cursor: 'pointer',
 });
 
 export const listName = style({
-  display: 'inline-block',
   fontSize: '14px',
   width: '70px',
-  textAlign: 'end',
   marginRight: '10px',
   fontWeight: '600',
 });

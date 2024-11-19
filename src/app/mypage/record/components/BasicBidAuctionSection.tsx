@@ -1,12 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { useRouter } from 'next/navigation';
 
 import useGetBidAuctionHistories from '@/apis/queryHooks/User/useGetBidAuctionHistories';
-import useGetBidAuctionHistoriesUnit from '@/apis/queryHooks/User/useGetBidAuctionHistoriesUnit';
 
 import * as S from './BasicBid.css';
 import BasicBidAuction from './BasicBidAuction';
@@ -15,18 +12,11 @@ import BasicBidAuctionBidList from './BasicBidAuctionBidList';
 export default function BasicBidAuctionSection() {
   const router = useRouter();
 
-  const [bidUnitId, setBidUnitId] = useState<number | null>(null);
-
   const { data: bidAuctionListHistories } = useGetBidAuctionHistories();
-  const { data: bidAuctionHistories } = useGetBidAuctionHistoriesUnit(bidUnitId);
 
   if (!bidAuctionListHistories) {
     return null;
   }
-
-  const clickBidUnit = (clickBidUnitId: number) => {
-    setBidUnitId(clickBidUnitId);
-  };
 
   return (
     <ul className={S.basicBid}>
@@ -45,16 +35,12 @@ export default function BasicBidAuctionSection() {
         bidAuctionListHistories.content.map(bidAuctionListHistory => (
           <Collapsible.Root className="CollapsibleRoot" key={bidAuctionListHistory.auction_id}>
             <Collapsible.Trigger asChild>
-              <button
-                type="button"
-                className={S.collapsibleTrigger}
-                onClick={() => clickBidUnit(bidAuctionListHistory.auction_id)}
-              >
+              <button type="button" className={S.collapsibleTrigger}>
                 <BasicBidAuction bidAuctionHistory={bidAuctionListHistory} />
               </button>
             </Collapsible.Trigger>
             <Collapsible.Content>
-              <BasicBidAuctionBidList bidAuctionHistories={bidAuctionHistories} />
+              <BasicBidAuctionBidList bidAuctionHistoriesId={bidAuctionListHistory.auction_id} />
             </Collapsible.Content>
           </Collapsible.Root>
         ))

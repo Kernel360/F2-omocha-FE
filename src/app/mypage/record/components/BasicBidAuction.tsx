@@ -1,4 +1,6 @@
+import { ChevronRightIcon } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { BidAuctionHistoriesData } from '@/apis/types/User';
 
@@ -9,6 +11,8 @@ interface BasicBidAuctionProps {
 }
 
 function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
+  const router = useRouter();
+
   return (
     <li className={S.list} key={bidAuctionHistory.auction_id}>
       {bidAuctionHistory.auction_status === 'BIDDING' && (
@@ -28,8 +32,14 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
       />
       <ul className={S.listRight}>
         <li>
-          <span className={S.listName}>상품명</span>
-          <span className={S.listValue}>{bidAuctionHistory.title}</span>
+          <button
+            type="button"
+            onClick={() => router.push(`/basicauction/${bidAuctionHistory.auction_id}`)}
+            className={S.bidTitle}
+          >
+            {bidAuctionHistory.title}
+            <ChevronRightIcon size={14} />
+          </button>
         </li>
         <li>
           <span className={S.listName}>입찰 상태</span>

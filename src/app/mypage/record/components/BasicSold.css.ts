@@ -35,7 +35,7 @@ export const list = style({
   position: 'relative',
   display: 'flex',
   gap: '15px',
-  cursor: 'pointer',
+
   padding: '20px 10px',
   transition: 'background-color 0.3s, transform 0.2s',
   borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
@@ -65,14 +65,24 @@ export const listRight = style({
   justifyContent: 'center',
   gap: '10px',
   listStyle: 'none',
-  margin: '10px 0',
+});
+
+export const bidTitle = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  width: '140px',
+  fontSize: '15px',
+  padding: '5px 10px',
+  borderRadius: '4px',
+  border: `1px solid ${colors.gray7} `,
+  cursor: 'pointer',
 });
 
 export const listName = style({
   display: 'inline-block',
   fontSize: '14px',
   width: '70px',
-  textAlign: 'end',
   marginRight: '10px',
   fontWeight: '600',
 });

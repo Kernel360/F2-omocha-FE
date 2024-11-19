@@ -1,21 +1,21 @@
-import { BidAuctionHistoriesUnitDataResponseData } from '@/apis/types/User';
+import useGetBidAuctionHistoriesUnit from '@/apis/queryHooks/User/useGetBidAuctionHistoriesUnit';
 
 import * as S from './BasicBidAuctionBidList.css';
 
 interface BasicBidAuctionBidListProps {
-  bidAuctionHistories: BidAuctionHistoriesUnitDataResponseData | undefined;
+  bidAuctionHistoriesId: number;
 }
 
-function BasicBidAuctionBidList({ bidAuctionHistories }: BasicBidAuctionBidListProps) {
+function BasicBidAuctionBidList({ bidAuctionHistoriesId }: BasicBidAuctionBidListProps) {
+  const { data: bidAuctionHistories } = useGetBidAuctionHistoriesUnit(bidAuctionHistoriesId);
+
   if (!bidAuctionHistories) {
     return null;
   }
 
-  const { content } = bidAuctionHistories;
-
   return (
     <div className={S.container}>
-      {content.length === 0 ? (
+      {bidAuctionHistories.content.length === 0 ? (
         <div className={S.bidUnitWarning}>입찰 내역이 보이지 않을 경우 문의해주십시오.</div>
       ) : (
         <table className={S.table}>
@@ -26,7 +26,7 @@ function BasicBidAuctionBidList({ bidAuctionHistories }: BasicBidAuctionBidListP
             </tr>
           </thead>
           <tbody className={S.tableBody}>
-            {content.map((bidAuctionHistory, index) => (
+            {bidAuctionHistories.content.map((bidAuctionHistory, index) => (
               <tr
                 key={bidAuctionHistory.created_at}
                 className={index % 2 === 0 ? S.tableRow.even : S.tableRow.odd}
