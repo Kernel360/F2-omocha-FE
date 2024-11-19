@@ -58,7 +58,7 @@ export interface GetBasicAuctionListParams {
 // ---- 입찰
 
 export interface GetBasicAuctionBidInfo {
-  buyer_id: number;
+  buyer_member_id: number;
   bid_price: number;
   created_at: string;
 }
