@@ -34,7 +34,6 @@ export const chattingUnitSection = style({
   display: 'flex',
   alignItems: 'center',
   gap: '16px',
-
   width: '100%',
 });
 

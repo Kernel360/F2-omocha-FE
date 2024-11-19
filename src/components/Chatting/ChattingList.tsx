@@ -15,7 +15,7 @@ function ChattingList() {
 
   const [openChatroomId, setOpenChatroomId] = useState<number | null>(null);
   const [openAuctionInfo, setOpenAuctionInfo] = useState<OpenAuctionInfo | null>(null);
-  const { reversedMessages, refetch: reversedMRefetch } = useGetLastChat(openChatroomId); // 이전 챗 담는 것
+  const { reversedMessages, refetch: reversedMRefetch } = useGetLastChat(openChatroomId);
 
   const handleRefetch = () => {
     setOpenChatroomId(null);
