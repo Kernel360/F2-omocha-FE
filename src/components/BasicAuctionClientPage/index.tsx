@@ -15,11 +15,11 @@ function BasicAuctionClientPage() {
   const pickCategory = Number(searchParams.get('categoryId'));
 
   const { data } = useGetBasicAuctionList({
-    categoryId: pickCategory || '',
-    title: searchKeywordParam || '',
-    auctionStatus: searchParams.get(AUCTIONPARAM_KEY.AUCTIONSTATUS) || '',
-    sort: searchParams.get(AUCTIONPARAM_KEY.SORT) || '',
-    direction: searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || '',
+    categoryId: pickCategory || undefined,
+    title: searchKeywordParam || undefined,
+    auctionStatus: searchParams.get(AUCTIONPARAM_KEY.AUCTIONSTATUS) || undefined,
+    sort: searchParams.get(AUCTIONPARAM_KEY.SORT) || undefined,
+    direction: searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || undefined,
     page: 0,
     size: 20,
   });

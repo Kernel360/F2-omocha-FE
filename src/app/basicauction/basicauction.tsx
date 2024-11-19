@@ -9,13 +9,10 @@ import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCoookie';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 
-async function BasicAuction() {
-  const params: GetBasicAuctionListParams = {
-    categoryId: '',
-    title: '',
-    auctionStatus: '',
-    sort: '',
-    direction: '',
+async function BasicAuction({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
+  const params = {
+    ...searchParams,
+    categoryId: Number(searchParams.categoryId),
     page: 0,
     size: 20,
   };
