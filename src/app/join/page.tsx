@@ -6,6 +6,8 @@
 import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import { CheckIcon, EyeIcon, EyeOffIcon } from 'lucide-react';
+
 import useCheckEmailValidation from '@/apis/queryHooks/Auth/useCheckEmailValidation';
 import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
 import {
@@ -13,10 +15,11 @@ import {
   emailValidation,
   passwordValidation,
 } from '@/app/join/utils/joinValidation';
-import CheckIcon from '@/assets/svg/check.svg';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
+import useBooleanState from '@/hooks/useBooleanState';
+import colors from '@/styles/color';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Join.css';
@@ -43,6 +46,8 @@ function Home() {
       passwordCheckRequired: '',
     },
   });
+
+  const { value: isBlind, toggle: setIsBlind } = useBooleanState();
 
   const emailRequired = watch('emailRequired');
   const passwordRequired = watch('passwordRequired');
@@ -131,26 +136,37 @@ function Home() {
             </CommonInput>
             {!checkEmailError && canUseEmail && (
               <span className={`${S.inputValidation} ${S.correct}`}>
-                <CheckIcon />
+                <CheckIcon size={16} />
                 사용 가능한 이메일입니다.
               </span>
             )}
-            <CommonInput
-              id="passwordRequired"
-              label="비밀번호"
-              type="password"
-              register={register}
-              validation={passwordValidation}
-              error={errors.passwordRequired}
-            />
-            <CommonInput
-              id="passwordCheckRequired"
-              label="비밀번호 확인"
-              type="password"
-              register={register}
-              validation={confirmPasswordValidation(passwordRequired)}
-              error={errors.passwordCheckRequired}
-            />
+            <div className={S.commonInputContainer}>
+              <CommonInput
+                id="passwordRequired"
+                label="비밀번호"
+                type="password"
+                register={register}
+                validation={passwordValidation}
+                error={errors.passwordRequired}
+              />
+              <button className={S.blind} type="button" onClick={setIsBlind}>
+                {isBlind ? <EyeIcon size={20} /> : <EyeOffIcon size={20} color={colors.gray8} />}
+              </button>
+            </div>
+            <div className={S.commonInputContainer}>
+              <CommonInput
+                id="passwordCheckRequired"
+                label="비밀번호 확인"
+                type="password"
+                register={register}
+                validation={confirmPasswordValidation(passwordRequired)}
+                error={errors.passwordCheckRequired}
+              />
+              <button className={S.blind} type="button" onClick={setIsBlind}>
+                {isBlind ? <EyeIcon size={20} /> : <EyeOffIcon size={20} color={colors.gray8} />}
+              </button>
+            </div>
+
             <div className={S.buttonWrapper}>
               <CommonButton content="회원가입" type="submit" size="lg" />
             </div>

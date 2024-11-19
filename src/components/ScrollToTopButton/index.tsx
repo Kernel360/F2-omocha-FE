@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-import ChevronUpIcon from '@/assets/svg/chevron-up.svg';
+import { ChevronUpIcon } from 'lucide-react';
+
 import useScrollToTop from '@/hooks/useScrollToTop';
 
 import * as S from './ScrollToTopButton.css';

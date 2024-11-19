@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 
+import { ChevronDownIcon } from 'lucide-react';
+
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import useGetLastChat from '@/apis/queryHooks/chat/useGetLastChat';
 import { OpenAuctionInfo } from '@/apis/types/chat';
-import ChevronDownIcon from '@/assets/svg/chevron-down.svg';
 
 import * as S from './ChattingIconButton.css';
 import ChattingUnit from './ChattingUnit';

@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { ArrowRightIcon } from 'lucide-react';
+
 import { getLastChat } from '@/apis/queryFunctions/chat';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { ChatMessage, OpenAuctionInfo } from '@/apis/types/chat';
-import ArrowRightIcon from '@/assets/svg/arrow-right.svg';
 import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
 import useBooleanState from '@/hooks/useBooleanState';
 
@@ -188,7 +189,7 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
 
         {bottomScrollButtonValue && (
           <button type="button" onClick={scrollToBottom} className={S.toBottomButton}>
-            <ArrowRightIcon className={S.toBottomIcon} />
+            <ArrowRightIcon size={16} className={S.toBottomIcon} />
           </button>
         )}
       </div>
