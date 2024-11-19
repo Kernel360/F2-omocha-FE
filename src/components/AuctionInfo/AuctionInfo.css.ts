@@ -9,9 +9,11 @@ export const infoWrapper = style({
   flexDirection: 'column',
   padding: '12px',
   width: '100%',
+  maxWidth: '440px',
   '@media': {
     'screen and (max-width: 960px)': {
       marginLeft: '0px',
+      maxWidth: 'none',
     },
   },
 });
@@ -91,12 +93,18 @@ export const infoButton = style({
   cursor: 'pointer',
 });
 
+export const bidButtonWrapper = style({
+  display: 'flex',
+  // flexDirection: 'column',
+  gap: '12px',
+  marginTop: '12px',
+});
+
 export const bidButton = styleVariants({
   default: {
-    height: '80px',
-    fontSize: '16px',
-    padding: '24px 24px',
-    marginTop: '12px',
+    width: '100%',
+    height: '50px',
+    fontSize: '14px',
     backgroundColor: colors.primary10,
     color: colors.primary1,
     borderRadius: '8px',
@@ -104,10 +112,10 @@ export const bidButton = styleVariants({
     cursor: 'pointer',
   },
   disabled: {
+    width: '100%',
+    height: '50px',
     fontSize: '14px',
-    padding: '24px 24px',
-    marginTop: '12px',
-    borderRadius: '4px',
+    borderRadius: '8px',
     border: 'none',
     backgroundColor: 'gray',
     color: 'darkgray',

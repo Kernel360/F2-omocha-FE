@@ -28,10 +28,12 @@ interface AuctionInfoProps {
   bidCount: number;
   bidUnit: number;
   sellerId: number;
+  instantBuyPrice: number | null;
 }
 
 function AuctionInfo(props: AuctionInfoProps) {
-  const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit, sellerId } = props;
+  const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit, sellerId, instantBuyPrice } =
+    props;
 
   const { mutate: postBidMutate } = usePostBasicAuctionBid();
   const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
@@ -186,15 +188,28 @@ function AuctionInfo(props: AuctionInfoProps) {
           )}
         </button>
       ) : (
-        <button
-          disabled={expired || !user}
-          type="button"
-          className={expired || !user ? S.bidButton.disabled : S.bidButton.default}
-          onClick={openBidConfirmModal}
-        >
-          입찰하기
-          <p className={S.bidButtonExplain}>{canNotBid()}</p>
-        </button>
+        <div className={S.bidButtonWrapper}>
+          <button
+            disabled={expired || !user}
+            type="button"
+            className={expired || !user ? S.bidButton.disabled : S.bidButton.default}
+            onClick={openBidConfirmModal}
+          >
+            입찰하기
+            <p className={S.bidButtonExplain}>{canNotBid()}</p>
+          </button>
+          {instantBuyPrice && (
+            <button
+              disabled={expired || !user}
+              type="button"
+              className={expired || !user ? S.bidButton.disabled : S.bidButton.default}
+              onClick={openBidConfirmModal}
+            >
+              즉시 구매하기
+              <p className={S.bidButtonExplain}>{canNotBid()}</p>
+            </button>
+          )}
+        </div>
       )}
 
       <ModalFooter
