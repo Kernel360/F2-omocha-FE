@@ -4,9 +4,9 @@ import {
   PatchPasswordParams,
   PatchProfileImageResponseData,
   UserResponseData,
-  BidAuctionHistoriesDataResponseData,
-  BidAuctionHistoriesUnitDataResponseData,
-  AuctionHistoriesDataResponseData,
+  BidAuctionHistoriesData,
+  BidAuctionHistoriesUnitData,
+  AuctionHistoriesData,
 } from '@/apis/types/User';
 import { ListParams, ListResponse, Response } from '@/apis/types/common';
 
@@ -32,12 +32,12 @@ export const patchPassword = async (param: PatchPasswordParams) => {
 
 export const getBidAuctionHistories = async () => {
   const response =
-    await apiClient.get<Response<BidAuctionHistoriesDataResponseData>>('/v2/auctions/bid/me');
+    await apiClient.get<Response<ListResponse<BidAuctionHistoriesData[]>>>('/v2/auctions/bid/me');
   return response.data;
 };
 
 export const getBidAuctionHistoriesUnit = async (auctionId: number | null) => {
-  const response = await apiClient.get<Response<BidAuctionHistoriesUnitDataResponseData>>(
+  const response = await apiClient.get<Response<ListResponse<BidAuctionHistoriesUnitData[]>>>(
     `/v2/bids/me/${auctionId}`,
   );
   return response.data;
@@ -45,7 +45,7 @@ export const getBidAuctionHistoriesUnit = async (auctionId: number | null) => {
 
 export const getAuctionHistories = async () => {
   const response =
-    await apiClient.get<Response<AuctionHistoriesDataResponseData>>('/v2/auctions/me');
+    await apiClient.get<Response<ListResponse<AuctionHistoriesData[]>>>('/v2/auctions/me');
   return response.data;
 };
 

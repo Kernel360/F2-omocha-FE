@@ -1,5 +1,3 @@
-import { Pageable } from './basicAuction';
-
 export interface UserResponseData {
   member_id: number;
   email: string;
@@ -43,44 +41,9 @@ export interface BidAuctionHistoriesData {
   bid_status: string;
 }
 
-export interface BidAuctionHistoriesDataResponseData {
-  content: BidAuctionHistoriesData[];
-  pageable: Pageable;
-  total_pages: number;
-  total_elements: number;
-  last: boolean;
-  size: number;
-  number: number;
-  sort: {
-    empty: boolean;
-    unsorted: boolean;
-    sorted: boolean;
-  };
-  number_of_elements: number;
-  first: boolean;
-  empty: boolean;
-}
-
 export interface BidAuctionHistoriesUnitData {
   bid_price: number;
   created_at: string;
-}
-export interface BidAuctionHistoriesUnitDataResponseData {
-  content: BidAuctionHistoriesUnitData[];
-  pageable: Pageable;
-  total_pages: number;
-  total_elements: number;
-  last: boolean;
-  size: number;
-  number: number;
-  sort: {
-    empty: boolean;
-    unsorted: boolean;
-    sorted: boolean;
-  };
-  number_of_elements: number;
-  first: boolean;
-  empty: boolean;
 }
 
 export interface AuctionHistoriesData {
@@ -90,21 +53,4 @@ export interface AuctionHistoriesData {
   now_price: number | null;
   end_date: string;
   thumbnail_path: string;
-}
-export interface AuctionHistoriesDataResponseData {
-  content: AuctionHistoriesData[];
-  pageable: Pageable;
-  total_pages: number;
-  total_elements: number;
-  last: boolean;
-  size: number;
-  number: number;
-  sort: {
-    empty: boolean;
-    unsorted: boolean;
-    sorted: boolean;
-  };
-  number_of_elements: number;
-  first: boolean;
-  empty: boolean;
 }
