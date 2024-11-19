@@ -99,13 +99,6 @@ export const option = style({
   fontSize: '12px',
 });
 
-export const division = style({
-  width: '1px',
-  height: '12px',
-  background: '#666',
-  margin: '0 16px',
-});
-
 export const snsLoginTitle = style({
   marginTop: '30px',
   color: '#666',

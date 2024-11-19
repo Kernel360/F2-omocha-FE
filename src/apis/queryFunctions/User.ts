@@ -9,6 +9,7 @@ import {
   AuctionHistoriesData,
 } from '@/apis/types/User';
 import { ListParams, ListResponse, Response } from '@/apis/types/common';
+import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 
 const apiClient = createApiClient();
 
@@ -49,10 +50,10 @@ export const getAuctionHistories = async () => {
   return response.data;
 };
 
-export const getAuctionLikeList = async (param: ListParams) => {
+export const getAuctionLikeList = async (params: ListParams) => {
+  const queryString = convertQueryParamsObjectToString(params);
   const response = await apiClient.get<Response<ListResponse<GetAuctionLikeData[]>>>(
-    `/v2/auctions/likes`,
-    { params: param },
+    `/v2/auctions/likes?${queryString}`,
   );
 
   return response.data;
