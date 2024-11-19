@@ -22,7 +22,7 @@ function Footer() {
                 type="button"
                 onClick={() => router.push('/', { scroll: false })}
               >
-                LOGO
+                OMOCHA
               </button>
               <ul className={S.categoryList}>
                 {MAIN_CATEGORY.map(category => (

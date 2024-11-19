@@ -30,8 +30,9 @@ interface AuctionInfoProps {
   sellerId: number;
 }
 
-function AuctionInfo(SAMPLE: AuctionInfoProps) {
-  const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit, sellerId } = SAMPLE;
+function AuctionInfo(props: AuctionInfoProps) {
+  const { id, title, startPrice, nowPrice, bidCount, endTime, bidUnit, sellerId } = props;
+
   const { mutate: postBidMutate } = usePostBasicAuctionBid();
   const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
   const { data: currentPrice, refetch } = useGetBasicAuctionNowPrice(id);
@@ -171,6 +172,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
           </div>
         </div>
       </div>
+
       {canDelete ? (
         <button
           type="button"
@@ -194,6 +196,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
           <p className={S.bidButtonExplain}>{canNotBid()}</p>
         </button>
       )}
+
       <ModalFooter
         isOpen={isOpenBidConfirmModal}
         onOpenChange={setIsOpenBidConfirmModal}
@@ -202,6 +205,7 @@ function AuctionInfo(SAMPLE: AuctionInfoProps) {
       >
         <AuctionBidConfirmModal bidPrice={bidInputRef?.current?.value} />
       </ModalFooter>
+
       <ModalFooter
         isOpen={isOpenDeleteConfirmModal}
         onOpenChange={setIsOpenDeleteConfirmModal}

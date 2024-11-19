@@ -32,3 +32,25 @@ export interface GetAuctionLikeData {
   created_at: string;
   liked_date: string;
 }
+
+export interface BidAuctionHistoriesData {
+  auction_id: number;
+  title: string;
+  auction_status: string;
+  thumbnail_path: string;
+  bid_status: string;
+}
+
+export interface BidAuctionHistoriesUnitData {
+  bid_price: number;
+  created_at: string;
+}
+
+export interface AuctionHistoriesData {
+  auction_id: number;
+  title: string;
+  auction_status: string;
+  now_price: number | null;
+  end_date: string;
+  thumbnail_path: string;
+}

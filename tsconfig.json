@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     "next.config.mjs"
   ],
-
+  "typeRoots": ["src/types"],
   "exclude": ["node_modules"]
 }

@@ -7,7 +7,7 @@ export const tabsRoot = style({
   width: '100%',
   flexDirection: 'column',
   gap: '10px',
-  marginBottom: '60px',
+  marginBottom: '20px',
 });
 export const tabsList = style({
   display: 'flex',

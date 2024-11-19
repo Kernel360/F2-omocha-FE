@@ -1,4 +1,6 @@
-import { style, globalStyle, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+
+import colors from '@/styles/color';
 
 export const basicBid = style({
   display: 'flex',
@@ -9,74 +11,27 @@ export const basicBid = style({
   borderRadius: '8px',
 });
 
-export const list = style({
-  display: 'flex',
-  gap: '15px',
-  cursor: 'pointer',
-  padding: '20px 10px',
-  transition: 'background-color 0.3s, transform 0.2s',
-  borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-  ':hover': {
-    transform: 'scale(1.02)',
-  },
-});
-
-globalStyle(`${list}:nth-last-child(1)`, {
-  borderBottom: 'none',
-});
-
-export const image = style({
-  width: '200px',
-  height: 'auto',
-  borderRadius: '4px',
-  boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
-});
-
-export const listRight = style({
+export const noListWrapper = style({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   justifyContent: 'center',
-  gap: '10px',
-  listStyle: 'none',
-  margin: '15px 0',
+  gap: '20px',
+  marginTop: '70px',
 });
 
-export const listName = style({
-  display: 'inline-block',
+export const noListTitle = style({ fontSize: '16px', fontWeight: '500', color: colors.gray10 });
+
+export const noListButton = style({
+  padding: '10px 20px',
+  backgroundColor: colors.primary9,
+  color: colors.white,
+  borderRadius: '8px',
   fontSize: '14px',
-  width: '60px',
-  textAlign: 'end',
-  marginRight: '10px',
-  fontWeight: '600',
+  cursor: 'pointer',
 });
 
-export const listValue = style({
-  fontWeight: '500',
-});
-
-export const bidStatus = styleVariants({
-  default: [
-    listValue,
-    {
-      color: 'black',
-    },
-  ],
-  bidding: [
-    listValue,
-    {
-      color: 'red',
-    },
-  ],
-  concluded: [
-    listValue,
-    {
-      color: 'rgb(35, 167, 80)',
-    },
-  ],
-  defeat: [
-    listValue,
-    {
-      color: 'rgb(95, 99, 104)',
-    },
-  ],
+export const collapsibleTrigger = style({
+  width: '100%',
+  cursor: 'pointer',
 });

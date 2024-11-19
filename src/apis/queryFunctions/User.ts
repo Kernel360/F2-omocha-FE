@@ -4,6 +4,9 @@ import {
   PatchPasswordParams,
   PatchProfileImageResponseData,
   UserResponseData,
+  BidAuctionHistoriesData,
+  BidAuctionHistoriesUnitData,
+  AuctionHistoriesData,
 } from '@/apis/types/User';
 import { ListParams, ListResponse, Response } from '@/apis/types/common';
 
@@ -27,7 +30,25 @@ export const patchPassword = async (param: PatchPasswordParams) => {
   return response.data;
 };
 
-// 찜 목록
+export const getBidAuctionHistories = async () => {
+  const response =
+    await apiClient.get<Response<ListResponse<BidAuctionHistoriesData[]>>>('/v2/auctions/bid/me');
+  return response.data;
+};
+
+export const getBidAuctionHistoriesUnit = async (auctionId: number | null) => {
+  const response = await apiClient.get<Response<ListResponse<BidAuctionHistoriesUnitData[]>>>(
+    `/v2/bids/me/${auctionId}`,
+  );
+  return response.data;
+};
+
+export const getAuctionHistories = async () => {
+  const response =
+    await apiClient.get<Response<ListResponse<AuctionHistoriesData[]>>>('/v2/auctions/me');
+  return response.data;
+};
+
 export const getAuctionLikeList = async (param: ListParams) => {
   const response = await apiClient.get<Response<ListResponse<GetAuctionLikeData[]>>>(
     `/v2/auctions/likes`,

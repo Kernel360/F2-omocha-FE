@@ -5,24 +5,19 @@ import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import sampleResizeBannerImage from '@/assets/png/sampleResizeBannerImage.png';
+import sampleResizeBannerImage2 from '@/assets/png/sampleResizeBannerImage2.png';
+
 import * as S from './MainCarousel.css';
 
 const CAROUSEL_INFO = [
   {
-    img: 'https://imgstatic.10x10.co.kr/main/202410/710/mainRolling_94631_20241031165946.jpg',
-    link: 'https://www.hanwhaeagles.co.kr/index.do',
+    img: sampleResizeBannerImage,
+    link: '/basicauction',
   },
   {
-    img: 'https://imgstatic.10x10.co.kr/main/202410/710/mainRolling_94626_20241031171637.jpg',
-    link: 'https://tigers.co.kr/',
-  },
-  {
-    img: 'https://imgstatic.10x10.co.kr/main/202410/710/mainRolling_94625_20241031171328.jpg',
-    link: 'https://www.hanwhaeagles.co.kr/index.do',
-  },
-  {
-    img: 'https://imgstatic.10x10.co.kr/main/202410/710/mainRolling_94629_20241031171410.jpg',
-    link: 'https://www.hanwhaeagles.co.kr/index.do',
+    img: sampleResizeBannerImage2,
+    link: 'basicauction',
   },
 ];
 
@@ -41,7 +36,7 @@ function MainCarousel() {
       >
         {CAROUSEL_INFO.map(info => (
           <Link href={info.link} key={info.link}>
-            <Image width={960} height={500} src={info.img} alt="test" className={S.carouselImage} />
+            <Image width={960} height={400} src={info.img} alt="test" className={S.carouselImage} />
           </Link>
         ))}
       </Slider>
