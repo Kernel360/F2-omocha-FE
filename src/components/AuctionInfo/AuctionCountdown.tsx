@@ -14,7 +14,18 @@ function AuctionCountdown({ auctionStatus, endTime, setExpired }: AuctionCountdo
   const { isTimeout, day, hour, minute, second } = useCountdownTimer({ endTime });
 
   useEffect(() => {
-    if (auctionStatus === 'BIDDING' || auctionStatus === 'NO_BIDS') setExpired('expired');
+    if (auctionStatus === 'CONCLUDED') {
+      setExpired('concluded');
+    }
+    if (auctionStatus === 'COMPLETE') {
+      setExpired('completed');
+    }
+    if ((auctionStatus === 'BIDDING' || auctionStatus === 'NO_BIDS') && isTimeout) {
+      setExpired('expired');
+    }
+    if ((auctionStatus === 'BIDDING' || auctionStatus === 'NO_BIDS') && !isTimeout) {
+      setExpired('');
+    }
   }, [isTimeout, setExpired]);
 
   return <div className={S.countdownStyle}>{`${day}일 ${hour}시간 ${minute}분 ${second}초`}</div>;
