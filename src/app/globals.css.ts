@@ -38,7 +38,7 @@ globalStyle('rc-cascader-menu-item', {
 
 export const container = style({
   position: 'relative',
-  minHeight: 'calc(100vh - 288px)',
+  minHeight: 'calc(100vh - 272px)',
 });
 
 export const errorContainer = style({
