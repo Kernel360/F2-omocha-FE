@@ -8,10 +8,10 @@ import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { OpenAuctionInfo, Message } from '@/apis/types/chat';
 import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
 import useBooleanState from '@/hooks/useBooleanState';
+import formatDate from '@/utils/formatDate';
 
 import * as S from './Chatting.css';
 import useChatSocket from './hooks/useChatSocket';
-import formatDate from '@/utils/formatDate';
 
 export interface ChatroomProps {
   roomId: number;
