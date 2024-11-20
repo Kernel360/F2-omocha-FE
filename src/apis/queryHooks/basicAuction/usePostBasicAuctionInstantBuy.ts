@@ -22,7 +22,7 @@ function usePostBasicAuctionInstantBuy(id: number) {
     onError: (e: AxiosError<Response<string>>) => {
       queryClient.invalidateQueries({ queryKey: ['nowPrice', id] });
       if (e.response) {
-        showToast('error', `${e.response.data.result_msg}`);
+        showToast('error', `입찰 가격이 즉시 구매 가격과 같거나 높습니다.`);
       } else {
         showToast('error', '알 수 없는 오류가 발생했습니다. 새로고침을 진행해 주세요.');
       }
