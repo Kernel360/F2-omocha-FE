@@ -16,6 +16,7 @@ export const specialSection = style({
     'screen and (max-width: 1100px)': {
       flexDirection: 'column',
       gap: '40px',
+      marginTop: '30px',
     },
   },
 });
