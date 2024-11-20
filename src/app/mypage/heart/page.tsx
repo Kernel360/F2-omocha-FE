@@ -42,6 +42,7 @@ function Home() {
             endTime={item.end_date}
             nowPrice={item.now_price}
             auctionStatus={item.auction_status}
+            instantBuyPrice={null}
           />
         ))}
         {/* {data?.pages.map(page =>

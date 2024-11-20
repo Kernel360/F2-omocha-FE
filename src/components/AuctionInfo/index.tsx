@@ -146,6 +146,16 @@ function AuctionInfo(props: AuctionInfoProps) {
           <span>원</span>
         </span>
       </div>
+      {instantBuyPrice && (
+        <div className={`${S.infoRow} ${S.nowPrice}`}>
+          <span className={S.infoRowTitle}>즉시 구매가</span>
+          <span>
+            {instantBuyPrice.toLocaleString('ko-KR')}
+            <span>원</span>
+          </span>
+        </div>
+      )}
+
       <div className={`${S.infoRight} ${S.moveToRight}`}>
         <span
           className={`${S.calledTime} `}

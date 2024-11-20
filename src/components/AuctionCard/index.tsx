@@ -19,6 +19,7 @@ interface AuctionCardProps {
   endTime: string;
   nowPrice: number | null;
   auctionStatus: string;
+  instantBuyPrice: number | null;
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
@@ -30,6 +31,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
     endTime,
     nowPrice,
     auctionStatus,
+    instantBuyPrice,
   } = SAMPLE;
 
   const isExpired = auctionStatus !== 'BIDDING'; // new Date() > new Date(endTime);
@@ -67,10 +69,17 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
           className={S.cardImage}
         />
         <span className={S.cardTitle}>{title}</span>
-        <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
-          <span>현재가(KRW)</span>
-          {/* // 바꾸기 */}
-          <span>{nowPrice ? nowPrice.toLocaleString('ko-KR') : '-'}원</span>
+        <div>
+          <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
+            <span>현재가(KRW)</span>
+            <span>{nowPrice ? nowPrice.toLocaleString('ko-KR') : '-'}원</span>
+          </div>
+          {instantBuyPrice && (
+            <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
+              <span>즉시 구매가(KRW)</span>
+              <span>{instantBuyPrice.toLocaleString('ko-KR')}원</span>
+            </div>
+          )}
         </div>
       </div>
     </Link>
