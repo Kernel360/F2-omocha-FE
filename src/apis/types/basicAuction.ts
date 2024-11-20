@@ -18,6 +18,7 @@ export type BasicAuctionResponseData = {
   is_liked: boolean;
   like_count: number;
   categories: Category[];
+  instant_buy_price: number | null;
 };
 
 export interface AuctionData {
@@ -38,6 +39,7 @@ export interface AuctionData {
   is_liked: boolean;
   like_count: number;
   category_response: Category[];
+  instant_buy_price: number | null;
 }
 
 export interface PostBasicAuctionResponseData {

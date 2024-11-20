@@ -40,6 +40,8 @@ export default function AuctionList({ data, isLink, path = '', pathname }: Aucti
               startTime={item.start_date}
               endTime={item.end_date}
               nowPrice={item.now_price}
+              auctionStatus={item.auction_status}
+              instantBuyPrice={item.instant_buy_price}
             />
           ))}
         </ListLayout>

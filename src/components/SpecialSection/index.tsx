@@ -44,6 +44,12 @@ function SpecialSection() {
               <span className={S.specialAuctionPriceTitle}>현재가 </span>
               {auction.now_price ? auction.now_price.toLocaleString() : '-'} 원
             </div>
+            {auction.instant_buy_price && (
+              <div className={S.specialAuctionPrice}>
+                <span className={S.specialAuctionPriceTitle}>즉시 구매가 </span>
+                {auction.instant_buy_price.toLocaleString()} 원
+              </div>
+            )}
           </div>
         ))}
       </div>

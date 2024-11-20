@@ -69,13 +69,12 @@ export const specialAuctionTitle = style({
 });
 
 export const specialAuctionPriceTitle = style({
-  fontSize: '16px',
+  fontSize: '14px',
   fontWeight: 'bold',
   color: colors.primary9,
 });
 
 export const specialAuctionPrice = style({
-  marginTop: '8px',
-  fontSize: '16px',
+  fontSize: '14px',
   fontWeight: 'bold',
 });
