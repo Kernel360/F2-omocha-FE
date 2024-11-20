@@ -1,3 +1,4 @@
+import layout from '@/styles/layout';
 import { globalStyle, style } from '@vanilla-extract/css';
 
 globalStyle('html, body, h1, h2, h3, h4, button, p, ul, ol, li', {
@@ -38,7 +39,7 @@ globalStyle('rc-cascader-menu-item', {
 
 export const container = style({
   position: 'relative',
-  minHeight: 'calc(100vh - 288px)',
+  minHeight: layout.minHeight,
 });
 
 export const errorContainer = style({

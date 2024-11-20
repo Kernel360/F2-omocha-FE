@@ -2,12 +2,13 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import shadow from '@/styles/shadow';
+import layout from '@/styles/layout';
 
 export const backContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  padding: '60px 0',
-  minHeight: 'calc(100vh - 288px)',
+  padding: '60px 0 0 0',
+  minHeight: layout.minHeight,
   boxSizing: 'border-box',
   alignItems: 'center',
   backgroundColor: colors.backgroundGray1,

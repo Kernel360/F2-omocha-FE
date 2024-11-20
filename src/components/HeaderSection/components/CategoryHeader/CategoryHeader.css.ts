@@ -11,7 +11,7 @@ export const bottomHeaderWrapper = style({
   '@media': {
     'screen and (max-width: 700px)': {
       marginBottom: '13px',
-      minWidth: '360px',
+      width: '100%',
     },
   },
 });
