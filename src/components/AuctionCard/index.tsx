@@ -55,6 +55,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
           width={196}
           height={196}
           className={S.cardImage}
+          priority
         />
         <span className={S.cardTitle}>{title}</span>
         <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
