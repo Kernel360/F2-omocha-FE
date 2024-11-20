@@ -1,11 +1,8 @@
-import { Suspense } from 'react';
-
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import { AuctionData, GetBasicAuctionListParams } from '@/apis/types/basicAuction';
 import { ListResponse } from '@/apis/types/common';
 import BasicAuctionClientPage from '@/components/BasicAuctionClientPage';
-import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 import filteredParams from '@/utils/filteredParams';
@@ -13,9 +10,9 @@ import filteredParams from '@/utils/filteredParams';
 async function BasicAuction({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
   const params = {
     ...searchParams,
+    page: Math.max((searchParams.page ?? 1) - 1, 0),
     categoryId: Number(searchParams.categoryId) || undefined, // 0일 때 undefined로 변환
-    page: 0,
-    size: 20,
+    size: 20, // 사이즈 2로 ALL 에서 검토
   };
 
   const newParams = filteredParams<GetBasicAuctionListParams>(params);
@@ -30,9 +27,7 @@ async function BasicAuction({ searchParams }: { searchParams: GetBasicAuctionLis
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<AuctionListSkeletonUI count={6} />}>
-        <BasicAuctionClientPage />
-      </Suspense>
+      <BasicAuctionClientPage />
     </HydrationBoundary>
   );
 }

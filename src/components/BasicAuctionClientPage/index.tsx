@@ -7,29 +7,34 @@ import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
+import Pagination from '../Pagination';
+
 import * as S from './BasicAuctionClientPage.css';
 
 function BasicAuctionClientPage() {
   const searchParams = useSearchParams();
   const searchKeywordParam = searchParams.get(AUCTIONPARAM_KEY.Q);
   const pickCategory = Number(searchParams.get('categoryId'));
+  const currentPage = Number(searchParams.get('page'));
 
-  const { data } = useGetBasicAuctionList({
+  const { data, pageInfo } = useGetBasicAuctionList({
     categoryId: pickCategory || undefined,
     title: searchKeywordParam || undefined,
     auctionStatus: searchParams.get(AUCTIONPARAM_KEY.AUCTIONSTATUS) || undefined,
     sort: searchParams.get(AUCTIONPARAM_KEY.SORT) || undefined,
     direction: searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || undefined,
-    page: 0,
-    size: 20,
+    size: 20, // 사이즈 2로 ALL 에서 검토
+    page: Math.max(currentPage - 1, 0),
   });
+
+  if (!data) return null;
 
   return (
     <div className={S.container}>
       <div className={S.searchContainer}>
         <div className={S.count}>
           <span>전체</span>
-          <span>{data.result_data.content.length}</span>
+          <span>{data.result_data.total_elements}</span>
         </div>
       </div>
       <ListLayout>
@@ -47,6 +52,7 @@ function BasicAuctionClientPage() {
           />
         ))}
       </ListLayout>
+      <Pagination pageInfo={pageInfo} />
     </div>
   );
 }
