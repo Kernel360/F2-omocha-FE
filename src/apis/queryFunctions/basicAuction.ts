@@ -59,6 +59,12 @@ export const postBasicAuctionBid = async (id: number, param: PostBasicAuctionBid
   return response.data;
 };
 
+export const postBasicAuctionInstantBuy = async (id: number) => {
+  const response = await apiClient.post<Response<null>>(`/v2/bids/${id}/instant-buy`);
+
+  return response.data;
+};
+
 export const deleteAuction = async (id: number) => {
   const response = await apiClient.delete<Response<null>>(`/v2/auctions/${id}`);
 
