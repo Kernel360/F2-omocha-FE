@@ -7,6 +7,11 @@ export const stickyHeader = style({
   top: 0,
   zIndex: 1000,
   backgroundColor: colors.white,
+  '@media': {
+    'screen and (min-width: 700px)': {
+      display: 'none',
+    },
+  },
 });
 
 export const container = style({
