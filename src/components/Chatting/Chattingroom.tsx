@@ -11,6 +11,7 @@ import useBooleanState from '@/hooks/useBooleanState';
 
 import * as S from './Chatting.css';
 import useChatSocket from './hooks/useChatSocket';
+import formatDate from '@/utils/formatDate';
 
 export interface ChatroomProps {
   roomId: number;
@@ -176,7 +177,7 @@ function Chattingroom({ roomId, openAuctionInfo, lastChat }: ChatroomProps) {
                   msg.sender_member_id === user?.member_id ? S.msgDate.myMsg : S.msgDate.opponentMsg
                 }
               >
-                {msg.created_at}
+                {formatDate(msg.created_at)}
               </p>
             </div>
           );

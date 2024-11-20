@@ -63,7 +63,7 @@ function QnAUnit({ item, userId, isSeller }: QnAUnitProps) {
             </div>
           </div>
         </div>
-        {item.question_details.member_id === userId && (
+        {!item.answer_details && item.question_details.member_id === userId && (
           <button type="button" className={S.questionDeleteButton} onClick={openDeleteConfirmModal}>
             <span>삭제</span>
           </button>
