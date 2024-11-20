@@ -59,7 +59,7 @@ export interface GetBasicAuctionListParams {
 // ---- 입찰
 
 export interface GetBasicAuctionBidInfo {
-  buyer_id: number;
+  buyer_member_id: number;
   bid_price: number;
   created_at: string;
 }
@@ -83,6 +83,8 @@ export interface QuestionResponse {
   created_at: string; // ISO 날짜 형식
   member_id: number;
   email: string | null;
+  nick_name: string | null;
+  profile_image_url: string | null;
 }
 
 export interface AnswerResponse {
@@ -93,8 +95,8 @@ export interface AnswerResponse {
 }
 
 export interface AuctionQnAData {
-  question_response: QuestionResponse;
-  answer_response: AnswerResponse | null;
+  question_details: QuestionResponse;
+  answer_details: AnswerResponse | null;
 }
 
 export interface PostAuctionQnAParams {

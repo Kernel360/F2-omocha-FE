@@ -16,24 +16,31 @@ export const title = style({
   color: 'black',
 });
 
-export const chattingUnitSection = style({
-  cursor: 'pointer',
+export const chattingWrapper = style({
   display: 'flex',
   alignItems: 'center',
   gap: '16px',
   padding: '16px 20px',
-  boxSizing: 'border-box',
-  width: '100%',
   borderBottom: '1px solid #e5e5e5',
+  boxSizing: 'border-box',
   transition: 'background-color 0.2s ease',
   ':hover': {
     backgroundColor: '#f9f9f9',
   },
 });
 
+export const chattingUnitSection = style({
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '16px',
+  width: '100%',
+});
+
 export const chattingUnit = style({
   display: 'flex',
   flexDirection: 'column',
+
   gap: '8px',
   width: '100%',
 });
@@ -41,7 +48,6 @@ export const chattingUnit = style({
 export const chattingUnitInfo = style({
   display: 'flex',
   gap: '8px',
-  alignItems: 'center',
 });
 
 export const dot = style({

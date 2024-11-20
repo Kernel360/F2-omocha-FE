@@ -12,7 +12,6 @@ const apiClient = createApiClient();
 
 export const getChatroomList = async (param: GetChatroomListParams) => {
   const queryString = convertQueryParamsObjectToString<GetChatroomListParams>(param);
-
   const response = await apiClient.get<Response<ChatroomListResponseData>>(
     `/v2/chatroom?${queryString}`,
   );
