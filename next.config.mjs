@@ -7,9 +7,6 @@ const withVanillaExtract = createVanillaExtractPlugin();
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    forceSwcTransforms: true, // experimental 설정 추가 .babelrc.js 설정을 무시하고 SWC로 변환
-  },
   images: {
     remotePatterns: [
       {
