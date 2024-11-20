@@ -51,6 +51,8 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
           bidCount={data.result_data.bid_count}
           bidUnit={data.result_data.bid_unit}
           sellerId={data.result_data.member_id}
+          instantBuyPrice={data.result_data.instant_buy_price}
+          auctionStatus={data.result_data.auction_status}
         />
       </div>
       <TabsLayout

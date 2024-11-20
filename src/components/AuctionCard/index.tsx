@@ -18,11 +18,23 @@ interface AuctionCardProps {
   startTime: string;
   endTime: string;
   nowPrice: number | null;
+  auctionStatus?: string;
+  instantBuyPrice?: number | null;
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
-  const { id, thumbnailImage, title, isLike: initialLike, endTime, nowPrice } = SAMPLE;
-  const isExpired = new Date() > new Date(endTime);
+  const {
+    id,
+    thumbnailImage,
+    title,
+    isLike: initialLike,
+    endTime,
+    nowPrice,
+    auctionStatus,
+    instantBuyPrice,
+  } = SAMPLE;
+
+  const isExpired = auctionStatus !== 'BIDDING'; // new Date() > new Date(endTime);
   const [isLike, setIsLike] = useState(false); // 서버와 클라이언트의 불일치 문제 해결을 위해 isLike를 상태로 관리
   const dDay = calculateDDay(endTime);
   const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);
@@ -58,9 +70,17 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
           priority
         />
         <span className={S.cardTitle}>{title}</span>
-        <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
-          <span>현재가(KRW)</span>
-          <span>{nowPrice ? nowPrice.toLocaleString('ko-KR') : '- '}원</span>
+        <div>
+          <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
+            <span>현재가(KRW)</span>
+            <span>{nowPrice ? nowPrice.toLocaleString('ko-KR') : '-'}원</span>
+          </div>
+          {instantBuyPrice && (
+            <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
+              <span>즉시 구매가(KRW)</span>
+              <span>{instantBuyPrice.toLocaleString('ko-KR')}원</span>
+            </div>
+          )}
         </div>
       </div>
     </Link>

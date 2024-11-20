@@ -29,6 +29,15 @@ const nextConfig = {
   },
 };
 
+// console.error와 console.warn은 유지되고, 나머지 console 호출은 제거
+if (process.env.NEXT_PUBLIC_NODE_ENV === 'prod') {
+  nextConfig.compiler = {
+    removeConsole: {
+      exclude: ['error', 'warn'],
+    },
+  };
+}
+
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });

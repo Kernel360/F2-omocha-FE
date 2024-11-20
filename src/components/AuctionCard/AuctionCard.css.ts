@@ -51,6 +51,7 @@ export const cardContent = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
+  minHeight: '290px',
 });
 
 export const userIcon = style({

@@ -29,8 +29,6 @@ function ChattingList() {
 
   if (!data) return null;
 
-  if (!data) return null;
-
   return (
     <div
       style={{
@@ -67,10 +65,10 @@ function ChattingList() {
                     auction_id: chat.auction_id,
                     room_id: chat.room_id,
                     room_name: chat.room_name,
-                    seller_id: chat.seller_id,
+                    seller_id: chat.seller_member_id,
                     seller_name: chat.seller_name,
-                    now_price: chat.now_price,
-                    buyer_id: chat.buyer_id,
+                    conclude_price: chat.conclude_price,
+                    buyer_id: chat.buyer_member_id,
                     buyer_name: chat.buyer_name,
                   });
                 }}
@@ -79,13 +77,15 @@ function ChattingList() {
                   auction_id={chat.auction_id}
                   room_id={chat.room_id}
                   room_name={chat.room_name}
-                  seller_id={chat.seller_id}
+                  seller_id={chat.seller_member_id}
                   seller_name={chat.seller_name}
-                  now_price={chat.now_price}
-                  buyer_id={chat.buyer_id}
+                  thumbnail={chat.thumbnail_path}
+                  conclude_price={chat.conclude_price}
+                  buyer_id={chat.buyer_member_id}
                   buyer_name={chat.buyer_name}
                   created_date={chat.created_date}
                   last_message_time={chat.last_message_time}
+                  last_message={chat.last_message}
                 />
               </button>
             ))}
