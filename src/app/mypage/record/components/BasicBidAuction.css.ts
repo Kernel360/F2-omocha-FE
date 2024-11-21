@@ -13,6 +13,12 @@ export const list = style({
   ':hover': {
     transform: 'scale(1.02)',
   },
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      gridTemplateColumns: '1fr 1fr',
+    },
+  },
 });
 
 const blinkAnimation = keyframes({
@@ -32,6 +38,12 @@ export const bidding = style({
   animation: `${blinkAnimation} 1.5s ease-in-out infinite`,
   boxSizing: 'border-box',
   width: '110px',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '10px',
+    },
+  },
 });
 
 globalStyle(`${list}:nth-last-child(1)`, {
@@ -42,6 +54,12 @@ export const image = style({
   objectFit: 'contain',
   borderRadius: '4px',
   boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      width: '100%',
+    },
+  },
 });
 
 export const listRight = style({
@@ -53,13 +71,25 @@ export const listRight = style({
   listStyle: 'none',
 });
 
+export const listData = style({
+  display: 'flex',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      gap: '10px',
+    },
+  },
+});
+
 export const listFirst = style({
   width: '100%',
   display: 'flex',
   justifyContent: 'space-between',
 
   '@media': {
-    'screen and (max-width: 506px)': {
+    'screen and (max-width: 774px)': {
       gap: '10px',
       flexDirection: 'column',
       width: '110px',
@@ -77,6 +107,12 @@ export const bidTitle = style({
   borderRadius: '4px',
   border: `1px solid ${colors.gray7} `,
   cursor: 'pointer',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '14px',
+    },
+  },
 });
 
 export const listName = style({
@@ -86,6 +122,12 @@ export const listName = style({
   marginRight: '10px',
   fontWeight: '600',
   textAlign: 'left',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '12px',
+    },
+  },
 });
 
 export const listValue = style({

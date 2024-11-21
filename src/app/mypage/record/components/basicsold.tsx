@@ -61,7 +61,7 @@ export default function BasicSold() {
                 alt="경매 사진"
               />
               <ul className={S.listRight}>
-                <li className={S.listFirst}>
+                <li className={`${S.listFirst} ${S.listData}`}>
                   <button
                     type="button"
                     onClick={() =>
@@ -82,19 +82,19 @@ export default function BasicSold() {
                     </div>
                   )}
                 </li>
-                <li>
-                  <span className={S.listName}>경매 상태</span>
+                <li className={S.listData}>
+                  <span className={S.listName}>판매 상태</span>
                   <span className={`${S.listValue} ${getBidStatusStyle(history.auction_status)}`}>
                     {history.auction_status}
                   </span>
                 </li>
-                <li>
+                <li className={S.listData}>
                   <span className={S.listName}>현재가</span>
                   <span
                     className={`${S.listValue} ${S.soldStatus.bidding}`}
                   >{`${history.now_price ? history.now_price : '-'} 원 `}</span>
                 </li>
-                <li>
+                <li className={S.listData}>
                   <span className={S.listName}>종료</span>
                   <span className={S.listValue}>{history.end_date}</span>
                 </li>

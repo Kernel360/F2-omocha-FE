@@ -23,7 +23,7 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
         alt="경매 사진"
       />
       <ul className={S.listRight}>
-        <li className={S.listFirst}>
+        <li className={`${S.listFirst} ${S.listData}`}>
           <button
             type="button"
             onClick={() =>
@@ -42,7 +42,7 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
             </div>
           )}
         </li>
-        <li>
+        <li className={S.listData}>
           <span className={S.listName}>입찰 상태</span>
           <span
             className={
@@ -54,7 +54,7 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
             {bidAuctionHistory.bid_status}
           </span>
         </li>
-        <li>
+        <li className={S.listData}>
           <span className={S.listName}>현재가</span>
           <span className={S.bidStatus.bidding}>
             {bidAuctionHistory.now_price
