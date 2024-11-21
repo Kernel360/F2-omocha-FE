@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useSearchParams } from 'next/navigation';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
@@ -22,6 +24,20 @@ function MobileHeader() {
 
   const { data } = useGetCategory({ targetCategoryId: pickCategory });
   const { data: userInfo } = useGetUser();
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 700) {
+        closeNav();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [closeNav]);
 
   if (!data) return null;
 
