@@ -13,9 +13,6 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
   return (
     <section className={S.bottomHeaderWrapper}>
       <div className={S.bottomHeader}>
-        <Link href="/basicauction?page=1" className={S.buttonStyles}>
-          ALL
-        </Link>
         {data.map(category => (
           <Link
             key={category.category_id}
