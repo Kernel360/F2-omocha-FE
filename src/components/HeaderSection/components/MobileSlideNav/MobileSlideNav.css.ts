@@ -4,9 +4,9 @@ import colors from '@/styles/color';
 
 export const container = style({ padding: '0 16px', display: 'flex', flexDirection: 'column' });
 
-export const logo = style({ fontSize: '24px', color: colors.primary9 });
+export const logo = style({ fontSize: '24px', color: colors.primary9, marginBottom: '24px' });
 
-export const hr = style({
+export const division = style({
   padding: '0px',
   height: '1px',
   border: 'none',
@@ -16,10 +16,11 @@ export const hr = style({
 
 export const hrTitle = style({ fontSize: '14px', color: colors.gray12 });
 
+export const userSection = style({ display: 'flex', flexDirection: 'column', gap: '8px' });
+
 export const userWrapper = style({
   display: 'flex',
   gap: '4px',
-  marginTop: '24px',
 });
 
 export const profileImage = style({
