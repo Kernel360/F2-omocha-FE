@@ -1,5 +1,6 @@
 import { CalendarClock } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import { AuctionData } from '@/apis/types/basicAuction';
@@ -31,7 +32,11 @@ function SpecialSection() {
 
       <div className={S.specialAuction}>
         {data.result_data.content.map((auction: AuctionData) => (
-          <div key={auction.auction_id} className={S.specialAuctionItem}>
+          <Link
+            href={`/basicauction/${auction.auction_id}`}
+            key={auction.auction_id}
+            className={S.specialAuctionItem}
+          >
             <Image
               src={`${process.env.NEXT_PUBLIC_S3_URL}${auction.thumbnail_path}`}
               className={S.specialAuctionImage}
@@ -50,7 +55,7 @@ function SpecialSection() {
                 {auction.instant_buy_price.toLocaleString()} 원
               </div>
             )}
-          </div>
+          </Link>
         ))}
       </div>
     </div>

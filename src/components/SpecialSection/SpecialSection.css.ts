@@ -44,6 +44,11 @@ export const flex = style({
 export const only = style({
   fontSize: '36px',
   fontWeight: 'light',
+  '@media': {
+    'screen and (max-width: 1100px)': {
+      fontSize: '24px',
+    },
+  },
 });
 
 export const bellIcon = style({});
@@ -55,6 +60,7 @@ export const oneDay = style({
   '@media': {
     'screen and (max-width: 1100px)': {
       marginTop: '0px',
+      fontSize: '30px',
     },
   },
 });
@@ -67,6 +73,7 @@ export const popularItem = style({
   '@media': {
     'screen and (max-width: 1100px)': {
       marginTop: '0px',
+      fontSize: '24px',
     },
   },
 });
@@ -82,6 +89,7 @@ export const specialAuction = style({
 
 export const specialAuctionItem = style({
   display: 'flex',
+  position: 'relative',
   alignItems: 'center',
   flexDirection: 'column',
   gap: '8px',
@@ -89,9 +97,8 @@ export const specialAuctionItem = style({
 
 export const specialAuctionImage = style({
   borderRadius: '100%',
-  content: 'cover',
+  objectFit: 'cover',
   border: '5px solid #fff',
-  backgroundColor: '#fff',
 });
 
 export const specialAuctionTitle = style({

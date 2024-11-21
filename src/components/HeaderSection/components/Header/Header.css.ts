@@ -9,7 +9,6 @@ export const stickyHeader = style({
   backdropFilter: 'blur(2px)',
   backgroundColor: 'rgba(255,255,255, 0.95)',
   borderBottom: `1px solid ${colors.gray3}`,
-
   '@media': {
     'screen and (max-width: 700px)': {
       display: 'none',
