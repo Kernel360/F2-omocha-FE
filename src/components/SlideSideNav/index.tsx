@@ -4,6 +4,7 @@ import { XIcon } from 'lucide-react';
 
 import Portal from '@/components/Portal';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
+import colors from '@/styles/color';
 
 import * as S from './SlideSideNav.css';
 
@@ -11,10 +12,11 @@ interface SlideSideNavProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  type?: 'normal' | 'mobile';
 }
 
 function SlideSideNav(Sample: SlideSideNavProps) {
-  const { isOpen, onClose, children } = Sample;
+  const { isOpen, onClose, children, type = 'normal' } = Sample;
 
   const sideNavRef = useRef<HTMLDivElement>(null);
 
@@ -25,12 +27,11 @@ function SlideSideNav(Sample: SlideSideNavProps) {
   return (
     <Portal>
       <div className={S.overlay}>
-        <div ref={sideNavRef} className={S.container}>
-          <div className={S.titleSection}>
+        <div ref={sideNavRef} className={S.container({ type })}>
+          <div className={S.titleSection({ type })}>
             <button type="button" onClick={onClose} className={S.xButton}>
-              <XIcon />
+              <XIcon stroke={colors.gray10} />
             </button>
-            <span className={S.title}>알림</span>
           </div>
           {children}
         </div>
