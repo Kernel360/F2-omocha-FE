@@ -9,12 +9,12 @@ import { useSearchParams } from 'next/navigation';
 
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
+import MaxLayout from '@/components/MaxLayout';
 
-import MaxLayout from '../MaxLayout';
+import CategoryHeader from '../CategoryHeader';
+import UserHeader from '../UserHeader';
 
 import * as S from './Header.css';
-import CategoryHeader from './components/CategoryHeader';
-import UserHeader from './components/UserHeader';
 
 function Header() {
   // const { value, setTrue, setFalse } = useBooleanState(false);

@@ -18,9 +18,10 @@ export const footer = style({
   margin: '0 auto',
   flexDirection: 'column',
   justifyContent: 'center',
-  height: '130px',
+  height: 'auto',
+
   maxWidth: layout.maxLayoutWidth.maxWidth,
-  padding: layout.maxLayoutWidth.padding,
+  padding: '16px 20px',
   color: colors.white,
 });
 
@@ -28,12 +29,22 @@ export const topFooter = style({
   display: 'flex',
   justifyContent: 'space-between',
   paddingBottom: '20px',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      flexDirection: 'column-reverse',
+      gap: '10px',
+    },
+  },
 });
 
 export const logoButton = style({
   color: colors.white,
-
   fontSize: '32px',
+  '@media': {
+    'screen and (max-width: 1100px)': {
+      fontSize: '28px',
+    },
+  },
 });
 
 export const categoryList = style({
@@ -43,6 +54,11 @@ export const categoryList = style({
   fontWeight: 'bold',
   alignItems: 'center',
   gap: '50px',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      gap: '30px',
+    },
+  },
 });
 
 export const category = style({

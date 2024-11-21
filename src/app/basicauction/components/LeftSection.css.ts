@@ -58,6 +58,13 @@ export const searchBar = style({
   gap: '5px',
   borderBottom: `1px solid ${colors.gray7}`,
   padding: '0 10px 5px',
+  boxSizing: 'border-box',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      maxWidth: '100px',
+      padding: '0 ',
+    },
+  },
 });
 
 const buttonBase = style({
@@ -80,4 +87,11 @@ export const searchInput = style({
   ...typography.body,
   border: 'none',
   outline: 'none',
+  background: 'none',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      fontSize: '10px',
+      width: '100%',
+    },
+  },
 });

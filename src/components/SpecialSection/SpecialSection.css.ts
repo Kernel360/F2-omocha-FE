@@ -8,14 +8,31 @@ export const specialSection = style({
   justifyContent: 'center',
   alignItems: 'center',
   gap: '80px',
-  height: '400px',
+  padding: '50px 20px',
+  boxSizing: 'border-box',
   width: '100%',
   background: 'url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat',
+  '@media': {
+    'screen and (max-width: 1100px)': {
+      flexDirection: 'column',
+      gap: '40px',
+      marginTop: '30px',
+    },
+  },
 });
 
 export const specialSectionTitle = style({
   display: 'flex',
   flexDirection: 'column',
+  '@media': {
+    'screen and (max-width: 1100px)': {
+      marginRight: 'auto',
+      flexDirection: 'row',
+      gap: '10px',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+    },
+  },
 });
 
 export const flex = style({
@@ -27,6 +44,11 @@ export const flex = style({
 export const only = style({
   fontSize: '36px',
   fontWeight: 'light',
+  '@media': {
+    'screen and (max-width: 1100px)': {
+      fontSize: '24px',
+    },
+  },
 });
 
 export const bellIcon = style({});
@@ -35,6 +57,12 @@ export const oneDay = style({
   marginTop: '4px',
   fontSize: '40px',
   fontWeight: 'bold',
+  '@media': {
+    'screen and (max-width: 1100px)': {
+      marginTop: '0px',
+      fontSize: '30px',
+    },
+  },
 });
 
 export const popularItem = style({
@@ -42,15 +70,26 @@ export const popularItem = style({
   fontSize: '36px',
   fontWeight: 'bold',
   color: colors.primary9,
+  '@media': {
+    'screen and (max-width: 1100px)': {
+      marginTop: '0px',
+      fontSize: '24px',
+    },
+  },
 });
 
 export const specialAuction = style({
-  display: 'flex',
-  gap: '20px',
+  maxWidth: '960px',
+  width: '100%',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(190px, auto))',
+  gap: '16px',
+  alignItems: 'center',
 });
 
 export const specialAuctionItem = style({
   display: 'flex',
+  position: 'relative',
   alignItems: 'center',
   flexDirection: 'column',
   gap: '8px',
@@ -58,9 +97,8 @@ export const specialAuctionItem = style({
 
 export const specialAuctionImage = style({
   borderRadius: '100%',
-  content: 'cover',
+  objectFit: 'cover',
   border: '5px solid #fff',
-  backgroundColor: '#fff',
 });
 
 export const specialAuctionTitle = style({

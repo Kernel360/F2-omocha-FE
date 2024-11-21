@@ -15,8 +15,8 @@ export const SUB_CATEGORY = [
 
 export const MAIN_CATEGORY = [
   { id: 1, name: 'Home', path: '/' },
-  { id: 2, name: 'Normal', path: '/basicauction' },
-  { id: 3, name: 'How To', path: '/howto' },
+  { id: 2, name: 'Auction', path: '/basicauction' },
+  // { id: 3, name: 'How To', path: '/howto' },
 ];
 
 export const MYPAGE_CATEGORY = [
