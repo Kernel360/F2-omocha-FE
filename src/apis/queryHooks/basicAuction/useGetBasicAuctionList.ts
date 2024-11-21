@@ -13,7 +13,7 @@ function useGetBasicAuctionList(params: GetBasicAuctionListParams) {
   });
 
   const pageInfo = {
-    totalPage: data?.result_data.total_pages || 0,
+    lastPage: data?.result_data.total_pages || 0,
     currentPage: data?.result_data.number || 0,
   };
 
