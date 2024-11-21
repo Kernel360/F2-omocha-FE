@@ -39,6 +39,9 @@ export interface BidAuctionHistoriesData {
   auction_status: string;
   thumbnail_path: string;
   bid_status: string;
+  now_price: number | null;
+  end_date: string;
+  review_status: string;
 }
 
 export interface BidAuctionHistoriesUnitData {

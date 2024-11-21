@@ -27,6 +27,12 @@ export const categoryList = style({
   backgroundColor: colors.white,
   height: '480px',
   width: '220px',
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      display: 'none',
+    },
+  },
 });
 
 export const page = style({

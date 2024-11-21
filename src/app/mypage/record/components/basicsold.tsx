@@ -53,23 +53,15 @@ export default function BasicSold() {
         auctionHistories.content.map(history => (
           <div key={history.auction_id}>
             <li className={S.list}>
-              {history.auction_status === 'BIDDING' && (
-                <div className={S.bidding}>
-                  <span className={`${S.listValue} ${getBidStatusStyle(history.auction_status)}`}>
-                    {history.auction_status}진행중
-                  </span>
-                </div>
-              )}
               <Image
                 className={S.image}
                 src={`${process.env.NEXT_PUBLIC_S3_URL}${history.thumbnail_path}`}
-                width={0}
-                height={0}
-                sizes="100vw"
+                width={150}
+                height={150}
                 alt="경매 사진"
               />
               <ul className={S.listRight}>
-                <li>
+                <li className={S.listFirst}>
                   <button
                     type="button"
                     onClick={() =>
@@ -80,6 +72,15 @@ export default function BasicSold() {
                     {history.title}
                     <ChevronRightIcon size={14} />
                   </button>
+                  {history.auction_status === 'BIDDING' && (
+                    <div className={S.bidding}>
+                      <span
+                        className={`${S.listValue} ${getBidStatusStyle(history.auction_status)}`}
+                      >
+                        {history.auction_status}진행중
+                      </span>
+                    </div>
+                  )}
                 </li>
                 <li>
                   <span className={S.listName}>경매 상태</span>
@@ -90,7 +91,7 @@ export default function BasicSold() {
                 <li>
                   <span className={S.listName}>현재가</span>
                   <span
-                    className={S.listValue}
+                    className={`${S.listValue} ${S.soldStatus.bidding}`}
                   >{`${history.now_price ? history.now_price : '-'} 원 `}</span>
                 </li>
                 <li>

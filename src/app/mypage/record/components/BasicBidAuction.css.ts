@@ -3,8 +3,8 @@ import { style, globalStyle, styleVariants, keyframes } from '@vanilla-extract/c
 import colors from '@/styles/color';
 
 export const list = style({
-  position: 'relative',
-  display: 'flex',
+  display: 'grid',
+  gridTemplateColumns: '150px 1fr',
   gap: '15px',
   cursor: 'pointer',
   padding: '20px 10px',
@@ -22,14 +22,16 @@ const blinkAnimation = keyframes({
 });
 
 export const bidding = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   fontSize: '12px',
-  position: 'absolute',
   padding: '5px 10px',
   borderRadius: '20px',
   border: '1.5px solid red',
-  right: '30px',
-  top: '20px',
   animation: `${blinkAnimation} 1.5s ease-in-out infinite`,
+  boxSizing: 'border-box',
+  width: '110px',
 });
 
 globalStyle(`${list}:nth-last-child(1)`, {
@@ -37,10 +39,6 @@ globalStyle(`${list}:nth-last-child(1)`, {
 });
 
 export const image = style({
-  maxWidth: '120px',
-  width: '100%',
-  maxHeight: '120px',
-  height: '100%',
   objectFit: 'contain',
   borderRadius: '4px',
   boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
@@ -53,6 +51,20 @@ export const listRight = style({
   alignItems: 'baseline',
   gap: '10px',
   listStyle: 'none',
+});
+
+export const listFirst = style({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+
+  '@media': {
+    'screen and (max-width: 506px)': {
+      gap: '10px',
+      flexDirection: 'column',
+      width: '110px',
+    },
+  },
 });
 
 export const bidTitle = style({
@@ -68,10 +80,12 @@ export const bidTitle = style({
 });
 
 export const listName = style({
+  display: 'inline-block',
   fontSize: '14px',
   width: '70px',
   marginRight: '10px',
   fontWeight: '600',
+  textAlign: 'left',
 });
 
 export const listValue = style({
