@@ -1,4 +1,6 @@
-import { ImageUpload } from '@/app/create/types/InputTypes';
+import { RegisterOptions } from 'react-hook-form';
+
+import { AuctionInputs, ImageUpload } from '@/app/create/types/InputTypes';
 import formatDate from '@/utils/formatDate';
 
 export const startPriceValidation = {
@@ -9,9 +11,27 @@ export const startPriceValidation = {
   },
 };
 
-export const instantBuyPriceValidation = {
+export const instantBuyPriceValidation = (startPrice: number) => ({
   required: '즉시 구매가를 입력해 주세요.',
-};
+  validate: (value: string | ImageUpload | ImageUpload[] | File | number[] | number | null) => {
+    if (value && startPrice && Number(value) < Number(startPrice)) {
+      return '즉시 구매가는 시작가보다 높아야 합니다.';
+    }
+    return true;
+  },
+});
+
+export const getInstantBuyPriceValidation = (
+  startPriceRequired: number,
+): RegisterOptions<AuctionInputs> => ({
+  required: '즉시 구매가를 입력해 주세요.',
+  validate: value => {
+    if (value && startPriceRequired && Number(value) < Number(startPriceRequired)) {
+      return '즉시 구매가는 시작가보다 높아야 합니다.';
+    }
+    return true;
+  },
+});
 
 export const bidUnitValidation = {
   required: '입찰 단위를 입력해 주세요.',

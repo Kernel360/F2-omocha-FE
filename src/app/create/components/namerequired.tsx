@@ -14,7 +14,7 @@ interface NameRequiredProps {
 
 function NameRequired({ register, errors }: NameRequiredProps) {
   return (
-    <>
+    <div>
       <div className={S.title}>상품 정보</div>
       <div className={S.price}>
         <div className={S.inputWrapper}>
@@ -30,7 +30,7 @@ function NameRequired({ register, errors }: NameRequiredProps) {
         </div>
         <CategoryTree />
       </div>
-    </>
+    </div>
   );
 }
 

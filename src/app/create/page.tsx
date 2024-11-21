@@ -25,6 +25,7 @@ export default function Home() {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = methods;
 
@@ -65,7 +66,12 @@ export default function Home() {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className={S.formSection}>
               <NameRequiredProps register={register} errors={errors} />
-              <TypePriceRequired setValue={setValue} register={register} errors={errors} />
+              <TypePriceRequired
+                watch={watch}
+                setValue={setValue}
+                register={register}
+                errors={errors}
+              />
               <ImageRequired thumbnail={thumbnail} setThumbnail={setThumbnail} />
               <ContentRequired />
               <EndDateRequired register={register} errors={errors} />

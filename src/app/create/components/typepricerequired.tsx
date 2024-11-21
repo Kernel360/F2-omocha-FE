@@ -1,11 +1,11 @@
-import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 
 import * as Toggle from '@radix-ui/react-toggle';
 
 import {
   bidUnitValidation,
-  instantBuyPriceValidation,
   startPriceValidation,
+  getInstantBuyPriceValidation,
 } from '@/app/create/utils/createValidation';
 import CommonInput from '@/components/CommonInput';
 import useBooleanState from '@/hooks/useBooleanState';
@@ -14,13 +14,16 @@ import * as S from '../Basicauction.css';
 import { AuctionInputs } from '../types/InputTypes';
 
 interface TypePriceRequiredProps {
+  watch: UseFormWatch<AuctionInputs>;
   setValue: UseFormSetValue<AuctionInputs>;
   register: UseFormRegister<AuctionInputs>;
   errors: FieldErrors<AuctionInputs>;
 }
 
-function TypePriceRequired({ setValue, register, errors }: TypePriceRequiredProps) {
+function TypePriceRequired({ watch, setValue, register, errors }: TypePriceRequiredProps) {
   const { value: isInstantBuyEnabled, toggle: toggleIsInstantBuyEnabled } = useBooleanState();
+
+  const startPriceRequired = watch('startPriceRequired');
 
   const handleToggleChange = () => {
     toggleIsInstantBuyEnabled();
@@ -74,7 +77,7 @@ function TypePriceRequired({ setValue, register, errors }: TypePriceRequiredProp
               type="number"
               placeholder="원"
               register={register}
-              validation={instantBuyPriceValidation}
+              validation={getInstantBuyPriceValidation(Number(startPriceRequired))}
               error={errors.instantBuyPrice}
             />
           </div>
