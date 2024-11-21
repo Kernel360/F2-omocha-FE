@@ -24,7 +24,9 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
           </Link>
         ))}
       </div>
-      <SearchBar />
+      <div className={S.searchBarWrapper}>
+        <SearchBar />
+      </div>
     </section>
   );
 }

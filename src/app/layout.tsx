@@ -8,7 +8,7 @@ import { Category } from '@/apis/types/category';
 import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
-import Header from '@/components/Header';
+import HeaderSection from '@/components/HeaderSection';
 import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
@@ -61,7 +61,7 @@ export default async function RootLayout({
             <NavigationEvents />
             <AuthProvider isLoggedIn={isLoggedIn}>
               <HydrationBoundary state={dehydrate(queryClient)}>
-                <Header />
+                <HeaderSection />
               </HydrationBoundary>
               <div className={S.container}>
                 {children}
