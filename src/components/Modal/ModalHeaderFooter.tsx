@@ -1,6 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { CircleXIcon } from 'lucide-react';
 
+import colors from '@/styles/color';
+
 import * as S from './Modal.css';
 
 interface ModalHeaderFooterProps {
@@ -23,7 +25,7 @@ export default function ModalHeaderFooter(SAMPLE: ModalHeaderFooterProps) {
           <div className={S.header}>
             <Dialog.Title className={S.headerTitle}>{title}</Dialog.Title>
             <Dialog.Close asChild>
-              <CircleXIcon />
+              <CircleXIcon stroke={colors.gray9} />
             </Dialog.Close>
           </div>
           <div className={S.content}>{children}</div>

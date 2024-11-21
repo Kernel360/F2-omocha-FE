@@ -68,9 +68,11 @@ function QnAInputSection({ id, userId, userEmail }: QnAInputSectionProps) {
                 <textarea id="content" name="content" className={S.postQnATextAreaContent} />
               </div>
               <div className={S.buttonWrapper}>
-                <button type="button" className={S.postQnAButton.close}>
-                  닫기
-                </button>
+                <Collapsible.Trigger>
+                  <button type="button" className={S.postQnAButton.close}>
+                    닫기
+                  </button>
+                </Collapsible.Trigger>
                 <button type="submit" className={S.postQnAButton.submit}>
                   등록
                 </button>
