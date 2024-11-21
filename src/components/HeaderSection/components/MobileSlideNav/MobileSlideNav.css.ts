@@ -49,6 +49,17 @@ export const buttonBase = style({
   borderRadius: '4px',
 });
 
+export const likeCount = style({
+  display: 'flex',
+  justifyContent: 'center',
+  color: colors.primary11,
+  backgroundColor: colors.gray3,
+  minWidth: '30px',
+  padding: '4px 8px',
+  borderRadius: '20px',
+  marginLeft: '12px',
+});
+
 export const normalNavButtonBase = style({
   display: 'flex',
   alignItems: 'center',
