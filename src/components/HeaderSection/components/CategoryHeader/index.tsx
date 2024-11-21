@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Category } from '@/apis/types/category';
-import SearchBar from '@/app/basicauction/components/searchbar';
+import SearchBar from '@/components/HeaderSection/components/SearchBar/searchbar';
 
 import * as S from './CategoryHeader.css';
 
@@ -13,6 +13,9 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
   return (
     <section className={S.bottomHeaderWrapper}>
       <div className={S.bottomHeader}>
+        <Link href="/basicauction?page=1" className={S.buttonStyles}>
+          ALL
+        </Link>
         {data.map(category => (
           <Link
             key={category.category_id}

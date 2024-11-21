@@ -17,12 +17,12 @@ export const rightSection = style({
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
+  gap: '20px',
 });
 
 export const searchContainer = style({
   display: 'flex',
   justifyContent: 'space-between',
-  marginBottom: '20px',
 });
 
 export const count = style({

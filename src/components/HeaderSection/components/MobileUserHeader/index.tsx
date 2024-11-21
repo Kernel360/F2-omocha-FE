@@ -4,8 +4,8 @@ import Link from 'next/link';
 // import { usePathname, useRouter } from 'next/navigation';
 
 // import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
-import SearchBar from '@/app/basicauction/components/searchbar';
 import logoIcon from '@/assets/png/logo.png';
+import SearchBar from '@/components/HeaderSection/components/SearchBar/searchbar';
 // import { useAuth } from '@/provider/authProvider';
 // import { SUB_CATEGORY } from '@/static/category';
 import colors from '@/styles/color';
