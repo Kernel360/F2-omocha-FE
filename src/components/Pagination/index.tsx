@@ -14,6 +14,7 @@ interface PaginationProps {
 }
 
 const NUM = 5;
+const FIRST_PAGE = 1;
 
 function Pagination({ pageInfo }: { pageInfo: PaginationProps }) {
   const { totalPage } = pageInfo;
@@ -45,8 +46,8 @@ function Pagination({ pageInfo }: { pageInfo: PaginationProps }) {
         <button
           className={chevronStyle(1)}
           type="button"
-          onClick={() => handlePageChange(1)}
-          disabled={currentPage === 1}
+          onClick={() => handlePageChange(FIRST_PAGE)}
+          disabled={currentPage === FIRST_PAGE}
         >
           <ChevronsLeftIcon size={20} />
         </button>
@@ -54,7 +55,7 @@ function Pagination({ pageInfo }: { pageInfo: PaginationProps }) {
           className={chevronStyle(1)}
           type="button"
           onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
+          disabled={currentPage === FIRST_PAGE}
         >
           <ChevronLeftIcon size={20} />
         </button>
