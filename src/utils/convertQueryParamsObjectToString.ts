@@ -2,6 +2,7 @@ function convertQueryParamsObjectToString<T extends { [K in keyof T]: T[K] }>(pa
   const stringParams = new URLSearchParams();
 
   Object.entries(params).forEach(([key, value]) => {
+    if (value === undefined || value === '' || value === null) return;
     if (Array.isArray(value)) {
       value.forEach(val => stringParams.append(key, String(val)));
     } else {

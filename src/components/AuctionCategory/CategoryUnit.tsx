@@ -23,7 +23,7 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
       <Collapsible.Trigger asChild>
         <div className={S.unitButton}>
           <Collapsible.Trigger asChild>
-            <Link href={`/basicauction/?categoryId=${unit.category_id}`}>
+            <Link scroll={false} href={`/basicauction/?categoryId=${unit.category_id}&page=1`}>
               <span className={isPick ? S.pickUnitButtonSpan : S.unitButtonSpan}>{unit.name}</span>
             </Link>
           </Collapsible.Trigger>
@@ -37,7 +37,8 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
           ) : (
             <Link
               key={sub_category.category_id}
-              href={`/basicauction/?categoryId=${sub_category.category_id}`}
+              scroll={false}
+              href={`/basicauction/?categoryId=${sub_category.category_id}&page=1`}
             >
               <div className={`${S.unitContent} ${S.unitContentForSpan}`}>
                 <span

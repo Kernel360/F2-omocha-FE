@@ -15,11 +15,7 @@ function Checkbox() {
   const { setSingleSearchParam } = useSetSearchParams();
 
   useEffect(() => {
-    if (isChecked) {
-      setSingleSearchParam(AUCTIONPARAM_KEY.AUCTIONSTATUS, 'BIDDING');
-    } else {
-      setSingleSearchParam(AUCTIONPARAM_KEY.AUCTIONSTATUS, '');
-    }
+    setSingleSearchParam(AUCTIONPARAM_KEY.AUCTIONSTATUS, isChecked ? 'BIDDING' : '');
   }, [isChecked]);
 
   return (

@@ -72,7 +72,9 @@ export default function BasicSold() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => router.push(`/basicauction/${history.auction_id}`)}
+                    onClick={() =>
+                      router.push(`/basicauction/${history.auction_id}`, { scroll: false })
+                    }
                     className={S.bidTitle}
                   >
                     {history.title}

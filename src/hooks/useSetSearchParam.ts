@@ -11,7 +11,12 @@ function useSetSearchParams() {
     (key: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
 
-      params.set(key, value);
+      if (value === '') {
+        params.delete(key);
+      } else {
+        params.set(key, value);
+      }
+
       router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     },
     [router, pathname, searchParams],
@@ -21,8 +26,12 @@ function useSetSearchParams() {
     (params: Record<string, string>) => {
       const searchParamsObj = new URLSearchParams(searchParams.toString());
 
-      Object.entries(params).forEach(([key, val]) => {
-        searchParamsObj.set(key, val);
+      Object.entries(params).forEach(([key, value]) => {
+        if (value === '') {
+          searchParamsObj.delete(key);
+        } else {
+          searchParamsObj.set(key, value);
+        }
       });
 
       router.replace(`${pathname}?${searchParamsObj.toString()}`, { scroll: false });

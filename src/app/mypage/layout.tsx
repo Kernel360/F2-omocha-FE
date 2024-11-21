@@ -4,7 +4,7 @@ import { UserResponseData } from '@/apis/types/User';
 import MaxLayout from '@/components/MaxLayout';
 import MypageCategory from '@/components/MypageCategory';
 import MypageUserSection from '@/components/MypageUserSection';
-import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCoookie';
+import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 
 import * as S from './Layout.css';
 

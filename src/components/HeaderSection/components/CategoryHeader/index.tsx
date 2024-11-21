@@ -16,7 +16,7 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
         {data.map(category => (
           <Link
             key={category.category_id}
-            href={`/basicauction/?categoryId=${category.category_id}`}
+            href={`/basicauction/?categoryId=${category.category_id}&page=1`}
             className={S.buttonStyles}
             scroll={false}
           >

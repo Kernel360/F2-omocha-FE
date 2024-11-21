@@ -12,7 +12,6 @@ interface AuctionListSkeletonUIProps {
 function AuctionListSkeletonUI({ count }: AuctionListSkeletonUIProps) {
   return (
     <div className={S.container}>
-      <SkeletonCard width={82} height={30} />
       <ListLayout>
         {Array.from({ length: count || 4 }).map((_, index) => (
           <div key={index} className={S.cardContainer}>
