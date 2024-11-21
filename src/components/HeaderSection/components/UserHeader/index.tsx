@@ -9,12 +9,6 @@ import { SUB_CATEGORY } from '@/static/category';
 
 import * as S from './UserHeader.css';
 
-// 현재 알림 기능 없음으로 주석처리
-// interface UserHeaderProps {
-//   setTrue: () => void;
-// }
-// { setTrue }: UserHeaderProps
-
 function UserHeader() {
   const router = useRouter();
   const { isLoggedIn } = useAuth();
