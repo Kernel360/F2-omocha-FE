@@ -37,24 +37,26 @@ function BasicAuctionClientPage() {
           <span>{data.result_data.total_elements}</span>
         </div>
       </div>
-      <ListLayout>
-        {data.result_data.content.map(item => (
-          <AuctionCard
-            key={item.auction_id}
-            id={item.auction_id}
-            thumbnailImage={item.thumbnail_path}
-            title={item.title}
-            isLike={item.is_liked}
-            startPrice={item.start_price}
-            startTime={item.start_date}
-            endTime={item.end_date}
-            nowPrice={item?.now_price}
-            auctionStatus={item.auction_status}
-            instantBuyPrice={item.instant_buy_price}
-          />
-        ))}
-      </ListLayout>
-      <Pagination pageInfo={pageInfo} />
+      <div className={S.listLayoutWrapper}>
+        <ListLayout>
+          {data.result_data.content.map(item => (
+            <AuctionCard
+              key={item.auction_id}
+              id={item.auction_id}
+              thumbnailImage={item.thumbnail_path}
+              title={item.title}
+              isLike={item.is_liked}
+              startPrice={item.start_price}
+              startTime={item.start_date}
+              endTime={item.end_date}
+              nowPrice={item?.now_price}
+              auctionStatus={item.auction_status}
+              instantBuyPrice={item.instant_buy_price}
+            />
+          ))}
+        </ListLayout>
+      </div>
+      {data.result_data.number_of_elements !== 0 && <Pagination pageInfo={pageInfo} />}
     </div>
   );
 }

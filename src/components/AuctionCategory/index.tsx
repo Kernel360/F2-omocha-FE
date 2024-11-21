@@ -8,10 +8,15 @@ interface AuctionCategoryProps {
   categoryData: Category[];
 }
 function AuctionCategory({ categoryData }: AuctionCategoryProps) {
-  const { setSingleSearchParam } = useSetSearchParams();
+  const { searchParams, setMultipleSearchParams } = useSetSearchParams();
+  const categoryId = searchParams.get('categoryId');
 
   const handleCategory = () => {
-    setSingleSearchParam('categoryId', '');
+    setMultipleSearchParams({ categoryId: '', page: '1' });
+  };
+
+  const unitButtonStyle = () => {
+    return categoryId === null ? `${S.unitButtonSpan} ${S.unitButtonALL}` : S.unitButtonSpan;
   };
 
   return (
@@ -21,7 +26,7 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
         className={`${S.unitContent} ${S.unitContentForSpan}`}
         onClick={handleCategory}
       >
-        <span className={S.unitButtonSpan}>ALL</span>
+        <span className={unitButtonStyle()}>ALL</span>
       </button>
       {categoryData.map(category => (
         <CategoryUnit key={category.category_id} unit={category} />

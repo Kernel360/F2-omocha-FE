@@ -43,3 +43,8 @@ globalStyle(`${count} span:nth-child(2)`, {
   padding: '5px 10px',
   borderRadius: '20px',
 });
+
+export const listLayoutWrapper = style({
+  height: '100%',
+  minHeight: '656px',
+});

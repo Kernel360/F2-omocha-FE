@@ -12,6 +12,9 @@
     "build-storybook": "storybook build",
     "analyze": "ANALYZE=true next build"
   },
+  "browserslist": [
+    "defaults"
+  ],
   "dependencies": {
     "@next/bundle-analyzer": "^15.0.1",
     "@radix-ui/react-accordion": "^1.2.1",
