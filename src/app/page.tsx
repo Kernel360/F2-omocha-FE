@@ -15,6 +15,14 @@ export default function Home() {
     size: 4,
   });
 
+  const { data: end } = useGetBasicAuctionList({
+    title: '',
+    sort: 'endDate',
+    direction: 'ASC',
+    page: 0,
+    size: 4,
+  });
+
   if (!data) return null;
 
   return (
@@ -23,7 +31,7 @@ export default function Home() {
       <SpecialSection />
       <MaxLayout>
         <AuctionList data={data} isLink path="/basicauction" pathname="신규 경매 상품" />
-        <AuctionList data={data} isLink path="/basicauction" pathname="마감 임박 상품" />
+        <AuctionList data={end} isLink path="/basicauction" pathname="마감 임박 상품" />
         {/* 특정 유저의 상품 모아 놓기(필수 아님) */}
         {/* <AuctionList data={data} pathname="000 판매자" />  */}
       </MaxLayout>
