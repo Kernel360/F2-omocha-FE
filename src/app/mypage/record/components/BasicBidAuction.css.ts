@@ -101,7 +101,8 @@ export const bidTitle = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  width: '140px',
+  width: '100%',
+  maxWidth: '140px',
   fontSize: '15px',
   padding: '5px 10px',
   borderRadius: '4px',
@@ -113,6 +114,13 @@ export const bidTitle = style({
       fontSize: '14px',
     },
   },
+});
+
+globalStyle(`${bidTitle} span`, {
+  width: 'calc(100% - 14px)',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  textAlign: 'left',
 });
 
 export const listName = style({

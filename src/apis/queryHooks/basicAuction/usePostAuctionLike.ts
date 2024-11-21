@@ -16,6 +16,7 @@ function usePostAuctionLike(id: number, isLike: boolean) {
       queryClient.invalidateQueries({ queryKey: ['auctionLikeList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuction', id] });
+      queryClient.invalidateQueries({ queryKey: ['userInfo'] });
 
       if (isLike) {
         showToast('success', '찜 목록에서 삭제되었습니다.');

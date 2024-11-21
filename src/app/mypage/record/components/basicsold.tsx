@@ -69,7 +69,7 @@ export default function BasicSold() {
                     }
                     className={S.bidTitle}
                   >
-                    {history.title}
+                    <span>{history.title}</span>
                     <ChevronRightIcon size={14} />
                   </button>
                   {history.auction_status === 'BIDDING' && (

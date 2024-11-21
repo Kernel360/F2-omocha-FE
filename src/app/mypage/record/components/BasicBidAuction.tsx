@@ -31,7 +31,7 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
             }
             className={S.bidTitle}
           >
-            {bidAuctionHistory.title}
+            <span>{bidAuctionHistory.title}</span>
             <ChevronRightIcon size={14} />
           </button>
           {bidAuctionHistory.auction_status === 'BIDDING' && (
