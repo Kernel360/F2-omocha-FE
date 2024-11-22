@@ -83,11 +83,11 @@ function ContentRequired() {
     <label htmlFor="info" className={S.auctionLabel}>
       <h2 className={S.title}>상품 설명</h2>
       <div className={S.flexWrapper}>
-        <span className={S.description}>
+        <div className={S.description}>
           상품의 다양한 사진 및 설명을 입력해주세요.
           <br />
           사진은 드래그하여 넣을 수 있습니다.
-        </span>
+        </div>
         <div className={S.count}>
           {contentLength} /{MAX_CONTENT}
         </div>
