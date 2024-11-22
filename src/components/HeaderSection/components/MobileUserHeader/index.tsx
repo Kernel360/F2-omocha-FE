@@ -2,8 +2,11 @@ import { MenuIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import SearchBar from '@/app/basicauction/components/searchbar';
+// import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import logoIcon from '@/assets/png/logo.png';
+import SearchBar from '@/components/HeaderSection/components/SearchBar/searchbar';
+// import { useAuth } from '@/provider/authProvider';
+// import { SUB_CATEGORY } from '@/static/category';
 import colors from '@/styles/color';
 
 import * as S from './MobileUserHeader.css';

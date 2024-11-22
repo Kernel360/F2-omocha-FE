@@ -1,11 +1,11 @@
 import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
 import BasicAuction from '@/app/basicauction/basicauction';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
-import LeftSection from '@/app/basicauction/components/leftsection';
+import Checkbox from '@/app/basicauction/components/checkbox';
+import LeftSection from '@/components/LeftSection';
 import MaxLayout from '@/components/MaxLayout';
 
 import * as S from './Basicauction.css';
-import Checkbox from './components/checkbox';
 
 function Home({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
   return (

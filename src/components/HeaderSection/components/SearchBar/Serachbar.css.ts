@@ -3,52 +3,6 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import colors from '@/styles/color';
 import typography from '@/styles/typo';
 
-export const leftSection = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '16px',
-  maxWidth: '160px',
-  width: '100%',
-});
-
-export const pickCategory = style({
-  ...typography.h3,
-  color: colors.black1,
-  fontWeight: 'bold',
-  textAlign: 'center',
-});
-
-// --- checkbox.tsx ---
-
-export const label = style({
-  ...typography.caption,
-  display: 'flex',
-  gap: '8px',
-  alignItems: 'center',
-  border: `1px solid ${colors.gray6}`,
-
-  width: 'fit-content',
-  padding: '8px',
-  borderRadius: '4px',
-  cursor: 'pointer',
-});
-
-export const checkbox = style({
-  display: 'none',
-});
-
-export const checked = style({
-  color: 'white',
-  background: colors.primary7,
-  border: `1px solid ${colors.primary7}`,
-});
-
-export const nonChecked = style({
-  color: 'rgb(228, 228, 231)',
-});
-
-// --- searchbar.tsx ---
-
 export const searchBar = style({
   maxWidth: '220px',
   height: '30px',

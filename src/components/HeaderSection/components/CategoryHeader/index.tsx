@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Category } from '@/apis/types/category';
-import SearchBar from '@/app/basicauction/components/searchbar';
+import SearchBar from '@/components/HeaderSection/components/SearchBar/searchbar';
 
 import * as S from './CategoryHeader.css';
 

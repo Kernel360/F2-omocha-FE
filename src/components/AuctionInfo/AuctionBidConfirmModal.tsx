@@ -3,5 +3,5 @@ interface AuctionBidConfirmModalProps {
 }
 
 export default function AuctionBidConfirmModal({ bidPrice }: AuctionBidConfirmModalProps) {
-  return <div>{`${bidPrice} 원에 입찰을 진행하시겠습니까?`}</div>;
+  return <div>{`${Number(bidPrice).toLocaleString('ko-KR')} 원에 입찰을 진행하시겠습니까?`}</div>;
 }
