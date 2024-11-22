@@ -5,12 +5,10 @@ import { postAuctionLike } from '@/apis/queryFunctions/basicAuction';
 import { PostLikeParams } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import { useToast } from '@/provider/toastProvider';
-import { useAuth } from '@/provider/authProvider';
 
 function usePostAuctionLike(id: number, isLike: boolean) {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
-  const { isLoggedIn } = useAuth();
 
   const { mutate, error } = useMutation({
     mutationFn: (param: PostLikeParams) => postAuctionLike(id, param),
