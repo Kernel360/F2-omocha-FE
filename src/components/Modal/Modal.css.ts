@@ -1,5 +1,7 @@
 import { keyframes, style, styleVariants } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+
 const overlayShow = keyframes({
   '0%': {
     opacity: '0',
@@ -47,8 +49,9 @@ export const modal = style({
 
 export const closeButton = style({
   display: 'flex',
+  width: '100%',
   justifyContent: 'flex-end',
-  borderBottom: '1.5px solid black',
+  borderBottom: `1px solid rgba(0, 0, 0, 0.3)`,
   backgroundColor: 'transparent',
   paddingBottom: '10px',
   cursor: 'pointer',
@@ -83,13 +86,13 @@ export const button = styleVariants({
   positiveButton: [
     buttonBase,
     {
-      backgroundColor: 'rgb(196,39,39)',
+      backgroundColor: colors.primary9,
     },
   ],
   negativeButton: [
     buttonBase,
     {
-      backgroundColor: 'black',
+      backgroundColor: colors.gray10,
     },
   ],
 });

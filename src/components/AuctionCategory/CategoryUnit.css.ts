@@ -56,7 +56,7 @@ export const unitContent = style({
 
 export const unitContentForSpan = style({
   cursor: 'pointer',
-
+  padding: '4px 0 4px 4px',
   ':hover': {
     fontWeight: '700',
   },

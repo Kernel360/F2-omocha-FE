@@ -11,7 +11,7 @@ interface AuctionCountdownProps {
 }
 
 function AuctionCountdown({ auctionStatus, endTime, setExpired }: AuctionCountdownProps) {
-  const { isTimeout, day, hour, minute, second } = useCountdownTimer({ endTime });
+  const { isTimeout, day, hour, minute, second } = useCountdownTimer({ endTime, auctionStatus });
 
   useEffect(() => {
     if (auctionStatus === 'CONCLUDED') {

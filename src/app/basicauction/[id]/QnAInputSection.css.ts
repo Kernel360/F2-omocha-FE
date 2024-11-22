@@ -47,6 +47,11 @@ export const accordionPostQnAContent = style({
   selectors: {
     '&[data-state="open"]': {
       padding: '10px 20px',
+      '@media': {
+        'screen and (max-width: 700px)': {
+          padding: '5px 10px',
+        },
+      },
     },
   },
 });
@@ -139,14 +144,29 @@ export const postQnANoticeSection = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      marginTop: '15px',
+    },
+  },
 });
 
 export const postQnANoticeTitle = style({
   fontSize: '14px',
   fontWeight: 'bold',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      fontSize: '12px',
+    },
+  },
 });
 
 export const postQnANoticeUnit = style({
   fontSize: '14px',
   listStylePosition: 'inside',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      fontSize: '11px',
+    },
+  },
 });

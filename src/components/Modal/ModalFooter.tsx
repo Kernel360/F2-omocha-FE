@@ -1,6 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { CircleXIcon } from 'lucide-react';
+
+import colors from '@/styles/color';
 
 import * as S from './Modal.css';
 
@@ -21,15 +22,12 @@ export default function ModalFooter(props: ModalFooterProps) {
         <Dialog.Overlay className={S.overlay} />
         <Dialog.Content className={S.modal} aria-describedby={undefined}>
           <Dialog.Close asChild>
-            <>
-              <VisuallyHidden.Root asChild>
-                <Dialog.Title />
-              </VisuallyHidden.Root>
-              <div className={S.closeButton}>
-                <CircleXIcon />
-              </div>
-            </>
+            <div className={S.closeButton}>
+              <CircleXIcon stroke={colors.gray9} />
+            </div>
           </Dialog.Close>
+          <Dialog.Title />
+          {/* 없으면 에러나서 넣어둠. */}
           <div className={S.content}>{children}</div>
           <div className={S.footerButton}>
             <button className={S.button.positiveButton} type="button" onClick={positiveButtonEvent}>
