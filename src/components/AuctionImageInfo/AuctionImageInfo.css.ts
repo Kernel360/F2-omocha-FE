@@ -13,8 +13,9 @@ export const subImageWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',
-  marginRight: '10px',
+  marginRight: '5px',
   overflowY: 'auto',
+  minWidth: '62px',
 });
 
 export const subImageWrapperButton = styleVariants({
@@ -37,8 +38,7 @@ export const subImageWrapperButton = styleVariants({
 });
 
 export const subImage = style({
-  height: '60px',
-  width: '60px',
+  display: 'flex',
   objectFit: 'contain',
 });
 
