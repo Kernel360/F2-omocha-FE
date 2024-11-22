@@ -39,6 +39,13 @@ export const accordionTrigger = style({
   color: 'black',
   backgroundColor: 'var(--accordion-bg-color)',
   transition: 'background-color 0.3s',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      padding: '10px 10px',
+      fontSize: '12px',
+      minHeight: 'auto',
+    },
+  },
 });
 
 export const questionWrapper = style({
@@ -47,6 +54,15 @@ export const questionWrapper = style({
   alignItems: 'center',
   width: '100%',
   gap: '10px',
+  textAlign: 'start',
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      flexDirection: 'column-reverse',
+      width: '100%',
+      alignItems: 'flex-start',
+    },
+  },
 });
 
 export const userEmail = style({
@@ -58,6 +74,11 @@ export const accordionAuthorContent = style({
   display: 'flex',
   alignItems: 'center',
   gap: '15px',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      width: '100%',
+    },
+  },
 });
 
 export const answerTitle = style({
@@ -65,6 +86,12 @@ export const answerTitle = style({
   fontWeight: 'bold',
   color: 'rgb(55, 95, 255)',
   margin: '15px 0',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      fontSize: '13px',
+      margin: '12px 0',
+    },
+  },
 });
 
 export const answerPostSection = style({
@@ -95,6 +122,12 @@ export const accordionContent = style({
   selectors: {
     '&[data-state="open"]': {
       padding: '10px 20px',
+      '@media': {
+        'screen and (max-width: 700px)': {
+          padding: '10px 10px',
+          fontSize: '13px',
+        },
+      },
     },
   },
 });
@@ -152,6 +185,11 @@ export const haveAnswerBase = style({
   fontSize: '12px',
   padding: '5px',
   color: 'white',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      marginLeft: 'auto',
+    },
+  },
 });
 
 export const haveAnswerVariants = styleVariants({

@@ -7,7 +7,7 @@ import MaxLayout from '@/components/MaxLayout';
 import SpecialSection from '@/components/SpecialSection';
 
 export default function Home() {
-  const { data } = useGetBasicAuctionList({
+  const { data: basicAuctionList } = useGetBasicAuctionList({
     title: '',
     sort: 'createdAt',
     direction: 'DESC',
@@ -15,7 +15,13 @@ export default function Home() {
     size: 4,
   });
 
-  if (!data) return null;
+  const { data: urgentBasicAuctionList } = useGetBasicAuctionList({
+    title: '',
+    sort: 'endDate',
+    direction: 'ASC',
+    page: 0,
+    size: 4,
+  });
 
   return (
     <div>

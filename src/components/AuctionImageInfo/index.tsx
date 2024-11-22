@@ -1,6 +1,7 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
+
+import Image from 'next/image';
 
 import * as S from './AuctionImageInfo.css';
 
@@ -32,8 +33,10 @@ function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
             }
             onClick={() => setFocusImage(image)}
           >
-            <img
+            <Image
               src={`${process.env.NEXT_PUBLIC_S3_URL}${image}`}
+              width={60}
+              height={60}
               alt="Auction Image"
               className={S.subImage}
             />
@@ -41,8 +44,10 @@ function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
         ))}
       </div>
       <div className={S.mainImageWrapper}>
-        <img
+        <Image
           src={`${process.env.NEXT_PUBLIC_S3_URL}${focusImage}`}
+          width={440}
+          height={440}
           alt="Auction Image"
           className={S.mainImage}
         />

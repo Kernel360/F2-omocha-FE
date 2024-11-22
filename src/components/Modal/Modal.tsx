@@ -2,6 +2,8 @@ import * as Dialog from '@radix-ui/react-dialog';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { CircleXIcon } from 'lucide-react';
 
+import colors from '@/styles/color';
+
 import * as S from './Modal.css';
 
 export interface ModalProps {
@@ -24,7 +26,7 @@ export function Modal(SAMPLE: ModalProps) {
           <Dialog.Description aria-describedby="undefined" />
           <Dialog.Close asChild>
             <div className={S.closeButton}>
-              <CircleXIcon />
+              <CircleXIcon stroke={colors.gray9} />
             </div>
           </Dialog.Close>
           <div className={S.content}>{children}</div>

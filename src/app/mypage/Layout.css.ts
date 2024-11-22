@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
+import layout from '@/styles/layout';
 import shadow from '@/styles/shadow';
 
 export const backContainer = style({
@@ -8,6 +9,7 @@ export const backContainer = style({
   justifyContent: 'center',
   backgroundColor: colors.backgroundGray1,
   padding: '60px 0px',
+  minHeight: layout.minHeight,
 });
 
 export const container = style({
@@ -27,6 +29,12 @@ export const categoryList = style({
   backgroundColor: colors.white,
   height: '480px',
   width: '220px',
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      display: 'none',
+    },
+  },
 });
 
 export const page = style({
@@ -35,6 +43,8 @@ export const page = style({
   padding: '20px',
   boxSizing: 'border-box',
   maxWidth: '700px',
+  minHeight: '693px',
+  height: '100%',
   boxShadow: shadow.box3,
   backgroundColor: colors.white,
 });

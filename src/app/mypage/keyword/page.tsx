@@ -47,7 +47,7 @@ function Home() {
   const keywordRequired = watch('keywordRequired');
 
   const onSubmit: SubmitHandler<Input> = async data => {
-    console.log(data);
+    console.log('onSubmit', data);
   };
 
   return (
