@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import goggleformImage from '@/assets/png/goggleform.png';
 import sampleResizeBannerImage from '@/assets/png/sampleResizeBannerImage.png';
 import sampleResizeBannerImage2 from '@/assets/png/sampleResizeBannerImage2.png';
 
@@ -14,6 +15,10 @@ const CAROUSEL_INFO = [
   {
     img: sampleResizeBannerImage,
     link: '/basicauction',
+  },
+  {
+    img: goggleformImage,
+    link: 'https://docs.google.com/forms/d/e/1FAIpQLSelN-LzbcOW3gI4bjTYXeX4jjr0Vmilyawehy3pV5UpJuWiTw/viewform',
   },
   {
     img: sampleResizeBannerImage2,
