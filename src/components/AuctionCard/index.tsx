@@ -18,8 +18,8 @@ interface AuctionCardProps {
   startTime: string;
   endTime: string;
   nowPrice: number | null;
-  auctionStatus: string;
-  instantBuyPrice: number | null;
+  auctionStatus?: string;
+  instantBuyPrice?: number | null;
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
@@ -49,7 +49,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   };
 
   return (
-    <Link className={S.cardWrapper} href={`basicauction/${id}`} scroll={false}>
+    <Link className={S.cardWrapper} href={`basicauction/${id}`}>
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
       <button type="button" className={S.heartStyle} onClick={handleLike}>
         <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />
@@ -67,6 +67,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
           width={196}
           height={196}
           className={S.cardImage}
+          priority
         />
         <span className={S.cardTitle}>{title}</span>
         <div>

@@ -8,16 +8,25 @@ interface AuctionCategoryProps {
   categoryData: Category[];
 }
 function AuctionCategory({ categoryData }: AuctionCategoryProps) {
-  const { setSingleSearchParam } = useSetSearchParams();
+  const { searchParams, setMultipleSearchParams } = useSetSearchParams();
+  const categoryId = searchParams.get('categoryId');
 
-  const test = () => {
-    setSingleSearchParam('categoryId', '');
+  const handleCategory = () => {
+    setMultipleSearchParams({ categoryId: '', page: '1' });
+  };
+
+  const unitButtonStyle = () => {
+    return categoryId === null ? `${S.unitButtonSpan} ${S.unitButtonALL}` : S.unitButtonSpan;
   };
 
   return (
     <div className={S.container}>
-      <button type="button" className={`${S.unitContent} ${S.unitContentForSpan}`} onClick={test}>
-        <span className={S.unitButtonSpan}>전체보기</span>
+      <button
+        type="button"
+        className={`${S.unitContent} ${S.unitContentForSpan}`}
+        onClick={handleCategory}
+      >
+        <span className={unitButtonStyle()}>ALL</span>
       </button>
       {categoryData.map(category => (
         <CategoryUnit key={category.category_id} unit={category} />

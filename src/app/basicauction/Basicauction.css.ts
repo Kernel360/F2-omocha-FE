@@ -16,5 +16,5 @@ export const rightSection = style({
 export const topInfoSection = style({
   display: 'flex',
   gap: '20px',
-  justifyContent: 'end',
+  justifyContent: 'flex-end',
 });

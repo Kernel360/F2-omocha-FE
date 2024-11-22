@@ -34,7 +34,9 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
         <li>
           <button
             type="button"
-            onClick={() => router.push(`/basicauction/${bidAuctionHistory.auction_id}`)}
+            onClick={() =>
+              router.push(`/basicauction/${bidAuctionHistory.auction_id}`, { scroll: false })
+            }
             className={S.bidTitle}
           >
             {bidAuctionHistory.title}

@@ -35,3 +35,7 @@ export const unitButtonSpan = style({
   fontSize: '14px',
   padding: '4px 0 4px 4px',
 });
+
+export const unitButtonALL = style({
+  color: colors.primary10,
+});

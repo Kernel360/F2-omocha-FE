@@ -4,9 +4,9 @@ import colors from '@/styles/color';
 
 export const container = style({ padding: '0 16px', display: 'flex', flexDirection: 'column' });
 
-export const logo = style({ fontSize: '24px', color: colors.primary9 });
+export const logo = style({ fontSize: '24px', color: colors.primary9, marginBottom: '24px' });
 
-export const hr = style({
+export const division = style({
   padding: '0px',
   height: '1px',
   border: 'none',
@@ -16,10 +16,11 @@ export const hr = style({
 
 export const hrTitle = style({ fontSize: '14px', color: colors.gray12 });
 
+export const userSection = style({ display: 'flex', flexDirection: 'column', gap: '8px' });
+
 export const userWrapper = style({
   display: 'flex',
   gap: '4px',
-  marginTop: '24px',
 });
 
 export const profileImage = style({
@@ -46,6 +47,17 @@ export const buttonBase = style({
   width: '100%',
   height: '40px',
   borderRadius: '4px',
+});
+
+export const likeCount = style({
+  display: 'flex',
+  justifyContent: 'center',
+  color: colors.primary11,
+  backgroundColor: colors.gray3,
+  minWidth: '30px',
+  padding: '4px 8px',
+  borderRadius: '20px',
+  marginLeft: '12px',
 });
 
 export const normalNavButtonBase = style({

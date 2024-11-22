@@ -12,6 +12,9 @@
     "build-storybook": "storybook build",
     "analyze": "ANALYZE=true next build"
   },
+  "browserslist": [
+    "defaults"
+  ],
   "dependencies": {
     "@next/bundle-analyzer": "^15.0.1",
     "@radix-ui/react-accordion": "^1.2.1",
@@ -30,9 +33,10 @@
     "@types/react-slick": "^0.23.13",
     "@vanilla-extract/css": "^1.15.5",
     "@vanilla-extract/next-plugin": "^2.4.5",
+    "@vanilla-extract/recipes": "^0.5.5",
     "axios": "^1.7.7",
     "dompurify": "^3.1.7",
-    "lucide-react": "^0.454.0",
+    "lucide-react": "^0.460.0",
     "next": "14.2.11",
     "rc-cascader": "^3.30.0",
     "react": "^18",

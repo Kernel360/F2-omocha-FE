@@ -13,11 +13,7 @@ export default function NavigationEvents() {
   useEffect(() => {
     const url = `${pathname}?${searchParams}`;
 
-    if (url) {
-      window.scrollTo({ top: 0 });
-    } else {
-      window.scrollTo({ top: scrollPageMapRef.current[url] });
-    }
+    window.scrollTo({ top: scrollPageMapRef.current[url] });
 
     const scrollHandler = () => {
       scrollPageMapRef.current[url] = window.scrollY;

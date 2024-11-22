@@ -47,7 +47,7 @@ export interface PostBasicAuctionResponseData {
 }
 
 export interface GetBasicAuctionListParams {
-  categoryId?: number | '';
+  categoryId?: number;
   title?: string;
   auctionStatus?: string;
   direction?: string;
