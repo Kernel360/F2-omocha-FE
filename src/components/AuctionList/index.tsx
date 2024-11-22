@@ -1,9 +1,9 @@
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
+import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
-import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 
 import * as S from './AuctionList.css';
 
@@ -17,8 +17,8 @@ export interface AuctionListProps {
 export default function AuctionList({ sort, direction, pathname, path }: AuctionListProps) {
   const { data } = useGetBasicAuctionList({
     title: '',
-    sort: sort,
-    direction: direction,
+    sort,
+    direction,
     page: 0,
     size: 4,
   });
