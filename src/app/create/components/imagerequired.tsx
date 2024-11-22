@@ -42,16 +42,24 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
     return false;
   };
 
+  const deleteImage = (index: number) => {
+    remove(index);
+    if (thumbnail === fields[index].file) {
+      setThumbnail(null);
+    }
+  };
+
   return (
     <div className={S.auctionLabel}>
       <h2 className={S.title}>사진</h2>
       <div className={S.flexWrapper}>
-        <span className={S.description}>
+        <div className={S.description}>
           대표 이미지 미선택 시 첫 번째 이미지가 대표 이미지로 설정됩니다.
-        </span>
+          <br />
+          png, jpg, jpeg, gif 파일만 업로드 가능합니다.
+        </div>
         <div className={S.count}>{fields.length}/10</div>
       </div>
-
       <div className={S.imageBoard}>
         <label htmlFor="image" className={S.imageUpload}>
           +
@@ -90,7 +98,7 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
                 <button
                   type="button"
                   className={S.deleteButton}
-                  onClick={() => remove(fields.length - index - 1)}
+                  onClick={() => deleteImage(fields.length - index - 1)} // remove(fields.length - index - 1)}
                 >
                   <CircleXIcon stroke={colors.gray10} />
                 </button>

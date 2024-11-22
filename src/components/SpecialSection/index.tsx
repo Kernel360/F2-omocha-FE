@@ -10,9 +10,9 @@ import * as S from './SpecialSection.css';
 function SpecialSection() {
   const { data } = useGetBasicAuctionList({
     title: '',
-    auctionStatus: '',
-    sort: '',
-    direction: '',
+    auctionStatus: 'BIDDING',
+    sort: 'bidCount',
+    direction: 'DESC',
     page: 0,
     size: 4,
   });

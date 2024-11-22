@@ -8,7 +8,7 @@ import useBooleanState from '@/hooks/useBooleanState';
 import useSetSearchParams from '@/hooks/useSetSearchParam';
 import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
-import * as S from './LeftSection.css';
+import * as S from './Checkbox.css';
 
 function Checkbox() {
   const { value: isChecked, toggle } = useBooleanState(false);

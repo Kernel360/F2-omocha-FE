@@ -32,15 +32,21 @@ export const basicSold = style({
 });
 
 export const list = style({
-  position: 'relative',
-  display: 'flex',
+  display: 'grid',
+  gridTemplateColumns: '150px 1fr',
   gap: '15px',
-
   padding: '20px 10px',
   transition: 'background-color 0.3s, transform 0.2s',
   borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
   ':hover': {
     transform: 'scale(1.02)',
+  },
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      gridTemplateColumns: '1fr 1fr',
+      alignItems: 'center',
+    },
   },
 });
 
@@ -49,14 +55,15 @@ globalStyle(`${list}:nth-last-child(1)`, {
 });
 
 export const image = style({
-  maxWidth: '120px',
-  width: '100%',
-  maxHeight: '120px',
-  height: '100%',
-  contain: 'contain',
-
+  objectFit: 'contain',
   borderRadius: '4px',
   boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      width: '100%',
+    },
+  },
 });
 
 export const listRight = style({
@@ -67,16 +74,56 @@ export const listRight = style({
   listStyle: 'none',
 });
 
+export const listData = style({
+  display: 'flex',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      gap: '10px',
+    },
+  },
+});
+
+export const listFirst = style({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+
+  '@media': {
+    'screen and (max-width: 774px)': {
+      gap: '10px',
+      flexDirection: 'column',
+      width: '110px',
+    },
+  },
+});
+
 export const bidTitle = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  width: '140px',
+  width: '100%',
+  maxWidth: '140px',
   fontSize: '15px',
   padding: '5px 10px',
   borderRadius: '4px',
   border: `1px solid ${colors.gray7} `,
   cursor: 'pointer',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '14px',
+    },
+  },
+});
+
+globalStyle(`${bidTitle} span`, {
+  width: 'calc(100% - 14px)',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  textAlign: 'left',
 });
 
 export const listName = style({
@@ -85,6 +132,13 @@ export const listName = style({
   width: '70px',
   marginRight: '10px',
   fontWeight: '600',
+  textAlign: 'left',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '12px',
+    },
+  },
 });
 
 const blinkAnimation = keyframes({
@@ -94,19 +148,43 @@ const blinkAnimation = keyframes({
 });
 
 export const bidding = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   fontSize: '12px',
-  position: 'absolute',
   padding: '5px 10px',
   borderRadius: '20px',
   border: '1.5px solid red',
-  right: '30px',
-  top: '20px',
   animation: `${blinkAnimation} 1.5s ease-in-out infinite`,
+  boxSizing: 'border-box',
+  width: '110px',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '10px',
+    },
+  },
+});
+
+globalStyle(`${bidding} span`, {
+  fontSize: '12px',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '10px',
+    },
+  },
 });
 
 export const listValue = style({
   fontWeight: '500',
   fontSize: '14px',
+
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '12px',
+    },
+  },
 });
 
 export const soldStatus = styleVariants({

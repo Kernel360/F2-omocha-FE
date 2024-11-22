@@ -13,11 +13,6 @@ globalStyle('html, body', {
   minHeight: '100vh',
 });
 
-/* Chrome, Safari, and Opera */
-globalStyle('::-webkit-scrollbar', {
-  display: 'none',
-});
-
 globalStyle('button', {
   border: 'none',
   backgroundColor: 'transparent',

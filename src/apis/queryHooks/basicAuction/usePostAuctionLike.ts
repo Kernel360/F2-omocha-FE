@@ -16,6 +16,7 @@ function usePostAuctionLike(id: number, isLike: boolean) {
       queryClient.invalidateQueries({ queryKey: ['auctionLikeList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuction', id] });
+      queryClient.invalidateQueries({ queryKey: ['userInfo'] });
 
       if (isLike) {
         showToast('success', '찜 목록에서 삭제되었습니다.');
@@ -25,7 +26,11 @@ function usePostAuctionLike(id: number, isLike: boolean) {
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
-        showToast('error', `${e.response.data.result_msg}`);
+        if (e.response.status === 401) {
+          showToast('info', '로그인이 필요한 서비스입니다.');
+        } else {
+          showToast('error', `${e.response.data.result_msg}`);
+        }
       } else {
         showToast('error', '알 수 없는 오류가 발생했습니다. 새로고침을 진행해 주세요.');
       }

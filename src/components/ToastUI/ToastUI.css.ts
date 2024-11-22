@@ -10,6 +10,16 @@ export const toastViewport = style({
   gap: '1rem',
 });
 
+const fadeIn = keyframes({
+  from: { opacity: 0, transform: 'translateY(-20px)' },
+  to: { opacity: 1, transform: 'translateY(0)' },
+});
+
+const fadeOut = keyframes({
+  from: { opacity: 1, transform: 'translateY(0)' },
+  to: { opacity: 0, transform: 'translateY(-20px)' },
+});
+
 export const toastRoot = style({
   background: 'white',
   padding: '16px',
@@ -21,6 +31,14 @@ export const toastRoot = style({
   justifyContent: 'center',
   flexDirection: 'column',
   position: 'relative',
+  opacity: 0,
+  transform: 'translateY(-20%)',
+  animation: `${fadeIn} 0.3s ease-in-out forwards`,
+  selectors: {
+    '&[data-state="closed"]': {
+      animation: `${fadeOut} 0.3s ease-in-out forwards`,
+    },
+  },
 });
 
 export const toastTypes = styleVariants({
@@ -82,5 +100,5 @@ export const toastProgress = style({
   bottom: 0,
   left: 0,
   right: 0,
-  animation: `${progressAnimation} 3s linear`,
+  animation: `${progressAnimation} 1.3s ease-in-out`,
 });

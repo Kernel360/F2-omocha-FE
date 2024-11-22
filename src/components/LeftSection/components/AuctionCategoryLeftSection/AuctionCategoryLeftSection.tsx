@@ -4,11 +4,11 @@ import { useSearchParams } from 'next/navigation';
 
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
-import AuctionCategory from '@/components/AuctionCategory';
+import AuctionCategory from '@/components/LeftSection/components/AuctionCategory/AuctionCategory';
 
-import * as S from './LeftSection.css';
+import * as S from './AuctionCategoryLeftSection.css';
 
-export default function LeftSection() {
+export default function AuctionCategoryLeftSection() {
   const searchParams = useSearchParams();
   const pickCategory = Number(searchParams.get('categoryId'));
 

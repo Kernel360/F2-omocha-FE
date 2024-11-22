@@ -17,7 +17,7 @@ export const noListWrapper = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '20px',
-  marginTop: '70px',
+  marginTop: '200px',
 });
 
 export const noListTitle = style({ fontSize: '16px', fontWeight: '500', color: colors.gray10 });

@@ -17,12 +17,12 @@ export const rightSection = style({
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
+  gap: '20px',
 });
 
 export const searchContainer = style({
   display: 'flex',
   justifyContent: 'space-between',
-  marginBottom: '20px',
 });
 
 export const count = style({
@@ -47,4 +47,10 @@ globalStyle(`${count} span:nth-child(2)`, {
 export const listLayoutWrapper = style({
   height: '100%',
   minHeight: '656px',
+
+  '@media': {
+    'screen and (max-width: 504px)': {
+      minHeight: 'auto',
+    },
+  },
 });
