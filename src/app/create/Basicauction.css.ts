@@ -102,19 +102,23 @@ export const auctionTypeTitleButtonBase = style({
   fontSize: '11px',
   color: colors.gray8,
   borderRadius: '30px',
-
   border: `1px solid ${colors.gray8}`,
+
   ':hover': {
     color: colors.primary10,
     fontWeight: 'bold',
     border: `1.5px solid ${colors.primary9}`,
-    backgroundColor: colors.primary3,
   },
   selectors: {
     '&[data-state="on"]': {
       color: colors.primary10,
       border: `1px solid ${colors.primary9}`,
       backgroundColor: colors.primary3,
+    },
+    '&[data-state="off"]': {
+      color: colors.gray8,
+      border: `1px solid ${colors.gray8}`,
+      backgroundColor: 'none',
     },
   },
 });
@@ -124,12 +128,23 @@ export const flexWrapper = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   marginBottom: '10px',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      flexDirection: 'column',
+      gap: '10px',
+    },
+  },
 });
 
 export const description = style({
   fontSize: '13px',
   lineHeight: '1.5',
   color: 'rgb(142,142,142)',
+  '@media': {
+    'screen and (max-width: 700px)': {
+      marginRight: 'auto',
+    },
+  },
 });
 
 export const buttonContainer = style({
@@ -151,6 +166,12 @@ export const period = style({
 export const count = style({
   fontSize: '14px',
   textAlign: 'right',
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      marginLeft: 'auto',
+    },
+  },
 });
 
 export const imageBoard = style({
@@ -271,6 +292,7 @@ export const content = style({
 
 export const editorSection = style({
   display: 'flex',
+  flexWrap: 'wrap',
   flexDirection: 'row',
   gap: '8px',
   padding: '8px',

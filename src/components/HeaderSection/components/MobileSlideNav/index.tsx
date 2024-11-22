@@ -62,12 +62,6 @@ function MobileSlideNav({
             <div className={S.userWrapper}>
               <span className={S.userName}>{userEmail}</span>
             </div>
-            {/* <Link href="/mypage/heart" onClick={onClose}>
-              <div className={S.userWrapper}>
-                <span className={S.userName}>찜 개수: </span>
-                <span className={S.userName}>{userHeartCount}</span>
-              </div>
-            </Link> */}
           </div>
         ) : (
           <div className={S.authWrapper}>
@@ -89,9 +83,7 @@ function MobileSlideNav({
         회원 정보
       </Link>
       <Link href="/mypage/heart" className={S.normalNavButtonBase} onClick={onClose}>
-        <>
-          찜<div className={S.likeCount}>{userHeartCount}</div>
-        </>
+        <>찜{isLogin && <div className={S.likeCount}>{userHeartCount}</div>}</>
       </Link>
       <Link href="/mypage/record" className={S.normalNavButtonBase} onClick={onClose}>
         거래 내역

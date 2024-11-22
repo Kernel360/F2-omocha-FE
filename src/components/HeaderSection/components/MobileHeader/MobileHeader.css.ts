@@ -5,7 +5,7 @@ import colors from '@/styles/color';
 export const stickyHeader = style({
   position: 'sticky',
   top: 0,
-  zIndex: 1,
+  zIndex: 1000,
   backdropFilter: 'blur(2px)',
   backgroundColor: 'rgba(255,255,255, 0.95)',
   borderBottom: `1px solid ${colors.gray3}`,
