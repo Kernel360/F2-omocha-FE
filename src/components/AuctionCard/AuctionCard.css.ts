@@ -79,9 +79,9 @@ export const division = style({
 export const cardFlex = style([
   typography.body,
   {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    // display: 'flex',
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
   },
 ]);
 

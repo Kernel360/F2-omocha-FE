@@ -17,8 +17,6 @@ function MobileAuctionCategoryLeftSection() {
 
   if (!categoryData) return null;
 
-  console.log('res', typedCategoryData);
-
   return (
     <div className={S.mobileLeftSection}>
       <Test categoryData={typedCategoryData} />

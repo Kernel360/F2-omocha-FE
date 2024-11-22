@@ -10,6 +10,6 @@ export const AUCTIONPARAM_VALUE = {
   STARTDATE: 'startDate',
   ENDDATE: 'endDate',
   STARTPRICE: 'startPrice',
-  NOWPRICE: 'nowPrice', // 현재 500
-  BIDCOUNT: 'bidCount', // 현재 500
+  NOWPRICE: 'nowPrice',
+  BIDCOUNT: 'bidCount',
 };
