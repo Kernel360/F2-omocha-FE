@@ -53,10 +53,11 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
     <div className={S.auctionLabel}>
       <h2 className={S.title}>사진</h2>
       <div className={S.flexWrapper}>
-        <span className={S.description}>
-          대표 이미지 미선택 시 첫 번째 이미지가 대표 이미지로 설정됩니다. <br />
+        <div className={S.description}>
+          대표 이미지 미선택 시 첫 번째 이미지가 대표 이미지로 설정됩니다.
+          <br />
           png, jpg, jpeg, gif 파일만 업로드 가능합니다.
-        </span>
+        </div>
         <div className={S.count}>{fields.length}/10</div>
       </div>
       <div className={S.imageBoard}>

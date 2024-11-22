@@ -3,7 +3,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import ContentRequired from '@/app/create/components/contentrequired';
@@ -26,10 +26,12 @@ export default function Home() {
     handleSubmit,
     setValue,
     watch,
+    control,
     formState: { errors },
   } = methods;
 
   const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const instantBuyPriceValue = useWatch({ name: 'instantBuyPrice', control });
 
   const { mutate: postBasicAuction } = usePostBasicAuction();
 
@@ -43,11 +45,12 @@ export default function Home() {
       bid_unit: data.bidUnitRequired,
       start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
-      instant_buy_price: data.instantBuyPrice,
+      instant_buy_price: instantBuyPriceValue ? data.instantBuyPrice : null,
       category_ids: data.categoryIdsRequired,
     };
 
     formData.append('auctionRequest', JSON.stringify(auctionRequest));
+
     data.imagesRequired.forEach(image => formData.append('images', image.file));
 
     formData.append('thumbnailPath', thumbnail || data.imagesRequired[0].file);

@@ -27,9 +27,7 @@ function TypePriceRequired({ watch, setValue, register, errors }: TypePriceRequi
 
   const handleToggleChange = () => {
     toggleIsInstantBuyEnabled();
-    if (!isInstantBuyEnabled) {
-      setValue('instantBuyPrice', null);
-    }
+    setValue('instantBuyPrice', null);
   };
 
   return (
