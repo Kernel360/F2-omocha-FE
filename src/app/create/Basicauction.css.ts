@@ -102,19 +102,23 @@ export const auctionTypeTitleButtonBase = style({
   fontSize: '11px',
   color: colors.gray8,
   borderRadius: '30px',
-
   border: `1px solid ${colors.gray8}`,
+
   ':hover': {
     color: colors.primary10,
     fontWeight: 'bold',
     border: `1.5px solid ${colors.primary9}`,
-    backgroundColor: colors.primary3,
   },
   selectors: {
     '&[data-state="on"]': {
       color: colors.primary10,
       border: `1px solid ${colors.primary9}`,
       backgroundColor: colors.primary3,
+    },
+    '&[data-state="off"]': {
+      color: colors.gray8,
+      border: `1px solid ${colors.gray8}`,
+      backgroundColor: 'none',
     },
   },
 });
@@ -162,6 +166,7 @@ export const period = style({
 export const count = style({
   fontSize: '14px',
   textAlign: 'right',
+
   '@media': {
     'screen and (max-width: 700px)': {
       marginLeft: 'auto',

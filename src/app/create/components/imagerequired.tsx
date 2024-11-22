@@ -42,6 +42,13 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
     return false;
   };
 
+  const deleteImage = (index: number) => {
+    remove(index);
+    if (thumbnail === fields[index].file) {
+      setThumbnail(null);
+    }
+  };
+
   return (
     <div className={S.auctionLabel}>
       <h2 className={S.title}>사진</h2>
@@ -90,7 +97,7 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
                 <button
                   type="button"
                   className={S.deleteButton}
-                  onClick={() => remove(fields.length - index - 1)}
+                  onClick={() => deleteImage(fields.length - index - 1)} // remove(fields.length - index - 1)}
                 >
                   <CircleXIcon stroke={colors.gray10} />
                 </button>

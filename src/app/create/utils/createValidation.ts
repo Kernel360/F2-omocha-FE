@@ -11,15 +11,9 @@ export const startPriceValidation = {
   },
 };
 
-export const instantBuyPriceValidation = (startPrice: number) => ({
+export const instantBuyPriceValidation = {
   required: '즉시 구매가를 입력해 주세요.',
-  validate: (value: string | ImageUpload | ImageUpload[] | File | number[] | number | null) => {
-    if (value && startPrice && Number(value) < Number(startPrice)) {
-      return '즉시 구매가는 시작가보다 높아야 합니다.';
-    }
-    return true;
-  },
-});
+};
 
 export const getInstantBuyPriceValidation = (
   startPriceRequired: number,
