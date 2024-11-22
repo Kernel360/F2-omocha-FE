@@ -29,7 +29,7 @@ const TOAST_ICON = {
 function ToastUI({ open, type, message, onClose }: ToastUIProps) {
   useEffect(() => {
     if (open) {
-      const timer = setTimeout(onClose, 1000);
+      const timer = setTimeout(onClose, 1300);
       return () => clearTimeout(timer);
     }
     return undefined;

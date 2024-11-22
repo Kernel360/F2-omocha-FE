@@ -1,31 +1,38 @@
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
-import { AuctionData } from '@/apis/types/basicAuction';
-import { ListResponse, Response } from '@/apis/types/common';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
+import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 
 import * as S from './AuctionList.css';
 
 export interface AuctionListProps {
-  data: Response<ListResponse<AuctionData[]>>;
-  isLink?: boolean;
-  path?: string;
+  sort: string;
+  direction: string;
   pathname: string;
+  path: string;
 }
 
-export default function AuctionList({ data, isLink, path = '', pathname }: AuctionListProps) {
+export default function AuctionList({ sort, direction, pathname, path }: AuctionListProps) {
+  const { data } = useGetBasicAuctionList({
+    title: '',
+    sort: sort,
+    direction: direction,
+    page: 0,
+    size: 4,
+  });
+
+  if (!data) return null;
+
   return (
     <section className={S.section}>
       <div className={S.title}>
         <h3>{pathname}</h3>
-        {isLink ? (
-          <Link className={S.link} href={path} scroll={false}>
-            경매 전체보기
-            <ArrowRightIcon />
-          </Link>
-        ) : null}
+        <Link className={S.link} href={path} scroll={false}>
+          경매 전체보기
+          <ArrowRightIcon />
+        </Link>
       </div>
       <div className={S.listWrapper}>
         <ListLayout>

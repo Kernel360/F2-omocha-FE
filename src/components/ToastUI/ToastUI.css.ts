@@ -100,5 +100,5 @@ export const toastProgress = style({
   bottom: 0,
   left: 0,
   right: 0,
-  animation: `${progressAnimation} 1s ease-in-out`,
+  animation: `${progressAnimation} 1.3s ease-in-out`,
 });
