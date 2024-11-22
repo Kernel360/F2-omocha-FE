@@ -47,4 +47,10 @@ globalStyle(`${count} span:nth-child(2)`, {
 export const listLayoutWrapper = style({
   height: '100%',
   minHeight: '656px',
+
+  '@media': {
+    'screen and (max-width: 504px)': {
+      minHeight: 'auto',
+    },
+  },
 });

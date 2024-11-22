@@ -13,7 +13,10 @@ function SubCategoryUnit({ categoryData }: SubCategoryUnitProps) {
     <div className={S.category}>
       {categoryData.map(category => (
         <div key={category.category_id} className={S.subCategory}>
-          <Link href={`/basicauction?categoryId=${category.category_id}&page=1`}>
+          <Link
+            href={`/basicauction?categoryId=${category.category_id}&page=1`}
+            className={S.subCategoryLink}
+          >
             {category.name}
           </Link>
         </div>

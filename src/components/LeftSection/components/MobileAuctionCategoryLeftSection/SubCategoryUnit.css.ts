@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
 import typography from '@/styles/typo';
 
 export const category = style({
@@ -8,6 +9,12 @@ export const category = style({
   justifyItems: 'center',
   gridTemplateColumns: 'repeat(auto-fill, minmax(30%, auto))',
   gap: '10px',
+
+  '@media': {
+    '(max-width: 512px)': {
+      ...typography.caption,
+    },
+  },
 });
 
 export const subCategory = style({
@@ -18,9 +25,11 @@ export const subCategory = style({
   boxSizing: 'border-box',
   width: '100%',
   height: '35px',
+  borderRadius: '12px',
+  backgroundColor: colors.primary8,
+  cursor: 'pointer',
+});
 
-  ':hover': {
-    borderRadius: '4px',
-    backgroundColor: 'rgb(245, 245, 245)',
-  },
+export const subCategoryLink = style({
+  color: colors.white,
 });
