@@ -43,6 +43,8 @@ export const page = style({
   padding: '20px',
   boxSizing: 'border-box',
   maxWidth: '700px',
+  minHeight: '693px',
+  height: '100%',
   boxShadow: shadow.box3,
   backgroundColor: colors.white,
 });
