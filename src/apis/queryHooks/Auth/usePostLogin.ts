@@ -18,11 +18,11 @@ function usePostLogin() {
   const { mutate, error } = useMutation({
     mutationFn: (param: LoginParams) => postLogin(param),
     onSuccess: () => {
-      if (prevUrl === '/join') {
+      if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
         router.push('/');
-        return;
+      } else {
+        router.push(prevUrl || '/');
       }
-      router.push(prevUrl || '/');
       setIsLoggedIn(true);
       showToast('success', '로그인에 성공했습니다.');
     },
