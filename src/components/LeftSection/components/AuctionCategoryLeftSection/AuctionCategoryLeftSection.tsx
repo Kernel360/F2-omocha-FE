@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
 import AuctionCategory from '@/components/LeftSection/components/AuctionCategory/AuctionCategory';
+import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 
 import * as S from './AuctionCategoryLeftSection.css';
 
@@ -29,18 +30,13 @@ function addIsOpenProperty(
 
   return { ...category, sub_categories: updatedSubCategory, isOpen };
 }
+
 export default function AuctionCategoryLeftSection() {
   const searchParams = useSearchParams();
+  const { viewportWidth } = useResizeViewportWidth();
   const pickCategory = Number(searchParams.get('categoryId'));
 
   const { data: categoryData } = useGetCategory();
-
-  // TODO gnrdmf: unmount 확인용
-  useEffect(() => {
-    return () => {
-      console.log('unmount');
-    };
-  }, []);
 
   const newData = useMemo(() => {
     if (categoryData && pickCategory) {
@@ -56,9 +52,11 @@ export default function AuctionCategoryLeftSection() {
   const rootCategory = (newData as Category[]).find(category => category.isOpen === true)?.name;
 
   return (
-    <section className={S.leftSection}>
-      <div className={S.pickCategory}>{rootCategory || 'ALL'}</div>
-      <AuctionCategory categoryData={newData} />
-    </section>
+    viewportWidth > 504 && (
+      <section className={S.leftSection}>
+        <div className={S.pickCategory}>{rootCategory || 'ALL'}</div>
+        <AuctionCategory categoryData={newData} />
+      </section>
+    )
   );
 }
