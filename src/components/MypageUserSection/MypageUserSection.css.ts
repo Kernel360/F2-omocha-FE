@@ -1,12 +1,31 @@
-import { globalStyle, style } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
+
+import colors from '@/styles/color';
 
 export const profile = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '20px',
+  gap: '30px',
   width: '180px',
-  padding: '10px 0 30px 0',
   borderBottom: '1px solid #eaeaea',
+  padding: '10px 0 30px 10px',
+  boxSizing: 'border-box',
+});
+
+export const image = style({
+  display: 'flex',
+});
+
+export const imageButton = style({
+  display: 'flex',
+  border: `3px solid ${colors.gray7}`,
+  borderRadius: '50%',
+  cursor: 'pointer',
+});
+
+export const profileImage = style({
+  borderRadius: '50%',
+  cursor: 'pointer',
 });
 
 export const profileTitle = style({
@@ -14,27 +33,6 @@ export const profileTitle = style({
   fontWeight: '700',
   color: '#000',
   minHeight: '24px',
-});
-
-export const heart = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '10px',
-});
-
-globalStyle(`${heart} span:nth-child(1)`, {
-  fontSize: '18px',
-});
-
-globalStyle(`${heart} span:nth-child(2)`, {
-  display: 'flex',
-  justifyContent: 'center',
-  fontSize: '18px',
-  fontWeight: 'bold',
-  color: 'rgb(196,39,39, 0.7)',
-  backgroundColor: 'rgb(196,39,39, 0.2)',
-  minWidth: '50px',
-  padding: '5px',
-  borderRadius: '20px',
-  minHeight: '21px',
+  overflowWrap: 'break-word',
+  wordBreak: 'break-all',
 });

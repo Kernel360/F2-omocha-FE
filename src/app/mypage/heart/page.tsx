@@ -25,8 +25,6 @@ function Home() {
     fetchNextPage,
   });
 
-  console.log(data);
-
   if (isLoading)
     return (
       <div className={S.heart}>

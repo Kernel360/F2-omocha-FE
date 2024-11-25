@@ -1,23 +1,50 @@
 'use client';
 
-import Link from 'next/link';
+import { UserIcon } from 'lucide-react';
+import Image from 'next/image';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
+import { Modal } from '@/components/Modal/Modal';
+import ImageUploadModal from '@/components/MypageUserSection/components/ImageUploadModal';
+import SkeletonText from '@/components/SkeletonUI/components/SkeletonText';
+import useBooleanState from '@/hooks/useBooleanState';
+import colors from '@/styles/color';
 
 import * as S from './MypageUserSection.css';
 
 function MypageUserSection() {
-  const { data: user } = useGetUser();
+  const { data: user, isLoading } = useGetUser();
+  const { value: isOpenImageUploadModal, toggle: setIsOpenImageUploadModal } = useBooleanState();
 
   return (
     <div className={S.profile}>
-      <h2 className={S.profileTitle}>{user?.email}</h2>
-      <Link href="/mypage/heart" scroll={false}>
-        <div className={S.heart}>
-          <span>찜</span>
-          <span>{user?.like_count}</span>
-        </div>
-      </Link>
+      <div className={S.image}>
+        <button type="button" onClick={setIsOpenImageUploadModal} className={S.imageButton}>
+          {user?.profile_image_url ? (
+            <Image
+              className={S.profileImage}
+              src={`${process.env.NEXT_PUBLIC_S3_URL}${user.profile_image_url}`}
+              width={100}
+              height={100}
+              priority
+              alt="프로필 이미지"
+            />
+          ) : (
+            <UserIcon size={100} strokeWidth={1} stroke={colors.gray5} />
+          )}
+        </button>
+      </div>
+      <Modal isOpen={isOpenImageUploadModal} onOpenChange={setIsOpenImageUploadModal}>
+        <ImageUploadModal
+          defaultImage={user?.profile_image_url}
+          onClose={setIsOpenImageUploadModal}
+        />
+      </Modal>
+      {isLoading ? (
+        <SkeletonText noOfLines={1} height={24} />
+      ) : (
+        <h2 className={S.profileTitle}>{user?.nick_name}</h2>
+      )}
     </div>
   );
 }
