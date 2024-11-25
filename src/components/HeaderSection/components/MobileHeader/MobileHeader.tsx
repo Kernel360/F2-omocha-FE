@@ -2,8 +2,6 @@
 
 import { useEffect } from 'react';
 
-import { useSearchParams } from 'next/navigation';
-
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
@@ -18,11 +16,9 @@ import MobileUserHeader from '../MobileUserHeader';
 import * as S from './MobileHeader.css';
 
 function MobileHeader() {
-  const searchParams = useSearchParams();
-  const pickCategory = Number(searchParams.get('categoryId'));
   const { value: navState, setTrue: openNav, setFalse: closeNav } = useBooleanState(false);
 
-  const { data } = useGetCategory({ targetCategoryId: pickCategory });
+  const { data } = useGetCategory();
   const { data: userInfo } = useGetUser();
 
   useEffect(() => {

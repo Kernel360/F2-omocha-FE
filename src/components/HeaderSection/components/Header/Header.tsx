@@ -1,7 +1,5 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
 import MaxLayout from '@/components/MaxLayout';
@@ -12,10 +10,7 @@ import UserHeader from '../UserHeader';
 import * as S from './Header.css';
 
 function Header() {
-  const searchParams = useSearchParams();
-  const pickCategory = Number(searchParams.get('categoryId'));
-
-  const { data } = useGetCategory({ targetCategoryId: pickCategory });
+  const { data } = useGetCategory();
 
   if (!data) return null;
 
