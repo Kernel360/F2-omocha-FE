@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
-import { useAuth } from '@/provider/authProvider';
 import useGetBasicAuctionBidList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionBidList';
+import { useAuth } from '@/provider/authProvider';
 
-export function usePermissionBidPrice(auctionId: number, sellerId: number, type?: string) {
+export function usePermissionBidPrice(auctionId: number, sellerId: number) {
   const { isLoggedIn } = useAuth();
   const { data: user } = useGetUser();
   const [expired, setExpired] = useState('');

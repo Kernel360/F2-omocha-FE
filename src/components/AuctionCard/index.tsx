@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { ClockIcon, HeartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 import usePostAuctionLike from '@/apis/queryHooks/basicAuction/usePostAuctionLike';
 import calculateDDay from '@/utils/calculatedDDay';
@@ -34,6 +35,9 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
     instantBuyPrice,
   } = SAMPLE;
 
+  const searchParams = useSearchParams();
+  const pickCategory = Number(searchParams.get('categoryId'));
+
   const isExpired = auctionStatus !== 'BIDDING'; // new Date() > new Date(endTime);
   const [isLike, setIsLike] = useState(false); // 서버와 클라이언트의 불일치 문제 해결을 위해 isLike를 상태로 관리
   const dDay = calculateDDay(endTime);
@@ -49,7 +53,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   };
 
   return (
-    <Link className={S.cardWrapper} href={`basicauction/${id}`}>
+    <Link className={S.cardWrapper} href={`basicauction/${id}?categoryId=${pickCategory}`}>
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
       <button type="button" className={S.heartStyle} onClick={handleLike}>
         <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />

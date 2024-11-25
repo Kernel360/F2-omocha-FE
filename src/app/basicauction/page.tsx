@@ -2,6 +2,7 @@ import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
 import BasicAuction from '@/app/basicauction/basicauction';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import Checkbox from '@/app/basicauction/components/checkbox';
+import BreadcrumbSection from '@/components/BreadcrumbSection';
 import LeftSection from '@/components/LeftSection';
 import MaxLayout from '@/components/MaxLayout';
 
@@ -13,6 +14,7 @@ function Home({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
       <div className={S.basicAuctionContainer}>
         <LeftSection />
         <section className={S.rightSection}>
+          <BreadcrumbSection />
           <div className={S.topInfoSection}>
             <Checkbox />
             <AuctionDropDown />
