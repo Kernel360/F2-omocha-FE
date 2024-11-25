@@ -4,11 +4,11 @@ export const basicAuctionContainer = style({
   display: 'flex',
   gap: '20px',
   padding: '30px 0',
-
   '@media': {
     'screen and (max-width: 504px)': {
       flexDirection: 'column',
       padding: '0',
+      gap: 0,
     },
   },
 });
