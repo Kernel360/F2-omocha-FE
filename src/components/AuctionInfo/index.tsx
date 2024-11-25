@@ -85,6 +85,7 @@ function AuctionInfo(props: AuctionInfoProps) {
   });
 
   const { expired, setExpired, user, canNotBid, canDelete } = usePermissionBidPrice(sellerId);
+  const isSeller = sellerId === user?.member_id;
 
   useEffect(() => {
     if (auctionStatus === 'COMPLETED') {
@@ -193,7 +194,7 @@ function AuctionInfo(props: AuctionInfoProps) {
           <span>{`${bidUnit.toLocaleString()} 원`}</span>
         </div>
       </div>
-      <div className={S.infoRow}>
+      <div className={`${S.infoRow} ${isSeller ? S.noDisplay : ''}`}>
         <span className={S.infoRowTitle}>입찰 희망가</span>
         <div className={S.infoRight}>
           <input type="number" ref={bidInputRef} disabled />
@@ -202,6 +203,7 @@ function AuctionInfo(props: AuctionInfoProps) {
             <button
               className={S.bidPriceButton}
               type="button"
+              disabled={auctionStatus !== 'BIDDING'}
               onClick={() => {
                 if (bidInputRef.current) {
                   const newBidInput = Number(bidInputRef.current.value) + bidUnit;
@@ -211,7 +213,12 @@ function AuctionInfo(props: AuctionInfoProps) {
             >
               <ChevronUpIcon />
             </button>
-            <button className={S.bidPriceButton} type="button" onClick={handleBidPriceDown}>
+            <button
+              className={S.bidPriceButton}
+              type="button"
+              disabled={auctionStatus !== 'BIDDING'}
+              onClick={handleBidPriceDown}
+            >
               <ChevronDownIcon />
             </button>
           </div>

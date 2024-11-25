@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
@@ -16,6 +16,7 @@ function BasicAuctionClientPage() {
   const searchKeywordParam = searchParams.get(AUCTIONPARAM_KEY.Q);
   const pickCategory = Number(searchParams.get('categoryId'));
   const currentPage = Number(searchParams.get('page'));
+  const router = useRouter();
 
   const { data, pageInfo } = useGetBasicAuctionList({
     categoryId: pickCategory || undefined,
@@ -38,23 +39,36 @@ function BasicAuctionClientPage() {
         </div>
       </div>
       <div className={S.listLayoutWrapper}>
-        <ListLayout>
-          {data.result_data.content.map(item => (
-            <AuctionCard
-              key={item.auction_id}
-              id={item.auction_id}
-              thumbnailImage={item.thumbnail_path}
-              title={item.title}
-              isLike={item.is_liked}
-              startPrice={item.start_price}
-              startTime={item.start_date}
-              endTime={item.end_date}
-              nowPrice={item?.now_price}
-              auctionStatus={item.auction_status}
-              instantBuyPrice={item.instant_buy_price}
-            />
-          ))}
-        </ListLayout>
+        {data.result_data.content.length === 0 ? (
+          <div className={S.noListWrapper}>
+            <div className={S.noListTitle}>아직 등록된 물품이 없습니다.</div>
+            <button
+              className={S.noListButton}
+              type="button"
+              onClick={() => router.push('/create', { scroll: false })}
+            >
+              상품 등록하러 가기
+            </button>
+          </div>
+        ) : (
+          <ListLayout>
+            {data.result_data.content.map(item => (
+              <AuctionCard
+                key={item.auction_id}
+                id={item.auction_id}
+                thumbnailImage={item.thumbnail_path}
+                title={item.title}
+                isLike={item.is_liked}
+                startPrice={item.start_price}
+                startTime={item.start_date}
+                endTime={item.end_date}
+                nowPrice={item.now_price}
+                auctionStatus={item.auction_status}
+                instantBuyPrice={item.instant_buy_price}
+              />
+            ))}
+          </ListLayout>
+        )}
       </div>
       {data.result_data.number_of_elements !== 0 && <Pagination pageInfo={pageInfo} />}
     </div>

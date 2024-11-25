@@ -39,6 +39,10 @@ export const infoRow = style({
   padding: '12px 0',
 });
 
+export const noDisplay = style({
+  display: 'none',
+});
+
 export const nowPrice = style({
   color: 'red',
 });
@@ -96,7 +100,7 @@ export const infoButton = style({
 export const bidButtonWrapper = style({
   display: 'flex',
   gap: '12px',
-  marginTop: '12px',
+  marginTop: 'auto',
 });
 
 export const bidButton = styleVariants({
