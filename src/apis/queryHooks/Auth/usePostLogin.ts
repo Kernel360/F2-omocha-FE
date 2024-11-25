@@ -19,10 +19,10 @@ function usePostLogin() {
     mutationFn: (param: LoginParams) => postLogin(param),
     onSuccess: () => {
       if (prevUrl === '/join') {
-        router.push('/', { scroll: false });
+        router.push('/');
         return;
       }
-      router.push(prevUrl || '/', { scroll: false });
+      router.push(prevUrl || '/');
       setIsLoggedIn(true);
       showToast('success', '로그인에 성공했습니다.');
     },

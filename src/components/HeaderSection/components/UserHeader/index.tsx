@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import logoIcon from '@/assets/png/logo.png';
@@ -14,6 +14,7 @@ function UserHeader() {
   const { isLoggedIn } = useAuth();
   const { mutate: logout } = usePostLogout();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   return (
     <section className={S.topHeader}>
@@ -40,7 +41,7 @@ function UserHeader() {
               return (
                 <Link
                   key={category.id}
-                  href={`${category.path}?prevUrl=${pathname}`}
+                  href={`${category.path}?prevUrl=${pathname}?${searchParams}`}
                   scroll={false}
                   className={S.TopHeaderUnit}
                 >

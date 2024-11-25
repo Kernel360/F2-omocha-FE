@@ -21,6 +21,10 @@ export const imageButton = style({
   border: `3px solid ${colors.gray7}`,
   borderRadius: '50%',
   cursor: 'pointer',
+
+  ':hover': {
+    filter: 'brightness(0.8)',
+  },
 });
 
 export const profileImage = style({
