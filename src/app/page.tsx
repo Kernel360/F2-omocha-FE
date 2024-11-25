@@ -14,13 +14,13 @@ export default function Home() {
         <AuctionList
           sort="createdAt"
           direction="DESC"
-          path="/basicauction?page=1"
+          path="/basicauction?page=1&sort=createdAt&direction=DESC"
           pathname="신규 경매 상품"
         />
         <AuctionList
           sort="endDate"
           direction="ASC"
-          path="/basicauction?page=1"
+          path="/basicauction?page=1&sort=endDate&direction=ASC"
           pathname="마감 임박 상품"
         />
         {/* 특정 유저의 상품 모아 놓기(필수 아님) */}

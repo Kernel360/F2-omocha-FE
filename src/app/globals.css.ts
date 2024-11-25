@@ -13,6 +13,10 @@ globalStyle('html, body', {
   minHeight: '100vh',
 });
 
+globalStyle('input[type="text"]::-ms-clear, input[type="password"]::-ms-reveal', {
+  display: 'none',
+});
+
 globalStyle('button', {
   border: 'none',
   backgroundColor: 'transparent',

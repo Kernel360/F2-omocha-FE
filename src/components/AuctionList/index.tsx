@@ -29,7 +29,7 @@ export default function AuctionList({ sort, direction, pathname, path }: Auction
     <section className={S.section}>
       <div className={S.title}>
         <h3>{pathname}</h3>
-        <Link className={S.link} href={path} scroll={false}>
+        <Link className={S.link} href={path}>
           경매 전체보기
           <ArrowRightIcon />
         </Link>

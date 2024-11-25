@@ -144,7 +144,7 @@ function Home() {
               <CommonInput
                 id="passwordRequired"
                 label="비밀번호"
-                type="password"
+                type={isBlind ? 'text' : 'password'}
                 register={register}
                 validation={passwordValidation}
                 error={errors.passwordRequired}
@@ -157,7 +157,7 @@ function Home() {
               <CommonInput
                 id="passwordCheckRequired"
                 label="비밀번호 확인"
-                type="password"
+                type={isBlind ? 'text' : 'password'}
                 register={register}
                 validation={confirmPasswordValidation(passwordRequired)}
                 error={errors.passwordCheckRequired}
