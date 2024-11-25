@@ -142,20 +142,10 @@ function AuctionInfo(props: AuctionInfoProps) {
         <span className={S.infoRowTitle}>현재가</span>
         <span>
           {currentPrice && currentPrice.result_data.now_price !== 0
-            ? currentPrice.result_data.now_price.toLocaleString('ko-KR')
-            : '-'}
-          <span>원</span>
+            ? ` ${currentPrice.result_data.now_price.toLocaleString('ko-KR')} 원`
+            : '아직 입찰이 없습니다.'}
         </span>
       </div>
-      {instantBuyPrice && (
-        <div className={`${S.infoRow} ${S.nowPrice}`}>
-          <span className={S.infoRowTitle}>즉시 구매가</span>
-          <span>
-            {instantBuyPrice.toLocaleString('ko-KR')}
-            <span>원</span>
-          </span>
-        </div>
-      )}
 
       <div className={`${S.infoRight} ${S.moveToRight}`}>
         <span
@@ -170,6 +160,15 @@ function AuctionInfo(props: AuctionInfoProps) {
           <RotateCwIcon size={16} className={isRotating ? S.rotating : ''} />
         </button>
       </div>
+      {instantBuyPrice && (
+        <div className={`${S.infoRow} ${S.nowPrice}`}>
+          <span className={S.infoRowTitle}>즉시 구매가</span>
+          <span>
+            {instantBuyPrice.toLocaleString('ko-KR')}
+            <span>원</span>
+          </span>
+        </div>
+      )}
       <hr className={S.division} />
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>남은 시간</span>

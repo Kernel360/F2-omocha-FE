@@ -72,7 +72,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
         <span className={S.cardTitle}>{title}</span>
         <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
           <span>현재가(KRW)</span>
-          <span>{nowPrice ? nowPrice.toLocaleString('ko-KR') : '-'}원</span>
+          {nowPrice ? ` ${nowPrice.toLocaleString('ko-KR')} 원` : '입찰이 없습니다.'}
         </div>
         {instantBuyPrice && (
           <div className={instantBuyPrice ? S.cardFlexColor : S.cardFlexText}>
