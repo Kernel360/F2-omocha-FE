@@ -5,13 +5,13 @@ import { useAuth } from '@/provider/authProvider';
 
 function useGetUser() {
   const { isLoggedIn } = useAuth();
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['userInfo'],
     queryFn: () => getUser(),
     enabled: !!isLoggedIn,
   });
 
-  return { data: data?.result_data };
+  return { data: data?.result_data, isLoading };
 }
 
 export default useGetUser;

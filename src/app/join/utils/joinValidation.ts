@@ -1,7 +1,7 @@
 export const emailValidation = {
   required: '이메일을 입력해 주세요',
   pattern: {
-    value: /\S+@\S+\.\S+/,
+    value: /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i,
     message: '올바른 이메일 형식이 아니에요',
   },
 };

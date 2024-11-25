@@ -109,37 +109,39 @@ function Home() {
         <div className={S.container}>
           <span className={S.title}>회원가입하기</span>
           <form onSubmit={handleSubmit(onSubmit)} className={S.inputSection}>
-            <CommonInput
-              id="emailRequired"
-              label="이메일"
-              type="email"
-              placeholder="이메일을 입력하세요."
-              register={register}
-              validation={{
-                ...emailValidation,
-                onChange: () => {
-                  setCanUseEmail(false);
-                  clearErrors('emailRequired');
-                },
-              }}
-              error={errors.emailRequired}
-            >
-              <div className={S.duplicateCheckButtonWrapper}>
-                <CommonButton
-                  content="중복 확인"
-                  size="sm"
-                  disabled={getButtonStyle()}
-                  onClick={handleCheckEmail}
-                  type="button"
-                />
-              </div>
-            </CommonInput>
-            {!checkEmailError && canUseEmail && (
-              <span className={`${S.inputValidation} ${S.correct}`}>
-                <CheckIcon size={16} />
-                사용 가능한 이메일입니다.
-              </span>
-            )}
+            <div className={S.emailSection}>
+              <CommonInput
+                id="emailRequired"
+                label="이메일"
+                type="email"
+                placeholder="이메일을 입력하세요."
+                register={register}
+                validation={{
+                  ...emailValidation,
+                  onChange: () => {
+                    setCanUseEmail(false);
+                    clearErrors('emailRequired');
+                  },
+                }}
+                error={errors.emailRequired}
+              >
+                <div className={S.duplicateCheckButtonWrapper}>
+                  <CommonButton
+                    content="중복 확인"
+                    size="sm"
+                    disabled={getButtonStyle()}
+                    onClick={handleCheckEmail}
+                    type="button"
+                  />
+                </div>
+              </CommonInput>
+              {!checkEmailError && canUseEmail && (
+                <span className={`${S.inputValidation} ${S.correct}`}>
+                  <CheckIcon size={16} />
+                  사용 가능한 이메일입니다.
+                </span>
+              )}
+            </div>
             <div className={S.commonInputContainer}>
               <CommonInput
                 id="passwordRequired"
