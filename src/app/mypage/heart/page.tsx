@@ -58,6 +58,7 @@ function Home() {
                   thumbnailImage={item.thumbnail_path}
                   title={item.title}
                   isLike={!!item.liked_date}
+                  auctionStatus={item.auction_status}
                   startPrice={item.start_price}
                   startTime={item.start_date}
                   endTime={item.end_date}
