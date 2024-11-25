@@ -40,7 +40,6 @@ export const chattingUnitSection = style({
 export const chattingUnit = style({
   display: 'flex',
   flexDirection: 'column',
-
   gap: '8px',
   width: '100%',
 });
@@ -95,7 +94,6 @@ export const recentChatTime = style({
   fontSize: '12px',
   marginLeft: 'auto',
   width: 'fit-content',
-  minWidth: '45px',
   textAlign: 'start',
 });
 
@@ -109,13 +107,12 @@ export const recentChat = style({
 export const chatroomContainer = style({
   display: 'flex',
   flexDirection: 'column',
-
   backgroundColor: 'white',
   borderRadius: '12px',
 });
 
 export const chatroomHeader = style({
-  height: '61px',
+  // height: '61px',
   boxSizing: 'border-box',
   padding: '10px 0 10px 40px',
 });
@@ -128,6 +125,7 @@ export const chatroomName = style({
 
 export const chatroomUserSection = style({
   display: 'flex',
+  alignItems: 'center',
   gap: '8px',
   marginTop: '8px',
 });
@@ -135,6 +133,50 @@ export const chatroomUserSection = style({
 export const user = style({
   color: '#333',
   fontSize: '12px',
+});
+
+export const chatroomInfoSection = style({
+  margin: '8px 0',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+  padding: '0 10px',
+});
+
+export const chatroomImageInfo = style({
+  width: '40px',
+  height: '40px',
+  borderRadius: '4px',
+  objectFit: 'contain',
+});
+
+export const chatroomInfoWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4px',
+});
+
+export const chatroomTitleInfo = style({
+  fontSize: '14px',
+
+  color: 'black',
+});
+
+export const chatroomPriceInfo = style({
+  fontSize: '14px',
+  fontWeight: 'bold',
+  color: 'black',
+});
+
+export const completeButton = style({
+  padding: '4px 8px',
+  borderRadius: '4px',
+  height: 'fit-content',
+  marginLeft: 'auto',
+  color: 'white',
+  fontSize: '12px',
+  cursor: 'pointer',
+  backgroundColor: 'rgba(230, 39, 39, 0.6)',
 });
 
 export const closeButton = style({
@@ -154,11 +196,20 @@ export const chatListWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
-  height: '332px',
+  height: '280px',
   overflowY: 'auto',
   backgroundColor: '#f9f9f9',
   padding: '10px',
   whiteSpace: 'pre-wrap',
+});
+
+export const noChat = style({
+  position: 'absolute',
+  bottom: '10px',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  color: '#999',
+  fontSize: '14px',
 });
 
 export const msgBoxBase = style({
@@ -236,7 +287,6 @@ export const inputWrapper = style({
 export const submitButton = style({
   padding: '4px 8px',
   borderRadius: '12px',
-  backgroundColor: 'rgba(0,0,0,0.3)',
   color: 'white',
   fontSize: '12px',
   minWidth: '40px',
@@ -244,9 +294,7 @@ export const submitButton = style({
   outline: 'none',
   border: 'none',
   transition: 'background-color 0.2s ease',
-  ':hover': {
-    backgroundColor: 'rgba(230, 39, 39, 0.6)',
-  },
+  backgroundColor: 'rgba(230, 39, 39, 0.6)',
 });
 
 // Message Styles

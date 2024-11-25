@@ -39,10 +39,10 @@ function ChattingList() {
         gap: 10,
       }}
     >
-      {reversedMessages && openChatroomId ? (
+      {reversedMessages && openChatroomId && openAuctionInfo ? (
         <>
           <button type="button" onClick={handleRefetch} className={S.goBackButton}>
-            <ChevronDownIcon />
+            <ChevronDownIcon size={18} />
           </button>
           <Chattingroom
             roomId={openChatroomId}
@@ -70,6 +70,7 @@ function ChattingList() {
                     conclude_price: chat.conclude_price,
                     buyer_id: chat.buyer_member_id,
                     buyer_name: chat.buyer_name,
+                    thumbnail_path: chat.thumbnail_path,
                   });
                 }}
               >

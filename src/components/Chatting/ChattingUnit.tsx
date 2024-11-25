@@ -39,7 +39,7 @@ function ChattingUnit({
   const other = seller_id === data.data?.member_id ? buyer_name : seller_name;
 
   const calLastMessage = () => {
-    if (!last_message_time) return '아직 메시지가 없습니다.';
+    if (!last_message_time) return '';
 
     const lastMessage = new Date(last_message_time);
     const now = new Date();
@@ -79,7 +79,6 @@ function ChattingUnit({
         alt="경매 사진"
       />
       <div className={S.chattingUnitSection}>
-        {/* //newRead ? S.isReadDot.read : S.isReadDot.noRead} /> */}
         <div className={S.chattingUnit}>
           <div className={S.chattingUnitInfo}>
             <span className={S.chatOpponent}>{other || '익명인'}</span>

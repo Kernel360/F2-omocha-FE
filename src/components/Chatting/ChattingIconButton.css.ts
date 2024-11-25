@@ -22,8 +22,8 @@ export const slideLeftAndFade = keyframes({
 
 export const goBackButton = style({
   position: 'fixed',
-  top: '18px',
-  left: '5px',
+  top: '16px',
+  left: '10px',
   width: 'fit-content',
   display: 'inline-flex',
   alignItems: 'center',
