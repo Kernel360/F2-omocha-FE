@@ -7,6 +7,7 @@ import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
 import SlideSideNav from '@/components/SlideSideNav';
 import useBooleanState from '@/hooks/useBooleanState';
+import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 
 import MaxLayout from '../../../MaxLayout';
 import CategoryHeader from '../CategoryHeader';
@@ -20,20 +21,13 @@ function MobileHeader() {
 
   const { data } = useGetCategory();
   const { data: userInfo } = useGetUser();
+  const { viewportWidth } = useResizeViewportWidth();
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 700) {
-        closeNav();
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [closeNav]);
+    if (viewportWidth > 700) {
+      closeNav();
+    }
+  }, [viewportWidth, closeNav]);
 
   if (!data) return null;
 
