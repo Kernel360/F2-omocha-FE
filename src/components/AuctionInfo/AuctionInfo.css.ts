@@ -75,6 +75,7 @@ export const infoRight = style({
   display: 'flex',
   alignItems: 'center',
   gap: '8px',
+  justifyContent: 'flex-end',
 });
 
 export const calledTime = style({
