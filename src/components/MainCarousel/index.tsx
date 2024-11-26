@@ -31,7 +31,7 @@ function MainCarousel() {
         slidesToShow={1}
         slidesToScroll={1}
         autoplay // 자동 캐러셀
-        autoplaySpeed={2000}
+        autoplaySpeed={8000}
         arrows={false}
       >
         {CAROUSEL_INFO.map(info => (
