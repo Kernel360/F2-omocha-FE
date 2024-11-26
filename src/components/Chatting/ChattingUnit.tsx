@@ -82,7 +82,6 @@ function ChattingUnit({
         <div className={S.chattingUnit}>
           <div className={S.chattingUnitInfo}>
             <span className={S.chatOpponent}>{other || '익명인'}</span>
-            <span className={S.chatTitle}>{room_name}</span>
             <span className={S.recentChatTime}>{lastMinute}</span>
           </div>
           <span className={S.recentChat}>{last_message || ''}</span>

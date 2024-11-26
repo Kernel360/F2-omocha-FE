@@ -112,9 +112,8 @@ export const chatroomContainer = style({
 });
 
 export const chatroomHeader = style({
-  // height: '61px',
   boxSizing: 'border-box',
-  padding: '10px 0 10px 40px',
+  padding: '10px 40px 10px 40px',
 });
 
 export const chatroomName = style({
@@ -126,11 +125,13 @@ export const chatroomName = style({
 export const chatroomUserSection = style({
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'center',
   gap: '8px',
   marginTop: '8px',
 });
 
 export const user = style({
+  textAlign: 'center',
   color: '#333',
   fontSize: '12px',
 });

@@ -56,8 +56,8 @@ export const title = style({
 });
 
 export const chattingListWrapper = style({
-  marginTop: '61px',
-  height: '100%',
+  marginTop: '62px',
+  // height: '100%',
   overflowY: 'scroll',
 });
 

@@ -32,7 +32,8 @@ function ChattingList() {
   return (
     <div
       style={{
-        minHeight: '480px',
+        height: '482px',
+        overflow: 'scroll',
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -99,42 +100,6 @@ function ChattingList() {
                 </button>
               ))
             )}
-            {/* {data.content.map(chat => (
-              <button
-                key={chat.auction_id}
-                type="button"
-                className={S.chattingUnitButton}
-                onClick={() => {
-                  setOpenChatroomId(chat.room_id);
-                  setOpenAuctionInfo({
-                    auction_id: chat.auction_id,
-                    room_id: chat.room_id,
-                    room_name: chat.room_name,
-                    seller_id: chat.seller_member_id,
-                    seller_name: chat.seller_name,
-                    conclude_price: chat.conclude_price,
-                    buyer_id: chat.buyer_member_id,
-                    buyer_name: chat.buyer_name,
-                    thumbnail_path: chat.thumbnail_path,
-                  });
-                }}
-              >
-                <ChattingUnit
-                  auction_id={chat.auction_id}
-                  room_id={chat.room_id}
-                  room_name={chat.room_name}
-                  seller_id={chat.seller_member_id}
-                  seller_name={chat.seller_name}
-                  thumbnail={chat.thumbnail_path}
-                  conclude_price={chat.conclude_price}
-                  buyer_id={chat.buyer_member_id}
-                  buyer_name={chat.buyer_name}
-                  created_date={chat.created_date}
-                  last_message_time={chat.last_message_time}
-                  last_message={chat.last_message}
-                />
-              </button>
-            ))} */}
           </ul>
         </div>
       )}

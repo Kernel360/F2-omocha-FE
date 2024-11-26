@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import { OpenAuctionInfo } from '@/apis/types/chat';
 
 import * as S from './Chatting.css';
@@ -10,16 +11,23 @@ interface ChattingHeaderProps {
 }
 
 function ChattingHeader({ openAuctionInfo }: ChattingHeaderProps) {
+  const { data: user } = useGetUser();
+  const other =
+    openAuctionInfo.seller_id === user?.member_id
+      ? openAuctionInfo.buyer_name
+      : openAuctionInfo.seller_name;
+
   return (
     <>
       <div className={S.chatroomHeader}>
         <div className={S.chatroomUserSection}>
-          <span
+          <span className={S.user}>{other}</span>
+          {/* <span
             className={S.user}
           >{`구매자: ${openAuctionInfo.buyer_name || openAuctionInfo.buyer_id}`}</span>
           <span
             className={S.user}
-          >{`판매자: ${openAuctionInfo.seller_name || openAuctionInfo.seller_id}`}</span>
+          >{`판매자: ${openAuctionInfo.seller_name || openAuctionInfo.seller_id}`}</span> */}
         </div>
       </div>
       <Link href={`/basicauction/${openAuctionInfo.auction_id}`} scroll={false}>
