@@ -1,12 +1,12 @@
 import { UserIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import colors from '@/styles/color';
 
 import * as S from './MobileSlideNav.css';
-import { usePathname, useSearchParams } from 'next/navigation';
 
 interface MobileSlideNavProps {
   isLogin: boolean;

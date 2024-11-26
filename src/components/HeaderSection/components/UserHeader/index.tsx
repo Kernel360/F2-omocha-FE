@@ -35,29 +35,29 @@ function UserHeader() {
                 {category.name}
               </Link>
             );
-          } else
-            return (
-              <button
-                style={{ cursor: 'pointer' }}
-                className={S.TopHeaderUnit}
-                key={category.id}
-                type="button"
-                onClick={() => {
-                  if (isLoggedIn) {
-                    // setTrue();
-                  } else {
-                    router.push(
-                      searchParams.size > 0
-                        ? `/login?prevUrl=${pathname}?${searchParams}`
-                        : `/login?prevUrl=${pathname}`,
-                      { scroll: false },
-                    );
-                  }
-                }}
-              >
-                {category.name}
-              </button>
-            );
+          }
+          return (
+            <button
+              style={{ cursor: 'pointer' }}
+              className={S.TopHeaderUnit}
+              key={category.id}
+              type="button"
+              onClick={() => {
+                if (isLoggedIn) {
+                  // setTrue();
+                } else {
+                  router.push(
+                    searchParams.size > 0
+                      ? `/login?prevUrl=${pathname}?${searchParams}`
+                      : `/login?prevUrl=${pathname}`,
+                    { scroll: false },
+                  );
+                }
+              }}
+            >
+              {category.name}
+            </button>
+          );
         })}
         {isLoggedIn ? (
           <button className={S.logoutButton} type="button" onClick={() => logout()}>
