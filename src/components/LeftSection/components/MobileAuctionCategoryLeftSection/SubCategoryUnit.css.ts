@@ -12,7 +12,7 @@ export const category = style({
   '@media': {
     '(max-width: 512px)': {
       ...typography.caption,
-      paddingTop: '10px',
+      padding: '10px 0',
     },
   },
 });

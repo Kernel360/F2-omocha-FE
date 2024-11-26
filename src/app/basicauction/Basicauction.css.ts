@@ -7,7 +7,7 @@ export const basicAuctionContainer = style({
   '@media': {
     'screen and (max-width: 504px)': {
       flexDirection: 'column',
-      padding: '0',
+      padding: '10px 0',
       gap: 0,
     },
   },

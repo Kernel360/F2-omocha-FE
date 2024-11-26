@@ -1,27 +1,35 @@
+import useGetUser from '@/apis/queryHooks/User/useGetUser';
+
 import * as S from './AuctionInfo.css';
-import { usePermissionBidPrice } from './hooks/usePermissionBidPrice';
 
 interface AuctionButtonSectionProps {
-  id: number;
-  sellerId: number;
   bidCount: number;
   instantBuyPrice: number | null;
   openBidConfirmModal: () => void;
   openInstantBuyConfirmModal: () => void;
   openDeleteConfirmModal: () => void;
+  auctionStatus: string;
+  isPrevBuyer: () => boolean;
+  canNotBidForBid: () => string;
+  canNotBidForInstantBuy: () => string;
+  canDelete: boolean;
 }
 
 function AuctionButtonSection({
-  id,
-  sellerId,
   bidCount,
   instantBuyPrice,
   openBidConfirmModal,
   openDeleteConfirmModal,
   openInstantBuyConfirmModal,
+  auctionStatus,
+  isPrevBuyer,
+  canNotBidForBid,
+  canNotBidForInstantBuy,
+  canDelete,
 }: AuctionButtonSectionProps) {
-  const { isPrevBuyer, expired, user, canNotBidForBid, canNotBidForInstantBuy, canDelete } =
-    usePermissionBidPrice(id, sellerId);
+  const isExpired = auctionStatus !== 'BIDDING';
+
+  const { data: user } = useGetUser();
 
   return canDelete ? (
     <div className={S.bidButtonWrapper}>
@@ -40,11 +48,9 @@ function AuctionButtonSection({
   ) : (
     <div className={S.bidButtonWrapper}>
       <button
-        disabled={isPrevBuyer() || expired !== '' || !user}
+        disabled={isPrevBuyer() || isExpired || !user}
         type="button"
-        className={
-          isPrevBuyer() || expired !== '' || !user ? S.bidButton.disabled : S.bidButton.default
-        }
+        className={isPrevBuyer() || isExpired || !user ? S.bidButton.disabled : S.bidButton.default}
         onClick={openBidConfirmModal}
       >
         입찰하기
@@ -52,9 +58,9 @@ function AuctionButtonSection({
       </button>
       {instantBuyPrice && (
         <button
-          disabled={expired !== '' || !user}
+          disabled={isExpired || !user}
           type="button"
-          className={expired !== '' || !user ? S.bidButton.disabled : S.bidButton.default}
+          className={isExpired || !user ? S.bidButton.disabled : S.bidButton.default}
           onClick={openInstantBuyConfirmModal}
         >
           즉시 구매하기

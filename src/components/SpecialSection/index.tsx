@@ -27,7 +27,7 @@ function SpecialSection() {
           <CalendarClock size={36} className={S.bellIcon} />
         </div>
         <span className={S.oneDay}>하루</span>
-        <span className={S.popularItem}>인기 상품</span>
+        <span className={S.popularItem}>인기 경매</span>
       </div>
 
       <div className={S.specialAuction}>

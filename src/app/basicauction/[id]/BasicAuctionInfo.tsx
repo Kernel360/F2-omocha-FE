@@ -18,11 +18,11 @@ interface BasicAuctionInfoProps {
 }
 const TABS = [
   {
-    title: '상품 정보',
+    title: '경매 정보',
     value: 'productInfo',
   },
   {
-    title: '상품 문의',
+    title: '경매 문의',
     value: 'productInquiry',
   },
 ];

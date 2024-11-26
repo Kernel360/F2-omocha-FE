@@ -17,7 +17,7 @@ function EndDateRequired({ register, errors }: EndDateRequiredProps) {
       <div className={S.auctionLabel}>
         <h2 className={S.title}>경매 기간</h2>
         <span className={S.description}>
-          경매 상품을 올리는 순간부터 경매가 시작됩니다. 종료 시간만을 입력해 주세요.
+          경매를 올리는 순간부터 경매가 시작됩니다. 종료 시간만을 입력해 주세요.
         </span>
       </div>
       <div className={S.inputWrapper}>

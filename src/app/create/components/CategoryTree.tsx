@@ -51,7 +51,7 @@ function CategoryTree() {
 
   return (
     <label htmlFor="info" className={S.auctionLabel}>
-      <h2 className={S.auctionTypeTitle}>상품 카테고리</h2>
+      <h2 className={S.auctionTypeTitle}>경매 상품 카테고리</h2>
 
       <Controller
         name="categoryIdsRequired"

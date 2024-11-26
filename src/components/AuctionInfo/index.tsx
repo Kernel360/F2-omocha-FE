@@ -82,7 +82,8 @@ function AuctionInfo(props: AuctionInfoProps) {
     bidUnit,
   });
 
-  const { setExpired, user } = usePermissionBidPrice(id, sellerId);
+  const { setExpired, user, isPrevBuyer, canNotBidForBid, canNotBidForInstantBuy, canDelete } =
+    usePermissionBidPrice(id, sellerId);
   const isSeller = sellerId === user?.member_id;
 
   useEffect(() => {
@@ -92,7 +93,7 @@ function AuctionInfo(props: AuctionInfoProps) {
     if (auctionStatus === 'CONCLUDED') {
       setExpired('concluded');
     }
-  }, [auctionStatus]);
+  }, [auctionStatus, setExpired]);
 
   const handleBidButton = useDebounce(() => {
     if (bidInputRef.current) {
@@ -171,13 +172,16 @@ function AuctionInfo(props: AuctionInfoProps) {
         </div>
       </div>
       <AuctionButtonSection
-        id={id}
-        sellerId={sellerId}
         bidCount={bidCount}
         instantBuyPrice={instantBuyPrice}
         openBidConfirmModal={openBidConfirmModal}
         openDeleteConfirmModal={openDeleteConfirmModal}
         openInstantBuyConfirmModal={openInstantBuyConfirmModal}
+        auctionStatus={auctionStatus}
+        isPrevBuyer={isPrevBuyer}
+        canNotBidForBid={canNotBidForBid}
+        canNotBidForInstantBuy={canNotBidForInstantBuy}
+        canDelete={canDelete}
       />
       <ModalFooter
         isOpen={isOpenBidConfirmModal}
