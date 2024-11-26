@@ -13,6 +13,7 @@ globalStyle('html, body', {
   minHeight: '100vh',
 });
 
+// 엣지 블라인드 모드 삭제
 globalStyle('input[type="text"]::-ms-clear, input[type="password"]::-ms-reveal', {
   display: 'none',
 });
