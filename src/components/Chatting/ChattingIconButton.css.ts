@@ -1,5 +1,7 @@
 import { style, keyframes } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+
 export const slideUpAndFade = keyframes({
   from: { opacity: 0, transform: 'translateY(2px)' },
   to: { opacity: 1, transform: 'translateY(0)' },
@@ -58,6 +60,25 @@ export const chattingListWrapper = style({
   height: '100%',
   overflowY: 'scroll',
 });
+
+export const noListWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '20px',
+  marginTop: '130px',
+});
+
+export const noListTitleWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '10px',
+});
+
+export const noListTitle = style({ fontSize: '14px', fontWeight: '500', color: colors.gray10 });
 
 export const chattingUnitButton = style({
   width: '100%',
