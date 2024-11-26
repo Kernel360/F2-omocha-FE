@@ -24,31 +24,7 @@ function UserHeader() {
       </Link>
       <div className={S.topCategory}>
         {SUB_CATEGORY.map(category => {
-          if (category.name === '로그인' && isLoggedIn) {
-            return (
-              <button
-                className={S.logoutButton}
-                key={category.id}
-                type="button"
-                onClick={() => logout()}
-              >
-                로그아웃
-              </button>
-            );
-          }
           if (category.path) {
-            if (category.name === '로그인') {
-              return (
-                <Link
-                  key={category.id}
-                  href={`${category.path}?prevUrl=${pathname}?${searchParams}`}
-                  scroll={false}
-                  className={S.TopHeaderUnit}
-                >
-                  {category.name}
-                </Link>
-              );
-            }
             return (
               <Link
                 key={category.id}
@@ -59,25 +35,47 @@ function UserHeader() {
                 {category.name}
               </Link>
             );
-          }
-          return (
-            <button
-              style={{ cursor: 'pointer' }}
-              className={S.TopHeaderUnit}
-              key={category.id}
-              type="button"
-              onClick={() => {
-                if (isLoggedIn) {
-                  // setTrue();
-                } else {
-                  router.push('/login', { scroll: false });
-                }
-              }}
-            >
-              {category.name}
-            </button>
-          );
+          } else
+            return (
+              <button
+                style={{ cursor: 'pointer' }}
+                className={S.TopHeaderUnit}
+                key={category.id}
+                type="button"
+                onClick={() => {
+                  if (isLoggedIn) {
+                    // setTrue();
+                  } else {
+                    router.push(
+                      searchParams.size > 0
+                        ? `/login?prevUrl=${pathname}?${searchParams}`
+                        : `/login?prevUrl=${pathname}`,
+                      { scroll: false },
+                    );
+                  }
+                }}
+              >
+                {category.name}
+              </button>
+            );
         })}
+        {isLoggedIn ? (
+          <button className={S.logoutButton} type="button" onClick={() => logout()}>
+            로그아웃
+          </button>
+        ) : (
+          <Link
+            href={
+              searchParams.size > 0
+                ? `/login?prevUrl=${pathname}?${searchParams}`
+                : `/login?prevUrl=${pathname}`
+            }
+            scroll={false}
+            className={S.TopHeaderUnit}
+          >
+            로그인
+          </Link>
+        )}
       </div>
     </section>
   );
