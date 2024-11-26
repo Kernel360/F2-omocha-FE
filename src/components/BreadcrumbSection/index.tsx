@@ -64,10 +64,11 @@ function BreadcrumbSection() {
 
   return (
     <Breadcrumb>
+      <Breadcrumb.Item href="/basicauction?page=1">ALL</Breadcrumb.Item>
       {categoryBreadCrumbData.map(category => (
         <Breadcrumb.Item
           key={category.category_id}
-          href={`/basicauction?categoryId=${category.category_id}`}
+          href={`/basicauction?categoryId=${category.category_id}&page=1`}
         >
           {category.name}
         </Breadcrumb.Item>

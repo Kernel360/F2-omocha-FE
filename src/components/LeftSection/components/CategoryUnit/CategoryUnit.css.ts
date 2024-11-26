@@ -7,7 +7,7 @@ export const unitButton = style({
   display: 'flex',
   height: 'auto',
   fontSize: '16px',
-  gap: '4px',
+  justifyContent: 'space-between',
   padding: '4px 0 4px 4px',
   alignItems: 'center',
   width: '100%',
