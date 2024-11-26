@@ -9,10 +9,10 @@ export const category = style({
   justifyItems: 'center',
   gridTemplateColumns: 'repeat(auto-fill, minmax(30%, auto))',
   gap: '10px',
-
   '@media': {
     '(max-width: 512px)': {
       ...typography.caption,
+      padding: '10px 0',
     },
   },
 });

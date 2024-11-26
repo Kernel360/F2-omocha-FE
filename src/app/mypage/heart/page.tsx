@@ -40,13 +40,13 @@ function Home() {
       <h3>찜 목록 ({user?.like_count})</h3>
       {data?.pages[0].result_data.total_elements === 0 ? (
         <div className={S.noListWrapper}>
-          <div className={S.noListTitle}>아직 찜한 물품이 없습니다.</div>
+          <div className={S.noListTitle}>아직 찜한 경매가 없습니다.</div>
           <button
             className={S.noListButton}
             type="button"
             onClick={() => router.push('/basicauction', { scroll: false })}
           >
-            상품 구경하러 가기
+            경매 구경하러 가기
           </button>
         </div>
       ) : (

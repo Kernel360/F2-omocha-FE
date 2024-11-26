@@ -22,13 +22,13 @@ export default function BasicBidAuctionSection() {
     <ul className={S.basicBid}>
       {bidAuctionListHistories.content.length === 0 ? (
         <div className={S.noListWrapper}>
-          <div className={S.noListTitle}>아직 입찰한 물품이 없습니다.</div>
+          <div className={S.noListTitle}>아직 입찰한 경매가 없습니다.</div>
           <button
             className={S.noListButton}
             type="button"
             onClick={() => router.push('/basicauction', { scroll: false })}
           >
-            상품 구경하러 가기
+            경매 구경하러 가기
           </button>
         </div>
       ) : (

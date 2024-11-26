@@ -1,7 +1,7 @@
 'use client';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
-import { ChevronUpIcon } from 'lucide-react';
+import { ChevronDownIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -27,7 +27,7 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
               <span className={isPick ? S.pickUnitButtonSpan : S.unitButtonSpan}>{unit.name}</span>
             </Link>
           </Collapsible.Trigger>
-          <ChevronUpIcon size={16} className={S.chevronIcon} />
+          <ChevronDownIcon size={16} className={S.chevronIcon} />
         </div>
       </Collapsible.Trigger>
       <Collapsible.Content className={S.unitContent}>

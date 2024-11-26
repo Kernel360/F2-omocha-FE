@@ -1,5 +1,9 @@
 import { style } from '@vanilla-extract/css';
 
+export const auctionWrapper = style({
+  padding: '30px 0',
+});
+
 export const auctionInfoWrapper = style({
   padding: '30px 0',
   gap: '20px',
