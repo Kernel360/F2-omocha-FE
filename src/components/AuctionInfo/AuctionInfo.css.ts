@@ -39,6 +39,10 @@ export const infoRow = style({
   padding: '12px 0',
 });
 
+export const noDisplay = style({
+  display: 'none',
+});
+
 export const nowPrice = style({
   color: 'red',
 });
@@ -71,6 +75,7 @@ export const infoRight = style({
   display: 'flex',
   alignItems: 'center',
   gap: '8px',
+  justifyContent: 'flex-end',
 });
 
 export const calledTime = style({
@@ -96,7 +101,7 @@ export const infoButton = style({
 export const bidButtonWrapper = style({
   display: 'flex',
   gap: '12px',
-  marginTop: '12px',
+  marginTop: 'auto',
 });
 
 export const bidButton = styleVariants({

@@ -16,7 +16,7 @@ function usePostBasicAuctionInstantBuy(id: number) {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionBidList', id] });
       queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
-      // queryClient.invalidateQueries({ queryKey: ['nowPrice', params.id] });
+      queryClient.invalidateQueries({ queryKey: ['nowPrice', id] });
       showToast('success', '입찰에 성공했습니다.');
     },
     onError: (e: AxiosError<Response<string>>) => {

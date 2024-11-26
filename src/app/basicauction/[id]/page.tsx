@@ -1,7 +1,6 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import { BasicAuctionResponseData } from '@/apis/types/basicAuction';
-// import { Breadcrumb } from '@/components/Breadcrumb';
 import MaxLayout from '@/components/MaxLayout';
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 
@@ -24,11 +23,6 @@ async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
 
   return (
     <MaxLayout>
-      {/* <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item href="/basicauction">Products</Breadcrumb.Item>
-        <Breadcrumb.Item>Product {params.id}</Breadcrumb.Item>
-      </Breadcrumb> */}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <BasicAuctionInfo id={params.id} />
       </HydrationBoundary>

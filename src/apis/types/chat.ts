@@ -44,6 +44,7 @@ export interface OpenAuctionInfo {
   conclude_price: number;
   buyer_id: number;
   buyer_name: string | null;
+  thumbnail_path: string;
 }
 
 //----

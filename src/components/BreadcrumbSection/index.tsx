@@ -6,10 +6,7 @@ import { useSearchParams } from 'next/navigation';
 
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
-import AuctionCategory from '@/components/LeftSection/components/AuctionCategory/AuctionCategory';
-import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
-
-import * as S from './AuctionCategoryLeftSection.css';
+import { Breadcrumb } from '@/components/Breadcrumb';
 
 function addIsOpenProperty(
   targetCategoryId: number,
@@ -31,9 +28,23 @@ function addIsOpenProperty(
   return { ...category, sub_categories: updatedSubCategory, isOpen };
 }
 
-export default function AuctionCategoryLeftSection() {
+function categoryBreadCrumb(categoryData: Category[]) {
+  const breadCrumb: Category[] = [];
+
+  const findOpenCategory = (category: Category) => {
+    if (category.isOpen) {
+      breadCrumb.push(category);
+      category.sub_categories.forEach(subCategory => findOpenCategory(subCategory));
+    }
+  };
+
+  categoryData.forEach(category => findOpenCategory(category));
+
+  return breadCrumb;
+}
+
+function BreadcrumbSection() {
   const searchParams = useSearchParams();
-  const { viewportWidth } = useResizeViewportWidth();
   const pickCategory = Number(searchParams.get('categoryId'));
 
   const { data: categoryData } = useGetCategory();
@@ -49,14 +60,21 @@ export default function AuctionCategoryLeftSection() {
     return categoryData;
   }, [categoryData, pickCategory]);
 
-  const rootCategory = (newData as Category[]).find(category => category.isOpen === true)?.name;
+  const categoryBreadCrumbData = categoryBreadCrumb(newData as Category[]);
 
   return (
-    viewportWidth > 504 && (
-      <section className={S.leftSection}>
-        <div className={S.pickCategory}>{rootCategory || 'ALL'}</div>
-        <AuctionCategory categoryData={newData} />
-      </section>
-    )
+    <Breadcrumb>
+      <Breadcrumb.Item href="/basicauction?page=1">ALL</Breadcrumb.Item>
+      {categoryBreadCrumbData.map(category => (
+        <Breadcrumb.Item
+          key={category.category_id}
+          href={`/basicauction?categoryId=${category.category_id}&page=1`}
+        >
+          {category.name}
+        </Breadcrumb.Item>
+      ))}
+    </Breadcrumb>
   );
 }
+
+export default BreadcrumbSection;

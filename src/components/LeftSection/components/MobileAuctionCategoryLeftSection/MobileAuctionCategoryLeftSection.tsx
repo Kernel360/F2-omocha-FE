@@ -4,9 +4,10 @@ import { useSearchParams } from 'next/navigation';
 
 import useGetSubCategory from '@/apis/queryHooks/category/useGetSubCategory';
 import { Category } from '@/apis/types/category';
+import BreadcrumbSection from '@/components/BreadcrumbSection';
 
 import * as S from './MobileAuctionCategoryLeftSection.css';
-import Test from './SubCategoryUnit';
+import SubCategoryUnit from './SubCategoryUnit';
 
 function MobileAuctionCategoryLeftSection() {
   const searchParams = useSearchParams();
@@ -19,7 +20,8 @@ function MobileAuctionCategoryLeftSection() {
 
   return (
     <div className={S.mobileLeftSection}>
-      <Test categoryData={typedCategoryData} />
+      <BreadcrumbSection />
+      <SubCategoryUnit categoryData={typedCategoryData} />
     </div>
   );
 }

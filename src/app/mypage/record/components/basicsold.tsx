@@ -40,13 +40,13 @@ export default function BasicSold() {
     <ul className={S.basicSold}>
       {auctionHistories.content.length === 0 ? (
         <div className={S.noListWrapper}>
-          <div className={S.noListTitle}>아직 판매한 물품이 없습니다.</div>
+          <div className={S.noListTitle}>아직 판매한 경매가 없습니다.</div>
           <button
             className={S.noListButton}
             type="button"
             onClick={() => router.push('/create', { scroll: false })}
           >
-            상품 등록하러 가기
+            경매 등록하러 가기
           </button>
         </div>
       ) : (

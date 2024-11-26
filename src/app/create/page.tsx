@@ -65,7 +65,7 @@ export default function Home() {
     <div className={S.backContainer}>
       <MaxLayout>
         <div className={S.container}>
-          <h1>경매 상품 등록</h1>
+          <h1>경매 등록</h1>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className={S.formSection}>
               <NameRequiredProps register={register} errors={errors} />

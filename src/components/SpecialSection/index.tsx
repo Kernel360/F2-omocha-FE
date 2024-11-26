@@ -27,7 +27,7 @@ function SpecialSection() {
           <CalendarClock size={36} className={S.bellIcon} />
         </div>
         <span className={S.oneDay}>하루</span>
-        <span className={S.popularItem}>인기 상품</span>
+        <span className={S.popularItem}>인기 경매</span>
       </div>
 
       <div className={S.specialAuction}>
@@ -47,7 +47,9 @@ function SpecialSection() {
             <div className={S.specialAuctionTitle}> {auction.title}</div>
             <div className={S.specialAuctionPrice}>
               <span className={S.specialAuctionPriceTitle}>현재가 </span>
-              {auction.now_price ? auction.now_price.toLocaleString() : '-'} 원
+              {auction.now_price
+                ? ` ${auction.now_price.toLocaleString('ko-KR')} 원`
+                : '입찰이 없습니다.'}
             </div>
             {auction.instant_buy_price && (
               <div className={S.specialAuctionPrice}>
