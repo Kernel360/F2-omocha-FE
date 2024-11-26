@@ -53,7 +53,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   };
 
   return (
-    <Link className={S.cardWrapper} href={`basicauction/${id}?categoryId=${pickCategory}`}>
+    <Link className={S.cardWrapper} href={`/basicauction/${id}?categoryId=${pickCategory}`}>
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
       <button type="button" className={S.heartStyle} onClick={handleLike}>
         <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />
