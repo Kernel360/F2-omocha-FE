@@ -114,5 +114,4 @@ export const specialAuctionPriceTitle = style({
 
 export const specialAuctionPrice = style({
   fontSize: '14px',
-  fontWeight: 'bold',
 });

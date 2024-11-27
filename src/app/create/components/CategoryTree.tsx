@@ -1,17 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { TriangleAlertIcon } from 'lucide-react';
 import Cascader, { CascaderProps } from 'rc-cascader';
 
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
-import { TransformCategoriesToOptions } from '@/apis/types/category';
+import { Category, TransformCategoriesToOptions } from '@/apis/types/category';
 
 import * as S from '../Basicauction.css';
 import './CategoryTree.css';
 import { AuctionInputs } from '../types/InputTypes';
+
+const transformCategoriesToOptions = (categories: Category[]): TransformCategoriesToOptions[] => {
+  return categories.map(category => ({
+    value: category.category_id.toString(),
+    label: category.name,
+    children: category.sub_categories.length
+      ? transformCategoriesToOptions(category.sub_categories)
+      : undefined,
+  }));
+};
 
 function CategoryTree() {
   const {
@@ -19,7 +29,14 @@ function CategoryTree() {
     formState: { errors },
   } = useFormContext<AuctionInputs>();
 
-  const { data } = useGetCategory({ categoryType: 'create' });
+  const { data } = useGetCategory();
+
+  const newData = useMemo(() => {
+    if (data) {
+      return { data: transformCategoriesToOptions(data) };
+    }
+    return data;
+  }, [data]);
 
   const [inputValue, setInputValue] = useState('');
 
@@ -34,7 +51,7 @@ function CategoryTree() {
 
   return (
     <label htmlFor="info" className={S.auctionLabel}>
-      <h2 className={S.auctionTypeTitle}>상품 카테고리</h2>
+      <h2 className={S.auctionTypeTitle}>경매 상품 카테고리</h2>
 
       <Controller
         name="categoryIdsRequired"
@@ -45,7 +62,7 @@ function CategoryTree() {
         render={({ field }) => (
           <Cascader
             expandTrigger="hover"
-            options={data as TransformCategoriesToOptions[]}
+            options={newData?.data}
             onChange={(value, selectedOptions) => {
               const lastSelectedValue = onChange(value, selectedOptions);
               field.onChange([lastSelectedValue]);

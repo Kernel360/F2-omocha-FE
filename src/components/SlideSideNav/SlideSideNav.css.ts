@@ -3,7 +3,7 @@ import { recipe } from '@vanilla-extract/recipes';
 
 export const overlay = style({
   position: 'fixed',
-  zIndex: 80,
+  zIndex: 1080,
   top: '0',
   left: '0',
   width: '100%',

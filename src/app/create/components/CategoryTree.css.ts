@@ -11,6 +11,8 @@ const selectPrefix = 'rc-cascader';
 globalStyle(`.${selectPrefix}-dropdown`, {
   minHeight: 'auto',
   position: 'absolute',
+  maxWidth: '300px',
+  overflowX: 'scroll',
 });
 
 // Apply styles globally
@@ -22,6 +24,7 @@ globalStyle(`.${selectPrefix}-menus`, {
   display: 'flex',
   flexWrap: 'nowrap',
   boxShadow: shadow.box1,
+  overflowX: 'scroll',
 });
 
 globalStyle(`.${selectPrefix}-menu`, {
