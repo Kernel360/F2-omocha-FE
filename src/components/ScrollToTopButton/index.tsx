@@ -16,7 +16,7 @@ export default function ScrollToTopButton() {
       aria-label="Scroll to top"
       onClick={scrollToTop}
     >
-      <ChevronUpIcon />
+      <ChevronUpIcon className={S.scrollButtonIcon} />
     </button>
   );
 }

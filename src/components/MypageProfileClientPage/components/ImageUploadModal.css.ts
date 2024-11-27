@@ -32,7 +32,15 @@ export const plusIcon = style({
   right: '-10px',
   cursor: 'pointer',
 
-  ':hover': {
+  ':active': {
     filter: 'brightness(0.8)',
+  },
+
+  '@media': {
+    '(hover: hover) and (pointer: fine)': {
+      ':hover': {
+        filter: 'brightness(0.8)',
+      },
+    },
   },
 });

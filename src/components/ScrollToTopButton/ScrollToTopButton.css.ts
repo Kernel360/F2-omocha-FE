@@ -1,8 +1,8 @@
-import { style, keyframes } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 export const scrollButton = style({
   position: 'fixed',
-  bottom: '115px',
+  bottom: '20px',
   right: '20px',
   border: '1px solid rgba(229, 229, 229, 1)',
   background: 'white',
@@ -14,7 +14,28 @@ export const scrollButton = style({
   alignItems: 'center',
   cursor: 'pointer',
 
-  ':hover': {
+  ':active': {
     filter: 'brightness(0.8)',
+  },
+
+  '@media': {
+    '(hover: hover) and (pointer: fine)': {
+      ':hover': {
+        filter: 'brightness(0.8)',
+      },
+    },
+    '(max-width: 504px)': {
+      width: '40px',
+      height: '40px',
+    },
+  },
+});
+
+export const scrollButtonIcon = style({
+  '@media': {
+    '(max-width: 504px)': {
+      width: '20px',
+      height: '20px',
+    },
   },
 });
