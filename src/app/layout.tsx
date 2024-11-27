@@ -4,14 +4,12 @@ import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import { cookies } from 'next/headers';
 
-// import { Category } from '@/apis/types/category';
 import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
 import HeaderSection from '@/components/HeaderSection';
 import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
-// import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
@@ -29,7 +27,7 @@ export const metadata: Metadata = {
   title: 'Omocha',
   description: 'Hello, Omocha!',
   icons: {
-    icon: './icon.ico',
+    icon: '/icon.ico',
   },
 };
 
