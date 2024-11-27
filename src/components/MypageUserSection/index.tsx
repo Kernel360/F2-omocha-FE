@@ -6,14 +6,13 @@ import Image from 'next/image';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import { Modal } from '@/components/Modal/Modal';
 import ImageUploadModal from '@/components/MypageUserSection/components/ImageUploadModal';
-import SkeletonText from '@/components/SkeletonUI/components/SkeletonText';
 import useBooleanState from '@/hooks/useBooleanState';
 import colors from '@/styles/color';
 
 import * as S from './MypageUserSection.css';
 
 function MypageUserSection() {
-  const { data: user, isLoading } = useGetUser();
+  const { data: user } = useGetUser();
   const { value: isOpenImageUploadModal, toggle: setIsOpenImageUploadModal } = useBooleanState();
 
   return (
@@ -40,11 +39,7 @@ function MypageUserSection() {
           onClose={setIsOpenImageUploadModal}
         />
       </Modal>
-      {isLoading ? (
-        <SkeletonText noOfLines={1} height={24} />
-      ) : (
-        <h2 className={S.profileTitle}>{user?.nick_name}</h2>
-      )}
+      <h2 className={S.profileTitle}>{user?.nick_name}</h2>
     </div>
   );
 }

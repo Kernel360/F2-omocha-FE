@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
+import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import usePostAuctionLike from '@/apis/queryHooks/basicAuction/usePostAuctionLike';
 import calculateDDay from '@/utils/calculatedDDay';
 
@@ -42,6 +43,8 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   const [isLike, setIsLike] = useState(false); // 서버와 클라이언트의 불일치 문제 해결을 위해 isLike를 상태로 관리
   const dDay = calculateDDay(endTime);
   const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);
+  const { data: auctionData } = useGetBasicAuction(id);
+  const categoryId = auctionData?.result_data.categories[0].category_id;
 
   useEffect(() => {
     setIsLike(initialLike);
@@ -53,7 +56,10 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   };
 
   return (
-    <Link className={S.cardWrapper} href={`/basicauction/${id}?categoryId=${pickCategory}`}>
+    <Link
+      className={S.cardWrapper}
+      href={`/basicauction/${id}?categoryId=${pickCategory === 0 ? categoryId : pickCategory}`}
+    >
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
       <button type="button" className={S.heartStyle} onClick={handleLike}>
         <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />
