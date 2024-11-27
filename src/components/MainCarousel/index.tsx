@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
@@ -13,15 +14,43 @@ import * as S from './MainCarousel.css';
 const CAROUSEL_INFO = [
   {
     img: sampleResizeBannerImage,
-    link: '/basicauction',
+    link: '/basicauction?page=1',
   },
   {
     img: sampleResizeBannerImage2,
-    link: 'basicauction',
+    link: 'basicauction?page=1',
   },
 ];
 
 function MainCarousel() {
+  const isDragging = useRef(false);
+  const [isClicking, setIsClicking] = useState(false);
+  const startMousePosition = useRef({ x: 0, y: 0 });
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = false;
+    startMousePosition.current = { x: e.clientX, y: e.clientY };
+    setIsClicking(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isClicking) {
+      const diffX = Math.abs(e.clientX - startMousePosition.current.x);
+      const diffY = Math.abs(e.clientY - startMousePosition.current.y);
+
+      if (diffX > 0 || diffY > 0) {
+        isDragging.current = true;
+        setIsClicking(false);
+      }
+    }
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (isDragging.current) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className={S.container}>
       <Slider
@@ -30,12 +59,18 @@ function MainCarousel() {
         speed={500}
         slidesToShow={1}
         slidesToScroll={1}
-        autoplay // 자동 캐러셀
+        autoplay
         autoplaySpeed={8000}
         arrows={false}
       >
         {CAROUSEL_INFO.map(info => (
-          <Link href={info.link} key={info.link}>
+          <Link
+            href={info.link}
+            key={info.link}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onClick={handleClick}
+          >
             <Image width={960} height={400} src={info.img} alt="test" className={S.carouselImage} />
           </Link>
         ))}
