@@ -1,6 +1,7 @@
 export const META = {
-  title: 'OMOCHA: 내가 원하는 모든 굿즈',
+  title: '내가 원하는 모든 굿즈 | OMOCHA',
   siteName: 'OMOCHA | 오모챠',
+  icon: 'icon.ico',
   description:
     '내가 원하는 다양한 굿즈를 만나보세요. 취향에 맞는 굿즈를 구매하고 판매할 수 있어요.',
   keyword: [

@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import { BasicAuctionResponseData } from '@/apis/types/basicAuction';
 import MaxLayout from '@/components/MaxLayout';
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
+import { flattenCategories } from '@/utils/flattenCategoriesTree';
 import getMetadata from '@/utils/getMetadata';
 
 import BasicAuctionInfo from './BasicAuctionInfo';
@@ -17,14 +18,17 @@ interface BasicAuctionDetailPageProps {
 export const generateMetadata = async ({
   params: { id },
 }: BasicAuctionDetailPageProps): Promise<Metadata> => {
-  const auctionData = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/auctions/${id}`,
-  ).then(res => res.json());
+  const auctionData = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/auctions/${id}`)
+    .then(res => res.json())
+    .then(jsonRes => jsonRes.result_data);
+
+  const flattenCategoriesList = flattenCategories(auctionData.categories);
+  const categoryName = flattenCategoriesList[flattenCategoriesList.length - 1].name;
 
   return getMetadata({
-    title: `${auctionData.result_data.categories[0].name}-${id}`, // 제일 하단의 요소로 가져와야하나.. // 아니면 url에 있는 값으로 가져와서 따로 category를 불러오야하나
+    title: `${categoryName} > ${auctionData.title}`,
     asPath: `/basicauction/${id}`,
-    ogImage: `${process.env.NEXT_PUBLIC_S3_URL}${auctionData.result_data.thumbnail_path}`,
+    ogImage: `${process.env.NEXT_PUBLIC_S3_URL}${auctionData.thumbnail_path}`,
   });
 };
 

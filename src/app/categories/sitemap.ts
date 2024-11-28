@@ -1,20 +1,7 @@
 import { MetadataRoute } from 'next';
 
 import { Category } from '@/apis/types/category';
-
-export function flattenCategories(categories: Category[]): Category[] {
-  const flatList: Category[] = [];
-
-  function traverse(category: Category) {
-    flatList.push(category);
-    if (category.sub_categories) {
-      category.sub_categories.forEach(sub => traverse(sub));
-    }
-  }
-
-  categories.forEach(traverse);
-  return flatList;
-}
+import { flattenCategories } from '@/utils/flattenCategoriesTree';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {

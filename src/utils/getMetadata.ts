@@ -23,6 +23,7 @@ function getMetadata(metadataProps?: GenerateMetadataProps) {
     },
     title: TITLE,
     description: DESCRIPTION,
+    icons: META.icon,
     keywords: [...META.keyword],
     openGraph: {
       title: TITLE,
