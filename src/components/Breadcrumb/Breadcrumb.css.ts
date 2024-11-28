@@ -10,7 +10,7 @@ export const breadcrumbItem = style({
   padding: '4px 8px',
   borderRadius: '4px',
   '@media': {
-    'screen and (max-width: 700px)': {
+    'screen and (max-width: 504px)': {
       padding: '4px 4px',
       fontSize: '14px',
     },
@@ -34,7 +34,7 @@ export const breadcrumbItemLink = style({
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
       },
     },
-    'screen and (max-width: 700px)': {
+    'screen and (max-width: 504px)': {
       padding: '4px 4px',
       fontSize: '14px',
     },
@@ -45,7 +45,7 @@ export const lastBreadcrumbItem = style({
   color: 'rgba(0, 0, 0, 1)',
   fontWeight: 'bold',
   '@media': {
-    'screen and (max-width: 700px)': {
+    'screen and (max-width: 504px)': {
       fontSize: '14px',
     },
   },

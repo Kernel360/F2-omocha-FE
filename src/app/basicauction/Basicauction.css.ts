@@ -28,7 +28,21 @@ export const rightSection = style({
 
 export const topInfoSection = style({
   display: 'flex',
+  flexDirection: 'column',
+  margin: '10px 0',
+});
+
+export const optionSection = style({
+  display: 'flex',
   gap: '20px',
   justifyContent: 'flex-end',
   margin: '10px 0',
+});
+
+export const isMobile = style({
+  '@media': {
+    'screen and (min-width: 504px)': {
+      display: 'none',
+    },
+  },
 });

@@ -9,12 +9,6 @@ export const leftSection = style({
   gap: '16px',
   maxWidth: '160px',
   width: '100%',
-
-  '@media': {
-    'screen and (max-width: 504px)': {
-      display: 'none',
-    },
-  },
 });
 
 export const pickCategory = style({
