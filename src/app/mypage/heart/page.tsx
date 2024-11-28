@@ -25,8 +25,6 @@ function Home() {
     fetchNextPage,
   });
 
-  console.log(data);
-
   if (isLoading)
     return (
       <div className={S.heart}>
@@ -44,7 +42,7 @@ function Home() {
           <button
             className={S.noListButton}
             type="button"
-            onClick={() => router.push('/basicauction', { scroll: false })}
+            onClick={() => router.push('/basicauction?page=1', { scroll: false })}
           >
             경매 구경하러 가기
           </button>
@@ -60,6 +58,7 @@ function Home() {
                   thumbnailImage={item.thumbnail_path}
                   title={item.title}
                   isLike={!!item.liked_date}
+                  auctionStatus={item.auction_status}
                   startPrice={item.start_price}
                   startTime={item.start_date}
                   endTime={item.end_date}

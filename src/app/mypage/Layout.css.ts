@@ -15,7 +15,6 @@ export const backContainer = style({
 export const container = style({
   display: 'flex',
   gap: '40px',
-  width: '100%',
 });
 
 export const categoryList = style({
@@ -42,9 +41,15 @@ export const page = style({
   borderRadius: '8px',
   padding: '20px',
   boxSizing: 'border-box',
-  maxWidth: '700px',
+  maxWidth: 'calc(100% - 260px)',
   minHeight: '693px',
   height: '100%',
   boxShadow: shadow.box3,
   backgroundColor: colors.white,
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      maxWidth: '100%',
+    },
+  },
 });

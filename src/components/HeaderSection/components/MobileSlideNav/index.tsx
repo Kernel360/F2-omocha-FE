@@ -1,6 +1,7 @@
 import { UserIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import colors from '@/styles/color';
@@ -25,6 +26,8 @@ function MobileSlideNav({
   userHeartCount,
 }: MobileSlideNavProps) {
   const { mutate: logout } = usePostLogout();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const handleLogout = () => {
     logout();
@@ -65,7 +68,15 @@ function MobileSlideNav({
           </div>
         ) : (
           <div className={S.authWrapper}>
-            <Link href="/login" className={S.button.login} onClick={onClose}>
+            <Link
+              href={
+                searchParams.size > 0
+                  ? `/login?prevUrl=${pathname}?${searchParams}`
+                  : `/login?prevUrl=${pathname}`
+              }
+              className={S.button.login}
+              onClick={onClose}
+            >
               로그인
             </Link>
             <Link href="/join" className={S.button.join} onClick={onClose}>

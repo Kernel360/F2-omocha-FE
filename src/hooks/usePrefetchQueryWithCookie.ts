@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import createApiClient from '@/apis/queryFunctions/apiClient';
 import { Response } from '@/apis/types/common';
 
-interface UsePrefetchQueryProps<T, TQueryKey extends QueryKey> {
+interface UsePrefetchQueryWithCookieProps<T, TQueryKey extends QueryKey> {
   queryKey: TQueryKey;
   api: string;
   initialData?: T;
@@ -13,7 +13,7 @@ interface UsePrefetchQueryProps<T, TQueryKey extends QueryKey> {
 async function usePrefetchQueryWithCookie<T, TQueryKey extends QueryKey>({
   queryKey,
   api,
-}: UsePrefetchQueryProps<T, TQueryKey>) {
+}: UsePrefetchQueryWithCookieProps<T, TQueryKey>) {
   const cookie = cookies();
   const apiClient = createApiClient(cookie.toString());
   const queryClient = new QueryClient();

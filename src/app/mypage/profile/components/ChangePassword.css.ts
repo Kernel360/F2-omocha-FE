@@ -1,5 +1,8 @@
 import { style } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+import typography from '@/styles/typo';
+
 export const section = style({
   display: 'flex',
   flexDirection: 'column',
@@ -9,6 +12,11 @@ export const section = style({
 export const sectionTitle = style({
   fontSize: '16px',
   fontWeight: '800',
+});
+
+export const description = style({
+  ...typography.caption,
+  color: colors.gray9,
 });
 
 export const form = style({

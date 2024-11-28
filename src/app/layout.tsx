@@ -4,14 +4,13 @@ import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import { cookies } from 'next/headers';
 
-import { Category } from '@/apis/types/category';
 import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
 import HeaderSection from '@/components/HeaderSection';
 import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
-import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
+import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 import { ToastProvider } from '@/provider/toastProvider';
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
   title: 'Omocha',
   description: 'Hello, Omocha!',
   icons: {
-    icon: './icon.ico',
+    icon: '/icon.ico',
   },
 };
 
@@ -45,10 +44,10 @@ export default async function RootLayout({
   const cookie = cookies();
   const isLoggedIn = cookie.has('access');
 
-  const queryClient = await usePrefetchQueryWithCookie<Category[], ['category']>({
-    queryKey: ['category'],
-    api: '/v2/categories',
-  });
+  const queryClient = await usePrefetchQueriesWithCookie([
+    { queryKey: ['userInfo'], api: '/v2/member' },
+    { queryKey: ['category'], api: '/v2/categories' },
+  ]);
 
   return (
     <html lang="en" className={roboto.className}>
@@ -62,12 +61,12 @@ export default async function RootLayout({
             <AuthProvider isLoggedIn={isLoggedIn}>
               <HydrationBoundary state={dehydrate(queryClient)}>
                 <HeaderSection />
+                <div className={S.container}>
+                  {children}
+                  <ChattingIconButton />
+                  <ScrollToTopButton />
+                </div>
               </HydrationBoundary>
-              <div className={S.container}>
-                {children}
-                <ChattingIconButton />
-                <ScrollToTopButton />
-              </div>
             </AuthProvider>
             <Footer />
             <ReactQueryDevtools initialIsOpen={false} />

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
 import logoIcon from '@/assets/png/logo.png';
@@ -14,6 +14,7 @@ function UserHeader() {
   const { isLoggedIn } = useAuth();
   const { mutate: logout } = usePostLogout();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   return (
     <section className={S.topHeader}>
@@ -23,31 +24,7 @@ function UserHeader() {
       </Link>
       <div className={S.topCategory}>
         {SUB_CATEGORY.map(category => {
-          if (category.name === '로그인' && isLoggedIn) {
-            return (
-              <button
-                className={S.logoutButton}
-                key={category.id}
-                type="button"
-                onClick={() => logout()}
-              >
-                로그아웃
-              </button>
-            );
-          }
           if (category.path) {
-            if (category.name === '로그인') {
-              return (
-                <Link
-                  key={category.id}
-                  href={`${category.path}?prevUrl=${pathname}`}
-                  scroll={false}
-                  className={S.TopHeaderUnit}
-                >
-                  {category.name}
-                </Link>
-              );
-            }
             return (
               <Link
                 key={category.id}
@@ -69,7 +46,12 @@ function UserHeader() {
                 if (isLoggedIn) {
                   // setTrue();
                 } else {
-                  router.push('/login', { scroll: false });
+                  router.push(
+                    searchParams.size > 0
+                      ? `/login?prevUrl=${pathname}?${searchParams}`
+                      : `/login?prevUrl=${pathname}`,
+                    { scroll: false },
+                  );
                 }
               }}
             >
@@ -77,6 +59,23 @@ function UserHeader() {
             </button>
           );
         })}
+        {isLoggedIn ? (
+          <button className={S.logoutButton} type="button" onClick={() => logout()}>
+            로그아웃
+          </button>
+        ) : (
+          <Link
+            href={
+              searchParams.size > 0
+                ? `/login?prevUrl=${pathname}?${searchParams}`
+                : `/login?prevUrl=${pathname}`
+            }
+            scroll={false}
+            className={S.TopHeaderUnit}
+          >
+            로그인
+          </Link>
+        )}
       </div>
     </section>
   );
