@@ -9,12 +9,7 @@ import colors from '@/styles/color';
 
 import * as S from '../Basicauction.css';
 
-interface ImageRequiredProps {
-  thumbnail: File | null;
-  setThumbnail: React.Dispatch<React.SetStateAction<File | null>>;
-}
-
-function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
+function ImageRequired() {
   const {
     formState: { errors },
     control,
@@ -35,26 +30,12 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
     }
   };
 
-  const isSelected = (imageUrl: File) => {
-    if (thumbnail === imageUrl) {
-      return true;
-    }
-    return false;
-  };
-
-  const deleteImage = (index: number) => {
-    remove(index);
-    if (thumbnail === fields[index].file) {
-      setThumbnail(null);
-    }
-  };
-
   return (
     <div className={S.auctionLabel}>
       <h2 className={S.title}>사진</h2>
       <div className={S.flexWrapper}>
         <div className={S.description}>
-          대표 이미지 미선택 시 첫 번째 이미지가 대표 이미지로 설정됩니다.
+          첫 번째 이미지가 대표 이미지로 설정됩니다.
           <br />
           png, jpg, jpeg, gif 파일만 업로드 가능합니다.
         </div>
@@ -73,37 +54,26 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
           />
         </label>
         <ul className={S.imageList}>
-          {fields
-            .slice()
-            .reverse()
-            .map(({ imageRequiredId, file }, index) => (
-              <li key={imageRequiredId} className={S.imageWrapper}>
-                <button type="button" onClick={() => setThumbnail(file)}>
-                  <div
-                    className={
-                      isSelected(file) ? S.thumbnailButton.selected : S.thumbnailButton.default
-                    }
-                  >
-                    대표
-                  </div>
-                </button>
-                <Image
-                  className={S.image}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  src={URL.createObjectURL(file)}
-                  alt={URL.createObjectURL(file)}
-                />
-                <button
-                  type="button"
-                  className={S.deleteButton}
-                  onClick={() => deleteImage(fields.length - index - 1)} // remove(fields.length - index - 1)}
-                >
-                  <CircleXIcon stroke={colors.gray10} />
-                </button>
-              </li>
-            ))}
+          {fields.map(({ imageRequiredId, file }, index) => (
+            <li key={imageRequiredId} className={S.imageWrapper}>
+              {index === 0 && <div className={S.thumbnailButton}>대표</div>}
+              <Image
+                className={S.image}
+                width={0}
+                height={0}
+                sizes="100vw"
+                src={URL.createObjectURL(file)}
+                alt={URL.createObjectURL(file)}
+              />
+              <button
+                type="button"
+                className={S.deleteButton}
+                onClick={() => remove(index)} // remove(fields.length - index - 1)
+              >
+                <CircleXIcon stroke={colors.gray10} />
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
       {errors.imagesRequired && (

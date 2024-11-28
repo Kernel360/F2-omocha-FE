@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import shadow from '@/styles/shadow';
@@ -230,7 +230,7 @@ export const image = style({
   borderRadius: '10px',
 });
 
-export const thumbnailButtonBase = style({
+export const thumbnailButton = style({
   cursor: 'pointer',
   position: 'absolute',
   top: '5px',
@@ -238,28 +238,10 @@ export const thumbnailButtonBase = style({
   zIndex: '1',
   padding: '4px',
   fontSize: '12px',
-  color: colors.gray8,
   borderRadius: '4px',
-
-  border: `1px solid ${colors.gray8}`,
-  ':hover': {
-    color: colors.primary10,
-    fontWeight: 'bold',
-    border: `1.5px solid ${colors.primary9}`,
-    backgroundColor: colors.primary3,
-  },
-});
-
-export const thumbnailButton = styleVariants({
-  default: [thumbnailButtonBase, {}],
-  selected: [
-    thumbnailButtonBase,
-    {
-      color: colors.primary10,
-      border: `1.5px solid ${colors.primary9}`,
-      backgroundColor: colors.primary3,
-    },
-  ],
+  color: colors.primary10,
+  border: `1.5px solid ${colors.primary9}`,
+  backgroundColor: colors.primary3,
 });
 
 export const deleteButton = style({
