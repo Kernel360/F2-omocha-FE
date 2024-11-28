@@ -33,8 +33,16 @@ export const heartStyle = style({
   boxShadow: shadow.box3,
   cursor: 'pointer',
 
-  ':hover': {
-    filter: 'brightness(0.9)',
+  ':active': {
+    filter: 'brightness(0.8)',
+  },
+
+  '@media': {
+    '(hover: hover) and (pointer: fine)': {
+      ':hover': {
+        filter: 'brightness(0.8)',
+      },
+    },
   },
 });
 

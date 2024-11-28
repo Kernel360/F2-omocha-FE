@@ -17,6 +17,6 @@ const skeletonBase = style({
 
 export const skeletonStyle = styleVariants({
   circle: [skeletonBase, { borderRadius: '50%' }],
-  text: [skeletonBase, { height: '16px', width: '100%', borderRadius: '4px' }],
+  text: [skeletonBase, { width: '100%', borderRadius: '4px' }],
   card: [skeletonBase, { borderRadius: '12px' }],
 });

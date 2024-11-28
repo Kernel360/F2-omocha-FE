@@ -9,6 +9,7 @@ export const tabsRoot = style({
   gap: '10px',
   marginBottom: '20px',
 });
+
 export const tabsList = style({
   display: 'flex',
 });
