@@ -15,7 +15,7 @@ export const META = {
     '영화',
     '음악',
   ],
-  url: `${process.env.NEXT_PUBLIC_LOCAL_API_URL}`,
+  url: `https://www.omocha-auction.com`,
   // googleVerification: 'xxx', 포털에서 받은거 넣기
   // naverVerification: 'xxx',
   ogImage: 'opengraph-image.png', // 정적으로 디폴트로 사용할 사진
