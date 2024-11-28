@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
-import { CircleXIcon, TriangleAlertIcon } from 'lucide-react';
-import Image from 'next/image';
+import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
+import { TriangleAlertIcon } from 'lucide-react';
 
+import ImageItem from '@/app/create/components/imageitem';
 import { AuctionInputs } from '@/app/create/types/InputTypes';
 import { imageValidation } from '@/app/create/utils/createValidation';
 import colors from '@/styles/color';
@@ -30,6 +31,12 @@ function ImageRequired() {
       const files = uploadFile.map(file => ({ file }));
       append(files);
     }
+  };
+
+  const deleteImage = (index: number) => {
+    const fileToRemove = fields[index].file;
+    URL.revokeObjectURL(URL.createObjectURL(fileToRemove));
+    remove(index);
   };
 
   const onDragEnd = ({ source, destination }: DropResult) => {
@@ -74,33 +81,13 @@ function ImageRequired() {
                 {...droppableProvided.droppableProps}
               >
                 {fields.map(({ imageRequiredId, file }, index) => (
-                  <Draggable key={imageRequiredId} draggableId={imageRequiredId} index={index}>
-                    {draggableProvided => (
-                      <li
-                        className={S.imageWrapper}
-                        ref={draggableProvided.innerRef}
-                        {...draggableProvided.draggableProps}
-                        {...draggableProvided.dragHandleProps}
-                      >
-                        {index === 0 && <div className={S.thumbnailButton}>대표</div>}
-                        <Image
-                          className={S.image}
-                          width={0}
-                          height={0}
-                          sizes="50vw"
-                          src={URL.createObjectURL(file)}
-                          alt={URL.createObjectURL(file)}
-                        />
-                        <button
-                          type="button"
-                          className={S.deleteButton}
-                          onClick={() => remove(index)} // remove(fields.length - index - 1)
-                        >
-                          <CircleXIcon stroke={colors.gray10} />
-                        </button>
-                      </li>
-                    )}
-                  </Draggable>
+                  <ImageItem
+                    key={imageRequiredId}
+                    imageRequiredId={imageRequiredId}
+                    file={file}
+                    index={index}
+                    deleteImage={deleteImage}
+                  />
                 ))}
                 {droppableProvided.placeholder}
               </ul>

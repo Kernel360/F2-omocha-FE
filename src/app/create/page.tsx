@@ -2,12 +2,14 @@
 
 'use client';
 
-import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
 import ContentRequired from '@/app/create/components/contentrequired';
+import EndDateRequired from '@/app/create/components/enddaterequired';
 import ImageRequired from '@/app/create/components/imagerequired';
+import NameRequiredProps from '@/app/create/components/namerequired';
+import TypePriceRequired from '@/app/create/components/typepricerequired';
 import { AuctionInputs } from '@/app/create/types/InputTypes';
 import CommonButton from '@/components/CommonButton';
 import MaxLayout from '@/components/MaxLayout';
@@ -15,9 +17,6 @@ import MaxLayout from '@/components/MaxLayout';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
-import EndDateRequired from './components/enddaterequired';
-import NameRequiredProps from './components/namerequired';
-import TypePriceRequired from './components/typepricerequired';
 
 export default function Home() {
   const methods = useForm<AuctionInputs>();
@@ -30,7 +29,6 @@ export default function Home() {
     formState: { errors },
   } = methods;
 
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
   const instantBuyPriceValue = useWatch({ name: 'instantBuyPrice', control });
 
   const { mutate: postBasicAuction } = usePostBasicAuction();
@@ -53,11 +51,14 @@ export default function Home() {
 
     data.imagesRequired.forEach(image => formData.append('images', image.file));
 
-    formData.append('thumbnailPath', thumbnail || data.imagesRequired[0].file);
+    formData.append('thumbnailPath', data.imagesRequired[0].file);
 
     // useDebounce(() => postBasicAuction(formData), 500);
     // useDebounce로 감싸면 에러가 나서 일단 주석처리함
 
+    // Array.from(formData.entries()).forEach(([key, value]) => {
+    //   console.log(key, value);
+    // });
     postBasicAuction(formData);
   };
 
@@ -75,7 +76,7 @@ export default function Home() {
                 register={register}
                 errors={errors}
               />
-              <ImageRequired thumbnail={thumbnail} setThumbnail={setThumbnail} />
+              <ImageRequired />
               <ContentRequired />
               <EndDateRequired register={register} errors={errors} />
               <div className={S.buttonContainer}>
