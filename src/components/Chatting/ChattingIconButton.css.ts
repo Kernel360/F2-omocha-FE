@@ -150,7 +150,7 @@ export const popoverClose = style({
 export const iconButton = style({
   position: 'fixed',
   zIndex: '1',
-  bottom: '50px',
+  bottom: '90px',
   right: '20px',
   borderRadius: '100%',
   height: '55px',
@@ -166,11 +166,26 @@ export const iconButton = style({
       boxShadow: '0 2px 10px black',
     },
   },
+
+  '@media': {
+    '(max-width: 504px)': {
+      bottom: '75px',
+      width: '40px',
+      height: '40px',
+    },
+  },
 });
 
 export const chatIcon = style({
   fill: 'white',
   stroke: 'white',
+
+  '@media': {
+    '(max-width: 504px)': {
+      width: '20px',
+      height: '20px',
+    },
+  },
 });
 
 export const fieldset = style({
