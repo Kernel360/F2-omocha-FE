@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
+import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 import { CircleXIcon, TriangleAlertIcon } from 'lucide-react';
 import Image from 'next/image';
 
@@ -15,7 +17,7 @@ function ImageRequired() {
     control,
   } = useFormContext<AuctionInputs>();
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, replace } = useFieldArray({
     control,
     name: 'imagesRequired',
     keyName: 'imageRequiredId',
@@ -28,6 +30,16 @@ function ImageRequired() {
       const files = uploadFile.map(file => ({ file }));
       append(files);
     }
+  };
+
+  const onDragEnd = ({ source, destination }: DropResult) => {
+    // source - 시작 위치, destination - 끝 위치
+    if (!destination || source.index === destination.index) return;
+
+    const updatedFields = [...fields];
+    const [removed] = updatedFields.splice(source.index, 1);
+    updatedFields.splice(destination.index, 0, removed);
+    replace(updatedFields);
   };
 
   return (
@@ -53,28 +65,48 @@ function ImageRequired() {
             onChange={addImage}
           />
         </label>
-        <ul className={S.imageList}>
-          {fields.map(({ imageRequiredId, file }, index) => (
-            <li key={imageRequiredId} className={S.imageWrapper}>
-              {index === 0 && <div className={S.thumbnailButton}>대표</div>}
-              <Image
-                className={S.image}
-                width={0}
-                height={0}
-                sizes="100vw"
-                src={URL.createObjectURL(file)}
-                alt={URL.createObjectURL(file)}
-              />
-              <button
-                type="button"
-                className={S.deleteButton}
-                onClick={() => remove(index)} // remove(fields.length - index - 1)
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="imageList" direction="horizontal">
+            {droppableProvided => (
+              <ul
+                className={S.imageList}
+                ref={droppableProvided.innerRef}
+                {...droppableProvided.droppableProps}
               >
-                <CircleXIcon stroke={colors.gray10} />
-              </button>
-            </li>
-          ))}
-        </ul>
+                {fields.map(({ imageRequiredId, file }, index) => (
+                  <Draggable key={imageRequiredId} draggableId={imageRequiredId} index={index}>
+                    {draggableProvided => (
+                      <li
+                        className={S.imageWrapper}
+                        ref={draggableProvided.innerRef}
+                        {...draggableProvided.draggableProps}
+                        {...draggableProvided.dragHandleProps}
+                      >
+                        {index === 0 && <div className={S.thumbnailButton}>대표</div>}
+                        <Image
+                          className={S.image}
+                          width={0}
+                          height={0}
+                          sizes="50vw"
+                          src={URL.createObjectURL(file)}
+                          alt={URL.createObjectURL(file)}
+                        />
+                        <button
+                          type="button"
+                          className={S.deleteButton}
+                          onClick={() => remove(index)} // remove(fields.length - index - 1)
+                        >
+                          <CircleXIcon stroke={colors.gray10} />
+                        </button>
+                      </li>
+                    )}
+                  </Draggable>
+                ))}
+                {droppableProvided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
       {errors.imagesRequired && (
         <span className={S.error}>
