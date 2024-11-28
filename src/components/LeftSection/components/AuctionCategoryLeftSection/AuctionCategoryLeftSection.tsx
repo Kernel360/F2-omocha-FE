@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
-import AuctionCategory from '@/components/LeftSection/components/AuctionCategory/AuctionCategory';
+import AuctionCategory from '@/components/Category/AuctionCategory/AuctionCategory';
 import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 
 import * as S from './AuctionCategoryLeftSection.css';

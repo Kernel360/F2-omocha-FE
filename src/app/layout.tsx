@@ -14,6 +14,7 @@ import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 import { ToastProvider } from '@/provider/toastProvider';
+import getMetadata from '@/utils/getMetadata';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -23,12 +24,8 @@ const roboto = Roboto({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'Omocha',
-  description: 'Hello, Omocha!',
-  icons: {
-    icon: '/icon.ico',
-  },
+export const generateMetadata = async (): Promise<Metadata> => {
+  return getMetadata();
 };
 
 export const viewport: Viewport = {
@@ -50,7 +47,7 @@ export default async function RootLayout({
   ]);
 
   return (
-    <html lang="en" className={roboto.className}>
+    <html lang="ko" className={roboto.className}>
       <Head>
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>

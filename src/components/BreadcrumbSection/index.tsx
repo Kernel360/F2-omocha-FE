@@ -43,9 +43,14 @@ function categoryBreadCrumb(categoryData: Category[]) {
   return breadCrumb;
 }
 
-function BreadcrumbSection() {
+interface BreadcrumbSectionProps {
+  pickCategoryProps?: number;
+}
+
+function BreadcrumbSection({ pickCategoryProps }: BreadcrumbSectionProps) {
   const searchParams = useSearchParams();
-  const pickCategory = Number(searchParams.get('categoryId'));
+
+  const pickCategory = pickCategoryProps || Number(searchParams.get('categoryId'));
 
   const { data: categoryData } = useGetCategory();
 
