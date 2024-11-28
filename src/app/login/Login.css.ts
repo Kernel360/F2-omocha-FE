@@ -7,7 +7,7 @@ import shadow from '@/styles/shadow';
 export const backContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  padding: '60px 0 0 0',
+  padding: '60px 0',
   minHeight: layout.minHeight,
   boxSizing: 'border-box',
   alignItems: 'center',

@@ -41,6 +41,12 @@ export const inputSection = style({
   width: '100%',
 });
 
+export const emailSection = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+});
+
 export const commonInputContainer = style({
   position: 'relative',
 });

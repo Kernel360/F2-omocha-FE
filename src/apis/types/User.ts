@@ -2,7 +2,7 @@ export interface UserResponseData {
   member_id: number;
   email: string;
   user_name: string | null;
-  nick_name: string | null;
+  nick_name: string;
   phone_number: string | null;
   birth: string | null;
   profile_image_url: string | null;

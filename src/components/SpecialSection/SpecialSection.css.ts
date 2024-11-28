@@ -11,7 +11,7 @@ export const specialSection = style({
   padding: '50px 20px',
   boxSizing: 'border-box',
   width: '100%',
-  background: 'url(http://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat',
+  background: 'url(https://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat',
   '@media': {
     'screen and (max-width: 1100px)': {
       flexDirection: 'column',
@@ -114,5 +114,4 @@ export const specialAuctionPriceTitle = style({
 
 export const specialAuctionPrice = style({
   fontSize: '14px',
-  fontWeight: 'bold',
 });

@@ -1,5 +1,7 @@
 import { style, keyframes } from '@vanilla-extract/css';
 
+import colors from '@/styles/color';
+
 export const slideUpAndFade = keyframes({
   from: { opacity: 0, transform: 'translateY(2px)' },
   to: { opacity: 1, transform: 'translateY(0)' },
@@ -22,8 +24,8 @@ export const slideLeftAndFade = keyframes({
 
 export const goBackButton = style({
   position: 'fixed',
-  top: '18px',
-  left: '5px',
+  top: '16px',
+  left: '10px',
   width: 'fit-content',
   display: 'inline-flex',
   alignItems: 'center',
@@ -54,10 +56,29 @@ export const title = style({
 });
 
 export const chattingListWrapper = style({
-  marginTop: '61px',
-  height: '100%',
+  marginTop: '62px',
+  // height: '100%',
   overflowY: 'scroll',
 });
+
+export const noListWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '20px',
+  marginTop: '130px',
+});
+
+export const noListTitleWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '10px',
+});
+
+export const noListTitle = style({ fontSize: '14px', fontWeight: '500', color: colors.gray10 });
 
 export const chattingUnitButton = style({
   width: '100%',
@@ -129,7 +150,7 @@ export const popoverClose = style({
 export const iconButton = style({
   position: 'fixed',
   zIndex: '1',
-  bottom: '50px',
+  bottom: '90px',
   right: '20px',
   borderRadius: '100%',
   height: '55px',
@@ -145,11 +166,26 @@ export const iconButton = style({
       boxShadow: '0 2px 10px black',
     },
   },
+
+  '@media': {
+    '(max-width: 504px)': {
+      bottom: '75px',
+      width: '40px',
+      height: '40px',
+    },
+  },
 });
 
 export const chatIcon = style({
   fill: 'white',
   stroke: 'white',
+
+  '@media': {
+    '(max-width: 504px)': {
+      width: '20px',
+      height: '20px',
+    },
+  },
 });
 
 export const fieldset = style({

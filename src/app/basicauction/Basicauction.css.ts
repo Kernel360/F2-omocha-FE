@@ -4,10 +4,11 @@ export const basicAuctionContainer = style({
   display: 'flex',
   gap: '20px',
   padding: '30px 0',
-
   '@media': {
     'screen and (max-width: 504px)': {
       flexDirection: 'column',
+      padding: '10px 0',
+      gap: 0,
     },
   },
 });
@@ -27,7 +28,21 @@ export const rightSection = style({
 
 export const topInfoSection = style({
   display: 'flex',
+  flexDirection: 'column',
+  margin: '10px 0',
+});
+
+export const optionSection = style({
+  display: 'flex',
   gap: '20px',
   justifyContent: 'flex-end',
-  marginBottom: '10px',
+  margin: '10px 0',
+});
+
+export const isMobile = style({
+  '@media': {
+    'screen and (min-width: 504px)': {
+      display: 'none',
+    },
+  },
 });

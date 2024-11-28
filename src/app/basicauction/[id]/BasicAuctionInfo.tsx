@@ -7,6 +7,7 @@ import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuctio
 import BasicAuctionInfoContent from '@/app/basicauction/[id]/BasicAuctionInfoContent';
 import AuctionImageInfo from '@/components/AuctionImageInfo';
 import AuctionInfo from '@/components/AuctionInfo';
+import BreadcrumbSection from '@/components/BreadcrumbSection';
 import TabsLayout from '@/components/TabsLayout';
 
 import * as S from './BasicAuctionInfo.css';
@@ -17,11 +18,11 @@ interface BasicAuctionInfoProps {
 }
 const TABS = [
   {
-    title: '상품 정보',
+    title: '경매 정보',
     value: 'productInfo',
   },
   {
-    title: '상품 문의',
+    title: '경매 문의',
     value: 'productInquiry',
   },
 ];
@@ -33,13 +34,14 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
 
   if (!data) return null;
 
-  const sellerId = data.result_data.member_id; // 판매자 아이디가 member_id?
+  const sellerId = data.result_data.member_id;
   const userId = user.data?.member_id;
   const userEmail = user.data?.email;
   const isSeller = sellerId === userId;
 
   return (
-    <div>
+    <div className={S.auctionWrapper}>
+      <BreadcrumbSection />
       <div className={S.auctionInfoWrapper}>
         <AuctionImageInfo imageList={data.result_data.image_paths} />
         <AuctionInfo
