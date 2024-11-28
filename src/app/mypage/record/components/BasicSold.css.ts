@@ -8,7 +8,7 @@ export const noListWrapper = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '20px',
-  marginTop: '70px',
+  marginTop: '200px',
 });
 
 export const noListTitle = style({ fontSize: '16px', fontWeight: '500', color: colors.gray10 });
@@ -26,7 +26,8 @@ export const basicSold = style({
   display: 'flex',
   flexDirection: 'column',
   listStyle: 'none',
-  maxHeight: '400px',
+  maxHeight: '560px',
+  height: '100%',
   overflow: 'scroll',
   borderRadius: '8px',
 });

@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import useGetBasicAuctionBidList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionBidList';
 import { useAuth } from '@/provider/authProvider';
@@ -12,11 +12,12 @@ interface AuctionBidListModalProps {
 function AuctionBidListModal({ id }: AuctionBidListModalProps) {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   const { data } = useGetBasicAuctionBidList(id);
 
   const moveToLogin = () => {
-    router.push('/login', { scroll: false });
+    router.push(`/login?prevUrl=${pathname}`, { scroll: false });
   };
 
   if (!isLoggedIn) {

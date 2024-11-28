@@ -6,7 +6,7 @@ export const basicBid = style({
   display: 'flex',
   flexDirection: 'column',
   listStyle: 'none',
-  maxHeight: '400px',
+  maxHeight: '560px',
   overflow: 'scroll',
   borderRadius: '8px',
 });

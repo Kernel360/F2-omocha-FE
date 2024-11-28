@@ -58,6 +58,9 @@ function ChangePassword() {
   return (
     <section className={S.section}>
       <h3 className={S.sectionTitle}>비밀번호 변경</h3>
+      {user?.login_type !== 'general' && (
+        <span className={S.description}>소셜 로그인 사용자는 비밀번호 변경이 불가능합니다.</span>
+      )}
       <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={S.commonInputContainer}>
           <CommonInput

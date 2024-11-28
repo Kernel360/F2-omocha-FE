@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { useAuth } from '@/provider/authProvider';
 
@@ -7,9 +7,10 @@ import * as S from './HaveToLoginNotiModal.css';
 function HaveToLoginNotiModal() {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   const moveToLogin = () => {
-    router.push('/login', { scroll: false });
+    router.push(`/login?prevUrl=${pathname}`, { scroll: false });
   };
 
   if (!isLoggedIn) {

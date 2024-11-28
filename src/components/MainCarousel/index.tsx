@@ -36,7 +36,14 @@ function MainCarousel() {
       >
         {CAROUSEL_INFO.map(info => (
           <Link href={info.link} key={info.link}>
-            <Image width={960} height={400} src={info.img} alt="test" className={S.carouselImage} />
+            <Image
+              width={960}
+              height={400}
+              src={info.img}
+              alt="test"
+              className={S.carouselImage}
+              priority
+            />
           </Link>
         ))}
       </Slider>
