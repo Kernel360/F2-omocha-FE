@@ -34,7 +34,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
 
   if (!data) return null;
 
-  const sellerId = data.result_data.member_id; // 판매자 아이디가 member_id?
+  const sellerId = data.result_data.member_id;
   const userId = user.data?.member_id;
   const userEmail = user.data?.email;
   const isSeller = sellerId === userId;

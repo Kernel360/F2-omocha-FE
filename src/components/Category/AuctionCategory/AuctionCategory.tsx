@@ -1,5 +1,5 @@
 import { Category } from '@/apis/types/category';
-import CategoryUnit from '@/components/LeftSection/components/CategoryUnit/CategoryUnit';
+import CategoryUnit from '@/components/Category/CategoryUnit/CategoryUnit';
 import useSetSearchParams from '@/hooks/useSetSearchParam';
 
 import * as S from './AuctionCategory.css';
