@@ -47,7 +47,7 @@ export default async function RootLayout({
   ]);
 
   return (
-    <html lang="en" className={roboto.className}>
+    <html lang="ko" className={roboto.className}>
       <Head>
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>

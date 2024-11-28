@@ -19,7 +19,13 @@ interface GenerateMetadataProps {
 export const generateMetadata = async ({
   searchParams,
 }: GenerateMetadataProps): Promise<Metadata> => {
-  const queryValue = searchParams.categoryId || 'ALL';
+  const queryValue = searchParams.categoryId;
+  if (!queryValue) {
+    return getMetadata({
+      title: 'ALL',
+      asPath: '/basicauction?page=1',
+    });
+  }
   const categoryListTree = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/categories/${queryValue}`,
   )
@@ -31,6 +37,7 @@ export const generateMetadata = async ({
 
   return getMetadata({
     title: `${categoryName}`,
+    asPath: `/basicauction?categoryId=${queryValue}&page=1`,
     // TODO 예쁜 사진이 있다면 그것으로 카테고리를 나타내서 openGraphImage를 설정하면 좋을 듯함.
   });
 };
