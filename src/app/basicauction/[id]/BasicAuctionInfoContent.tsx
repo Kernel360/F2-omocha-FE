@@ -14,12 +14,14 @@ function BasicAuctionInfoContent({ content }: BasicAuctionInfoContentProps) {
   const htmlContent = convertSlateToHTML(contentArray);
 
   return (
-    <div
-      className={S.content}
-      dangerouslySetInnerHTML={{
-        __html: DOMPurify.sanitize(htmlContent),
-      }}
-    />
+    htmlContent && (
+      <div
+        className={S.content}
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(htmlContent),
+        }}
+      />
+    )
   );
 }
 

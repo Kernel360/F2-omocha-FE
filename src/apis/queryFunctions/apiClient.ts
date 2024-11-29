@@ -5,7 +5,9 @@ function createApiClient(cookie?: string) {
     baseURL: `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api`,
     timeout: 100000,
     withCredentials: true,
-    headers: cookie ? { Cookie: cookie } : {},
+    headers: {
+      ...(cookie ? { Cookie: cookie } : {}),
+    },
   });
 
   client.interceptors.request.use(
