@@ -25,7 +25,6 @@ export default function Home() {
     handleSubmit,
     setValue,
     watch,
-    control,
     getValues,
     formState: { errors },
   } = methods;
