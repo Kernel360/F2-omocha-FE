@@ -32,18 +32,9 @@ function ImageRequired() {
       const uploadFile = Array.from(e.target.files);
       const newFiles = uploadFile.map(file => ({ file }));
 
-      const newPreviewUrls: string[] = [];
-      uploadFile.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          newPreviewUrls.push(reader.result as string);
-          if (newPreviewUrls.length === uploadFile.length) {
-            setPreviewImages(prevUrls => [...prevUrls, ...newPreviewUrls]);
-          }
-        };
-        reader.readAsDataURL(file);
-      });
+      const newPreviewUrls = uploadFile.map(file => URL.createObjectURL(file));
 
+      setPreviewImages(prevUrls => [...prevUrls, ...newPreviewUrls]);
       append(newFiles);
     }
   };

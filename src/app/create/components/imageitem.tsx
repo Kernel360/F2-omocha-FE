@@ -34,7 +34,6 @@ function ImageItem({ imageRequiredId, index, deleteImage, previewImage }: ImageI
             sizes="50vw"
             src={previewImage}
             alt={previewImage}
-            priority
           />
           <button type="button" className={S.deleteButton} onClick={() => deleteImage(index)}>
             <CircleXIcon stroke={colors.gray10} size={20} />
@@ -45,4 +44,4 @@ function ImageItem({ imageRequiredId, index, deleteImage, previewImage }: ImageI
   );
 }
 
-export default React.memo(ImageItem);
+export default ImageItem;
