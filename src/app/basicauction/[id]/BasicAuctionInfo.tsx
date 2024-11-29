@@ -2,9 +2,10 @@
 
 import React from 'react';
 
+import dynamic from 'next/dynamic';
+
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
-import BasicAuctionInfoContent from '@/app/basicauction/[id]/BasicAuctionInfoContent';
 import AuctionImageInfo from '@/components/AuctionImageInfo';
 import AuctionInfo from '@/components/AuctionInfo';
 import BreadcrumbSection from '@/components/BreadcrumbSection';
@@ -12,6 +13,13 @@ import TabsLayout from '@/components/TabsLayout';
 
 import * as S from './BasicAuctionInfo.css';
 import BasicAuctionInfoQnA from './BasicAuctionInfoQnA';
+
+const BasicAuctionInfoContent = dynamic(
+  () => import('@/app/basicauction/[id]/BasicAuctionInfoContent').then(module => module.default),
+  {
+    ssr: false,
+  },
+);
 
 interface BasicAuctionInfoProps {
   id: number;

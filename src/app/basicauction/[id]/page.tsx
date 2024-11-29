@@ -39,8 +39,6 @@ export const generateMetadata = async ({
     return getMetadata({
       title: 'Auction Detail',
       asPath: `/basicauction/${id}`,
-
-      // 잘못 되었을 떄
     });
   }
 };
