@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { set, useFieldArray, useFormContext } from 'react-hook-form';
 
 import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import { TriangleAlertIcon } from 'lucide-react';
@@ -11,6 +11,9 @@ import { imageValidation } from '@/app/create/utils/createValidation';
 import colors from '@/styles/color';
 
 import * as S from '../Basicauction.css';
+import { useToast } from '@/provider/toastProvider';
+
+const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB
 
 function ImageRequired() {
   const {
@@ -26,16 +29,28 @@ function ImageRequired() {
   });
 
   const [previewImages, setPreviewImages] = useState<string[]>([]); // 프리뷰 이미지
+  const { showToast } = useToast();
 
+  console.log(fields, previewImages);
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const uploadFile = Array.from(e.target.files);
-      const newFiles = uploadFile.map(file => ({ file }));
+      const uploadFiles = Array.from(e.target.files);
 
-      const newPreviewUrls = uploadFile.map(file => URL.createObjectURL(file));
+      const validFiles = uploadFiles.filter(file => {
+        if (file.size > MAX_IMAGE_SIZE) {
+          showToast('error', '1MB 이하의 이미지만 업로드 가능합니다.');
+          return;
+        }
+        return file;
+      });
 
-      setPreviewImages(prevUrls => [...prevUrls, ...newPreviewUrls]);
-      append(newFiles);
+      if (validFiles.length > 0) {
+        const newFiles = validFiles.map(file => ({ file }));
+        const newPreviewUrls = validFiles.map(file => URL.createObjectURL(file));
+
+        append(newFiles);
+        setPreviewImages(prevUrls => [...prevUrls, ...newPreviewUrls]);
+      }
     }
   };
 
