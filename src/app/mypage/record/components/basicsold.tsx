@@ -27,16 +27,38 @@ export default function BasicSold({ history }: BasicSoldProps) {
         alt="경매 사진"
       />
       <ul className={S.listRight}>
-        <li className={`${S.listFirst} ${S.listData}`}>
-          <button
-            type="button"
-            onClick={() => router.push(`/basicauction/${history.auction_id}`, { scroll: false })}
-            className={S.bidTitle}
-          >
-            <span>{history.title}</span>
-            <ChevronRightIcon size={14} />
-          </button>
-        </li>
+        <div className={S.listTitleWrapper}>
+          <li className={`${S.listFirst} ${S.listData}`}>
+            <button
+              type="button"
+              onClick={() => router.push(`/basicauction/${history.auction_id}`, { scroll: false })}
+              className={S.bidTitle}
+            >
+              <span>{history.title}</span>
+              <ChevronRightIcon size={14} />
+            </button>
+          </li>
+          {history.auction_status === 'BIDDING' && (
+            <div className={S.bidding}>
+              <span className={`${S.listValue} ${getAuctionStatusStyle(history.auction_status)}`}>
+                {history.auction_status}진행중
+              </span>
+            </div>
+          )}
+          {(history.auction_status === 'CONCLUDED' || history.auction_status === 'COMPLETE') &&
+            !history.review_status && (
+              <button
+                type="button"
+                className={S.reviewButton}
+                onClick={e => {
+                  e.stopPropagation();
+                  console.log('리뷰 쓰기');
+                }}
+              >
+                <span className={S.listValue}>구매자 리뷰 쓰기</span>
+              </button>
+            )}
+        </div>
         <li className={S.listData}>
           <span className={S.listName}>판매 상태</span>
           <span className={`${S.listValue} ${getAuctionStatusStyle(history.auction_status)}`}>

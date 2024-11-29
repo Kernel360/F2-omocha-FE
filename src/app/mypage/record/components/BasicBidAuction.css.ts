@@ -23,9 +23,6 @@ export const list = style({
 });
 
 export const reviewButton = style({
-  position: 'absolute',
-  top: '20px',
-  right: '10px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -53,9 +50,6 @@ const blinkAnimation = keyframes({
 });
 
 export const bidding = style({
-  position: 'absolute',
-  top: '20px',
-  right: '10px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -105,6 +99,14 @@ export const listRight = style({
   listStyle: 'none',
 });
 
+export const listTitleWrapper = style({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-between',
+  flexWrap: 'wrap',
+  gap: '10px',
+});
+
 export const listData = style({
   display: 'flex',
 
@@ -123,7 +125,7 @@ export const listFirst = style({
   justifyContent: 'space-between',
 
   '@media': {
-    'screen and (max-width: 774px)': {
+    'screen and (min-width: 774px)': {
       gap: '10px',
       flexDirection: 'column',
       width: '110px',

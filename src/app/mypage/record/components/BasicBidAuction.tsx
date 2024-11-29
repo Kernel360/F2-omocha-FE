@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { BidAuctionHistoriesData } from '@/apis/types/User';
 
-import { getBidStatusStyle } from '../getstatusStyle';
+import { getAuctionStatusStyle, getBidStatusStyle } from '../getstatusStyle';
 
 import * as S from './BasicBidAuction.css';
 
@@ -25,18 +25,43 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
         alt="경매 사진"
       />
       <ul className={S.listRight}>
-        <li className={`${S.listFirst} ${S.listData}`}>
-          <button
-            type="button"
-            onClick={() =>
-              router.push(`/basicauction/${bidAuctionHistory.auction_id}`, { scroll: false })
-            }
-            className={S.bidTitle}
-          >
-            <span>{bidAuctionHistory.title}</span>
-            <ChevronRightIcon size={14} />
-          </button>
-        </li>
+        <div className={S.listTitleWrapper}>
+          <li className={`${S.listFirst} ${S.listData}`}>
+            <button
+              type="button"
+              onClick={() =>
+                router.push(`/basicauction/${bidAuctionHistory.auction_id}`, { scroll: false })
+              }
+              className={S.bidTitle}
+            >
+              <span>{bidAuctionHistory.title}</span>
+              <ChevronRightIcon size={14} />
+            </button>
+          </li>
+          {bidAuctionHistory.auction_status === 'BIDDING' && (
+            <div className={S.bidding}>
+              <span
+                className={`${S.listValue} ${getAuctionStatusStyle(bidAuctionHistory.auction_status)}`}
+              >
+                {bidAuctionHistory.auction_status}진행중
+              </span>
+            </div>
+          )}
+          {(bidAuctionHistory.auction_status === 'CONCLUDED' ||
+            bidAuctionHistory.auction_status === 'COMPLETE') &&
+            !bidAuctionHistory.review_status && (
+              <button
+                type="button"
+                className={S.reviewButton}
+                onClick={e => {
+                  e.stopPropagation();
+                  console.log('리뷰 쓰기');
+                }}
+              >
+                <span className={S.listValue}>판매자 리뷰 쓰기</span>
+              </button>
+            )}
+        </div>
         <li className={S.listData}>
           <span className={S.listName}>입찰 상태</span>
           <span className={`${S.listValue} ${getBidStatusStyle(bidAuctionHistory.bid_status)}`}>

@@ -4,8 +4,6 @@ import { useRouter } from 'next/navigation';
 
 import useGetAuctionHistories from '@/apis/queryHooks/User/useGetAuctionHistories';
 
-import { getAuctionStatusStyle } from '../getstatusStyle';
-
 import * as S from './BasicBidAuction.css';
 import BasicSold from './basicsold';
 
@@ -34,26 +32,6 @@ function BasicBidSoldSection() {
         auctionHistories.content.map(history => (
           <div key={history.auction_id} className={S.listWrapper}>
             <BasicSold history={history} />
-            {history.auction_status === 'BIDDING' && (
-              <div className={S.bidding}>
-                <span className={`${S.listValue} ${getAuctionStatusStyle(history.auction_status)}`}>
-                  {history.auction_status}진행중
-                </span>
-              </div>
-            )}
-            {(history.auction_status === 'CONCLUDED' || history.auction_status === 'COMPLETE') &&
-              !history.review_status && (
-                <button
-                  type="button"
-                  className={S.reviewButton}
-                  onClick={e => {
-                    e.stopPropagation();
-                    console.log('리뷰 쓰기');
-                  }}
-                >
-                  <span className={S.listValue}>구매자 리뷰 쓰기</span>
-                </button>
-              )}
           </div>
         ))
       )}
