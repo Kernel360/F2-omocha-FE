@@ -6,30 +6,32 @@ import { useRouter } from 'next/navigation';
 
 import useGetAuctionHistories from '@/apis/queryHooks/User/useGetAuctionHistories';
 
-import * as S from './BasicSold.css';
+import * as S from './BasicBidAuction.css';
+// import * as S from './BasicSold.css';
 
 export default function BasicSold() {
   const { data: auctionHistories } = useGetAuctionHistories();
   const router = useRouter();
 
-  const getBidStatusStyle = (bidStatus: string) => {
+  const getAuctionStatusStyle = (bidStatus: string) => {
+    // 공통으로 필요한 것
     if (bidStatus === 'CONCLUDED') {
-      return S.bidStatus.concluded;
+      return S.auctionStatus.concluded;
     }
 
     if (bidStatus === 'BIDDING') {
-      return S.bidStatus.bidding;
+      return S.auctionStatus.bidding;
     }
 
     if (bidStatus === 'NO_BIDS') {
-      return S.bidStatus.defeat;
+      return S.auctionStatus.defeat;
     }
 
     if (bidStatus === 'COMPLETE') {
-      return S.bidStatus.complete;
+      return S.auctionStatus.complete;
     }
 
-    return S.bidStatus.default;
+    return S.auctionStatus.default;
   };
 
   if (!auctionHistories) {
@@ -37,7 +39,7 @@ export default function BasicSold() {
   }
 
   return (
-    <ul className={S.basicSold}>
+    <ul className={S.basicBid}>
       {auctionHistories.content.length === 0 ? (
         <div className={S.noListWrapper}>
           <div className={S.noListTitle}>아직 판매한 경매가 없습니다.</div>
@@ -75,7 +77,7 @@ export default function BasicSold() {
                   {history.auction_status === 'BIDDING' && (
                     <div className={S.bidding}>
                       <span
-                        className={`${S.listValue} ${getBidStatusStyle(history.auction_status)}`}
+                        className={`${S.listValue} ${getAuctionStatusStyle(history.auction_status)}`}
                       >
                         {history.auction_status}진행중
                       </span>
@@ -84,14 +86,16 @@ export default function BasicSold() {
                 </li>
                 <li className={S.listData}>
                   <span className={S.listName}>판매 상태</span>
-                  <span className={`${S.listValue} ${getBidStatusStyle(history.auction_status)}`}>
+                  <span
+                    className={`${S.listValue} ${getAuctionStatusStyle(history.auction_status)}`}
+                  >
                     {history.auction_status}
                   </span>
                 </li>
                 <li className={S.listData}>
                   <span className={S.listName}>현재가</span>
                   <span
-                    className={`${S.listValue} ${S.soldStatus.bidding}`}
+                    className={`${S.listValue} ${S.bidStatus.bidding}`}
                   >{`${history.now_price ? history.now_price : '-'} 원 `}</span>
                 </li>
                 <li className={S.listData}>

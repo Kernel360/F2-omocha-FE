@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import useGetBidAuctionHistories from '@/apis/queryHooks/User/useGetBidAuctionHistories';
 
-import * as S from './BasicBid.css';
 import BasicBidAuction from './BasicBidAuction';
+import * as S from './BasicBidAuction.css';
 import BasicBidAuctionBidList from './BasicBidAuctionBidList';
 
 export default function BasicBidAuctionSection() {
