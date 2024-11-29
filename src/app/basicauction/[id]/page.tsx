@@ -23,11 +23,12 @@ export const generateMetadata = async ({
     .then(jsonRes => jsonRes.result_data);
 
   const flattenCategoriesList = flattenCategories(auctionData.categories);
+  const categoryId = flattenCategoriesList[flattenCategoriesList.length - 1].category_id;
   const categoryName = flattenCategoriesList[flattenCategoriesList.length - 1].name;
 
   return getMetadata({
     title: `${categoryName} > ${auctionData.title}`,
-    asPath: `/basicauction/${id}`,
+    asPath: `/basicauction/${id}?categoryId=${categoryId}`,
     ogImage: `${process.env.NEXT_PUBLIC_S3_URL}${auctionData.thumbnail_path}`,
   });
 };
