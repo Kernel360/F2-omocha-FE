@@ -11,12 +11,12 @@ import * as S from '../Basicauction.css';
 
 interface ImageItemProps {
   imageRequiredId: string;
-  file: File;
   index: number;
   deleteImage: (index: number) => void;
+  previewImage: string;
 }
 
-function ImageItem({ imageRequiredId, file, index, deleteImage }: ImageItemProps) {
+function ImageItem({ imageRequiredId, index, deleteImage, previewImage }: ImageItemProps) {
   return (
     <Draggable key={imageRequiredId} draggableId={imageRequiredId} index={index}>
       {draggableProvided => (
@@ -32,15 +32,12 @@ function ImageItem({ imageRequiredId, file, index, deleteImage }: ImageItemProps
             width={0}
             height={0}
             sizes="50vw"
-            src={URL.createObjectURL(file)}
-            alt={URL.createObjectURL(file)}
+            src={previewImage}
+            alt={previewImage}
+            priority
           />
-          <button
-            type="button"
-            className={S.deleteButton}
-            onClick={() => deleteImage(index)} // remove(fields.length - index - 1)
-          >
-            <CircleXIcon stroke={colors.gray10} />
+          <button type="button" className={S.deleteButton} onClick={() => deleteImage(index)}>
+            <CircleXIcon stroke={colors.gray10} size={20} />
           </button>
         </li>
       )}

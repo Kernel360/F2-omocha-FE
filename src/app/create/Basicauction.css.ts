@@ -187,7 +187,7 @@ export const imageUpload = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  margin: '10px',
+  margin: '10px 8px 10px 10px',
   minWidth: '150px',
   border: `1.5px dashed ${colors.gray8} `,
   borderRadius: '10px',
@@ -203,19 +203,19 @@ export const imageInput = style({
 export const imageList = style({
   display: 'flex',
   listStyle: 'none',
-  margin: '10px',
-  gap: '10px',
+  margin: '10px 0',
+  // flexGrow: '1',
 });
 
 export const imageWrapper = style({
   position: 'relative',
   display: 'flex',
-  gap: '10px',
   justifyContent: 'center',
   width: '150px',
   height: 'auto',
   objectFit: 'contain',
   borderRadius: '10px',
+  padding: '0 8px',
 });
 
 export const image = style({
@@ -246,8 +246,8 @@ export const thumbnailButton = style({
 
 export const deleteButton = style({
   position: 'absolute',
-  top: '-10px',
-  right: '-10px',
+  top: '-5px',
+  right: '5px',
   zIndex: '1',
   cursor: 'pointer',
 });
