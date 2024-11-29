@@ -7,7 +7,6 @@ function createApiClient(cookie?: string) {
     withCredentials: true,
     headers: {
       ...(cookie ? { Cookie: cookie } : {}),
-      'Content-Type': 'text/html',
     },
   });
 
