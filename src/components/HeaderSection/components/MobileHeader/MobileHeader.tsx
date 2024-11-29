@@ -24,7 +24,7 @@ function MobileHeader() {
   const { viewportWidth } = useResizeViewportWidth();
 
   useEffect(() => {
-    if (viewportWidth > 700) {
+    if (viewportWidth && viewportWidth > 700) {
       closeNav();
     }
   }, [viewportWidth, closeNav]);

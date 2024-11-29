@@ -52,6 +52,7 @@ export default function AuctionCategoryLeftSection() {
   const rootCategory = (newData as Category[]).find(category => category.isOpen === true)?.name;
 
   return (
+    viewportWidth &&
     viewportWidth > 504 && (
       <section className={S.leftSection}>
         <div className={S.pickCategory}>{rootCategory || 'ALL'}</div>
