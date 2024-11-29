@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import useGetBidAuctionHistories from '@/apis/queryHooks/User/useGetBidAuctionHistories';
 
+import { getAuctionStatusStyle } from '../getstatusStyle';
+
 import BasicBidAuction from './BasicBidAuction';
 import * as S from './BasicBidAuction.css';
 import BasicBidAuctionBidList from './BasicBidAuctionBidList';
@@ -37,6 +39,29 @@ export default function BasicBidAuctionSection() {
             <Collapsible.Trigger asChild>
               <button type="button" className={S.collapsibleTrigger}>
                 <BasicBidAuction bidAuctionHistory={bidAuctionListHistory} />
+                {bidAuctionListHistory.auction_status === 'BIDDING' && (
+                  <div className={S.bidding}>
+                    <span
+                      className={`${S.listValue} ${getAuctionStatusStyle(bidAuctionListHistory.auction_status)}`}
+                    >
+                      {bidAuctionListHistory.auction_status}진행중
+                    </span>
+                  </div>
+                )}
+                {(bidAuctionListHistory.auction_status === 'CONCLUDED' ||
+                  bidAuctionListHistory.auction_status === 'COMPLETE') &&
+                  !bidAuctionListHistory.review_status && (
+                    <button
+                      type="button"
+                      className={S.reviewButton}
+                      onClick={e => {
+                        e.stopPropagation();
+                        console.log('리뷰 쓰기');
+                      }}
+                    >
+                      <span className={S.listValue}>판매자 리뷰 쓰기</span>
+                    </button>
+                  )}
               </button>
             </Collapsible.Trigger>
             <Collapsible.Content>
