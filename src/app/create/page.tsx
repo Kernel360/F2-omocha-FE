@@ -13,7 +13,7 @@ import TypePriceRequired from '@/app/create/components/typepricerequired';
 import { AuctionInputs } from '@/app/create/types/InputTypes';
 import CommonButton from '@/components/CommonButton';
 import MaxLayout from '@/components/MaxLayout';
-// import useDebounce from '@/hooks/useDebounce';
+import useDebounce from '@/hooks/useDebounce';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
@@ -26,14 +26,14 @@ export default function Home() {
     setValue,
     watch,
     control,
+    getValues,
     formState: { errors },
   } = methods;
 
-  const instantBuyPriceValue = useWatch({ name: 'instantBuyPrice', control });
-
   const { mutate: postBasicAuction } = usePostBasicAuction();
 
-  const onSubmit: SubmitHandler<AuctionInputs> = data => {
+  const onSubmit: SubmitHandler<AuctionInputs> = useDebounce(data => {
+    const instantBuyPriceValue = getValues('instantBuyPrice');
     const formData = new FormData();
 
     const auctionRequest = {
@@ -53,14 +53,8 @@ export default function Home() {
 
     formData.append('thumbnailPath', data.imagesRequired[0].file);
 
-    // useDebounce(() => postBasicAuction(formData), 500);
-    // useDebounce로 감싸면 에러가 나서 일단 주석처리함
-
-    // Array.from(formData.entries()).forEach(([key, value]) => {
-    //   console.log(key, value);
-    // });
     postBasicAuction(formData);
-  };
+  }, 500);
 
   return (
     <div className={S.backContainer}>
