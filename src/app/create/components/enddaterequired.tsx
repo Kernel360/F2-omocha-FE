@@ -29,6 +29,7 @@ function EndDateRequired({ register, errors }: EndDateRequiredProps) {
           register={register}
           validation={endDateValidation}
           error={errors.endDateRequired}
+          onChange={e => (e.target as HTMLInputElement).blur()}
         />
       </div>
     </>

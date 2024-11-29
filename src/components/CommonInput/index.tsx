@@ -20,6 +20,9 @@ interface CommonInputProps<T extends FieldValues> {
   value?: string | number;
   disabled?: boolean;
   children?: ReactNode;
+  onWheel?: (event: React.WheelEvent<HTMLInputElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function CommonInput<T extends FieldValues>({
@@ -34,6 +37,9 @@ function CommonInput<T extends FieldValues>({
   value,
   disabled,
   children,
+  onWheel,
+  onClick,
+  onChange,
 }: CommonInputProps<T>) {
   return (
     <label htmlFor={String(id)} className={S.label}>
@@ -48,6 +54,9 @@ function CommonInput<T extends FieldValues>({
           min={min}
           placeholder={placeholder}
           {...(register ? register(id, validation) : {})}
+          onWheel={onWheel}
+          onClick={onClick}
+          onChange={onChange}
         />
         {children}
       </div>
