@@ -52,12 +52,21 @@ export default function BasicSold({ history }: BasicSoldProps) {
                 className={S.reviewButton}
                 onClick={e => {
                   e.stopPropagation();
-                  console.log('리뷰 쓰기');
+                  window.open(
+                    `/review/${history.auction_id}?review_type=SELL_REVIEW`,
+                    'review',
+                    'width=400,height=600,top=100,left=100',
+                  );
                 }}
               >
                 <span className={S.listValue}>구매자 리뷰 쓰기</span>
               </button>
             )}
+          {history.review_status && (
+            <button type="button" className={S.reviewDone}>
+              <span className={S.listValue}>구매자 리뷰 완료</span>
+            </button>
+          )}
         </div>
         <li className={S.listData}>
           <span className={S.listName}>판매 상태</span>

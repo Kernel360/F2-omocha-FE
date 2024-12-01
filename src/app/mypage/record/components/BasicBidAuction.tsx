@@ -55,12 +55,21 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
                 className={S.reviewButton}
                 onClick={e => {
                   e.stopPropagation();
-                  console.log('리뷰 쓰기');
+                  window.open(
+                    `/review/${bidAuctionHistory.auction_id}?review_type=BUY_REVIEW`,
+                    'review',
+                    'width=400,height=600,top=100,left=100',
+                  );
                 }}
               >
                 <span className={S.listValue}>판매자 리뷰 쓰기</span>
               </button>
             )}
+          {bidAuctionHistory.review_status && (
+            <button type="button" className={S.reviewDone}>
+              <span className={S.listValue}>판매자 리뷰 완료</span>
+            </button>
+          )}
         </div>
         <li className={S.listData}>
           <span className={S.listName}>입찰 상태</span>

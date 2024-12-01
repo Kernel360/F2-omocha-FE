@@ -33,9 +33,27 @@ export const reviewButton = style({
   color: 'white',
   border: `1.5px solid ${colors.primary9}`,
   boxSizing: 'border-box',
-  width: '110px',
   height: '30px',
   cursor: 'pointer',
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '10px',
+    },
+  },
+});
+
+export const reviewDone = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '12px',
+  padding: '5px 10px',
+  borderRadius: '4px',
+  backgroundColor: 'white',
+  color: colors.primary9,
+  border: `1.5px solid ${colors.primary9}`,
+  boxSizing: 'border-box',
+  height: '30px',
   '@media': {
     'screen and (max-width: 420px)': {
       fontSize: '10px',
@@ -60,14 +78,8 @@ export const bidding = style({
   border: `1.5px solid ${colors.primary9}`,
   animation: `${blinkAnimation} 1.5s ease-in-out infinite`,
   boxSizing: 'border-box',
-  width: '110px',
   height: '30px',
   '@media': {
-    // 'screen and (max-width: 800px)': {
-    //   position: 'relative',
-    //   top: '0',
-    //   left: '0',
-    // },
     'screen and (max-width: 420px)': {
       fontSize: '10px',
     },
@@ -128,7 +140,7 @@ export const listFirst = style({
     'screen and (min-width: 774px)': {
       gap: '10px',
       flexDirection: 'column',
-      width: '110px',
+      width: 'fit-content ',
     },
   },
 });
