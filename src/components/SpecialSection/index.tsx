@@ -23,10 +23,9 @@ function SpecialSection() {
     <div className={S.specialSection}>
       <div className={S.specialSectionTitle}>
         <div className={S.flex}>
-          <span className={S.only}>오직</span>
-          <CalendarClock size={36} className={S.bellIcon} />
+          <span className={S.only}>현재</span>
+          <CalendarClock size={24} />
         </div>
-        <span className={S.oneDay}>하루</span>
         <span className={S.popularItem}>인기 경매</span>
       </div>
 
@@ -40,8 +39,8 @@ function SpecialSection() {
             <Image
               src={`${process.env.NEXT_PUBLIC_S3_URL}${auction.thumbnail_path}`}
               className={S.specialAuctionImage}
-              width={180}
-              height={180}
+              width={170}
+              height={170}
               alt="image"
             />
             <div className={S.specialAuctionTitle}> {auction.title}</div>

@@ -42,13 +42,17 @@ export const buttonStyles = style({
   minWidth: 'fit-content',
   width: '100%',
 
-  ':hover': {
+  ':active': {
     color: colors.primary10,
     borderColor: colors.primary7,
   },
 
-  ':active': {
-    borderColor: colors.primary8,
-    color: colors.primary12,
+  '@media': {
+    '(hover: hover) and (pointer: fine)': {
+      ':hover': {
+        color: colors.primary10,
+        borderColor: colors.primary7,
+      },
+    },
   },
 });

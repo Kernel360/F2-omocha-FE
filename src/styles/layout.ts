@@ -15,9 +15,9 @@ const spacing = {
   step9: '64px',
 };
 
-const minHeight = 'calc(100vh - 245px)';
+const minHeight = 'calc(100vh - 219px)';
 
-const minMobileHeight = 'calc(100vh - 251px)';
+const minMobileHeight = 'calc(100vh - 219px)';
 
 const layout = {
   maxLayoutWidth,

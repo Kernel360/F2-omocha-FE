@@ -20,7 +20,8 @@ export default function AuctionList({ sort, direction, pathname, path }: Auction
     sort,
     direction,
     page: 0,
-    size: 4,
+    size: 8,
+    auctionStatus: 'BIDDING',
   });
 
   if (!data) return null;

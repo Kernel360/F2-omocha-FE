@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 export const container = style({
   position: 'relative',
   margin: '0 auto',
-  maxWidth: '1200px',
+  maxWidth: '972px',
   width: '100%',
   height: 'auto',
 });
@@ -20,7 +20,14 @@ export const dots = style({
 });
 
 export const carouselImage = style({
-  width: '100%',
-  height: 'auto',
+  width: 'auto',
+  height: '360px',
   margin: '0 auto',
+
+  '@media': {
+    'screen and (max-width: 972px)': {
+      width: '100%',
+      height: 'auto',
+    },
+  },
 });
