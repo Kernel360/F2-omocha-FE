@@ -1,52 +1,76 @@
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { CircleXIcon, TriangleAlertIcon } from 'lucide-react';
-import Image from 'next/image';
+import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
+import { TriangleAlertIcon } from 'lucide-react';
 
+import ImageItem from '@/app/create/components/imageitem';
 import { AuctionInputs } from '@/app/create/types/InputTypes';
 import { imageValidation } from '@/app/create/utils/createValidation';
+import { useToast } from '@/provider/toastProvider';
 import colors from '@/styles/color';
 
 import * as S from '../Basicauction.css';
 
-interface ImageRequiredProps {
-  thumbnail: File | null;
-  setThumbnail: React.Dispatch<React.SetStateAction<File | null>>;
-}
+const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB
 
-function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
+function ImageRequired() {
   const {
     formState: { errors },
     control,
   } = useFormContext<AuctionInputs>();
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: 'imagesRequired',
     keyName: 'imageRequiredId',
     rules: imageValidation,
   });
 
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const { showToast } = useToast();
+
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const uploadFile = Array.from(e.target.files);
-      const files = uploadFile.map(file => ({ file }));
-      append(files);
-    }
-  };
+      const uploadFiles = Array.from(e.target.files);
 
-  const isSelected = (imageUrl: File) => {
-    if (thumbnail === imageUrl) {
-      return true;
+      const validFiles = uploadFiles.filter(file => {
+        if (file.size > MAX_IMAGE_SIZE) {
+          showToast('error', '1MB 이하의 이미지만 업로드 가능합니다.');
+          return false;
+        }
+        return true;
+      });
+
+      if (validFiles.length > 0) {
+        const newFiles = validFiles.map(file => ({ file }));
+        const newPreviewUrls = validFiles.map(file => URL.createObjectURL(file));
+
+        append(newFiles);
+        setPreviewImages(prevUrls => [...prevUrls, ...newPreviewUrls]);
+      }
     }
-    return false;
   };
 
   const deleteImage = (index: number) => {
     remove(index);
-    if (thumbnail === fields[index].file) {
-      setThumbnail(null);
-    }
+    setPreviewImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const onDragEnd = ({ source, destination }: DropResult) => {
+    if (!destination || source.index === destination.index) return;
+
+    const updatedFields = [...fields];
+    const [removed] = updatedFields.splice(source.index, 1);
+    updatedFields.splice(destination.index, 0, removed);
+    move(source.index, destination.index);
+
+    const updatedPreviewImages = [...previewImages];
+    const [movedPreview] = updatedPreviewImages.splice(source.index, 1);
+    updatedPreviewImages.splice(destination.index, 0, movedPreview);
+
+    setPreviewImages(updatedPreviewImages);
   };
 
   return (
@@ -54,7 +78,7 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
       <h2 className={S.title}>사진</h2>
       <div className={S.flexWrapper}>
         <div className={S.description}>
-          대표 이미지 미선택 시 첫 번째 이미지가 대표 이미지로 설정됩니다.
+          첫 번째 이미지가 대표 이미지로 설정됩니다.
           <br />
           png, jpg, jpeg, gif 파일만 업로드 가능합니다.
         </div>
@@ -72,39 +96,28 @@ function ImageRequired({ thumbnail, setThumbnail }: ImageRequiredProps) {
             onChange={addImage}
           />
         </label>
-        <ul className={S.imageList}>
-          {fields
-            .slice()
-            .reverse()
-            .map(({ imageRequiredId, file }, index) => (
-              <li key={imageRequiredId} className={S.imageWrapper}>
-                <button type="button" onClick={() => setThumbnail(file)}>
-                  <div
-                    className={
-                      isSelected(file) ? S.thumbnailButton.selected : S.thumbnailButton.default
-                    }
-                  >
-                    대표
-                  </div>
-                </button>
-                <Image
-                  className={S.image}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  src={URL.createObjectURL(file)}
-                  alt={URL.createObjectURL(file)}
-                />
-                <button
-                  type="button"
-                  className={S.deleteButton}
-                  onClick={() => deleteImage(fields.length - index - 1)} // remove(fields.length - index - 1)}
-                >
-                  <CircleXIcon stroke={colors.gray10} />
-                </button>
-              </li>
-            ))}
-        </ul>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="imageList" direction="horizontal">
+            {droppableProvided => (
+              <ul
+                className={S.imageList}
+                ref={droppableProvided.innerRef}
+                {...droppableProvided.droppableProps}
+              >
+                {previewImages.map((previewImage, index) => (
+                  <ImageItem
+                    key={fields[index].imageRequiredId}
+                    imageRequiredId={fields[index].imageRequiredId}
+                    previewImage={previewImage}
+                    index={index}
+                    deleteImage={deleteImage}
+                  />
+                ))}
+                {droppableProvided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
       {errors.imagesRequired && (
         <span className={S.error}>
