@@ -37,7 +37,14 @@ function ReviewUnit({ review }: ReviewUnitProps) {
         </li>
         <div className={S.flexWrapper}>
           <div className={S.memberNickname}>{review.recipient_member_nickname}</div>
-          <Stars count={5} size={16} color2="#ffd700" value={review.rating} half={false} />
+          <Stars
+            count={5}
+            edit={false}
+            size={16}
+            color2="#ffd700"
+            value={review.rating}
+            half={false}
+          />
         </div>
         <div className={S.createdAt}>{review.create_at}</div>
         <div className={S.reviewContent}>{review.content}</div>
