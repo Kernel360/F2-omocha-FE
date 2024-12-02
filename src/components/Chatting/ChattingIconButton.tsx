@@ -7,14 +7,16 @@ import { useAuth } from '@/provider/authProvider';
 
 import * as S from './ChattingIconButton.css';
 import ChattingList from './ChattingList';
+import { useState } from 'react';
 
 function ChattingIconButton() {
   const { isLoggedIn } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   if (!isLoggedIn) return null;
 
   return (
-    <Popover.Root>
+    <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
       <Popover.Trigger asChild>
         <button type="button" className={S.iconButton} aria-label="Update dimensions">
           <ChatIcon className={S.chatIcon} />
@@ -28,7 +30,7 @@ function ChattingIconButton() {
             e.preventDefault();
           }}
         >
-          <ChattingList />
+          <ChattingList onClose={() => setIsOpen(false)} />
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>

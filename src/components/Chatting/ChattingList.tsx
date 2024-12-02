@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
 
-import { ChevronDownIcon } from 'lucide-react';
+import { ChevronDownIcon, XIcon } from 'lucide-react';
 
 import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import useGetLastChat from '@/apis/queryHooks/chat/useGetLastChat';
 import { OpenAuctionInfo } from '@/apis/types/chat';
+import ChattingUnit from '@/components/Chatting/ChattingUnit';
+import Chattingroom from '@/components/Chatting/Chattingroom';
 
 import * as S from './ChattingIconButton.css';
-import ChattingUnit from './ChattingUnit';
-import Chattingroom from './Chattingroom';
 
-function ChattingList() {
+interface ChattingListProps {
+  onClose: () => void;
+}
+
+function ChattingList({ onClose }: ChattingListProps) {
   const { data, refetch } = useGetChatroomList({ pageable: 0 });
 
   const [openChatroomId, setOpenChatroomId] = useState<number | null>(null);
@@ -30,16 +34,7 @@ function ChattingList() {
   if (!data) return null;
 
   return (
-    <div
-      style={{
-        height: '482px',
-        overflow: 'scroll',
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-      }}
-    >
+    <div className={S.chattingListContainer}>
       {reversedMessages && openChatroomId && openAuctionInfo ? (
         <>
           <button type="button" onClick={handleRefetch} className={S.goBackButton}>
@@ -53,7 +48,12 @@ function ChattingList() {
         </>
       ) : (
         <div>
-          <h3 className={S.title}>채팅 목록</h3>
+          <h3 className={S.title}>
+            <span>채팅 목록</span>
+            <button type="button" onClick={onClose} className={S.closeButton}>
+              <XIcon size={18} />
+            </button>
+          </h3>
           <ul className={S.chattingListWrapper}>
             {data.content.length === 0 ? (
               <div className={S.noListWrapper}>
