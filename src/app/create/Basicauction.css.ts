@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import shadow from '@/styles/shadow';
@@ -187,8 +187,8 @@ export const imageUpload = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  margin: '10px',
-  minWidth: '250px',
+  margin: '10px 8px 10px 10px',
+  minWidth: '150px',
   border: `1.5px dashed ${colors.gray8} `,
   borderRadius: '10px',
   cursor: 'pointer',
@@ -203,19 +203,18 @@ export const imageInput = style({
 export const imageList = style({
   display: 'flex',
   listStyle: 'none',
-  margin: '10px',
-  gap: '10px',
+  margin: '10px 0',
 });
 
 export const imageWrapper = style({
   position: 'relative',
   display: 'flex',
-  gap: '10px',
   justifyContent: 'center',
-  width: '250px',
+  width: '150px',
   height: 'auto',
   objectFit: 'contain',
   borderRadius: '10px',
+  padding: '0 8px',
 });
 
 export const image = style({
@@ -223,14 +222,14 @@ export const image = style({
   display: 'flex',
   gap: '10px',
   justifyContent: 'center',
-  width: '250px',
+  width: '150px',
   height: 'auto',
   objectFit: 'contain',
   border: `1.5px dashed ${colors.gray8} `,
   borderRadius: '10px',
 });
 
-export const thumbnailButtonBase = style({
+export const thumbnailButton = style({
   cursor: 'pointer',
   position: 'absolute',
   top: '5px',
@@ -238,34 +237,16 @@ export const thumbnailButtonBase = style({
   zIndex: '1',
   padding: '4px',
   fontSize: '12px',
-  color: colors.gray8,
   borderRadius: '4px',
-
-  border: `1px solid ${colors.gray8}`,
-  ':hover': {
-    color: colors.primary10,
-    fontWeight: 'bold',
-    border: `1.5px solid ${colors.primary9}`,
-    backgroundColor: colors.primary3,
-  },
-});
-
-export const thumbnailButton = styleVariants({
-  default: [thumbnailButtonBase, {}],
-  selected: [
-    thumbnailButtonBase,
-    {
-      color: colors.primary10,
-      border: `1.5px solid ${colors.primary9}`,
-      backgroundColor: colors.primary3,
-    },
-  ],
+  color: colors.primary10,
+  border: `1.5px solid ${colors.primary9}`,
+  backgroundColor: colors.primary3,
 });
 
 export const deleteButton = style({
   position: 'absolute',
-  top: '-10px',
-  right: '-10px',
+  top: '-5px',
+  right: '5px',
   zIndex: '1',
   cursor: 'pointer',
 });
@@ -306,4 +287,47 @@ export const editorContent = style({
   height: '100%',
   fontSize: '16px',
   lineHeight: '1.5',
+});
+
+// --- auctionconfirmmodal.tsx ---
+
+export const confirmModal = style({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '80%',
+  gap: '20px',
+});
+
+export const confirmDescription = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  fontSize: '14px',
+  gap: '5px',
+});
+
+export const buttonWrapper = style({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '10px',
+  justifyContent: 'center',
+});
+
+export const submitButton = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  borderRadius: '8px',
+  border: 'none',
+  backgroundColor: colors.primary9,
+  color: '#fff',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s',
+  boxShadow: shadow.box3,
+  padding: '8px 12px',
+
+  ':hover': {
+    backgroundColor: colors.primary11,
+  },
 });

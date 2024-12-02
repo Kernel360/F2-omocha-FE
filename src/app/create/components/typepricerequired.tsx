@@ -52,6 +52,7 @@ function TypePriceRequired({ watch, setValue, register, errors }: TypePriceRequi
             register={register}
             validation={startPriceValidation}
             error={errors.startPriceRequired}
+            onWheel={e => (e.target as HTMLElement).blur()}
           />
         </div>
         <div className={S.inputWrapper}>
@@ -63,6 +64,7 @@ function TypePriceRequired({ watch, setValue, register, errors }: TypePriceRequi
             register={register}
             validation={bidUnitValidation}
             error={errors.bidUnitRequired}
+            onWheel={e => (e.target as HTMLElement).blur()}
           />
         </div>
       </div>
@@ -77,6 +79,7 @@ function TypePriceRequired({ watch, setValue, register, errors }: TypePriceRequi
               register={register}
               validation={getInstantBuyPriceValidation(Number(startPriceRequired))}
               error={errors.instantBuyPrice}
+              onWheel={e => (e.target as HTMLElement).blur()}
             />
           </div>
         </div>

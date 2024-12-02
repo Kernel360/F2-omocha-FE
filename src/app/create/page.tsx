@@ -2,22 +2,24 @@
 
 'use client';
 
-import { useState } from 'react';
-import { FormProvider, SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import usePostBasicAuction from '@/apis/queryHooks/basicAuction/usePostBasicAuction';
+import AuctionConfirmModal from '@/app/create/components/auctionconfirmmodal';
 import ContentRequired from '@/app/create/components/contentrequired';
+import EndDateRequired from '@/app/create/components/enddaterequired';
 import ImageRequired from '@/app/create/components/imagerequired';
+import NameRequiredProps from '@/app/create/components/namerequired';
+import TypePriceRequired from '@/app/create/components/typepricerequired';
 import { AuctionInputs } from '@/app/create/types/InputTypes';
 import CommonButton from '@/components/CommonButton';
 import MaxLayout from '@/components/MaxLayout';
-// import useDebounce from '@/hooks/useDebounce';
+import { Modal } from '@/components/Modal/Modal';
+import useBooleanState from '@/hooks/useBooleanState';
+import useDebounce from '@/hooks/useDebounce';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
-import EndDateRequired from './components/enddaterequired';
-import NameRequiredProps from './components/namerequired';
-import TypePriceRequired from './components/typepricerequired';
 
 export default function Home() {
   const methods = useForm<AuctionInputs>();
@@ -26,16 +28,34 @@ export default function Home() {
     handleSubmit,
     setValue,
     watch,
-    control,
+    getValues,
     formState: { errors },
   } = methods;
 
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const instantBuyPriceValue = useWatch({ name: 'instantBuyPrice', control });
-
   const { mutate: postBasicAuction } = usePostBasicAuction();
+  const {
+    value: isOpenAuctionConfirmModal,
+    toggle: setIsOpenAuctionConfirmModal,
+    setTrue: openAuctionConfirmModal,
+  } = useBooleanState();
 
-  const onSubmit: SubmitHandler<AuctionInputs> = data => {
+  const validationAndOpenModal = handleSubmit((data: AuctionInputs) => {
+    const auctionData = {
+      name: data.nameRequired,
+      content: data.contentRequired,
+      start_price: data.startPriceRequired,
+      bid_unit: data.bidUnitRequired,
+      start_date: formatDate(new Date().toString()),
+      end_date: formatDate(data.endDateRequired),
+      instant_buy_price: data.instantBuyPrice,
+      category_ids: data.categoryIdsRequired,
+    };
+    openAuctionConfirmModal();
+    return auctionData;
+  });
+
+  const onSubmit = useDebounce((data: AuctionInputs) => {
+    const instantBuyPriceValue = getValues('instantBuyPrice');
     const formData = new FormData();
 
     const auctionRequest = {
@@ -53,13 +73,10 @@ export default function Home() {
 
     data.imagesRequired.forEach(image => formData.append('images', image.file));
 
-    formData.append('thumbnailPath', thumbnail || data.imagesRequired[0].file);
-
-    // useDebounce(() => postBasicAuction(formData), 500);
-    // useDebounce로 감싸면 에러가 나서 일단 주석처리함
+    formData.append('thumbnailPath', data.imagesRequired[0].file);
 
     postBasicAuction(formData);
-  };
+  }, 500);
 
   return (
     <div className={S.backContainer}>
@@ -67,7 +84,7 @@ export default function Home() {
         <div className={S.container}>
           <h1>경매 등록</h1>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)} className={S.formSection}>
+            <form className={S.formSection}>
               <NameRequiredProps register={register} errors={errors} />
               <TypePriceRequired
                 watch={watch}
@@ -75,12 +92,20 @@ export default function Home() {
                 register={register}
                 errors={errors}
               />
-              <ImageRequired thumbnail={thumbnail} setThumbnail={setThumbnail} />
+              <ImageRequired />
               <ContentRequired />
               <EndDateRequired register={register} errors={errors} />
               <div className={S.buttonContainer}>
-                <CommonButton content="경매 올리기" type="submit" size="lg" />
+                <CommonButton
+                  content="경매 등록하기"
+                  type="button"
+                  size="lg"
+                  onClick={validationAndOpenModal}
+                />
               </div>
+              <Modal isOpen={isOpenAuctionConfirmModal} onOpenChange={setIsOpenAuctionConfirmModal}>
+                <AuctionConfirmModal onSubmit={onSubmit} onCancel={setIsOpenAuctionConfirmModal} />
+              </Modal>
             </form>
           </FormProvider>
         </div>
