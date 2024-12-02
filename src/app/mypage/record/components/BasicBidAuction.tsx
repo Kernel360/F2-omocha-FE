@@ -3,11 +3,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { BidAuctionHistoriesData } from '@/apis/types/User';
+import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 
 import { getAuctionStatusStyle, getBidStatusStyle } from '../getstatusStyle';
 
 import * as S from './BasicBidAuction.css';
-import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 
 interface BasicBidAuctionProps {
   bidAuctionHistory: BidAuctionHistoriesData;

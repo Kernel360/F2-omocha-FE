@@ -1,12 +1,12 @@
 import Stars from 'react-stars';
 
+import { ChevronRightIcon } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { ReceivedReview } from '@/apis/types/review';
 
 import * as S from './ReviewSection.css';
-import { ChevronRightIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 
 interface ReviewUnitProps {
   review: ReceivedReview;

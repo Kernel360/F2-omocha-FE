@@ -1,4 +1,5 @@
 import MaxLayout from '@/components/MaxLayout';
+
 import * as S from './Layout.css';
 
 export default async function Layout({ children }: { children: React.ReactNode }) {

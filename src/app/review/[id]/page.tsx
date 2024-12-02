@@ -78,6 +78,3 @@ export default function ReviewPage({ params }: ReviewPageProps) {
     </form>
   );
 }
-function showToast(arg0: string, arg1: string) {
-  throw new Error('Function not implemented.');
-}
