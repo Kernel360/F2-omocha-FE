@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import usePostReview from '@/apis/queryHooks/review/usePostReview';
 import CommonButton from '@/components/CommonButton';
@@ -19,12 +19,13 @@ export default function ReviewPage({ params }: ReviewPageProps) {
   const { mutate } = usePostReview();
   const { id } = params;
 
+  const router = useRouter(); // useRouter 추가
   const searchParams = useSearchParams();
   const reviewType = searchParams.get('review_type');
 
-  const [rating, setRating] = useState(0); // 별점
+  const [rating, setRating] = useState(0);
 
-  const [reviewContent, setReviewContent] = useState(''); // 리뷰 내용
+  const [reviewContent, setReviewContent] = useState('');
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault(); // 기본 동작 방지
@@ -39,14 +40,27 @@ export default function ReviewPage({ params }: ReviewPageProps) {
       return;
     }
 
-    mutate({
-      id: Number(id),
-      params: {
-        review_type: reviewType,
-        rating,
-        content: reviewContent,
+    mutate(
+      {
+        id: Number(id),
+        params: {
+          review_type: reviewType,
+          rating,
+          content: reviewContent,
+        },
       },
-    });
+      {
+        onSuccess: () => {
+          if (window.opener) {
+            setTimeout(() => {
+              window.close();
+            }, 2000);
+          } else {
+            router.back();
+          }
+        },
+      },
+    );
   };
 
   return (
@@ -63,4 +77,7 @@ export default function ReviewPage({ params }: ReviewPageProps) {
       <CommonButton type="submit" content="리뷰 남기기" />
     </form>
   );
+}
+function showToast(arg0: string, arg1: string) {
+  throw new Error('Function not implemented.');
 }
