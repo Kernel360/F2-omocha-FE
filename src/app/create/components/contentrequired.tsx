@@ -55,7 +55,7 @@ function ContentRequired() {
   } = useFormContext<AuctionInputs>();
 
   const { isImageUrl, insertImage } = useImage();
-  const { withImages } = useWithImages();
+  const { withImages } = useWithImages(); // 에디터에 머가 들어가면 얘가 실행댐
 
   const contentRequiredValue = useWatch({ name: 'contentRequired', control });
   const contentRequired = contentRequiredValue || '0';
@@ -74,7 +74,7 @@ function ContentRequired() {
   const handleChange = (value: Descendant[]) => {
     setValue('contentRequired', JSON.stringify(value));
   };
-
+  console.log('contentRequired', contentRequired);
   const renderElement = useCallback((props: RenderElementProps) => <Elements {...props} />, []);
   const renderLeaf = useCallback((props: RenderLeafProps) => <Leaf {...props} />, []);
   const handleKeyDown = useEditorShortcuts(editor);
@@ -115,6 +115,7 @@ function ContentRequired() {
               editor={editor}
               initialValue={initialValue}
               onChange={value => {
+                console.log('valuevalue', value);
                 field.onChange(value);
                 handleChange(value);
               }}
