@@ -7,21 +7,16 @@ export const backContainer = style({
   width: '100%',
   margin: '0 auto',
   backgroundColor: 'rgb(25, 26, 29)',
-});
-
-export const container = style({
-  width: '100%',
+  height: '120px',
 });
 
 export const footer = style({
   display: 'flex',
-  margin: '0 auto',
   flexDirection: 'column',
-  justifyContent: 'center',
-  height: 'auto',
-
+  justifyContent: 'space-between',
+  height: 'calc(100% - 32px)',
   maxWidth: layout.maxLayoutWidth.maxWidth,
-  padding: '16px 20px',
+  padding: '16px 0',
   color: colors.white,
 });
 
@@ -32,17 +27,18 @@ export const topFooter = style({
   '@media': {
     'screen and (max-width: 700px)': {
       flexDirection: 'column-reverse',
-      gap: '10px',
+      alignItems: 'center',
+      gap: '20px',
     },
   },
 });
 
 export const logoButton = style({
   color: colors.white,
-  fontSize: '32px',
+  fontSize: '20px',
   '@media': {
     'screen and (max-width: 1100px)': {
-      fontSize: '28px',
+      fontSize: '20px',
     },
   },
 });
@@ -67,10 +63,17 @@ export const category = style({
 
 export const bottomFooter = style({
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'flex-start', // vanilla-extract 오류
   fontSize: '12px',
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      justifyContent: 'center',
+    },
+  },
 });
 
 export const categoryLink = style({
   color: colors.white,
+  fontSize: '14px',
 });
