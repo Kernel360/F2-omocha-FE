@@ -28,7 +28,7 @@ function ImageRequired() {
     rules: imageValidation,
   });
 
-  const [previewImages, setPreviewImages] = useState<string[]>([]); // 프리뷰 이미지
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
   const { showToast } = useToast();
 
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
