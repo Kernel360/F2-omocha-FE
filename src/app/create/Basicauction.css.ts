@@ -289,3 +289,46 @@ export const editorContent = style({
   fontSize: '16px',
   lineHeight: '1.5',
 });
+
+// --- auctionconfirmmodal.tsx ---
+
+export const confirmModal = style({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '80%',
+  gap: '20px',
+});
+
+export const confirmDescription = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  fontSize: '14px',
+  gap: '5px',
+});
+
+export const buttonWrapper = style({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '10px',
+  justifyContent: 'center',
+});
+
+export const submitButton = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  borderRadius: '8px',
+  border: 'none',
+  backgroundColor: colors.primary9,
+  color: '#fff',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s',
+  boxShadow: shadow.box3,
+  padding: '8px 12px',
+
+  ':hover': {
+    backgroundColor: colors.primary11,
+  },
+});
