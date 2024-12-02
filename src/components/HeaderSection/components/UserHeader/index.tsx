@@ -19,7 +19,7 @@ function UserHeader() {
   return (
     <section className={S.topHeader}>
       <Link href="/" scroll={false} className={S.topHeaderLogo}>
-        <Image width={40} height={40} src={logoIcon} alt="logo" className={S.logo} priority />
+        <Image width={24} height={24} src={logoIcon} alt="logo" className={S.logo} priority />
         <div className={S.logo}>OMOCHA</div>
       </Link>
       <div className={S.topCategory}>
