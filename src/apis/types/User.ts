@@ -2,7 +2,7 @@ export interface UserResponseData {
   member_id: number;
   email: string;
   user_name: string | null;
-  nick_name: string;
+  nickname: string;
   phone_number: string | null;
   birth: string | null;
   profile_image_url: string | null;
@@ -31,6 +31,7 @@ export interface GetAuctionLikeData {
   end_date: string;
   created_at: string;
   liked_date: string;
+  category_id: number;
 }
 
 export interface BidAuctionHistoriesData {

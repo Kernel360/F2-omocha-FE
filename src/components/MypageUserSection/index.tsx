@@ -39,7 +39,7 @@ function MypageUserSection() {
           onClose={setIsOpenImageUploadModal}
         />
       </Modal>
-      <h2 className={S.profileTitle}>{user?.nick_name}</h2>
+      <h2 className={S.profileTitle}>{user?.nickname}</h2>
     </div>
   );
 }

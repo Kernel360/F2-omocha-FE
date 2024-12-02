@@ -38,7 +38,7 @@ export const buttonIcon = styleVariants({
 });
 
 export const searchInput = style({
-  ...typography.body,
+  ...typography.caption,
   border: 'none',
   outline: 'none',
   background: 'none',

@@ -1,26 +1,29 @@
 import { Category } from './category';
 
-export type BasicAuctionResponseData = {
+// 단일
+export interface BasicAuctionResponseData {
   auction_id: number;
   member_id: number;
+  email: string;
+  nickname: string;
   title: string;
   content: string;
   start_price: number;
   bid_unit: number;
+  instant_buy_price: number | null;
   auction_status: string;
   thumbnail_path: string;
   now_price: number | null;
   bid_count: number;
+  like_count: number;
   start_date: string;
   end_date: string;
   created_at: string;
   image_paths: string[];
-  is_liked: boolean;
-  like_count: number;
-  categories: Category[];
-  instant_buy_price: number | null;
-};
+  category_id: number;
+}
 
+// 리스트
 export interface AuctionData {
   auction_id: number;
   member_id: number;
@@ -28,18 +31,18 @@ export interface AuctionData {
   content: string;
   start_price: number;
   bid_unit: number;
+  instant_buy_price: number;
   auction_status: string;
   thumbnail_path: string;
   now_price: number | null;
   conclude_price: number | null;
   bid_count: number;
+  like_count: number;
+  is_liked: boolean;
   start_date: string;
   end_date: string;
   created_at: string;
-  is_liked: boolean;
-  like_count: number;
   category_response: Category[];
-  instant_buy_price: number | null;
 }
 
 export interface PostBasicAuctionResponseData {
@@ -62,6 +65,8 @@ export interface GetBasicAuctionBidInfo {
   buyer_member_id: number;
   bid_price: number;
   created_at: string;
+  email: string;
+  nickname: string;
 }
 
 export interface PostBasicAuctionBidParams {

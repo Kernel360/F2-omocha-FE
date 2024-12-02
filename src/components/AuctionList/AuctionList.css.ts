@@ -6,8 +6,8 @@ export const section = style({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
-  padding: '20px 0',
-  margin: '20px 0',
+  padding: '15px 0',
+  margin: '15px 0',
   selectors: {
     '&:before': {
       content: '',
@@ -24,7 +24,7 @@ export const section = style({
 });
 
 export const listWrapper = style({
-  padding: '32px 0px',
+  padding: '16px 0px 32px',
   boxSizing: 'border-box',
 });
 

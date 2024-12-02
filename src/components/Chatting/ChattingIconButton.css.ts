@@ -22,6 +22,16 @@ export const slideLeftAndFade = keyframes({
   to: { opacity: 1, transform: 'translateX(0)' },
 });
 
+export const slideInFromLeft = keyframes({
+  from: { opacity: 0, transform: 'translateX(-100%)' },
+  to: { opacity: 1, transform: 'translateX(0)' },
+});
+
+export const slideOutToRight = keyframes({
+  from: { opacity: 1, transform: 'translateX(0)' },
+  to: { opacity: 0, transform: 'translateX(100%)' },
+});
+
 export const goBackButton = style({
   position: 'fixed',
   top: '16px',
@@ -43,9 +53,27 @@ export const goBackButton = style({
   },
 });
 
+export const chattingListContainer = style({
+  height: '482px',
+  overflow: 'scroll',
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 10,
+
+  '@media': {
+    '(max-width: 504px)': {
+      height: '100%',
+    },
+  },
+});
+
 export const title = style({
   position: 'fixed',
-  fontSize: '18px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  fontSize: '16px',
   fontWeight: 'bold',
   padding: '20px',
   width: '100%',
@@ -53,11 +81,22 @@ export const title = style({
   backgroundColor: 'white',
   borderRadius: '4px 4px 0 0',
   color: 'black',
+  marginBlockStart: '0',
+  marginBlockEnd: '0',
+
+  '@media': {
+    '(max-width: 504px)': {
+      borderRadius: '0',
+    },
+  },
+});
+
+export const closeButton = style({
+  cursor: 'pointer',
 });
 
 export const chattingListWrapper = style({
   marginTop: '62px',
-  // height: '100%',
   overflowY: 'scroll',
 });
 
@@ -117,6 +156,26 @@ export const popoverContent = style({
     },
     '&[data-state="open"][data-side="left"]': {
       animationName: slideRightAndFade,
+    },
+  },
+
+  '@media': {
+    '(max-width: 504px)': {
+      top: '0',
+      left: '0',
+      margin: '0',
+      height: '100vh',
+      width: '100vw',
+      transform: 'translateY(130px) !important',
+
+      selectors: {
+        '&[data-state="open"]': {
+          animation: `${slideInFromLeft} 300ms ease-out`,
+        },
+        '&[data-state="closed"]': {
+          animation: `${slideOutToRight} 300ms ease-in`,
+        },
+      },
     },
   },
 });

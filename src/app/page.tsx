@@ -23,8 +23,6 @@ export default function Home() {
           path="/basicauction?page=1&sort=endDate&direction=ASC"
           pathname="마감 임박 상품"
         />
-        {/* 특정 유저의 상품 모아 놓기(필수 아님) */}
-        {/* <AuctionList data={data} pathname="000 판매자" />  */}
       </MaxLayout>
     </div>
   );

@@ -44,7 +44,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   const dDay = calculateDDay(endTime);
   const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);
   const { data: auctionData } = useGetBasicAuction(id);
-  const categoryId = auctionData?.result_data.categories[0].category_id;
+  const categoryId = auctionData?.result_data.category_id;
 
   useEffect(() => {
     setIsLike(initialLike);

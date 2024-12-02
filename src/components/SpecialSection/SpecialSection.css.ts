@@ -8,7 +8,7 @@ export const specialSection = style({
   justifyContent: 'center',
   alignItems: 'center',
   gap: '80px',
-  padding: '50px 20px',
+  padding: '20px',
   boxSizing: 'border-box',
   width: '100%',
   background: 'url(https://fiximage.10x10.co.kr/web2018/main/bg_pattern_slash.png) 0 0 repeat',
@@ -42,7 +42,7 @@ export const flex = style({
 });
 
 export const only = style({
-  fontSize: '36px',
+  fontSize: '28px',
   fontWeight: 'light',
   '@media': {
     'screen and (max-width: 1100px)': {
@@ -51,23 +51,9 @@ export const only = style({
   },
 });
 
-export const bellIcon = style({});
-
-export const oneDay = style({
-  marginTop: '4px',
-  fontSize: '40px',
-  fontWeight: 'bold',
-  '@media': {
-    'screen and (max-width: 1100px)': {
-      marginTop: '0px',
-      fontSize: '30px',
-    },
-  },
-});
-
 export const popularItem = style({
-  marginTop: '24px',
-  fontSize: '36px',
+  marginTop: '20px',
+  fontSize: '28px',
   fontWeight: 'bold',
   color: colors.primary9,
   '@media': {
@@ -89,6 +75,7 @@ export const specialAuction = style({
 
 export const specialAuctionItem = style({
   display: 'flex',
+  minHeight: '264px',
   position: 'relative',
   alignItems: 'center',
   flexDirection: 'column',

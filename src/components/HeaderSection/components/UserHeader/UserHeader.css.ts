@@ -6,18 +6,19 @@ export const topHeader = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '16px 0 16px 0',
+  padding: '10px 0',
 });
 
 export const topHeaderLogo = style({
   display: 'flex',
-  alignItems: 'end',
+  alignItems: 'flex-end', // vanilla extract 오류
   justifyContent: 'center',
   gap: '10px',
 });
 
 export const logo = style({
-  fontSize: '24px',
+  fontSize: '20px',
+  alignItems: 'center',
   color: colors.primary9,
 });
 

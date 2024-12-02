@@ -109,6 +109,12 @@ export const chatroomContainer = style({
   flexDirection: 'column',
   backgroundColor: 'white',
   borderRadius: '12px',
+
+  '@media': {
+    '(max-width: 504px)': {
+      height: '100%',
+    },
+  },
 });
 
 export const chatroomHeader = style({
@@ -202,6 +208,12 @@ export const chatListWrapper = style({
   backgroundColor: '#f9f9f9',
   padding: '10px',
   whiteSpace: 'pre-wrap',
+
+  '@media': {
+    '(max-width: 504px)': {
+      height: '100%',
+    },
+  },
 });
 
 export const noChat = style({

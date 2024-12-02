@@ -41,7 +41,7 @@ function MobileHeader() {
             <MobileSlideNav
               isLogin={!!userInfo}
               userProfileImage={userInfo?.profile_image_url}
-              userNickname={userInfo?.nick_name}
+              userNickname={userInfo?.nickname}
               userEmail={userInfo?.email}
               userHeartCount={userInfo?.like_count}
               onClose={closeNav}

@@ -7,7 +7,7 @@ export const topHeader = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '16px 0 16px 0',
+  padding: '10px 0',
 });
 
 export const IconWrapper = style({
@@ -22,7 +22,7 @@ export const topHeaderLogo = style({
   transform: 'translateX(-50%)',
 
   display: 'flex',
-  alignItems: 'end',
+  alignItems: 'flex-end', // vanilla extract 오류
   justifyContent: 'center',
   gap: '10px',
 });
