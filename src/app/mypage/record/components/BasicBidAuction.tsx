@@ -7,6 +7,7 @@ import { BidAuctionHistoriesData } from '@/apis/types/User';
 import { getAuctionStatusStyle, getBidStatusStyle } from '../getstatusStyle';
 
 import * as S from './BasicBidAuction.css';
+import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 
 interface BasicBidAuctionProps {
   bidAuctionHistory: BidAuctionHistoriesData;
@@ -14,6 +15,7 @@ interface BasicBidAuctionProps {
 
 function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
   const router = useRouter();
+  const { viewportWidth } = useResizeViewportWidth();
 
   return (
     <li className={S.list} key={bidAuctionHistory.auction_id}>
@@ -55,11 +57,15 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
                 className={S.reviewButton}
                 onClick={e => {
                   e.stopPropagation();
-                  window.open(
-                    `/review/${bidAuctionHistory.auction_id}?review_type=BUY_REVIEW`,
-                    'review',
-                    'width=400,height=600,top=100,left=100',
-                  );
+                  if (viewportWidth && viewportWidth > 908) {
+                    window.open(
+                      `/review/${bidAuctionHistory.auction_id}?review_type=BUY_REVIEW`,
+                      'review',
+                      'width=400,height=600,top=100,left=100',
+                    );
+                  } else {
+                    router.push(`/review/${bidAuctionHistory.auction_id}?review_type=BUY_REVIEW`);
+                  }
                 }}
               >
                 <span className={S.listValue}>판매자 리뷰 쓰기</span>

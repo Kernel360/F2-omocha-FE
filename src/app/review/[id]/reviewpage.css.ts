@@ -8,9 +8,7 @@ export const container = style({
   gap: '20px',
 });
 
-export const title = style({
-  fontSize: '22px',
-});
+export const title = style({ fontSize: '1.17em' });
 
 export const auctionInfoWrapper = style({
   display: 'flex',
