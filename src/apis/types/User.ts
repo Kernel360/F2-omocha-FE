@@ -55,5 +55,6 @@ export interface AuctionHistoriesData {
   auction_status: string;
   now_price: number | null;
   end_date: string;
+  review_status: boolean;
   thumbnail_path: string;
 }

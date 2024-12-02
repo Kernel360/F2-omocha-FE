@@ -3,6 +3,7 @@ import { style, globalStyle, styleVariants, keyframes } from '@vanilla-extract/c
 import colors from '@/styles/color';
 
 export const list = style({
+  position: 'relative',
   display: 'grid',
   gridTemplateColumns: '150px 1fr',
   gap: '15px',
@@ -21,6 +22,45 @@ export const list = style({
   },
 });
 
+export const reviewButton = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '12px',
+  padding: '5px 10px',
+  borderRadius: '4px',
+  backgroundColor: colors.primary9,
+  color: 'white',
+  border: `1.5px solid ${colors.primary9}`,
+  boxSizing: 'border-box',
+  height: '30px',
+  cursor: 'pointer',
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '10px',
+    },
+  },
+});
+
+export const reviewDone = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '12px',
+  padding: '5px 10px',
+  borderRadius: '4px',
+  backgroundColor: 'white',
+  color: colors.primary9,
+  border: `1.5px solid ${colors.primary9}`,
+  boxSizing: 'border-box',
+  height: '30px',
+  '@media': {
+    'screen and (max-width: 420px)': {
+      fontSize: '10px',
+    },
+  },
+});
+
 const blinkAnimation = keyframes({
   '0%': { opacity: 1 },
   '50%': { opacity: 0.3 },
@@ -33,12 +73,12 @@ export const bidding = style({
   alignItems: 'center',
   fontSize: '12px',
   padding: '5px 10px',
-  borderRadius: '20px',
-  border: '1.5px solid red',
+  minHeight: '19px',
+  borderRadius: '4px',
+  border: `1.5px solid ${colors.primary9}`,
   animation: `${blinkAnimation} 1.5s ease-in-out infinite`,
   boxSizing: 'border-box',
-  width: '110px',
-
+  height: '30px',
   '@media': {
     'screen and (max-width: 420px)': {
       fontSize: '10px',
@@ -71,6 +111,14 @@ export const listRight = style({
   listStyle: 'none',
 });
 
+export const listTitleWrapper = style({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-between',
+  flexWrap: 'wrap',
+  gap: '10px',
+});
+
 export const listData = style({
   display: 'flex',
 
@@ -89,10 +137,10 @@ export const listFirst = style({
   justifyContent: 'space-between',
 
   '@media': {
-    'screen and (max-width: 774px)': {
+    'screen and (min-width: 774px)': {
       gap: '10px',
       flexDirection: 'column',
-      width: '110px',
+      width: 'fit-content ',
     },
   },
 });
@@ -125,7 +173,7 @@ globalStyle(`${bidTitle} span`, {
 
 export const listName = style({
   display: 'inline-block',
-  fontSize: '14px',
+  fontSize: '13px',
   width: '70px',
   marginRight: '10px',
   fontWeight: '600',
@@ -140,6 +188,7 @@ export const listName = style({
 
 export const listValue = style({
   fontWeight: '500',
+  fontSize: '13px',
 });
 
 export const bidStatus = styleVariants({
@@ -147,6 +196,39 @@ export const bidStatus = styleVariants({
     listValue,
     {
       color: 'black',
+    },
+  ],
+  concluded: [
+    listValue,
+    {
+      color: 'rgb(35, 167, 80)',
+    },
+  ],
+  bidding: [
+    listValue,
+    {
+      color: 'red',
+    },
+  ],
+  defeat: [
+    listValue,
+    {
+      color: 'rgb(95, 99, 104)',
+    },
+  ],
+});
+
+export const auctionStatus = styleVariants({
+  default: [
+    listValue,
+    {
+      color: 'black',
+    },
+  ],
+  complete: [
+    listValue,
+    {
+      color: 'blue',
     },
   ],
   bidding: [
@@ -169,23 +251,42 @@ export const bidStatus = styleVariants({
   ],
 });
 
-export const myBidStatus = styleVariants({
-  default: [
-    listValue,
-    {
-      color: 'black',
-    },
-  ],
-  concluded: [
-    listValue,
-    {
-      color: 'rgb(35, 167, 80)',
-    },
-  ],
-  defeat: [
-    listValue,
-    {
-      color: 'rgb(95, 99, 104)',
-    },
-  ],
+export const basicBid = style({
+  display: 'flex',
+  flexDirection: 'column',
+  listStyle: 'none',
+  maxHeight: '560px',
+  overflow: 'scroll',
+  borderRadius: '8px',
+});
+
+export const noListWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '20px',
+  marginTop: '200px',
+});
+
+export const noListTitle = style({ fontSize: '16px', fontWeight: '500', color: colors.gray10 });
+
+export const noListButton = style({
+  padding: '10px 20px',
+  backgroundColor: colors.primary9,
+  color: colors.white,
+  borderRadius: '8px',
+  fontSize: '14px',
+  cursor: 'pointer',
+});
+
+export const collapsibleTrigger = style({
+  position: 'relative',
+  width: '100%',
+  cursor: 'pointer',
+});
+
+export const listWrapper = style({
+  position: 'relative',
+  width: '100%',
 });

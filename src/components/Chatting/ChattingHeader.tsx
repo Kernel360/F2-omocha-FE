@@ -22,12 +22,6 @@ function ChattingHeader({ openAuctionInfo }: ChattingHeaderProps) {
       <div className={S.chatroomHeader}>
         <div className={S.chatroomUserSection}>
           <span className={S.user}>{other}</span>
-          {/* <span
-            className={S.user}
-          >{`구매자: ${openAuctionInfo.buyer_name || openAuctionInfo.buyer_id}`}</span>
-          <span
-            className={S.user}
-          >{`판매자: ${openAuctionInfo.seller_name || openAuctionInfo.seller_id}`}</span> */}
         </div>
       </div>
       <Link href={`/basicauction/${openAuctionInfo.auction_id}`} scroll={false}>

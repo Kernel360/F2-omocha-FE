@@ -99,6 +99,9 @@ function MobileSlideNav({
       <Link href="/mypage/record" className={S.normalNavButtonBase} onClick={onClose}>
         거래 내역
       </Link>
+      <Link href="/mypage/review" className={S.normalNavButtonBase} onClick={onClose}>
+        리뷰
+      </Link>
       <hr className={S.division} />
       {isLogin && (
         <button className={S.bottomNavButtonBase} type="button" onClick={handleLogout}>
