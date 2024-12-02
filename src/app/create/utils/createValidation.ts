@@ -3,22 +3,32 @@ import { RegisterOptions } from 'react-hook-form';
 import { AuctionInputs, ImageUpload } from '@/app/create/types/InputTypes';
 import formatDate from '@/utils/formatDate';
 
+const MAX_PRICE = 1000000000;
+
 export const startPriceValidation = {
   required: '시작가를 입력해 주세요.',
   pattern: {
     value: /^(0|[1-9]\d*)$/,
     message: '올바른 금액이 아닙니다.',
   },
-};
-
-export const instantBuyPriceValidation = {
-  required: '즉시 구매가를 입력해 주세요.',
+  max: {
+    value: MAX_PRICE,
+    message: '10억 이상의 금액은 불가능합니다.',
+  },
 };
 
 export const getInstantBuyPriceValidation = (
   startPriceRequired: number,
 ): RegisterOptions<AuctionInputs> => ({
   required: '즉시 구매가를 입력해 주세요.',
+  pattern: {
+    value: /^(0|[1-9]\d*)$/,
+    message: '올바른 금액이 아닙니다.',
+  },
+  max: {
+    value: MAX_PRICE,
+    message: '10억 이상의 금액은 불가능합니다.',
+  },
   validate: value => {
     if (value && startPriceRequired && Number(value) < Number(startPriceRequired)) {
       return '즉시 구매가는 시작가보다 높아야 합니다.';
@@ -32,6 +42,10 @@ export const bidUnitValidation = {
   pattern: {
     value: /^(0|[1-9]\d*)$/,
     message: '올바른 금액이 아닙니다.',
+  },
+  max: {
+    value: MAX_PRICE,
+    message: '10억 이상의 금액은 불가능합니다.',
   },
 };
 
