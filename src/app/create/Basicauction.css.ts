@@ -204,7 +204,6 @@ export const imageList = style({
   display: 'flex',
   listStyle: 'none',
   margin: '10px 0',
-  // flexGrow: '1',
 });
 
 export const imageWrapper = style({
