@@ -1,13 +1,14 @@
 'use client';
 
+import { useState } from 'react';
+
 import * as Popover from '@radix-ui/react-popover';
 
 import ChatIcon from '@/assets/svg/chat.svg';
+import ChattingList from '@/components/Chatting/ChattingList';
 import { useAuth } from '@/provider/authProvider';
 
 import * as S from './ChattingIconButton.css';
-import ChattingList from './ChattingList';
-import { useState } from 'react';
 
 function ChattingIconButton() {
   const { isLoggedIn } = useAuth();
