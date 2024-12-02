@@ -10,7 +10,7 @@ function MypageProfileClientPage() {
   return (
     <>
       <CommonInput label="아이디" id="email" value={user.email} disabled />
-      <CommonInput label="닉네임" id="text" value={user.nick_name} disabled />
+      <CommonInput label="닉네임" id="text" value={user.nickname} disabled />
     </>
   );
 }
