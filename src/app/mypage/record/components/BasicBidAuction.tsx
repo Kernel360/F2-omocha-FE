@@ -20,8 +20,8 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
       <Image
         className={S.image}
         src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${bidAuctionHistory.thumbnail_path}`}
-        width={150}
-        height={150}
+        width={120}
+        height={120}
         alt="경매 사진"
       />
       <ul className={S.listRight}>

@@ -22,8 +22,8 @@ export default function BasicSold({ history }: BasicSoldProps) {
       <Image
         className={S.image}
         src={`${process.env.NEXT_PUBLIC_S3_URL}${history.thumbnail_path}`}
-        width={150}
-        height={150}
+        width={120}
+        height={120}
         alt="경매 사진"
       />
       <ul className={S.listRight}>
