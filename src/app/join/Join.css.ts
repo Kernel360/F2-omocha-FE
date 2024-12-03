@@ -44,7 +44,7 @@ export const inputSection = style({
 export const emailSection = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '8px',
+  gap: '10px',
 });
 
 export const commonInputContainer = style({
@@ -146,5 +146,5 @@ export const buttonWrapper = style({
 
 export const duplicateCheckButtonWrapper = style({
   display: 'flex',
-  minWidth: '80px',
+  minWidth: '100px',
 });

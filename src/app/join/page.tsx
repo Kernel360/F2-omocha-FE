@@ -3,12 +3,13 @@
 
 'use client';
 
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { CheckIcon, EyeIcon, EyeOffIcon } from 'lucide-react';
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
 
-import useCheckEmailValidation from '@/apis/queryHooks/Auth/useCheckEmailValidation';
+import useCheckEmailAuthCode from '@/apis/queryHooks/Auth/useCheckEmailAuthCode';
+import usePostEmailAuth from '@/apis/queryHooks/Auth/usePostEmailAuth';
 import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
 import {
   confirmPasswordValidation,
@@ -24,10 +25,11 @@ import sha256 from '@/utils/sha256';
 
 import * as S from './Join.css';
 
-type Inputs = {
+type JoinInputs = {
   emailRequired: string;
   passwordRequired: string;
   passwordCheckRequired: string;
+  authCodeRequired: string;
 };
 
 function Home() {
@@ -35,72 +37,53 @@ function Home() {
     register,
     handleSubmit,
     watch,
-    setError,
-    clearErrors,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<JoinInputs>({
     mode: 'onChange',
-    defaultValues: {
-      emailRequired: '',
-      passwordRequired: '',
-      passwordCheckRequired: '',
-    },
   });
 
   const { value: isBlind, toggle: setIsBlind } = useBooleanState();
+  const [isOpenAuthCode, setIsOpenAuthCode] = useState(false);
 
   const emailRequired = watch('emailRequired');
   const passwordRequired = watch('passwordRequired');
+  const authCodeRequired = watch('authCodeRequired');
 
-  const checkEmailError = errors.emailRequired; // validation 에러
+  const checkEmailError = !!errors.emailRequired; // validation 에러, true면 에러 존재/false면 에러 없음
 
-  const { mutate } = usePostRegister();
+  const { mutate: postEmailAuth } = usePostEmailAuth(setIsOpenAuthCode);
+  const { data: checkAuthCode, mutate: checkEmailAuthCode } =
+    useCheckEmailAuthCode(setIsOpenAuthCode);
+  const { mutate: join } = usePostRegister();
 
-  const { mutate: checkEmailNew, canUseEmail, setCanUseEmail, error } = useCheckEmailValidation(); // mutate로
-
-  const handleCheckEmail = () => {
+  const handleEmailAuth = () => {
     if (emailRequired === '') return;
 
-    if (!checkEmailError || checkEmailError.message === '이메일 중복을 해야합니다.') {
-      // 에러가 존재(이메일 중복 검사를 진행하라)하지만 에러 중에서 중복 확인을 안한 에러에서는 해당 이벤트가 호출될 수 있어야함.
-      checkEmailNew(emailRequired);
+    if (!checkEmailError) {
+      postEmailAuth(emailRequired);
     }
   };
 
-  useEffect(() => {
-    if (canUseEmail) {
-      clearErrors('emailRequired');
-    }
-    if (error) {
-      setError('emailRequired', { type: 'manual', message: '중복된 이메일이 있습니다.' });
-    }
-  }, [canUseEmail, error]);
+  const handleEmailAuthCode = () => {
+    if (authCodeRequired === '') return;
+    checkEmailAuthCode({ email: emailRequired, code: authCodeRequired });
+  };
 
-  const onSubmit: SubmitHandler<Inputs> = async data => {
+  const onSubmit: SubmitHandler<JoinInputs> = async data => {
     const newPassword = await sha256(data.passwordCheckRequired);
-
-    if (!canUseEmail) {
-      setError('emailRequired', { type: 'manual', message: '이메일 중복을 해야합니다.' });
-    }
-    if (!checkEmailError && canUseEmail) {
-      mutate({ email: data.emailRequired, password: newPassword });
-    }
+    join({ email: emailRequired, password: newPassword });
   };
 
-  const getButtonStyle = () => {
-    // 이메일이 비어 있음
-    if (emailRequired === '') {
-      return true; // 꺼진상태
+  const getButtonStyle = (type: 'code' | 'verify') => {
+    if (type === 'code') {
+      return emailRequired === '' || checkEmailError;
     }
-    // 유효성 검사 이상 없음 and 중복 검사 완료
-    if (!checkEmailError && canUseEmail) {
-      return true; // 꺼진상태
+
+    if (type === 'verify') {
+      return !authCodeRequired || emailRequired === '' || checkEmailError;
     }
-    // 유효성 검사 이상 없음 and 중복 검사 미완료
-    if (!checkEmailError && !canUseEmail) {
-      return false; // 꺼진상태
-    }
-    return false; // 켜진상태
+
+    return true;
   };
 
   return (
@@ -116,30 +99,39 @@ function Home() {
                 type="email"
                 placeholder="이메일을 입력하세요."
                 register={register}
-                validation={{
-                  ...emailValidation,
-                  onChange: () => {
-                    setCanUseEmail(false);
-                    clearErrors('emailRequired');
-                  },
-                }}
+                disabled={checkAuthCode?.result_data}
+                validation={emailValidation}
                 error={errors.emailRequired}
-              >
-                <div className={S.duplicateCheckButtonWrapper}>
-                  <CommonButton
-                    content="중복 확인"
-                    size="sm"
-                    disabled={getButtonStyle()}
-                    onClick={handleCheckEmail}
-                    type="button"
-                  />
+              />
+              <CommonButton
+                content={checkAuthCode?.result_data ? '인증완료' : '인증하기'}
+                size="lg"
+                disabled={getButtonStyle('code') || checkAuthCode?.result_data}
+                onClick={handleEmailAuth}
+                type="button"
+              />
+              {isOpenAuthCode && (
+                <div className={S.emailSection}>
+                  <CommonInput
+                    id="authCodeRequired"
+                    label="인증번호"
+                    type="text"
+                    register={register}
+                    validation={{
+                      required: '인증번호를 입력해주세요.',
+                    }}
+                  >
+                    <div className={S.duplicateCheckButtonWrapper}>
+                      <CommonButton
+                        content="확인"
+                        size="sm"
+                        type="button"
+                        disabled={getButtonStyle('verify')}
+                        onClick={handleEmailAuthCode}
+                      />
+                    </div>
+                  </CommonInput>
                 </div>
-              </CommonInput>
-              {!checkEmailError && canUseEmail && (
-                <span className={`${S.inputValidation} ${S.correct}`}>
-                  <CheckIcon size={16} />
-                  사용 가능한 이메일입니다.
-                </span>
               )}
             </div>
             <div className={S.commonInputContainer}>
@@ -170,7 +162,12 @@ function Home() {
             </div>
 
             <div className={S.buttonWrapper}>
-              <CommonButton content="회원가입" type="submit" size="lg" />
+              <CommonButton
+                content="회원가입"
+                type="submit"
+                size="lg"
+                disabled={!checkAuthCode?.result_data}
+              />
             </div>
           </form>
         </div>
