@@ -40,6 +40,7 @@ function Home() {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<JoinInputs>({
     mode: 'onChange',
@@ -60,14 +61,22 @@ function Home() {
     useCheckEmailAuthCode(setIsOpenAuthCode);
   const { mutate: join } = usePostRegister();
 
-  const handleEmailAuth = () => {
+  const handleEmailAuth = (type: 'first' | 'resend') => {
     if (emailRequired === '') return;
 
     if (!checkEmailError) {
-      postEmailAuth(emailRequired);
-
-      if (count === 0) {
+      if (type === 'first') {
+        postEmailAuth(emailRequired);
         setCount(DB_TIME);
+        setValue('authCodeRequired', '');
+      }
+
+      if (type === 'resend') {
+        postEmailAuth(emailRequired);
+
+        if (count === 0) {
+          setCount(DB_TIME);
+        }
       }
     }
   };
@@ -120,7 +129,7 @@ function Home() {
                 content={checkAuthCode?.result_data ? '인증완료' : '인증하기'}
                 size="lg"
                 disabled={getButtonStyle('code') || isOpenAuthCode || checkAuthCode?.result_data}
-                onClick={handleEmailAuth}
+                onClick={() => handleEmailAuth('first')}
                 type="button"
               />
               {isOpenAuthCode && (
@@ -151,7 +160,11 @@ function Home() {
                   <div className={S.emailDescription}>
                     <InfoIcon size={13} />
                     <span>이메일을 받지 못하셨나요?</span>
-                    <button type="button" onClick={handleEmailAuth} className={S.emailSendButton}>
+                    <button
+                      type="button"
+                      onClick={() => handleEmailAuth('resend')}
+                      className={S.emailSendButton}
+                    >
                       이메일 재전송하기
                     </button>
                     <AuthCodeTimer count={count} setCount={setCount} />
