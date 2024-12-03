@@ -65,12 +65,14 @@ function Home() {
     if (emailRequired === '') return;
 
     if (!checkEmailError) {
+      // 이메일 첫 전송('인증하기' 버튼)하면 api 요청, 타이머/authCodeRequired 초기화
       if (type === 'first') {
         postEmailAuth(emailRequired);
         setCount(DB_TIME);
         setValue('authCodeRequired', '');
       }
 
+      // 이메일 재전송('이메일 재전송하기' 버튼)을 하면 api 요청, 타이머를 다시 시작
       if (type === 'resend') {
         postEmailAuth(emailRequired);
 
@@ -91,16 +93,21 @@ function Home() {
     join({ email: emailRequired, password: newPassword });
   };
 
-  const getButtonStyle = (type: 'code' | 'verify') => {
-    if (type === 'code') {
+  // 이메일 및 인증코드 입력과 관련된 버튼의 활성/비활성 상태를 결정하는 함수
+  const getButtonStyle = (type: 'email' | 'code') => {
+    // type이 'email'일 경우: 이메일 '인증하기' 버튼의 활성/비활성 상태를 결정
+    if (type === 'email') {
+      // 이메일 입력이 비어 있거나 이메일 validation 에러가 발생했을 경우 버튼을 비활성화
       return emailRequired === '' || checkEmailError;
     }
 
-    if (type === 'verify') {
-      return !authCodeRequired || emailRequired === '' || checkEmailError;
+    // type이 'code'일 경우: 인증 코드 '확인' 버튼의 활성/비활성 상태를 결정
+    if (type === 'code') {
+      // 인증코드 입력이 비어 있어 있을 경우 비활성화
+      return !authCodeRequired;
     }
 
-    return true;
+    return true; // 버튼 비활성화
   };
 
   return (
@@ -128,8 +135,9 @@ function Home() {
               <CommonButton
                 content={checkAuthCode?.result_data ? '인증완료' : '인증하기'}
                 size="lg"
-                disabled={getButtonStyle('code') || isOpenAuthCode || checkAuthCode?.result_data}
-                onClick={() => handleEmailAuth('first')}
+                // getButtonStyle('code')가 true일 때 or 인증 코드가 열렸을 때 or 인증이 완료되었을 때 버튼 비활성화
+                disabled={getButtonStyle('email') || isOpenAuthCode || checkAuthCode?.result_data}
+                onClick={() => handleEmailAuth('first')} // '인증하기' 버튼 클릭 시
                 type="button"
               />
               {isOpenAuthCode && (
@@ -146,7 +154,8 @@ function Home() {
                         content="확인"
                         size="sm"
                         type="button"
-                        disabled={getButtonStyle('verify') || count === 0}
+                        // getButtonStyle('code')가 true일 때 or 시간이 종료됐을 때 버튼 비활성화
+                        disabled={getButtonStyle('code') || count === 0}
                         onClick={handleEmailAuthCode}
                       />
                     </div>
@@ -162,7 +171,7 @@ function Home() {
                     <span>이메일을 받지 못하셨나요?</span>
                     <button
                       type="button"
-                      onClick={() => handleEmailAuth('resend')}
+                      onClick={() => handleEmailAuth('resend')} // '이메일 재전송하기' 버튼 클릭 시
                       className={S.emailSendButton}
                     >
                       이메일 재전송하기
