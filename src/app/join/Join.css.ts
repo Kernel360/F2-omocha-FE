@@ -1,8 +1,9 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 import layout from '@/styles/layout';
 import shadow from '@/styles/shadow';
+import typography from '@/styles/typo';
 
 export const backContainer = style({
   display: 'flex',
@@ -57,85 +58,12 @@ export const blind = style({
   top: '38px',
 });
 
-export const inputLabel = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '6px',
-});
-
-export const joinInput = style({
-  display: 'flex',
-  borderRadius: '4px',
-  padding: '12px 16px',
-  alignItems: 'flex-start',
-  gap: '8px',
-  border: '1.5px solid black',
-  background: '#FFF',
-});
-
-export const inputValidation = style({
-  display: 'flex',
-  gap: '4px',
-  alignItems: 'center',
-  color: '#FF0000',
-  fontSize: '14px',
-  marginLeft: '8px',
-});
-
 export const error = style({
-  color: '#FF0000',
-});
-
-export const correct = style({
-  color: 'green',
-});
-
-export const submitButton = style({
-  marginTop: '30px',
-  width: '402px',
-  padding: '15px 62px',
-  background: 'black ',
-  color: '#FFF',
-  fontSize: '16px',
-  borderRadius: '4px',
-  border: 'none',
-  cursor: 'pointer',
-});
-
-const buttonBase = style({
   display: 'flex',
-  color: '#FFF',
-  justifyItems: 'flex-end',
-  fontSize: '14px',
-  width: '80px',
-  height: '44px',
   alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: '4px',
-  cursor: 'pointer',
-});
-
-export const checkButton = styleVariants({
-  default: [
-    buttonBase,
-    {
-      background: 'black',
-    },
-  ],
-  disabled: [
-    buttonBase,
-    {
-      background: '#C4C4C4',
-      cursor: 'not-allowed',
-    },
-  ],
-  confirm: [
-    buttonBase,
-    {
-      background: '#C4C4C4',
-      cursor: 'not-allowed',
-    },
-  ],
+  gap: '4px',
+  fontSize: '14px',
+  color: colors.primary10,
 });
 
 export const buttonWrapper = style({
@@ -144,7 +72,34 @@ export const buttonWrapper = style({
   marginTop: '30px',
 });
 
-export const duplicateCheckButtonWrapper = style({
+export const checkEmailAuthCodeButton = style({
   display: 'flex',
   minWidth: '100px',
+});
+
+export const emailDescription = style({
+  ...typography.caption,
+  position: 'relative',
+  display: 'flex',
+  gap: '5px',
+  alignItems: 'center',
+  color: colors.gray9,
+  fontStyle: 'italic',
+});
+
+export const emailSendButton = style({
+  ...typography.caption,
+  color: colors.gray9,
+  textDecoration: 'underline',
+  fontStyle: 'italic',
+  cursor: 'pointer',
+});
+
+export const timer = style({
+  position: 'absolute',
+  display: 'flex',
+  alignItems: 'center',
+  right: '5px',
+  color: colors.red,
+  fontStyle: 'normal',
 });

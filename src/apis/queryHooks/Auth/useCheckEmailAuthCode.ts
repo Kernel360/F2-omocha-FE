@@ -16,7 +16,7 @@ function useCheckEmailAuthCode(setIsOpenAuthCode: (isOpen: boolean) => void) {
         showToast('success', '이메일 인증이 완료되었습니다.');
         setIsOpenAuthCode(false);
       } else {
-        showToast('error', '인증번호가 일치하지 않습니다');
+        showToast('error', '인증코드가 일치하지 않습니다');
       }
     },
     onError: (e: AxiosError<Response<string>>) => {

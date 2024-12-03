@@ -6,11 +6,12 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, InfoIcon, TriangleAlertIcon } from 'lucide-react';
 
 import useCheckEmailAuthCode from '@/apis/queryHooks/Auth/useCheckEmailAuthCode';
 import usePostEmailAuth from '@/apis/queryHooks/Auth/usePostEmailAuth';
 import usePostRegister from '@/apis/queryHooks/Auth/usePostRegister';
+import AuthCodeTimer from '@/app/join/components/authcodetimer';
 import {
   confirmPasswordValidation,
   emailValidation,
@@ -32,6 +33,8 @@ type JoinInputs = {
   authCodeRequired: string;
 };
 
+const DB_TIME = 300; // 5분
+
 function Home() {
   const {
     register,
@@ -44,6 +47,7 @@ function Home() {
 
   const { value: isBlind, toggle: setIsBlind } = useBooleanState();
   const [isOpenAuthCode, setIsOpenAuthCode] = useState(false);
+  const [count, setCount] = useState(DB_TIME);
 
   const emailRequired = watch('emailRequired');
   const passwordRequired = watch('passwordRequired');
@@ -61,6 +65,10 @@ function Home() {
 
     if (!checkEmailError) {
       postEmailAuth(emailRequired);
+
+      if (count === 0) {
+        setCount(DB_TIME);
+      }
     }
   };
 
@@ -100,13 +108,18 @@ function Home() {
                 placeholder="이메일을 입력하세요."
                 register={register}
                 disabled={checkAuthCode?.result_data}
-                validation={emailValidation}
+                validation={{
+                  ...emailValidation,
+                  onChange: () => {
+                    setIsOpenAuthCode(false);
+                  },
+                }}
                 error={errors.emailRequired}
               />
               <CommonButton
                 content={checkAuthCode?.result_data ? '인증완료' : '인증하기'}
                 size="lg"
-                disabled={getButtonStyle('code') || checkAuthCode?.result_data}
+                disabled={getButtonStyle('code') || isOpenAuthCode || checkAuthCode?.result_data}
                 onClick={handleEmailAuth}
                 type="button"
               />
@@ -114,23 +127,35 @@ function Home() {
                 <div className={S.emailSection}>
                   <CommonInput
                     id="authCodeRequired"
-                    label="인증번호"
+                    label="인증코드"
                     type="text"
                     register={register}
-                    validation={{
-                      required: '인증번호를 입력해주세요.',
-                    }}
+                    placeholder="인증코드를 입력하세요."
                   >
-                    <div className={S.duplicateCheckButtonWrapper}>
+                    <div className={S.checkEmailAuthCodeButton}>
                       <CommonButton
                         content="확인"
                         size="sm"
                         type="button"
-                        disabled={getButtonStyle('verify')}
+                        disabled={getButtonStyle('verify') || count === 0}
                         onClick={handleEmailAuthCode}
                       />
                     </div>
                   </CommonInput>
+                  {count === 0 && (
+                    <span className={S.error}>
+                      <TriangleAlertIcon size={16} />
+                      {`인증 시간이 초과되었습니다. '이메일 재전송하기'를 눌러주세요.`}
+                    </span>
+                  )}
+                  <div className={S.emailDescription}>
+                    <InfoIcon size={13} />
+                    <span>이메일을 받지 못하셨나요?</span>
+                    <button type="button" onClick={handleEmailAuth} className={S.emailSendButton}>
+                      이메일 재전송하기
+                    </button>
+                    <AuthCodeTimer count={count} setCount={setCount} />
+                  </div>
                 </div>
               )}
             </div>
