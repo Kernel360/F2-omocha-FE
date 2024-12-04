@@ -25,3 +25,12 @@ export interface PostLoginResponseData {
 export interface CheckEmailParams {
   email: string;
 }
+
+export interface PostEmailAuthParams {
+  email: string;
+}
+
+export interface CheckEmailAuthParams {
+  email: string;
+  code: string;
+}
