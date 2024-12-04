@@ -20,7 +20,7 @@ interface ChattingMessageSectionProps {
 
 function ChattingMessageSection({ lastChat, roomId }: ChattingMessageSectionProps) {
   const { data: user } = useGetUser();
-  const accessToken = sessionStorage.getItem('accessToken');
+  // const accessToken = sessionStorage.getItem('accessToken');
   const { refetch } = useGetChatroomList({
     pageable: 0,
   });
@@ -96,7 +96,6 @@ function ChattingMessageSection({ lastChat, roomId }: ChattingMessageSectionProp
     onConnect: scrollToBottom,
     onMessage: checkScroll,
     checkBottom,
-    accessToken: accessToken || '',
   });
 
   const handleNewChat = () => {

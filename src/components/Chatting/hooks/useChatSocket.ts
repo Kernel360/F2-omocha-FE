@@ -12,7 +12,6 @@ interface UseChatSocketParams {
   onConnect?: () => void;
   onMessage?: (senderId: number) => void;
   checkBottom?: () => boolean;
-  accessToken: string;
 }
 
 function useChatSocket({
@@ -23,8 +22,11 @@ function useChatSocket({
   onConnect,
   onMessage,
   checkBottom,
-  accessToken,
 }: UseChatSocketParams) {
+  const accessToken = sessionStorage.getItem('accessToken');
+
+  console.log('accessToken: useChatSocket.ts', accessToken);
+
   const [newMessage, setNewMessage] = useState<Message | null>(null);
   const user = useGetUser();
   const timerRef = useRef<NodeJS.Timeout | null>(null); // 타이머 ID 저장
@@ -80,6 +82,7 @@ function useChatSocket({
   };
 
   const { client } = useSocket({
+    access: accessToken,
     url: `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URL}`,
     config: {
       // https://stomp-js.github.io/api-docs/latest/classes/Client.html
@@ -88,10 +91,7 @@ function useChatSocket({
         // 연결을 시도합니다.
         setMessages(lastChat);
       },
-      connectHeaders: {
-        // 이 부분 새로 추가
-        Authorization: accessToken, // window.sessionStorage.getItem('accessToken')!,
-      },
+
       onWebSocketError: error => {
         console.log('WebSocket Error :', error);
       },
