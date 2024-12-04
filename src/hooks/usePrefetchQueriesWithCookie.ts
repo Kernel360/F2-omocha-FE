@@ -1,6 +1,6 @@
 import { QueryClient, QueryKey } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers';
 
 import createApiClient from '@/apis/queryFunctions/apiClient';
 import { Response } from '@/apis/types/common';
@@ -14,8 +14,8 @@ interface UsePrefetchQueriesWithCookieProps<T, TQueryKey extends QueryKey> {
 async function usePrefetchQueriesWithCookie<T, TQueryKey extends QueryKey>(
   queries: UsePrefetchQueriesWithCookieProps<T, TQueryKey>[],
 ) {
-  const cookie = cookies();
-  const apiClient = createApiClient(cookie.toString());
+  // const cookie = cookies();
+  const apiClient = createApiClient();
   const queryClient = new QueryClient();
 
   await Promise.all(
