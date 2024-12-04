@@ -12,6 +12,7 @@ interface UseChatSocketParams {
   onConnect?: () => void;
   onMessage?: (senderId: number) => void;
   checkBottom?: () => boolean;
+  accessToken: string;
 }
 
 function useChatSocket({
@@ -22,6 +23,7 @@ function useChatSocket({
   onConnect,
   onMessage,
   checkBottom,
+  accessToken,
 }: UseChatSocketParams) {
   const [newMessage, setNewMessage] = useState<Message | null>(null);
   const user = useGetUser();
@@ -85,6 +87,10 @@ function useChatSocket({
       onConnect: () => {
         // 연결을 시도합니다.
         setMessages(lastChat);
+      },
+      connectHeaders: {
+        // 이 부분 새로 추가
+        Authorization: accessToken, // window.sessionStorage.getItem('accessToken')!,
       },
       onWebSocketError: error => {
         console.log('WebSocket Error :', error);

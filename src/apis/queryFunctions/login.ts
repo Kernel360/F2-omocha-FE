@@ -3,6 +3,7 @@
 import { setCookie } from '@/utils/cookies';
 
 import { LoginParams } from '../types/Auth';
+// 서버 측의 로그인 함수
 
 async function login(params: LoginParams) {
   const loginData = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/auth/login`, {

@@ -1,5 +1,4 @@
 import { QueryClient, QueryKey } from '@tanstack/react-query';
-// import { cookies } from 'next/headers';
 
 import createApiClient from '@/apis/queryFunctions/apiClient';
 import { Response } from '@/apis/types/common';
@@ -14,7 +13,6 @@ async function usePrefetchQueryWithCookie<T, TQueryKey extends QueryKey>({
   queryKey,
   api,
 }: UsePrefetchQueryWithCookieProps<T, TQueryKey>) {
-  // const cookie = cookies();
   const apiClient = createApiClient();
   const queryClient = new QueryClient();
 

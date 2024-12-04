@@ -8,15 +8,13 @@ const afterLoginProtectedRoutes = ['/login', '/join'];
 export function middleware(request: NextRequest) {
   const accessToken = cookies().get('accessToken')?.value;
 
-  // console.log('accessToken================in middleware============================', accessToken);
-
   const { pathname } = request.nextUrl;
 
-  if (afterLoginProtectedRoutes.includes(pathname)) {
+  if (accessToken && afterLoginProtectedRoutes.includes(pathname)) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  if (afterLoginProtectedRoutes.includes(pathname)) {
+  if (!accessToken && afterLoginProtectedRoutes.includes(pathname)) {
     return NextResponse.next();
   }
 

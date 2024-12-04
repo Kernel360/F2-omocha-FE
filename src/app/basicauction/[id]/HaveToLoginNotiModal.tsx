@@ -6,6 +6,7 @@ import * as S from './HaveToLoginNotiModal.css';
 
 function HaveToLoginNotiModal() {
   const { isLoggedIn } = useAuth();
+
   const router = useRouter();
   const pathname = usePathname();
 
