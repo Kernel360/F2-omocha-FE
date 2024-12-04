@@ -3,15 +3,13 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
 
-import { clientLogin } from '@/apis/queryFunctions/clientLogin';
 import GoogleIcon from '@/assets/svg/google.svg';
 import NaverIcon from '@/assets/svg/naver.svg';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
-import { useAuth } from '@/provider/authProvider';
+import useLogin from '@/hooks/useLogin';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Login.css';
@@ -28,28 +26,15 @@ function Home() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { setIsLoggedIn } = useAuth();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const prevUrl = searchParams.get('prevUrl');
-
+  const login = useLogin();
   const onSubmit: SubmitHandler<Inputs> = async data => {
     const newPassword = await sha256(data.passwordRequired);
 
     try {
-      await clientLogin({
+      await login({
         email: data.emailRequired,
         password: newPassword,
       });
-      setIsLoggedIn(true);
-      if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
-        router.push('/');
-      } else {
-        router.push(prevUrl || '/');
-      }
-
-      router.refresh();
     } catch (error) {
       console.error('Login failed:', error);
     }

@@ -33,3 +33,5 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: ['/mypage/:path*', '/create/:path*', '/login', '/join'],
 };
+
+// 미들웨어에서 토큰이 isExpired인지 확인하는 것을 넣으면 좋겠구먼.. 아니면 interceptor에서든지
