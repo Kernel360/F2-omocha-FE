@@ -25,8 +25,6 @@ function useChatSocket({
 }: UseChatSocketParams) {
   const accessToken = sessionStorage.getItem('accessToken');
 
-  console.log('accessToken: useChatSocket.ts', accessToken);
-
   const [newMessage, setNewMessage] = useState<Message | null>(null);
   const user = useGetUser();
   const timerRef = useRef<NodeJS.Timeout | null>(null); // 타이머 ID 저장
