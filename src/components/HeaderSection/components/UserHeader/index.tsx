@@ -35,7 +35,9 @@ function UserHeader() {
 
   const handleMixpanel = (eventId: string) => {
     if (!isLoggedIn) {
-      mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED);
+      mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
+        prevUrl: pathname,
+      });
       return;
     }
     mixpanel.track(eventId);
