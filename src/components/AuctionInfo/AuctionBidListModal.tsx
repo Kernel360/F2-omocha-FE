@@ -11,6 +11,7 @@ interface AuctionBidListModalProps {
 
 function AuctionBidListModal({ id }: AuctionBidListModalProps) {
   const { isLoggedIn } = useAuth();
+
   const router = useRouter();
   const pathname = usePathname();
 

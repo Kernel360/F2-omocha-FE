@@ -12,6 +12,7 @@ import * as S from './ChattingIconButton.css';
 
 function ChattingIconButton() {
   const { isLoggedIn } = useAuth();
+
   const [isOpen, setIsOpen] = useState(false);
 
   if (!isLoggedIn) return null;

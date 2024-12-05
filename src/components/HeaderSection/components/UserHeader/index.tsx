@@ -1,9 +1,13 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
+// import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
+// import logout from '@/apis/queryFunctions/deleteCookies';
 import logoIcon from '@/assets/png/logo.png';
+import useLogout from '@/hooks/useLogout';
 import { useAuth } from '@/provider/authProvider';
 import { SUB_CATEGORY } from '@/static/category';
 
@@ -11,10 +15,22 @@ import * as S from './UserHeader.css';
 
 function UserHeader() {
   const router = useRouter();
+
   const { isLoggedIn } = useAuth();
-  const { mutate: logout } = usePostLogout();
+
+  // const { mutate: logout } = usePostLogout();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const handleLogout = useLogout();
+
+  // const handleLogout = () => {
+  //   logout();
+  //   localStorage.removeItem('refreshToken');
+  //   sessionStorage.removeItem('accessToken');
+
+  //   router.push('/');
+  // };
 
   return (
     <section className={S.topHeader}>
@@ -60,7 +76,7 @@ function UserHeader() {
           );
         })}
         {isLoggedIn ? (
-          <button className={S.logoutButton} type="button" onClick={() => logout()}>
+          <button className={S.logoutButton} type="button" onClick={handleLogout}>
             로그아웃
           </button>
         ) : (

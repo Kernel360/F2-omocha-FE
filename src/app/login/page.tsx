@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import Link from 'next/link';
 
-import usePostLogin from '@/apis/queryHooks/Auth/usePostLogin';
+import useLogin from '@/apis/queryHooks/Auth/useLogin';
 import GoogleIcon from '@/assets/svg/google.svg';
 import NaverIcon from '@/assets/svg/naver.svg';
 import CommonButton from '@/components/CommonButton';
@@ -26,8 +26,7 @@ function Home() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { mutate: login } = usePostLogin();
-
+  const { mutate: login } = useLogin();
   const onSubmit: SubmitHandler<Inputs> = async data => {
     const newPassword = await sha256(data.passwordRequired);
 

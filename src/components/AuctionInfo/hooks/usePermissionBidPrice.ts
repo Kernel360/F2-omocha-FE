@@ -6,6 +6,7 @@ import { useAuth } from '@/provider/authProvider';
 
 export function usePermissionBidPrice(auctionId: number, sellerId: number) {
   const { isLoggedIn } = useAuth();
+
   const { data: user } = useGetUser();
   const [expired, setExpired] = useState('');
   const { data: auctionBidList } = useGetBasicAuctionBidList(auctionId);

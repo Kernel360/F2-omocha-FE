@@ -1,31 +1,33 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import { postLogin } from '@/apis/queryFunctions/Auth';
+import setTokenCookies from '@/apis/queryFunctions/setTokenCookies';
 import { LoginParams } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
 
-function usePostLogin() {
+function useLogin() {
+  const { setIsLoggedIn } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const prevUrl = searchParams.get('prevUrl');
-  const { setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
 
-  const { mutate, error } = useMutation({
-    mutationFn: (param: LoginParams) => postLogin(param),
-    onSuccess: () => {
+  const { mutate } = useMutation({
+    mutationFn: (loginParams: LoginParams) => setTokenCookies(loginParams),
+    onSuccess: data => {
+      sessionStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+      setIsLoggedIn(true);
+      showToast('success', '로그인 되었습니다.');
       if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
         router.push('/');
       } else {
         router.push(prevUrl || '/');
       }
-      router.refresh();
-      setIsLoggedIn(true);
-      showToast('success', '로그인에 성공했습니다.');
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {
@@ -37,7 +39,7 @@ function usePostLogin() {
     },
   });
 
-  return { mutate, error };
+  return { mutate };
 }
 
-export default usePostLogin;
+export default useLogin;
