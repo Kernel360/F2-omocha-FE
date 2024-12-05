@@ -1,7 +1,9 @@
+import EVENT_ID from './eventId';
+
 export const SUB_CATEGORY = [
-  { id: 1, name: '경매 등록', path: '/create' },
-  { id: 2, name: '마이페이지', path: '/mypage/profile' },
-  { id: 3, name: '찜', path: '/mypage/heart' },
+  { id: 1, name: '경매 등록', path: '/create', eventId: EVENT_ID.AUCTION_CREATE_BUTTON_CLICKED },
+  { id: 2, name: '마이페이지', path: '/mypage/profile', eventId: EVENT_ID.MY_PAGE_BUTTON_CLICKED },
+  { id: 3, name: '찜', path: '/mypage/heart', eventId: EVENT_ID.MY_PAGE_HEART_BUTTON_CLICKED },
   // { id: 4, name: '알림' },
 ];
 
@@ -14,7 +16,22 @@ export const MAIN_CATEGORY = [
 ];
 
 export const MYPAGE_CATEGORY = [
-  { id: 1, name: '회원 정보 수정', path: '/mypage/profile' },
-  { id: 2, name: '찜', path: '/mypage/heart' },
-  { id: 3, name: '거래 내역', path: '/mypage/record' },
+  {
+    id: 1,
+    name: '회원 정보 수정',
+    path: '/mypage/profile',
+    eventId: EVENT_ID.MY_PAGE_BUTTON_CLICKED,
+  },
+  {
+    id: 2,
+    name: '찜',
+    path: '/mypage/heart',
+    eventId: EVENT_ID.MY_PAGE_HEART_BUTTON_CLICKED,
+  },
+  {
+    id: 3,
+    name: '거래 내역',
+    path: '/mypage/record',
+    eventId: EVENT_ID.MY_PAGE_RECORD_BUTTON_CLICKED,
+  },
 ];

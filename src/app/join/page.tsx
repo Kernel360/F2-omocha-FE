@@ -21,6 +21,9 @@ import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
 import useBooleanState from '@/hooks/useBooleanState';
+import useTrackingPageView from '@/hooks/useTrackingPageView';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
 import sha256 from '@/utils/sha256';
 
@@ -49,6 +52,7 @@ function Home() {
   const { value: isBlind, toggle: setIsBlind } = useBooleanState();
   const [isOpenAuthCode, setIsOpenAuthCode] = useState(false);
   const [count, setCount] = useState(DB_TIME);
+  const { pageRef } = useTrackingPageView({ pageViewEventName: EVENT_ID.JOIN_PAGE_VIEWED });
 
   const emailRequired = watch('emailRequired');
   const passwordRequired = watch('passwordRequired');
@@ -91,6 +95,7 @@ function Home() {
   const onSubmit: SubmitHandler<JoinInputs> = async data => {
     const newPassword = await sha256(data.passwordCheckRequired);
     join({ email: emailRequired, password: newPassword });
+    mixpanel.track(EVENT_ID.JOIN_SUBMIT_BUTTON_CLICKED);
   };
 
   // 이메일 및 인증코드 입력과 관련된 버튼의 활성/비활성 상태를 결정하는 함수
@@ -219,6 +224,7 @@ function Home() {
           </form>
         </div>
       </MaxLayout>
+      <div ref={pageRef} />
     </div>
   );
 }
