@@ -35,8 +35,8 @@ const EVENT_ID = {
   AUCTION_CREATE_SUBMIT_FAILURE_REASON: 'auction_create_submit_failure_reason',
 
   // 마이페이지
-  MY_PAGE_BUTTON_CLICKED: 'my_page_button_clicked',
-  MY_PAGE_VIEWED: 'my_page_viewed',
+  MY_PAGE_PROFILE_BUTTON_CLICKED: 'my_page_profile_button_clicked',
+  MY_PAGE_PROFILE_VIEWED: 'my_page_profile_viewed',
   MY_PAGE_HEART_BUTTON_CLICKED: 'my_page_heart_button_clicked',
   MY_PAGE_HEART_VIEWED: 'my_page_heart_viewed',
   MY_PAGE_RECORD_BUTTON_CLICKED: 'my_page_record_button_clicked',
