@@ -17,11 +17,11 @@ import {
   emailValidation,
   passwordValidation,
 } from '@/app/join/utils/joinValidation';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
 import useBooleanState from '@/hooks/useBooleanState';
-import useTrackingPageView from '@/hooks/useTrackingPageView';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
@@ -52,7 +52,6 @@ function Home() {
   const { value: isBlind, toggle: setIsBlind } = useBooleanState();
   const [isOpenAuthCode, setIsOpenAuthCode] = useState(false);
   const [count, setCount] = useState(DB_TIME);
-  const { pageRef } = useTrackingPageView({ pageViewEventName: EVENT_ID.JOIN_PAGE_VIEWED });
 
   const emailRequired = watch('emailRequired');
   const passwordRequired = watch('passwordRequired');
@@ -224,7 +223,7 @@ function Home() {
           </form>
         </div>
       </MaxLayout>
-      <div ref={pageRef} />
+      <ClientSidePageRef eventId={EVENT_ID.JOIN_PAGE_VIEWED} />
     </div>
   );
 }

@@ -7,10 +7,10 @@ import Link from 'next/link';
 import useLogin from '@/apis/queryHooks/Auth/useLogin';
 import GoogleIcon from '@/assets/svg/google.svg';
 import NaverIcon from '@/assets/svg/naver.svg';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
-import useTrackingPageView from '@/hooks/useTrackingPageView';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
 import sha256 from '@/utils/sha256';
@@ -23,7 +23,6 @@ type Inputs = {
 };
 
 function Home() {
-  const { pageRef } = useTrackingPageView({ pageViewEventName: EVENT_ID.LOGIN_PAGE_VIEWED });
   const {
     register,
     handleSubmit,
@@ -122,7 +121,7 @@ function Home() {
           </div>
         </div>
       </MaxLayout>
-      <div ref={pageRef} />
+      <ClientSidePageRef eventId={EVENT_ID.LOGIN_PAGE_VIEWED} />
     </div>
   );
 }

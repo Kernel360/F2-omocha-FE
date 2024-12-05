@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation';
 import useGetAuctionLikeList from '@/apis/queryHooks/User/useGetAuctionLikeList';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import AuctionCard from '@/components/AuctionCard';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import ListLayout from '@/components/ListLayout';
 import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './Heart.css';
 
@@ -69,6 +71,7 @@ function Home() {
           </ListLayout>
           {isFetchingNextPage && hasNextPage && <AuctionListSkeletonUI count={4} />}
           <div ref={endCursorRef} />
+          <ClientSidePageRef eventId={EVENT_ID.MY_PAGE_HEART_VIEWED} />
         </>
       )}
     </div>

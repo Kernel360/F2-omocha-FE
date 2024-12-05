@@ -1,5 +1,7 @@
 import ChangePassword from '@/app/mypage/profile/components/changepassword';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import MypageProfileClientPage from '@/components/MypageProfileClientPage';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './Profile.css';
 
@@ -14,6 +16,7 @@ function Home() {
       <section className={S.section}>
         <ChangePassword />
       </section>
+      <ClientSidePageRef eventId={EVENT_ID.MY_PAGE_PROFILE_VIEWED} />
     </div>
   );
 }
