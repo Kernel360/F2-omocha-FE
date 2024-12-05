@@ -1,6 +1,6 @@
 'use server';
 
-import { setCookie } from '@/utils/cookies';
+import { setCookies } from '@/utils/setCookies';
 
 import { LoginParams } from '../types/Auth';
 
@@ -18,7 +18,7 @@ async function setTokenCookies(params: LoginParams) {
   const accessToken = loginData.access_token;
   const refreshToken = loginData.refresh_token;
 
-  setCookie('accessToken', accessToken);
+  setCookies('accessToken', accessToken);
 
   return { accessToken, refreshToken };
 }
