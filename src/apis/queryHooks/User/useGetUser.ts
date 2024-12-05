@@ -5,6 +5,7 @@ import { useAuth } from '@/provider/authProvider';
 
 function useGetUser() {
   const { isLoggedIn } = useAuth();
+
   const { data, isLoading } = useQuery({
     queryKey: ['userInfo'],
     queryFn: () => getUser(),
