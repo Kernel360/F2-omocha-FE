@@ -8,14 +8,15 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 // import logout from '@/apis/queryFunctions/deleteCookies';
 import logoIcon from '@/assets/png/logo.png';
 import useLogout from '@/hooks/useLogout';
+import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 import { SUB_CATEGORY } from '@/static/category';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './UserHeader.css';
 
 function UserHeader() {
   const router = useRouter();
-
   const { isLoggedIn } = useAuth();
 
   // const { mutate: logout } = usePostLogout();
@@ -32,6 +33,14 @@ function UserHeader() {
   //   router.push('/');
   // };
 
+  const handleMixpanel = (eventId: string) => {
+    if (!isLoggedIn) {
+      mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED);
+      return;
+    }
+    mixpanel.track(eventId);
+  };
+
   return (
     <section className={S.topHeader}>
       <Link href="/" scroll={false} className={S.topHeaderLogo}>
@@ -47,6 +56,7 @@ function UserHeader() {
                 href={category.path}
                 scroll={false}
                 className={S.TopHeaderUnit}
+                onClick={() => handleMixpanel(category.eventId)}
               >
                 {category.name}
               </Link>

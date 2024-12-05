@@ -12,6 +12,9 @@ const EVENT_ID = {
   LOGIN_WITH_GOOGLE_BUTTON_CLICKED: 'login_with_google_button_clicked',
   REDIRECT_TO_LOGIN_PAGE_VIEWED: 'redirect_to_login_page_viewed',
 
+  // 로그아웃
+  LOGOUT_BUTTON_CLICKED: 'logout_button_clicked',
+
   // 메인페이지
   DAILY_POPULAR_AUCTION_ELEMENT_CLICKED: 'daily_popular_auction_element_clicked',
   NEW_AUCTION_ITEM_ELEMENT_CLICKED: 'new_auction_item_element_clicked',
