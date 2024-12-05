@@ -19,6 +19,7 @@ async function setTokenCookies(params: LoginParams) {
   const refreshToken = loginData.refresh_token;
 
   setCookies('accessToken', accessToken);
+  setCookies('refreshToken', refreshToken);
 
   return { accessToken, refreshToken };
 }
