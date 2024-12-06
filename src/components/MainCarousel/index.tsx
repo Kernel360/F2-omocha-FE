@@ -9,6 +9,8 @@ import Link from 'next/link';
 import goggleformImage from '@/assets/png/goggleform.png';
 import sampleResizeBannerImage from '@/assets/png/sampleResizeBannerImage.png';
 import sampleResizeBannerImage2 from '@/assets/png/sampleResizeBannerImage2.png';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './MainCarousel.css';
 
@@ -16,14 +18,17 @@ const CAROUSEL_INFO = [
   {
     img: sampleResizeBannerImage,
     link: '/basicauction?page=1',
+    name: '배너1',
   },
   {
     img: goggleformImage,
     link: 'https://docs.google.com/forms/d/e/1FAIpQLSelN-LzbcOW3gI4bjTYXeX4jjr0Vmilyawehy3pV5UpJuWiTw/viewform',
+    name: '설문지',
   },
   {
     img: sampleResizeBannerImage2,
     link: 'basicauction?page=1',
+    name: '배너2',
   },
 ];
 
@@ -50,10 +55,14 @@ function MainCarousel() {
     }
   };
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent, name: string) => {
     if (isDragging.current) {
       e.preventDefault();
+      return;
     }
+    mixpanel.track(EVENT_ID.CAROUSEL_BANNER_BUTTON_CLICKED, {
+      carouselInfo: name,
+    });
   };
 
   return (
@@ -74,7 +83,7 @@ function MainCarousel() {
             key={info.link}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
-            onClick={handleClick}
+            onClick={e => handleClick(e, info.name)}
           >
             <Image width={960} height={360} src={info.img} alt="test" className={S.carouselImage} />
           </Link>

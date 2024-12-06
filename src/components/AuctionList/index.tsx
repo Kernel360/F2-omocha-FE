@@ -4,6 +4,7 @@ import Link from 'next/link';
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
+import mixpanel from '@/lib/mixpanel';
 
 import * as S from './AuctionList.css';
 
@@ -12,9 +13,16 @@ export interface AuctionListProps {
   direction: string;
   pathname: string;
   path: string;
+  eventId: string;
 }
 
-export default function AuctionList({ sort, direction, pathname, path }: AuctionListProps) {
+export default function AuctionList({
+  sort,
+  direction,
+  pathname,
+  path,
+  eventId,
+}: AuctionListProps) {
   const { data } = useGetBasicAuctionList({
     title: '',
     sort,
@@ -24,13 +32,17 @@ export default function AuctionList({ sort, direction, pathname, path }: Auction
     auctionStatus: 'BIDDING',
   });
 
+  const handleMixpanel = () => {
+    mixpanel.track(eventId);
+  };
+
   if (!data) return null;
 
   return (
     <section className={S.section}>
       <div className={S.title}>
         <h3>{pathname}</h3>
-        <Link className={S.link} href={path}>
+        <Link className={S.link} href={path} onClick={handleMixpanel}>
           경매 전체보기
           <ArrowRightIcon />
         </Link>
