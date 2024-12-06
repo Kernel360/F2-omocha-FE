@@ -27,10 +27,11 @@ function Home() {
   } = useForm<Inputs>();
 
   const { mutate: login } = useLogin();
+
   const onSubmit: SubmitHandler<Inputs> = async data => {
     const newPassword = await sha256(data.passwordRequired);
 
-    await login({
+    login({
       email: data.emailRequired,
       password: newPassword,
     });

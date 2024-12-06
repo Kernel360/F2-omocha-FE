@@ -1,7 +1,5 @@
 'use server';
 
-import deleteCookies from '@/apis/queryFunctions/deleteTokenCookies';
-
 import { LoginParams } from '../types/Auth';
 
 async function setTokenCookies(params: LoginParams) {
@@ -17,7 +15,7 @@ async function setTokenCookies(params: LoginParams) {
     if (!response.ok) {
       // 서버 응답이 실패 상태인 경우 에러 처리
       const errorData = await response.json();
-      deleteCookies(); // 실패
+
       throw new Error(`Failed to reissue token: ${errorData.message || 'Unknown error'}`);
     }
 
@@ -28,8 +26,7 @@ async function setTokenCookies(params: LoginParams) {
 
     return { accessToken, refreshToken };
   } catch (error) {
-    deleteCookies(); // 실패
-    console.error('Failed to set token cookies:', error);
+    console.error('Failed to bring token:', error);
     throw error; // 호출자에게 에러 전달
   }
 }

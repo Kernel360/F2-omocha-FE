@@ -62,6 +62,8 @@ function createApiClient() {
             }
           } catch (e) {
             console.error('Failed to reissue token:', e);
+            localStorage.removeItem('refreshToken');
+            sessionStorage.removeItem('accessToken');
           }
         }
       }
