@@ -38,13 +38,6 @@ function Home() {
       email: data.emailRequired,
       password: newPassword,
     });
-
-    mixpanel.track(EVENT_ID.LOGIN_SUBMIT_BUTTON_CLICKED);
-    mixpanel.identify(data.emailRequired);
-    mixpanel.people.set({
-      $email: data.emailRequired,
-      login_type: 'general',
-    });
   };
 
   const handleSocialLoginMixpanel = (type: 'naver' | 'google') => {

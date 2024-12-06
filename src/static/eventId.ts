@@ -24,6 +24,7 @@ const EVENT_ID = {
   AUCTION_DETAIL_PAGE_VIEWED: 'auction_detail_page_viewed',
   AUCTION_DETAIL_INSTANT_BUY_BUTTON_CLICKED: 'auction_detail_instant_buy_button_clicked',
   AUCTION_DETAIL_BID_BUTTON_CLICKED: 'auction_detail_bid_button_clicked',
+  AUCTION_DETAIL_HEART_BUTTON_CLICKED: 'auction_detail_heart_button_clicked',
 
   // 메인페이지
   DAILY_POPULAR_AUCTION_ITEM_CLICKED: 'daily_popular_auction_item_clicked',
@@ -38,11 +39,11 @@ const EVENT_ID = {
   AUCTION_CREATE_BUTTON_CLICKED: 'auction_create_button_clicked',
   AUCTION_CREATE_PAGE_VIEWED: 'auction_create_page_viewed',
   AUCTION_CREATE_SUBMIT_BUTTON_CLICKED: 'auction_create_submit_button_clicked',
-  AUCTION_CREATE_INSTANT_PRICE_BUTTON_CLICKED: 'auction_create_instant_price_button_clicked',
-  AUCTION_CREATE_INSTANCE_PRICE_SUBMIT_BUTTON_CLICKED:
-    'auction_create_instance_price_submit_button_clicked',
-  AUCTION_CREATE_SUBMIT_RESULT: 'auction_create_submit_result',
-  AUCTION_CREATE_SUBMIT_FAILURE_REASON: 'auction_create_submit_failure_reason',
+  // AUCTION_CREATE_INSTANT_PRICE_BUTTON_CLICKED: 'auction_create_instant_price_button_clicked',
+  // AUCTION_CREATE_INSTANCE_PRICE_SUBMIT_BUTTON_CLICKED:
+  // 'auction_create_instance_price_submit_button_clicked',
+  // AUCTION_CREATE_SUBMIT_RESULT: 'auction_create_submit_result',
+  // AUCTION_CREATE_SUBMIT_FAILURE_REASON: 'auction_create_submit_failure_reason',
 
   // 마이페이지
   MYPAGE_PROFILE_BUTTON_CLICKED: 'mypage_profile_button_clicked',

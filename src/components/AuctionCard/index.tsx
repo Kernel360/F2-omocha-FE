@@ -55,6 +55,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   }, [initialLike]);
 
   const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     e.preventDefault();
     postAuctionLike({ auction_id: id });
   };
