@@ -1,9 +1,8 @@
 import { Metadata } from 'next';
 
-import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
-import BasicAuction from '@/app/basicauction/basicauction';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import Checkbox from '@/app/basicauction/components/checkbox';
+import BasicAuctionClientPage from '@/components/BasicAuctionClientPage';
 import BreadcrumbSection from '@/components/BreadcrumbSection';
 import AuctionCategoryLeftSection from '@/components/LeftSection/components/AuctionCategoryLeftSection/AuctionCategoryLeftSection';
 import MobileAuctionCategoryLeftSection from '@/components/LeftSection/components/MobileAuctionCategoryLeftSection/MobileAuctionCategoryLeftSection';
@@ -53,7 +52,7 @@ export const generateMetadata = async ({
   }
 };
 
-function Home({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
+function Home() {
   return (
     <MaxLayout>
       <div className={S.basicAuctionContainer}>
@@ -67,7 +66,7 @@ function Home({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
               <AuctionDropDown />
             </div>
           </div>
-          <BasicAuction searchParams={searchParams} />
+          <BasicAuctionClientPage />
         </section>
       </div>
     </MaxLayout>

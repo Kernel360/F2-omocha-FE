@@ -30,14 +30,10 @@ function Home() {
   const onSubmit: SubmitHandler<Inputs> = async data => {
     const newPassword = await sha256(data.passwordRequired);
 
-    try {
-      await login({
-        email: data.emailRequired,
-        password: newPassword,
-      });
-    } catch (error) {
-      console.error('Login failed:', error);
-    }
+    await login({
+      email: data.emailRequired,
+      password: newPassword,
+    });
   };
 
   return (
