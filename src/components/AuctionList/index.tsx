@@ -1,10 +1,17 @@
+'use client';
+
+import { Suspense } from 'react';
+
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
+
 import mixpanel from '@/lib/mixpanel';
+
+import { useAuth } from '@/provider/authProvider';
 
 import * as S from './AuctionList.css';
 
@@ -23,6 +30,8 @@ export default function AuctionList({
   path,
   eventId,
 }: AuctionListProps) {
+  const { isLoggedIn } = useAuth();
+
   const { data } = useGetBasicAuctionList({
     title: '',
     sort,
@@ -30,6 +39,7 @@ export default function AuctionList({
     page: 0,
     size: 8,
     auctionStatus: 'BIDDING',
+    isLogin: isLoggedIn,
   });
 
   const handleMixpanel = () => {
@@ -50,20 +60,22 @@ export default function AuctionList({
       <div className={S.listWrapper}>
         <ListLayout>
           {data.result_data.content.map(item => (
-            <AuctionCard
-              key={item.auction_id}
-              id={item.auction_id}
-              thumbnailImage={item.thumbnail_path}
-              title={item.title}
-              isLike={item.is_liked}
-              startPrice={item.start_price}
-              startTime={item.start_date}
-              endTime={item.end_date}
-              nowPrice={item.now_price}
-              auctionStatus={item.auction_status}
-              instantBuyPrice={item.instant_buy_price}
-              pageContext="main_page"
-            />
+            <Suspense key={item.auction_id} fallback={<>AuctionCard</>}>
+              <AuctionCard
+                key={item.auction_id}
+                id={item.auction_id}
+                thumbnailImage={item.thumbnail_path}
+                title={item.title}
+                isLike={item.is_liked}
+                startPrice={item.start_price}
+                startTime={item.start_date}
+                endTime={item.end_date}
+                nowPrice={item.now_price}
+                auctionStatus={item.auction_status}
+                instantBuyPrice={item.instant_buy_price}
+                pageContext="main_page"
+              />
+            </Suspense>
           ))}
         </ListLayout>
       </div>

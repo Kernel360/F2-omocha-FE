@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
+import useLogout from '@/hooks/useLogout';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
@@ -27,12 +27,13 @@ function MobileSlideNav({
   userEmail,
   userHeartCount,
 }: MobileSlideNavProps) {
-  const { mutate: logout } = usePostLogout();
+  const handleLogout = useLogout();
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleLogout = () => {
-    logout();
+  const logout = () => {
+    handleLogout();
     onClose();
     mixpanel.track(EVENT_ID.LOGOUT_BUTTON_CLICKED);
     mixpanel.reset();
@@ -159,7 +160,7 @@ function MobileSlideNav({
       </Link>
       <hr className={S.division} />
       {isLogin && (
-        <button className={S.bottomNavButtonBase} type="button" onClick={handleLogout}>
+        <button className={S.bottomNavButtonBase} type="button" onClick={logout}>
           로그아웃
         </button>
       )}

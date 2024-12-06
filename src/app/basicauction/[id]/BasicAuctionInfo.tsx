@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import dynamic from 'next/dynamic';
 
@@ -51,7 +51,9 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
 
   return (
     <div className={S.auctionWrapper}>
-      <BreadcrumbSection />
+      <Suspense fallback={<>Loading...</>}>
+        <BreadcrumbSection />
+      </Suspense>
       <div className={S.auctionInfoWrapper}>
         <AuctionImageInfo imageList={data.result_data.image_paths} />
         <AuctionInfo

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
@@ -36,15 +36,18 @@ function MobileHeader() {
         <div className={S.container}>
           <MobileUserHeader openNav={openNav} />
           <CategoryHeader data={data as Category[]} />
+
           <SlideSideNav isOpen={navState} onClose={closeNav} type="mobile">
-            <MobileSlideNav
-              isLogin={!!userInfo}
-              userProfileImage={userInfo?.profile_image_url}
-              userNickname={userInfo?.nickname}
-              userEmail={userInfo?.email}
-              userHeartCount={userInfo?.like_count}
-              onClose={closeNav}
-            />
+            <Suspense fallback={<>MobileSlideNav Loading...</>}>
+              <MobileSlideNav
+                isLogin={!!userInfo}
+                userProfileImage={userInfo?.profile_image_url}
+                userNickname={userInfo?.nickname}
+                userEmail={userInfo?.email}
+                userHeartCount={userInfo?.like_count}
+                onClose={closeNav}
+              />
+            </Suspense>
           </SlideSideNav>
         </div>
       </MaxLayout>

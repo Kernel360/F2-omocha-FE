@@ -1,6 +1,5 @@
 import { useRouter } from 'next/navigation';
 
-import deleteCookies from '@/apis/queryFunctions/deleteTokenCookies';
 import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
@@ -12,7 +11,6 @@ function useLogout() {
   const { showToast } = useToast();
 
   const handleLogout = () => {
-    deleteCookies();
     localStorage.removeItem('refreshToken');
     sessionStorage.removeItem('accessToken');
     setIsLoggedIn(false);

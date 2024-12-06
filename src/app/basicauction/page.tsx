@@ -1,9 +1,10 @@
+import { Suspense } from 'react';
+
 import { Metadata } from 'next';
 
-import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
-import BasicAuction from '@/app/basicauction/basicauction';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import Checkbox from '@/app/basicauction/components/checkbox';
+import BasicAuctionClientPage from '@/components/BasicAuctionClientPage';
 import BreadcrumbSection from '@/components/BreadcrumbSection';
 import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import AuctionCategoryLeftSection from '@/components/LeftSection/components/AuctionCategoryLeftSection/AuctionCategoryLeftSection';
@@ -22,14 +23,16 @@ interface GenerateMetadataProps {
 export const generateMetadata = async ({
   searchParams,
 }: GenerateMetadataProps): Promise<Metadata> => {
+  const queryValue = searchParams.categoryId;
+
+  if (!queryValue) {
+    return getMetadata({
+      title: 'ALL',
+      asPath: '/basicauction?page=1',
+    });
+  }
+
   try {
-    const queryValue = searchParams.categoryId;
-    if (!queryValue) {
-      return getMetadata({
-        title: 'ALL',
-        asPath: '/basicauction?page=1',
-      });
-    }
     const categoryListTree = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/categories/${queryValue}`,
     )
@@ -42,34 +45,39 @@ export const generateMetadata = async ({
     return getMetadata({
       title: `${categoryName}`,
       asPath: `/basicauction?categoryId=${queryValue}&page=1`,
-      // TODO 예쁜 사진이 있다면 그것으로 카테고리를 나타내서 openGraphImage를 설정하면 좋을 듯함.
     });
   } catch (error) {
     console.error(error);
     return getMetadata({
       title: 'Auction Detail',
       asPath: `/basicauction`,
-
-      // 잘못 되었을 떄
     });
   }
 };
 
-function Home({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
+function Home() {
   return (
     <MaxLayout>
       <div className={S.basicAuctionContainer}>
-        <AuctionCategoryLeftSection />
+        <Suspense fallback={<>AuctionCategoryLeftSection</>}>
+          <AuctionCategoryLeftSection />
+        </Suspense>
         <section className={S.rightSection}>
-          <BreadcrumbSection />
+          <Suspense fallback={<>BreadcrumbSection</>}>
+            <BreadcrumbSection />
+          </Suspense>
           <div className={S.topInfoSection}>
-            <MobileAuctionCategoryLeftSection />
+            <Suspense fallback={<>MobileAuctionCategoryLeftSection</>}>
+              <MobileAuctionCategoryLeftSection />
+            </Suspense>
             <div className={S.optionSection}>
               <Checkbox />
               <AuctionDropDown />
             </div>
           </div>
-          <BasicAuction searchParams={searchParams} />
+          <Suspense fallback={<>BasicAuctionClientPage</>}>
+            <BasicAuctionClientPage />
+          </Suspense>
         </section>
       </div>
       <ClientSidePageRef eventId={EVENT_ID.AUCTION_LIST_PAGE_VIEWED} />

@@ -4,8 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-// import usePostLogout from '@/apis/queryHooks/Auth/usePostLogout';
-// import logout from '@/apis/queryFunctions/deleteCookies';
 import logoIcon from '@/assets/png/logo.png';
 import useLogout from '@/hooks/useLogout';
 import mixpanel from '@/lib/mixpanel';
@@ -19,19 +17,10 @@ function UserHeader() {
   const router = useRouter();
   const { isLoggedIn } = useAuth();
 
-  // const { mutate: logout } = usePostLogout();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const handleLogout = useLogout();
-
-  // const handleLogout = () => {
-  //   logout();
-  //   localStorage.removeItem('refreshToken');
-  //   sessionStorage.removeItem('accessToken');
-
-  //   router.push('/');
-  // };
 
   const handleMixpanel = (eventId: string) => {
     if (!isLoggedIn) {

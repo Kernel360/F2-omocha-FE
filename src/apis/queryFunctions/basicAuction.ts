@@ -42,6 +42,7 @@ export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => 
   const response = await apiClient.get<Response<ListResponse<AuctionData[]>>>(
     `/v2/auctions?${queryString}`,
   );
+
   return response.data;
 };
 

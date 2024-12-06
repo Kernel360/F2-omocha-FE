@@ -1,5 +1,7 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import useGetAuctionLikeList from '@/apis/queryHooks/User/useGetAuctionLikeList';
@@ -10,10 +12,13 @@ import ListLayout from '@/components/ListLayout';
 import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import EVENT_ID from '@/static/eventId';
+import useRequireAuth from '@/hooks/useRequireAuth';
 
 import * as S from './Heart.css';
 
 function Home() {
+  useRequireAuth();
+
   const { data: user } = useGetUser();
   const router = useRouter();
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } = useGetAuctionLikeList(
@@ -54,19 +59,21 @@ function Home() {
           <ListLayout>
             {data?.pages.map(page =>
               page.result_data.content.map(item => (
-                <AuctionCard
-                  key={item.auction_id}
-                  id={item.auction_id}
-                  thumbnailImage={item.thumbnail_path}
-                  title={item.title}
-                  isLike={!!item.liked_date}
-                  auctionStatus={item.auction_status}
-                  startPrice={item.start_price}
-                  startTime={item.start_date}
-                  endTime={item.end_date}
-                  nowPrice={item.now_price}
-                  pageContext="heart_page"
-                />
+                <Suspense key={item.auction_id} fallback={<>AuctionCard</>}>
+                  <AuctionCard
+                    key={item.auction_id}
+                    id={item.auction_id}
+                    thumbnailImage={item.thumbnail_path}
+                    title={item.title}
+                    isLike={!!item.liked_date}
+                    auctionStatus={item.auction_status}
+                    startPrice={item.start_price}
+                    startTime={item.start_date}
+                    endTime={item.end_date}
+                    nowPrice={item.now_price}
+                    pageContext="heart_page"
+                  />
+                </Suspense>
               )),
             )}
           </ListLayout>

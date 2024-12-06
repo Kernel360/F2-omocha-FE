@@ -1,10 +1,14 @@
+'use client';
+
 import MaxLayout from '@/components/MaxLayout';
 import MypageCategory from '@/components/MypageCategory';
 import MypageUserSection from '@/components/MypageUserSection';
+import useRequireAuth from '@/hooks/useRequireAuth';
 
 import * as S from './Layout.css';
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
+  useRequireAuth();
   return (
     <div className={S.backContainer}>
       <MaxLayout>

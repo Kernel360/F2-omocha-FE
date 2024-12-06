@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { MenuIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,7 +25,9 @@ function MobileUserHeader({ openNav }: MobileUserHeaderProps) {
     <section className={S.topHeader}>
       <div className={S.IconWrapper}>
         <MenuIcon stroke={colors.gray10} onClick={openNav} />
-        <SearchBar />
+        <Suspense fallback={<>SearchBar</>}>
+          <SearchBar />
+        </Suspense>
       </div>
       <Link href="/" scroll={false} className={S.topHeaderLogo} onClick={handleMixpanel}>
         <Image width={24} height={24} src={logoIcon} alt="logo" className={S.logo} />
