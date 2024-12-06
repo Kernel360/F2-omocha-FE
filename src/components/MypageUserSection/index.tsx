@@ -10,10 +10,13 @@ import useBooleanState from '@/hooks/useBooleanState';
 import colors from '@/styles/color';
 
 import * as S from './MypageUserSection.css';
+import useRequireAuth from '@/hooks/useRequireAuth';
 
 function MypageUserSection() {
   const { data: user } = useGetUser();
   const { value: isOpenImageUploadModal, toggle: setIsOpenImageUploadModal } = useBooleanState();
+
+  useRequireAuth();
 
   return (
     <div className={S.profile}>

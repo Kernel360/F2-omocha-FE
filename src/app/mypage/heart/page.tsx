@@ -10,8 +10,11 @@ import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 import * as S from './Heart.css';
+import useRequireAuth from '@/hooks/useRequireAuth';
 
 function Home() {
+  useRequireAuth();
+
   const { data: user } = useGetUser();
   const router = useRouter();
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } = useGetAuctionLikeList(

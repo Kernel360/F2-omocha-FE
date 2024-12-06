@@ -16,6 +16,8 @@ async function usePrefetchQueriesWithCookie<T, TQueryKey extends QueryKey>(
   const apiClient = createApiClient();
   const queryClient = new QueryClient();
 
+  console.log('usePrefetchQueriesWithCookie');
+
   await Promise.all(
     queries.map(async ({ queryKey, api }) => {
       await queryClient.prefetchQuery({

@@ -20,8 +20,11 @@ import useDebounce from '@/hooks/useDebounce';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
+import useRequireAuth from '@/hooks/useRequireAuth';
 
 export default function Home() {
+  useRequireAuth();
+
   const methods = useForm<AuctionInputs>();
   const {
     register,

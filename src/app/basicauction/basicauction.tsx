@@ -26,9 +26,11 @@ async function BasicAuction({ searchParams }: { searchParams: GetBasicAuctionLis
   });
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <BasicAuctionClientPage />
-    </HydrationBoundary>
+    // <HydrationBoundary state={dehydrate(queryClient)}>
+    // 일단 지운 이유는 얘는 auth가 없으면 그냥 불러오고 있음ㄴ 짐 여소를 반환해서..
+
+    <BasicAuctionClientPage />
+    // </HydrationBoundary>
   );
 }
 

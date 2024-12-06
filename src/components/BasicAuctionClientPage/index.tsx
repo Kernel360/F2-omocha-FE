@@ -10,6 +10,8 @@ import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 import Pagination from '../Pagination';
 
 import * as S from './BasicAuctionClientPage.css';
+import { useAuth } from '@/provider/authProvider';
+import { useEffect } from 'react';
 
 function BasicAuctionClientPage() {
   const searchParams = useSearchParams();
@@ -17,6 +19,8 @@ function BasicAuctionClientPage() {
   const pickCategory = Number(searchParams.get('categoryId'));
   const currentPage = Number(searchParams.get('page'));
   const router = useRouter();
+
+  const { isLoggedIn } = useAuth();
 
   const { data, pageInfo } = useGetBasicAuctionList({
     categoryId: pickCategory || undefined,
@@ -26,6 +30,7 @@ function BasicAuctionClientPage() {
     direction: searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || undefined,
     size: 20, // 사이즈 2로 ALL 에서 검토
     page: Math.max(currentPage - 1, 0),
+    isLogin: isLoggedIn,
   });
 
   if (!data) return null;

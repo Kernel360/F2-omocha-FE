@@ -12,6 +12,7 @@ import * as S from './ChattingIconButton.css';
 
 function ChattingIconButton() {
   const { isLoggedIn } = useAuth();
+  // const isLoggedIn = sessionStorage.getItem('accessToken');
 
   const [isOpen, setIsOpen] = useState(false);
 

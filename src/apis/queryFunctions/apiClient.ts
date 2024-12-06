@@ -14,14 +14,9 @@ function createApiClient() {
 
   client.interceptors.request.use(async config => {
     if (isServer) {
-      // 서버에서 실행되는 경우에는 쿠키에서 access_token 가져옵니다.
-      const { cookies } = await import('next/headers');
-      const accessToken = cookies().get('accessToken')?.value;
-
-      if (accessToken && !config.headers.Authorization) {
-        // eslint-disable-next-line no-param-reassign
-        config.headers.Authorization = accessToken;
-      }
+      // console.log(
+      //   'isServer ====================서버에서는 인가가 필요없는 요청만 가능합니다.=====================',
+      // );
     } else {
       // 클라이언트에서 실행되는 경우에는 스토리지에서 access_token 가져옵니다.
       const accessToken = sessionStorage.getItem('accessToken');

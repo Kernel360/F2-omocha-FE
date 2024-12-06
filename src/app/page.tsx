@@ -4,6 +4,7 @@ import AuctionList from '@/components/AuctionList';
 import MainCarousel from '@/components/MainCarousel';
 import MaxLayout from '@/components/MaxLayout';
 import SpecialSection from '@/components/SpecialSection';
+import useRequireAuth from '@/hooks/useRequireAuth';
 
 export default function Home() {
   return (

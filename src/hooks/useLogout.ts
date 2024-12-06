@@ -1,8 +1,7 @@
 import { useRouter } from 'next/navigation';
 
-import deleteCookies from '@/apis/queryFunctions/deleteTokenCookies';
-import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
+import { useAuth } from '@/provider/authProvider';
 
 function useLogout() {
   const router = useRouter();
@@ -10,7 +9,6 @@ function useLogout() {
   const { showToast } = useToast();
 
   const handleLogout = () => {
-    deleteCookies();
     localStorage.removeItem('refreshToken');
     sessionStorage.removeItem('accessToken');
     setIsLoggedIn(false);

@@ -1,3 +1,5 @@
+// 'use client';
+
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
@@ -6,6 +8,7 @@ import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 
 import * as S from './AuctionList.css';
+import { useAuth } from '@/provider/authProvider';
 
 export interface AuctionListProps {
   sort: string;
@@ -15,6 +18,8 @@ export interface AuctionListProps {
 }
 
 export default function AuctionList({ sort, direction, pathname, path }: AuctionListProps) {
+  const { isLoggedIn } = useAuth();
+
   const { data } = useGetBasicAuctionList({
     title: '',
     sort,
@@ -22,6 +27,7 @@ export default function AuctionList({ sort, direction, pathname, path }: Auction
     page: 0,
     size: 8,
     auctionStatus: 'BIDDING',
+    isLogin: isLoggedIn,
   });
 
   if (!data) return null;
