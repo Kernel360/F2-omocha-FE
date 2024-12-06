@@ -73,6 +73,7 @@ function UserHeader() {
               onClick={() => {
                 if (isLoggedIn) {
                   // setTrue();
+                  // handleMixpanel(category.eventId); // 알림 이벤트ID 버튼 추가 필요
                 } else {
                   router.push(
                     searchParams.size > 0
@@ -80,6 +81,7 @@ function UserHeader() {
                       : `/login?prevUrl=${pathname}`,
                     { scroll: false },
                   );
+                  handleMixpanel(EVENT_ID.LOGIN_BUTTON_CLICKED);
                 }
               }}
             >
@@ -100,6 +102,7 @@ function UserHeader() {
             }
             scroll={false}
             className={S.TopHeaderUnit}
+            onClick={() => handleMixpanel(EVENT_ID.LOGIN_BUTTON_CLICKED)}
           >
             로그인
           </Link>
