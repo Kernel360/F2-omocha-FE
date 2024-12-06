@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { Category } from '@/apis/types/category';
 import CategoryUnit from '@/components/Category/CategoryUnit/CategoryUnit';
 import useSetSearchParams from '@/hooks/useSetSearchParam';
@@ -29,7 +31,10 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
         <span className={unitButtonStyle()}>ALL</span>
       </button>
       {categoryData.map(category => (
-        <CategoryUnit key={category.category_id} unit={category} />
+        // eslint-disable-next-line react/jsx-key
+        <Suspense fallback={<>CategoryUnit</>}>
+          <CategoryUnit unit={category} key={category.category_id} />
+        </Suspense>
       ))}
     </div>
   );

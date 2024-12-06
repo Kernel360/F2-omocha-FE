@@ -1,3 +1,7 @@
+// import { Suspense } from 'react';
+
+import { Suspense } from 'react';
+
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Roboto } from 'next/font/google';
@@ -49,11 +53,14 @@ export default async function RootLayout({
       <body suppressHydrationWarning>
         <ToastProvider>
           <TanstackProviders>
-            <NavigationEvents />
+            <Suspense fallback={<div>Loading...NavigationEvents</div>}>
+              <NavigationEvents />
+            </Suspense>
             <AuthProvider>
               <HydrationBoundary state={dehydrate(queryClient)}>
                 <HeaderSection />
                 <div className={S.container}>
+                  {/* <Suspense fallback={<div>Loading...</div>}></Suspense> */}
                   {children}
                   <ChattingIconButton />
                   <ScrollToTopButton />

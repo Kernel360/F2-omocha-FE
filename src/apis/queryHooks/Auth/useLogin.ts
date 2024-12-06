@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
+// useSearchParams
 import setTokenCookies from '@/apis/queryFunctions/setTokenCookies';
 import { LoginParams } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
@@ -10,9 +11,10 @@ import { useToast } from '@/provider/toastProvider';
 
 function useLogin() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
+  // searchParams를 쓰면 서스펜스가 걸려서 에러가 발생함ㄴ
 
-  const prevUrl = searchParams.get('prevUrl');
+  // const prevUrl = searchParams.get('prevUrl');
   const { showToast } = useToast();
   const { setIsLoggedIn } = useAuth();
 
@@ -23,11 +25,11 @@ function useLogin() {
       localStorage.setItem('refreshToken', data.refreshToken);
       setIsLoggedIn(true);
       showToast('success', '로그인 되었습니다.');
-      if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
-        router.push('/');
-      } else {
-        router.push(prevUrl || '/');
-      }
+      // if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
+      router.push('/');
+      // } else {
+      //   router.push(prevUrl || '/');
+      // }
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {

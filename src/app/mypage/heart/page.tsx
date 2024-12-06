@@ -1,5 +1,7 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import useGetAuctionLikeList from '@/apis/queryHooks/User/useGetAuctionLikeList';
@@ -55,18 +57,20 @@ function Home() {
           <ListLayout>
             {data?.pages.map(page =>
               page.result_data.content.map(item => (
-                <AuctionCard
-                  key={item.auction_id}
-                  id={item.auction_id}
-                  thumbnailImage={item.thumbnail_path}
-                  title={item.title}
-                  isLike={!!item.liked_date}
-                  auctionStatus={item.auction_status}
-                  startPrice={item.start_price}
-                  startTime={item.start_date}
-                  endTime={item.end_date}
-                  nowPrice={item.now_price}
-                />
+                <Suspense key={item.auction_id} fallback={<>AuctionCard</>}>
+                  <AuctionCard
+                    key={item.auction_id}
+                    id={item.auction_id}
+                    thumbnailImage={item.thumbnail_path}
+                    title={item.title}
+                    isLike={!!item.liked_date}
+                    auctionStatus={item.auction_status}
+                    startPrice={item.start_price}
+                    startTime={item.start_date}
+                    endTime={item.end_date}
+                    nowPrice={item.now_price}
+                  />
+                </Suspense>
               )),
             )}
           </ListLayout>
