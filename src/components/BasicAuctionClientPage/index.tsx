@@ -11,7 +11,6 @@ import Pagination from '../Pagination';
 
 import * as S from './BasicAuctionClientPage.css';
 import { useAuth } from '@/provider/authProvider';
-import { useEffect } from 'react';
 
 function BasicAuctionClientPage() {
   const searchParams = useSearchParams();

@@ -5,7 +5,8 @@ import type { NextRequest } from 'next/server';
 
 const afterLoginProtectedRoutes = ['/login', '/join'];
 
-// 리프레쉬 토큰으로 엑세스 및 리프레시 재발급
+// TODO 미들웨어 안쓰고 있음 미들웨어이 있는 로직을 따로 옮겨줘야함.
+
 const getRefreshToken = (refreshTokenParams: string) => {
   return fetch(`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/auth/token-reissue`, {
     method: 'POST',
