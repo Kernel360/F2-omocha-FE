@@ -16,7 +16,7 @@ function Home() {
       <section className={S.section}>
         <ChangePassword />
       </section>
-      <ClientSidePageRef eventId={EVENT_ID.MY_PAGE_PROFILE_VIEWED} />
+      <ClientSidePageRef eventId={EVENT_ID.MYPAGE_PROFILE_PAGE_VIEWED} />
     </div>
   );
 }

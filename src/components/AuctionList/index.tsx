@@ -62,6 +62,7 @@ export default function AuctionList({
               nowPrice={item.now_price}
               auctionStatus={item.auction_status}
               instantBuyPrice={item.instant_buy_price}
+              pageContext="main_page"
             />
           ))}
         </ListLayout>

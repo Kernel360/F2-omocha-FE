@@ -18,13 +18,16 @@ const EVENT_ID = {
   // 카테고리
   CATEGORY_BUTTON_CLICKED: 'category_button_clicked',
 
+  // 경매 리스트/상세 페이지
+  AUCTION_LIST_PAGE_VIEWED: 'auction_list_page_viewed',
+  AUCTION_DETAIL_ITEM_CLICKED: 'auction_detail_item_clicked',
+  AUCTION_DETAIL_PAGE_VIEWED: 'auction_detail_page_viewed',
+
   // 메인페이지
-  DAILY_POPULAR_AUCTION_ELEMENT_CLICKED: 'daily_popular_auction_element_clicked',
-  NEW_AUCTION_ITEM_ELEMENT_CLICKED: 'new_auction_item_element_clicked',
-  VIEW_ALL_NEW_AUCTION_ITEMS_BUTTON_CLICKED: 'view_all_new_auction_items_button_clicked',
-  CLOSING_SOON_AUCTION_ELEMENT_CLICKED: 'closing_soon_auction_element_clicked',
-  VIEW_ALL_CLOSING_SOON_AUCTION_ITEMS_BUTTON_CLICKED:
-    'view_all_closing_soon_auction_items_button_clicked',
+  DAILY_POPULAR_AUCTION_ITEM_CLICKED: 'daily_popular_auction_item_clicked',
+  VIEW_ALL_NEW_AUCTION_LIST_BUTTON_CLICKED: 'view_all_new_auction_list_button_clicked',
+  VIEW_ALL_CLOSING_SOON_AUCTION_LIST_BUTTON_CLICKED:
+    'view_all_closing_soon_auction_list_button_clicked',
   CAROUSEL_BANNER_BUTTON_CLICKED: 'carousel_banner_button_clicked',
   MAIN_BUTTON_CLICKED: 'main_button_clicked',
   MAIN_PAGE_VIEWED: 'main_page_viewed',

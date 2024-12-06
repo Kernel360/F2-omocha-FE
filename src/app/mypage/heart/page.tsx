@@ -65,13 +65,14 @@ function Home() {
                   startTime={item.start_date}
                   endTime={item.end_date}
                   nowPrice={item.now_price}
+                  pageContext="heart_page"
                 />
               )),
             )}
           </ListLayout>
           {isFetchingNextPage && hasNextPage && <AuctionListSkeletonUI count={4} />}
           <div ref={endCursorRef} />
-          <ClientSidePageRef eventId={EVENT_ID.MY_PAGE_HEART_VIEWED} />
+          <ClientSidePageRef eventId={EVENT_ID.MYPAGE_HEART_PAGE_VIEWED} />
         </>
       )}
     </div>

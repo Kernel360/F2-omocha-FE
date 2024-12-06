@@ -5,9 +5,11 @@ import BasicAuction from '@/app/basicauction/basicauction';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import Checkbox from '@/app/basicauction/components/checkbox';
 import BreadcrumbSection from '@/components/BreadcrumbSection';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import AuctionCategoryLeftSection from '@/components/LeftSection/components/AuctionCategoryLeftSection/AuctionCategoryLeftSection';
 import MobileAuctionCategoryLeftSection from '@/components/LeftSection/components/MobileAuctionCategoryLeftSection/MobileAuctionCategoryLeftSection';
 import MaxLayout from '@/components/MaxLayout';
+import EVENT_ID from '@/static/eventId';
 import { flattenCategories } from '@/utils/flattenCategoriesTree';
 import getMetadata from '@/utils/getMetadata';
 
@@ -70,6 +72,7 @@ function Home({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
           <BasicAuction searchParams={searchParams} />
         </section>
       </div>
+      <ClientSidePageRef eventId={EVENT_ID.AUCTION_LIST_PAGE_VIEWED} />
     </MaxLayout>
   );
 }

@@ -4,6 +4,8 @@ import Link from 'next/link';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import { AuctionData } from '@/apis/types/basicAuction';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './SpecialSection.css';
 
@@ -16,6 +18,10 @@ function SpecialSection() {
     page: 0,
     size: 4,
   });
+
+  const handleMixpanel = () => {
+    mixpanel.track(EVENT_ID.DAILY_POPULAR_AUCTION_ITEM_CLICKED);
+  };
 
   if (!data) return null;
 
@@ -35,6 +41,7 @@ function SpecialSection() {
             href={`/basicauction/${auction.auction_id}`}
             key={auction.auction_id}
             className={S.specialAuctionItem}
+            onClick={handleMixpanel}
           >
             <Image
               src={`${process.env.NEXT_PUBLIC_S3_URL}${auction.thumbnail_path}`}
