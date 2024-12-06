@@ -2,6 +2,8 @@ import Link from 'next/link';
 
 import { Category } from '@/apis/types/category';
 import SearchBar from '@/components/HeaderSection/components/SearchBar/searchbar';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './CategoryHeader.css';
 
@@ -10,6 +12,12 @@ interface CategoryHeaderProps {
 }
 
 function CategoryHeader({ data }: CategoryHeaderProps) {
+  const handleMixpanel = (name: string) => {
+    mixpanel.track(EVENT_ID.CATEGORY_BUTTON_CLICKED, {
+      category_name: name,
+    });
+  };
+
   return (
     <section className={S.bottomHeaderWrapper}>
       <div className={S.bottomHeader}>
@@ -19,6 +27,7 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
             href={`/basicauction/?categoryId=${category.category_id}&page=1`}
             className={S.buttonStyles}
             scroll={false}
+            onClick={() => handleMixpanel(category.name)}
           >
             {category.name}
           </Link>

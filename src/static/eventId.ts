@@ -15,6 +15,9 @@ const EVENT_ID = {
   // 로그아웃
   LOGOUT_BUTTON_CLICKED: 'logout_button_clicked',
 
+  // 카테고리
+  CATEGORY_BUTTON_CLICKED: 'category_button_clicked',
+
   // 메인페이지
   DAILY_POPULAR_AUCTION_ELEMENT_CLICKED: 'daily_popular_auction_element_clicked',
   NEW_AUCTION_ITEM_ELEMENT_CLICKED: 'new_auction_item_element_clicked',

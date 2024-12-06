@@ -11,8 +11,6 @@ function useTrackingPageView({ threshold = 0.1, pageViewEventName }: UseTracking
   const pageRef = useRef(null);
   const hasTracked = useRef(false); // 이벤트 발생 여부 관리
 
-  console.log('hasTracked', hasTracked);
-
   useEffect(() => {
     if (!pageRef) return;
 

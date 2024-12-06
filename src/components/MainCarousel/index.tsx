@@ -61,7 +61,7 @@ function MainCarousel() {
       return;
     }
     mixpanel.track(EVENT_ID.CAROUSEL_BANNER_BUTTON_CLICKED, {
-      carouselInfo: name,
+      banner_name: name,
     });
   };
 

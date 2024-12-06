@@ -1,6 +1,8 @@
 import { Category } from '@/apis/types/category';
 import CategoryUnit from '@/components/Category/CategoryUnit/CategoryUnit';
 import useSetSearchParams from '@/hooks/useSetSearchParam';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './AuctionCategory.css';
 
@@ -13,6 +15,9 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
 
   const handleCategory = () => {
     setMultipleSearchParams({ categoryId: '', page: '1' });
+    mixpanel.track(EVENT_ID.CATEGORY_BUTTON_CLICKED, {
+      category_name: 'ALL',
+    });
   };
 
   const unitButtonStyle = () => {
