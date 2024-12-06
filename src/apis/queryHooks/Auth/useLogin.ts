@@ -5,9 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import setTokenCookies from '@/apis/queryFunctions/setTokenCookies';
 import { LoginParams } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
-
-import { useToast } from '@/provider/toastProvider';
 import { useAuth } from '@/provider/authProvider';
+import { useToast } from '@/provider/toastProvider';
 
 function useLogin() {
   const router = useRouter();

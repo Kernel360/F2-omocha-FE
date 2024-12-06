@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 
-import { useToast } from '@/provider/toastProvider';
 import { useAuth } from '@/provider/authProvider';
+import { useToast } from '@/provider/toastProvider';
 
 function useLogout() {
   const router = useRouter();

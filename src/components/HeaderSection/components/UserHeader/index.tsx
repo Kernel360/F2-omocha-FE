@@ -6,12 +6,10 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import logoIcon from '@/assets/png/logo.png';
 import useLogout from '@/hooks/useLogout';
-
+import { useAuth } from '@/provider/authProvider';
 import { SUB_CATEGORY } from '@/static/category';
 
 import * as S from './UserHeader.css';
-
-import { useAuth } from '@/provider/authProvider';
 
 function UserHeader() {
   const router = useRouter();

@@ -32,11 +32,11 @@ function createApiClient() {
       return response;
     },
     async error => {
-      console.log('error in createApiClient', error);
+      const refreshToken = localStorage.getItem('refreshToken');
+
       const originalRequest = error.config;
-      if (error.response?.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-        const refreshToken = localStorage.getItem('refreshToken');
+
+      if (error.response?.status === 401) {
         if (refreshToken) {
           try {
             const response = await fetch(
@@ -58,7 +58,7 @@ function createApiClient() {
               sessionStorage.setItem('accessToken', newAccessToken);
 
               originalRequest.headers.Authorization = newAccessToken;
-              return client(originalRequest);
+              return await client(originalRequest);
             }
           } catch (e) {
             console.error('Failed to reissue token:', e);

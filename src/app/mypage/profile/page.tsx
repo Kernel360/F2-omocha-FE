@@ -2,9 +2,9 @@
 
 import ChangePassword from '@/app/mypage/profile/components/changepassword';
 import MypageProfileClientPage from '@/components/MypageProfileClientPage';
+import useRequireAuth from '@/hooks/useRequireAuth';
 
 import * as S from './Profile.css';
-import useRequireAuth from '@/hooks/useRequireAuth';
 
 function Home() {
   useRequireAuth();

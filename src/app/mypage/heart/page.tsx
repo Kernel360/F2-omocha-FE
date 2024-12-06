@@ -8,9 +8,9 @@ import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import useRequireAuth from '@/hooks/useRequireAuth';
 
 import * as S from './Heart.css';
-import useRequireAuth from '@/hooks/useRequireAuth';
 
 function Home() {
   useRequireAuth();

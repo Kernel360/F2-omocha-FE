@@ -5,12 +5,12 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
+import { useAuth } from '@/provider/authProvider';
 import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
 import Pagination from '../Pagination';
 
 import * as S from './BasicAuctionClientPage.css';
-import { useAuth } from '@/provider/authProvider';
 
 function BasicAuctionClientPage() {
   const searchParams = useSearchParams();

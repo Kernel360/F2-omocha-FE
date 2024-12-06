@@ -1,3 +1,5 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
 import { AuctionData, GetBasicAuctionListParams } from '@/apis/types/basicAuction';
 import { ListResponse } from '@/apis/types/common';
 import AuctionList from '@/components/AuctionList';
@@ -7,7 +9,6 @@ import SpecialSection from '@/components/SpecialSection';
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 import filteredParams from '@/utils/filteredParams';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 export default async function Home() {
   const params = {
