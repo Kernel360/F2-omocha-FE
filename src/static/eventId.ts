@@ -22,7 +22,9 @@ const EVENT_ID = {
   CLOSING_SOON_AUCTION_ELEMENT_CLICKED: 'closing_soon_auction_element_clicked',
   VIEW_ALL_CLOSING_SOON_AUCTION_ITEMS_BUTTON_CLICKED:
     'view_all_closing_soon_auction_items_button_clicked',
-  CAROUSEL_BANNER_CLICKED: 'carousel_banner_clicked',
+  CAROUSEL_BANNER_BUTTON_CLICKED: 'carousel_banner_button_clicked',
+  MAIN_BUTTON_CLICKED: 'main_button_clicked',
+  MAIN_PAGE_VIEWED: 'main_page_viewed',
 
   // 상품 올리기
   AUCTION_CREATE_BUTTON_CLICKED: 'auction_create_button_clicked',
@@ -35,12 +37,12 @@ const EVENT_ID = {
   AUCTION_CREATE_SUBMIT_FAILURE_REASON: 'auction_create_submit_failure_reason',
 
   // 마이페이지
-  MY_PAGE_PROFILE_BUTTON_CLICKED: 'my_page_profile_button_clicked',
-  MY_PAGE_PROFILE_VIEWED: 'my_page_profile_viewed',
-  MY_PAGE_HEART_BUTTON_CLICKED: 'my_page_heart_button_clicked',
-  MY_PAGE_HEART_VIEWED: 'my_page_heart_viewed',
-  MY_PAGE_RECORD_BUTTON_CLICKED: 'my_page_record_button_clicked',
-  MY_PAGE_RECORD_VIEWED: 'my_page_record_viewed',
+  MYPAGE_PROFILE_BUTTON_CLICKED: 'mypage_profile_button_clicked',
+  MYPAGE_PROFILE_PAGE_VIEWED: 'mypage_profile_page_viewed',
+  MYPAGE_HEART_BUTTON_CLICKED: 'mypage_heart_button_clicked',
+  MYPAGE_HEART_PAGE_VIEWED: 'mypage_heart_page_viewed',
+  MYPAGE_RECORD_BUTTON_CLICKED: 'mypage_record_button_clicked',
+  MYPAGE_RECORD_PAGE_VIEWED: 'mypage_record_page_viewed',
 };
 
 export default EVENT_ID;

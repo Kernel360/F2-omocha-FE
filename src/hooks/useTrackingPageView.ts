@@ -9,6 +9,9 @@ interface UseTrackingPageViewProps {
 
 function useTrackingPageView({ threshold = 0.1, pageViewEventName }: UseTrackingPageViewProps) {
   const pageRef = useRef(null);
+  const hasTracked = useRef(false); // 이벤트 발생 여부 관리
+
+  console.log('hasTracked', hasTracked);
 
   useEffect(() => {
     if (!pageRef) return;
@@ -16,8 +19,9 @@ function useTrackingPageView({ threshold = 0.1, pageViewEventName }: UseTracking
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !hasTracked.current) {
             mixpanel.track(pageViewEventName);
+            hasTracked.current = true; // 이벤트 발생 후 플래그 설정
           }
         });
       },
