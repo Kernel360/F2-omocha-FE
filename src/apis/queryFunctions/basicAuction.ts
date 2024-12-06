@@ -25,6 +25,7 @@ export const postBasicAuction = async (param: FormData) => {
   const response = await apiClient.post<Response<PostBasicAuctionResponseData>>(
     '/v2/auctions',
     param,
+    { headers: { 'Content-Type': 'multipart/form-data' } },
   );
 
   return response.data;
