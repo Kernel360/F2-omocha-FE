@@ -11,8 +11,8 @@ import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import ListLayout from '@/components/ListLayout';
 import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import EVENT_ID from '@/static/eventId';
 import useRequireAuth from '@/hooks/useRequireAuth';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './Heart.css';
 

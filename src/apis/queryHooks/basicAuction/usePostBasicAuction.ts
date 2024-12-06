@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 
 import { postBasicAuction } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
-import { useToast } from '@/provider/toastProvider';
 import mixpanel from '@/lib/mixpanel';
+import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
 
 function usePostBasicAuction() {
@@ -13,7 +13,7 @@ function usePostBasicAuction() {
   const router = useRouter();
   const { showToast } = useToast();
 
-  const { data, mutate, error } = useMutation({
+  const { mutate, error } = useMutation({
     mutationFn: (param: FormData) => postBasicAuction(param),
     onSuccess: data => {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
@@ -22,7 +22,7 @@ function usePostBasicAuction() {
 
       // 즉시 구매가 여부 확인 필요
       mixpanel.track(EVENT_ID.AUCTION_CREATE_SUBMIT_BUTTON_CLICKED, {
-        // instant_buy_price: auctionDetail?.result_data.instant_buy_price ? true : false,
+        is_instant_buy: data.result_data.is_instant_buy,
       });
     },
     onError: (e: AxiosError<Response<string>>) => {
@@ -34,7 +34,7 @@ function usePostBasicAuction() {
     },
   });
 
-  return { data, mutate, error };
+  return { mutate, error };
 }
 
 export default usePostBasicAuction;

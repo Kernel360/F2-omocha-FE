@@ -8,9 +8,9 @@ import MainCarousel from '@/components/MainCarousel';
 import MaxLayout from '@/components/MaxLayout';
 import SpecialSection from '@/components/SpecialSection';
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
+import EVENT_ID from '@/static/eventId';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 import filteredParams from '@/utils/filteredParams';
-import EVENT_ID from '@/static/eventId';
 
 export default async function Home() {
   const params = {

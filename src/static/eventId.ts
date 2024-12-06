@@ -22,6 +22,8 @@ const EVENT_ID = {
   AUCTION_LIST_PAGE_VIEWED: 'auction_list_page_viewed',
   AUCTION_DETAIL_ITEM_CLICKED: 'auction_detail_item_clicked',
   AUCTION_DETAIL_PAGE_VIEWED: 'auction_detail_page_viewed',
+  AUCTION_DETAIL_INSTANT_BUY_BUTTON_CLICKED: 'auction_detail_instant_buy_button_clicked',
+  AUCTION_DETAIL_BID_BUTTON_CLICKED: 'auction_detail_bid_button_clicked',
 
   // 메인페이지
   DAILY_POPULAR_AUCTION_ITEM_CLICKED: 'daily_popular_auction_item_clicked',

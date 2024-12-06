@@ -72,6 +72,7 @@ function BasicAuctionClientPage() {
                   nowPrice={item.now_price}
                   auctionStatus={item.auction_status}
                   instantBuyPrice={item.instant_buy_price}
+                  pageContext="auction_list_page"
                 />
               </Suspense>
             ))}

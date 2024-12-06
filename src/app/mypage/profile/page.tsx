@@ -3,9 +3,8 @@
 import ChangePassword from '@/app/mypage/profile/components/changepassword';
 import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import MypageProfileClientPage from '@/components/MypageProfileClientPage';
-import EVENT_ID from '@/static/eventId';
-
 import useRequireAuth from '@/hooks/useRequireAuth';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './Profile.css';
 

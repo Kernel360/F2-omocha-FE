@@ -22,10 +22,10 @@ function UserHeader() {
 
   const handleLogout = useLogout();
 
-  const handleMixpanel = (eventId: string) => {
+  const handleMixpanel = (eventId: string, prevEvent?: string) => {
     if (!isLoggedIn) {
       mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
-        prevUrl: pathname,
+        prev_event: prevEvent,
       });
       return;
     }
@@ -47,7 +47,7 @@ function UserHeader() {
                 href={category.path}
                 scroll={false}
                 className={S.TopHeaderUnit}
-                onClick={() => handleMixpanel(category.eventId)}
+                onClick={() => handleMixpanel(category.eventId, category.name)}
               >
                 {category.name}
               </Link>

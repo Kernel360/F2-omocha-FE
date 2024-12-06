@@ -39,10 +39,10 @@ function MobileSlideNav({
     mixpanel.reset();
   };
 
-  const handleMixpanel = (eventId: string) => {
+  const handleMixpanel = (eventId: string, prevEvent: string) => {
     if (!isLogin) {
       mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
-        prevUrl: pathname,
+        prev_event: prevEvent,
       });
       return;
     }
@@ -122,7 +122,7 @@ function MobileSlideNav({
         className={S.button.uploadAuction}
         onClick={() => {
           onClose();
-          handleMixpanel(EVENT_ID.AUCTION_CREATE_BUTTON_CLICKED);
+          handleMixpanel(EVENT_ID.AUCTION_CREATE_BUTTON_CLICKED, '경매 등록');
         }}
       >
         경매 등록
@@ -133,7 +133,7 @@ function MobileSlideNav({
         className={S.normalNavButtonBase}
         onClick={() => {
           onClose();
-          handleMixpanel(EVENT_ID.MYPAGE_PROFILE_BUTTON_CLICKED);
+          handleMixpanel(EVENT_ID.MYPAGE_PROFILE_BUTTON_CLICKED, '마이페이지');
         }}
       >
         마이페이지
@@ -143,7 +143,7 @@ function MobileSlideNav({
         className={S.normalNavButtonBase}
         onClick={() => {
           onClose();
-          handleMixpanel(EVENT_ID.MYPAGE_HEART_BUTTON_CLICKED);
+          handleMixpanel(EVENT_ID.MYPAGE_HEART_BUTTON_CLICKED, '찜');
         }}
       >
         <>찜{isLogin && <div className={S.likeCount}>{userHeartCount}</div>}</>
@@ -153,7 +153,7 @@ function MobileSlideNav({
         className={S.normalNavButtonBase}
         onClick={() => {
           onClose();
-          handleMixpanel(EVENT_ID.MYPAGE_RECORD_BUTTON_CLICKED);
+          handleMixpanel(EVENT_ID.MYPAGE_RECORD_BUTTON_CLICKED, '거래 내역');
         }}
       >
         거래 내역

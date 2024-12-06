@@ -8,9 +8,7 @@ import Link from 'next/link';
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
-
 import mixpanel from '@/lib/mixpanel';
-
 import { useAuth } from '@/provider/authProvider';
 
 import * as S from './AuctionList.css';
