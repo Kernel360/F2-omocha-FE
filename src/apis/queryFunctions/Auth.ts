@@ -13,8 +13,6 @@ const apiClient = createApiClient();
 export const postRegister = (param: RegisterParams) =>
   apiClient.post<Response<PostRegisterResponseData>>('/v2/auth/register', param);
 
-export const postLogout = () => apiClient.post<Response<null>>('v2/auth/logout'); // 없어져야할 것
-
 export const getEmailValidation = async (params: CheckEmailParams) => {
   const response = await apiClient.get<Response<boolean>>('v2/auth/validate-email', {
     params,

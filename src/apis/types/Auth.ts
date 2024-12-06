@@ -17,6 +17,10 @@ export interface LoginParams {
   password: string;
 }
 
+export interface RefreshParams {
+  refresh_token: string;
+}
+
 export interface PostLoginResponseData {
   access_token: string;
   refresh_token: string;

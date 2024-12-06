@@ -1,8 +1,11 @@
+// import { Suspense } from 'react';
+
+import { Suspense } from 'react';
+
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
-import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
@@ -38,12 +41,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isLoggedIn = !!cookies().get('accessToken')?.value;
-
   const queryClient = await usePrefetchQueriesWithCookie([
-    // TODO 로그인이 필요한 호출을 따로 빼던가 불리해야함
-    // 현재 useInfo의 경우 로그인을 해야만 호출 가능한데 프리패치로 미로그인 상태에서도 호출 되는 중
-    { queryKey: ['userInfo'], api: '/v2/member' },
     { queryKey: ['category'], api: '/v2/categories' },
   ]);
 
@@ -55,11 +53,14 @@ export default async function RootLayout({
       <body suppressHydrationWarning>
         <ToastProvider>
           <TanstackProviders>
-            <NavigationEvents />
-            <AuthProvider isLoggedIn={isLoggedIn}>
+            <Suspense fallback={<div>Loading...NavigationEvents</div>}>
+              <NavigationEvents />
+            </Suspense>
+            <AuthProvider>
               <HydrationBoundary state={dehydrate(queryClient)}>
                 <HeaderSection />
                 <div className={S.container}>
+                  {/* <Suspense fallback={<div>Loading...</div>}></Suspense> */}
                   {children}
                   <ChattingIconButton />
                   <ScrollToTopButton />

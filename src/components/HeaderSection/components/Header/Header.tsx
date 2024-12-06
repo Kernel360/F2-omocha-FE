@@ -1,5 +1,7 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
 import MaxLayout from '@/components/MaxLayout';
@@ -18,7 +20,9 @@ function Header() {
     <header className={S.stickyHeader}>
       <MaxLayout>
         <div className={S.container}>
-          <UserHeader />
+          <Suspense fallback={<>UserHeader</>}>
+            <UserHeader />
+          </Suspense>
           <CategoryHeader data={data as Category[]} />
         </div>
       </MaxLayout>

@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import Link from 'next/link';
 
 import { Category } from '@/apis/types/category';
@@ -25,7 +27,9 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
         ))}
       </div>
       <div className={S.searchBarWrapper}>
-        <SearchBar />
+        <Suspense fallback={<>SearchBar</>}>
+          <SearchBar />
+        </Suspense>
       </div>
     </section>
   );
