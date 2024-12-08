@@ -17,7 +17,7 @@ import EVENT_ID from '@/static/eventId';
 import * as S from './Heart.css';
 
 function Home() {
-  useRequireAuth();
+  const { isCheckingAuth } = useRequireAuth();
 
   const { data: user } = useGetUser();
   const router = useRouter();
@@ -31,6 +31,10 @@ function Home() {
     hasNextPage,
     fetchNextPage,
   });
+
+  if (isCheckingAuth) {
+    return null;
+  }
 
   if (isLoading)
     return (

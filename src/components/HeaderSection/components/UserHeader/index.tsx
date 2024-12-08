@@ -91,7 +91,7 @@ function UserHeader() {
             }
             scroll={false}
             className={S.TopHeaderUnit}
-            onClick={() => handleMixpanel(EVENT_ID.LOGIN_BUTTON_CLICKED)}
+            onClick={() => mixpanel.track(EVENT_ID.LOGIN_BUTTON_CLICKED)}
           >
             로그인
           </Link>

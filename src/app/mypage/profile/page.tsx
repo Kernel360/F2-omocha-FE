@@ -9,7 +9,11 @@ import EVENT_ID from '@/static/eventId';
 import * as S from './Profile.css';
 
 function Home() {
-  useRequireAuth();
+  const { isCheckingAuth } = useRequireAuth();
+
+  if (isCheckingAuth) {
+    return null;
+  }
 
   return (
     <div className={S.profile}>

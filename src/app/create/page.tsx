@@ -25,7 +25,7 @@ import formatDate from '@/utils/formatDate';
 import * as S from './Basicauction.css';
 
 export default function Home() {
-  useRequireAuth();
+  const { isCheckingAuth } = useRequireAuth();
 
   const methods = useForm<AuctionInputs>();
   const {
@@ -83,6 +83,10 @@ export default function Home() {
 
     postBasicAuction(formData);
   }, 300);
+
+  if (isCheckingAuth) {
+    return null;
+  }
 
   return (
     <div className={S.backContainer}>
