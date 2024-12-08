@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
@@ -21,6 +22,7 @@ export interface AuctionListProps {
 
 export default function AuctionList({ sort, direction, pathname, path }: AuctionListProps) {
   const { isLoggedIn } = useAuth();
+  const router = useRouter();
 
   const { data } = useGetBasicAuctionList({
     title: '',
@@ -44,25 +46,38 @@ export default function AuctionList({ sort, direction, pathname, path }: Auction
         </Link>
       </div>
       <div className={S.listWrapper}>
-        <ListLayout>
-          {data.result_data.content.map(item => (
-            <Suspense key={item.auction_id} fallback={<>AuctionCard</>}>
-              <AuctionCard
-                key={item.auction_id}
-                id={item.auction_id}
-                thumbnailImage={item.thumbnail_path}
-                title={item.title}
-                isLike={item.is_liked}
-                startPrice={item.start_price}
-                startTime={item.start_date}
-                endTime={item.end_date}
-                nowPrice={item.now_price}
-                auctionStatus={item.auction_status}
-                instantBuyPrice={item.instant_buy_price}
-              />
-            </Suspense>
-          ))}
-        </ListLayout>
+        {data.result_data.total_elements === 0 ? (
+          <div className={S.noListWrapper}>
+            <div className={S.noListTitle}>{`현재 경매중인 ${pathname}이 없습니다.`}</div>
+            <button
+              className={S.noListButton}
+              type="button"
+              onClick={() => router.push('/create')} // mixpanel 추가 필요
+            >
+              경매 등록하러 가기
+            </button>
+          </div>
+        ) : (
+          <ListLayout>
+            {data.result_data.content.map(item => (
+              <Suspense key={item.auction_id} fallback={<>AuctionCard</>}>
+                <AuctionCard
+                  key={item.auction_id}
+                  id={item.auction_id}
+                  thumbnailImage={item.thumbnail_path}
+                  title={item.title}
+                  isLike={item.is_liked}
+                  startPrice={item.start_price}
+                  startTime={item.start_date}
+                  endTime={item.end_date}
+                  nowPrice={item.now_price}
+                  auctionStatus={item.auction_status}
+                  instantBuyPrice={item.instant_buy_price}
+                />
+              </Suspense>
+            ))}
+          </ListLayout>
+        )}
       </div>
     </section>
   );
