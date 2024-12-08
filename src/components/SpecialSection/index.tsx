@@ -44,7 +44,7 @@ function SpecialSection() {
         <div className={S.specialAuction}>
           {data.result_data.content.map((auction: AuctionData) => (
             <Link
-              href={`/basicauction/${auction.auction_id}`}
+              href={`/basicauction/${auction.auction_id}?categoryId=${auction.category_id}`}
               key={auction.auction_id}
               className={S.specialAuctionItem}
             >
