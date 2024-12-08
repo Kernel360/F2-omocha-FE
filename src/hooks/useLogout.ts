@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import { useAuth } from '@/provider/authProvider';
@@ -7,6 +8,7 @@ function useLogout() {
   const router = useRouter();
   const { setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
     localStorage.removeItem('refreshToken');
@@ -14,6 +16,7 @@ function useLogout() {
     setIsLoggedIn(false);
     router.push('/');
     showToast('success', '로그아웃 되었습니다.');
+    queryClient.clear();
   };
 
   return handleLogout;

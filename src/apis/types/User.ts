@@ -32,7 +32,10 @@ export interface GetAuctionLikeData {
   created_at: string;
   liked_date: string;
   category_id: number;
+  instant_buy_price: number | null;
 }
+
+// ---- 거래 내역
 
 export interface BidAuctionHistoriesData {
   auction_id: number;
@@ -42,7 +45,7 @@ export interface BidAuctionHistoriesData {
   bid_status: string;
   now_price: number | null;
   end_date: string;
-  review_status: string;
+  review_status: boolean;
 }
 
 export interface BidAuctionHistoriesUnitData {
@@ -57,4 +60,5 @@ export interface AuctionHistoriesData {
   now_price: number | null;
   end_date: string;
   thumbnail_path: string;
+  review_status: boolean;
 }
