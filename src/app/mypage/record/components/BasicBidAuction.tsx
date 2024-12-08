@@ -17,7 +17,7 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
     <li className={S.list} key={bidAuctionHistory.auction_id}>
       <Image
         className={S.image}
-        src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${bidAuctionHistory.thumbnail_path}`}
+        src={`${process.env.NEXT_PUBLIC_S3_URL}${bidAuctionHistory.thumbnail_path}`}
         width={150}
         height={150}
         alt="경매 사진"
@@ -26,9 +26,10 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
         <li className={`${S.listFirst} ${S.listData}`}>
           <button
             type="button"
-            onClick={() =>
-              router.push(`/basicauction/${bidAuctionHistory.auction_id}`, { scroll: false })
-            }
+            onClick={e => {
+              router.push(`/basicauction/${bidAuctionHistory.auction_id}`, { scroll: false }); // 카테고리 추가 필요
+              e.stopPropagation();
+            }}
             className={S.bidTitle}
           >
             <span>{bidAuctionHistory.title}</span>
