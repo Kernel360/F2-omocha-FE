@@ -17,7 +17,7 @@ export const category = style({
   },
 });
 
-export const subCategory = style({
+export const subCategoryLink = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -27,9 +27,12 @@ export const subCategory = style({
   height: '35px',
   borderRadius: '12px',
   backgroundColor: colors.primary8,
-  cursor: 'pointer',
+  color: colors.black1,
 });
 
-export const subCategoryLink = style({
-  color: colors.white,
+export const subCategoryName = style({
+  display: 'block',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 });

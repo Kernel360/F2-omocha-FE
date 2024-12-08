@@ -15,7 +15,7 @@ function usePostBasicAuction() {
     mutationFn: (param: FormData) => postBasicAuction(param),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
-      router.push('/basicauction', { scroll: false });
+      router.push('/basicauction?page=1', { scroll: false });
       showToast('success', '경매 등록에 성공했습니다.');
     },
     onError: (e: AxiosError<Response<string>>) => {
