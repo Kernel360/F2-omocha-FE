@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import setTokenCookies from '@/apis/queryFunctions/setTokenCookies';
 import { LoginParams } from '@/apis/types/Auth';
@@ -10,9 +10,9 @@ import { useToast } from '@/provider/toastProvider';
 
 function useLogin() {
   const router = useRouter();
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
-  // const prevUrl = searchParams.get('prevUrl');
+  const prevUrl = searchParams.get('prevUrl');
   const { showToast } = useToast();
   const { setIsLoggedIn } = useAuth();
 
@@ -24,11 +24,11 @@ function useLogin() {
       setIsLoggedIn(true);
       showToast('success', '로그인 되었습니다.');
 
-      // if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
-      router.push('/');
-      // } else {
-      //   router.push(prevUrl || '/');
-      // }
+      if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
+        router.push('/');
+      } else {
+        router.push(prevUrl || '/');
+      }
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {

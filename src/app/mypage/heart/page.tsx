@@ -8,7 +8,7 @@ import useGetAuctionLikeList from '@/apis/queryHooks/User/useGetAuctionLikeList'
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
-import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
+import CardListSkeleton from '@/components/Skeleton/CardListSkeleton';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import useRequireAuth from '@/hooks/useRequireAuth';
 
@@ -34,7 +34,7 @@ function Home() {
     return (
       <div className={S.heart}>
         <h3>찜 목록 ({user?.like_count})</h3>
-        <AuctionListSkeletonUI count={4} />
+        <CardListSkeleton count={4} />
       </div>
     );
 
@@ -74,7 +74,7 @@ function Home() {
               )),
             )}
           </ListLayout>
-          {isFetchingNextPage && hasNextPage && <AuctionListSkeletonUI count={4} />}
+          {isFetchingNextPage && hasNextPage && <CardListSkeleton count={4} />}
           <div ref={endCursorRef} />
         </>
       )}
