@@ -64,6 +64,7 @@ function createApiClient() {
             console.error('Failed to reissue token:', e);
             localStorage.removeItem('refreshToken');
             sessionStorage.removeItem('accessToken');
+            window.location.href = '/login';
           }
         }
       }
