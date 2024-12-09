@@ -1,4 +1,3 @@
-import createApiClient from '@/apis/queryFunctions/apiClient';
 import {
   GetBasicAuctionListParams,
   BasicAuctionResponseData,
@@ -19,105 +18,182 @@ import {
 import { ListResponse, Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 
-const apiClient = createApiClient();
+import createFetchApiClient from './featchApiClient';
 
 export const postBasicAuction = async (param: FormData) => {
-  const response = await apiClient.post<Response<PostBasicAuctionResponseData>>(
+  const response = await createFetchApiClient<Response<PostBasicAuctionResponseData>>(
     '/v2/auctions',
-    param,
+    {
+      method: 'POST',
+      body: param,
+    },
   );
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to postBasicAuction');
+  }
+
+  return response;
 };
 
 export const getBasicAuction = async (id: number) => {
-  const response = await apiClient.get<Response<BasicAuctionResponseData>>(`/v2/auctions/${id}`);
-  return response.data;
+  const response = await createFetchApiClient<Response<BasicAuctionResponseData>>(
+    `/v2/auctions/${id}`,
+  );
+
+  if (!response) {
+    throw new Error('Failed to getBasicAuction');
+  }
+
+  return response;
 };
 
 export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => {
   const queryString = convertQueryParamsObjectToString<GetBasicAuctionListParams>(params);
 
-  const response = await apiClient.get<Response<ListResponse<AuctionData[]>>>(
+  const response = await createFetchApiClient<Response<ListResponse<AuctionData[]>>>(
     `/v2/auctions?${queryString}`,
   );
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to getFetchBasicAuctionList');
+  }
+
+  return response;
 };
 
 export const getBasicAuctionBidList = async (id: number) => {
-  const response = await apiClient.get<Response<GetBasicAuctionBidInfo[]>>(`/v2/bids/${id}`);
+  const response = await createFetchApiClient<Response<GetBasicAuctionBidInfo[]>>(`/v2/bids/${id}`);
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to getBasicAuctionBidList');
+  }
+
+  return response;
 };
 
 export const postBasicAuctionBid = async (id: number, param: PostBasicAuctionBidParams) => {
-  const response = await apiClient.post<Response<PostBasicAuctionBidResponseData>>(
+  const response = await createFetchApiClient<Response<PostBasicAuctionBidResponseData>>(
     `/v2/bids/${id}`,
-    param,
+    {
+      method: 'POST',
+      body: JSON.stringify(param),
+    },
   );
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to postBasicAuctionBid');
+  }
+
+  return response;
 };
 
 export const postBasicAuctionInstantBuy = async (id: number) => {
-  const response = await apiClient.post<Response<null>>(`/v2/bids/${id}/instant-buy`);
+  const response = await createFetchApiClient<Response<null>>(`/v2/bids/${id}/instant-buy`, {
+    method: 'POST',
+  });
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to postBasicAuctionInstantBuy');
+  }
+
+  return response;
 };
 
 export const deleteAuction = async (id: number) => {
-  const response = await apiClient.delete<Response<null>>(`/v2/auctions/${id}`);
+  const response = await createFetchApiClient<Response<null>>(`/v2/auctions/${id}`, {
+    method: 'DELETE',
+  });
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to deleteAuction');
+  }
+
+  return response;
 };
 
 export const getAuctionQnAList = async (id: number) => {
-  const response = await apiClient.get<Response<ListResponse<AuctionQnAData[]>>>(
+  const response = await createFetchApiClient<Response<ListResponse<AuctionQnAData[]>>>(
     `/v2/questions/${id}`,
   );
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to getAuctionQnAList');
+  }
+
+  return response;
 };
 
 export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
-  const response = await apiClient.post<Response<PostAuctionQnAResponseData>>(
+  const response = await createFetchApiClient<Response<PostAuctionQnAResponseData>>(
     `/v2/questions`,
-    param,
+    {
+      method: 'POST',
+      body: JSON.stringify(param),
+    },
   );
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to postAuctionQnA');
+  }
+
+  return response;
 };
 
 export const postAuctionQnAAnswer = async (param: PostAuctionQnAAnswerParams) => {
-  const response = await apiClient.post<Response<PostAuctionQnAAnswerResponseData>>(
+  const response = await createFetchApiClient<Response<PostAuctionQnAAnswerResponseData>>(
     `/v2/answers`,
-    param,
+    {
+      method: 'POST',
+      body: JSON.stringify(param),
+    },
   );
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to postAuctionQnAAnswer');
+  }
+
+  return response;
 };
 
 export const deleteAuctionQnA = async (id: number) => {
-  const response = await apiClient.delete<Response<null>>(`/v2/questions/${id}`);
+  const response = await createFetchApiClient<Response<null>>(`/v2/questions/${id}`, {
+    method: 'DELETE',
+  });
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to deleteAuctionQnA');
+  }
+
+  return response;
 };
 
 export const getNowPrice = async (id: number) => {
-  const response = await apiClient.get<Response<GetNowPriceResponseData>>(
+  const response = await createFetchApiClient<Response<GetNowPriceResponseData>>(
     `/v2/bids/${id}/now-price`,
   );
 
-  return response.data;
+  if (!response) {
+    throw new Error('Failed to getNowPrice');
+  }
+
+  return response;
 };
 
 // 찜 ----
 
 export const postAuctionLike = async (id: number, params: PostLikeParams) => {
-  const response = await apiClient.post<Response<PostLikeResponseData>>(
+  const response = await createFetchApiClient<Response<PostLikeResponseData>>(
     `v2/auctions/likes/${id}`,
-    params,
+    {
+      method: 'POST',
+      body: JSON.stringify(params),
+    },
   );
-  return response.data;
+
+  if (!response) {
+    throw new Error('Failed to postAuctionLike');
+  }
+
+  return response;
 };

@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
+// import { postLogin } from '@/apis/queryFunctions/Auth';
 import { postLogin } from '@/apis/queryFunctions/Auth';
 import { LoginParams } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
@@ -18,9 +19,7 @@ function useLogin() {
 
   const { mutate } = useMutation({
     mutationFn: (loginParams: LoginParams) => postLogin(loginParams),
-    onSuccess: data => {
-      sessionStorage.setItem('accessToken', data.result_data.access_token);
-      localStorage.setItem('refreshToken', data.result_data.refresh_token);
+    onSuccess: () => {
       setIsLoggedIn(true);
       showToast('success', '로그인 되었습니다.');
 

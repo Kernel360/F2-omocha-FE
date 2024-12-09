@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import logoIcon from '@/assets/png/logo.png';
-import useLogout from '@/hooks/useLogout';
+import { handleLogout } from '@/hooks/useLogout';
 import { useAuth } from '@/provider/authProvider';
+import { useToast } from '@/provider/toastProvider';
 import { SUB_CATEGORY } from '@/static/category';
 
 import * as S from './UserHeader.css';
@@ -19,7 +20,16 @@ function UserHeader() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleLogout = useLogout();
+  const { setIsLoggedIn } = useAuth();
+  const { showToast } = useToast();
+
+  const logout = async () => {
+    await handleLogout();
+    router.refresh();
+    router.push('/');
+    setIsLoggedIn(false);
+    showToast('success', '로그아웃 되었습니다.');
+  };
 
   return (
     <section className={S.topHeader}>
@@ -65,7 +75,7 @@ function UserHeader() {
           );
         })}
         {isLoggedIn ? (
-          <button className={S.logoutButton} type="button" onClick={handleLogout}>
+          <button className={S.logoutButton} type="button" onClick={logout}>
             로그아웃
           </button>
         ) : (

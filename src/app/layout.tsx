@@ -6,6 +6,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
+import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
@@ -41,7 +42,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const accessToken = !!cookies().get('accessToken')?.value;
   const queryClient = await usePrefetchQueriesWithCookie([
+    { queryKey: ['userInfo'], api: '/v2/member' },
     { queryKey: ['category'], api: '/v2/categories' },
   ]);
 
@@ -56,11 +59,10 @@ export default async function RootLayout({
             <Suspense fallback={<div>Loading...NavigationEvents</div>}>
               <NavigationEvents />
             </Suspense>
-            <AuthProvider>
+            <AuthProvider isLoggedIn={accessToken}>
               <HydrationBoundary state={dehydrate(queryClient)}>
                 <HeaderSection />
                 <div className={S.container}>
-                  {/* <Suspense fallback={<div>Loading...</div>}></Suspense> */}
                   {children}
                   <ChattingIconButton />
                   <ScrollToTopButton />

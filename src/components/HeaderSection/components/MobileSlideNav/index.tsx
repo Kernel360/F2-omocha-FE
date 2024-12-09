@@ -1,9 +1,12 @@
 import { UserIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import useLogout from '@/hooks/useLogout';
+// import useLogout from '@/hooks/useLogout';
+import { handleLogout } from '@/hooks/useLogout';
+import { useAuth } from '@/provider/authProvider';
+import { useToast } from '@/provider/toastProvider';
 import colors from '@/styles/color';
 
 import * as S from './MobileSlideNav.css';
@@ -25,13 +28,18 @@ function MobileSlideNav({
   userEmail,
   userHeartCount,
 }: MobileSlideNavProps) {
-  const handleLogout = useLogout();
-
   const pathname = usePathname();
+  const router = useRouter();
+  const { setIsLoggedIn } = useAuth();
+  const { showToast } = useToast();
   const searchParams = useSearchParams();
 
-  const logout = () => {
-    handleLogout();
+  const logout = async () => {
+    await handleLogout();
+    router.refresh();
+    router.push('/');
+    setIsLoggedIn(false);
+    showToast('success', '로그아웃 되었습니다.');
     onClose();
   };
 

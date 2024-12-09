@@ -1,4 +1,4 @@
-import createApiClient from '@/apis/queryFunctions/apiClient';
+// import createApiClient from '@/apis/queryFunctions/apiClient';
 import { Response } from '@/apis/types/common';
 import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
 
@@ -8,24 +8,32 @@ import {
   GetLastChatResponseData,
 } from '../types/chat';
 
-const apiClient = createApiClient();
+import createFetchApiClient from './featchApiClient';
 
 export const getChatroomList = async (param: GetChatroomListParams) => {
   const queryString = convertQueryParamsObjectToString<GetChatroomListParams>(param);
-  const response = await apiClient.get<Response<ChatroomListResponseData>>(
+  const response = await createFetchApiClient<Response<ChatroomListResponseData>>(
     `/v2/chatroom?${queryString}`,
   );
 
-  return response.data.result_data;
+  if (!response) {
+    throw new Error('Failed to getChatroomList');
+  }
+
+  return response;
 };
 
 export const getLastChat = async (roomId: number | null, chatCreate?: string) => {
   const formatterCreateDateForApi =
     chatCreate && chatCreate.length > 1 ? chatCreate.replace(' ', 'T') : '';
 
-  const response = await apiClient.get<Response<GetLastChatResponseData>>(
+  const response = await createFetchApiClient<Response<GetLastChatResponseData>>(
     `/v2/chatroom/${roomId}?cursor=${formatterCreateDateForApi}`,
   );
 
-  return response.data.result_data;
+  if (!response) {
+    throw new Error('Failed to getLastChat');
+  }
+
+  return response;
 };

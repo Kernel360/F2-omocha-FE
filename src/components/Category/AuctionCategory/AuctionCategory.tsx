@@ -32,8 +32,8 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
       </button>
       {categoryData.map(category => (
         // eslint-disable-next-line react/jsx-key
-        <Suspense fallback={<>CategoryUnit</>}>
-          <CategoryUnit unit={category} key={category.category_id} />
+        <Suspense key={category.category_id} fallback={<>CategoryUnit</>}>
+          <CategoryUnit unit={category} />
         </Suspense>
       ))}
     </div>
