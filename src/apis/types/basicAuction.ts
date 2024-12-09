@@ -47,6 +47,7 @@ export interface AuctionData {
 
 export interface PostBasicAuctionResponseData {
   auction_id: number;
+  is_instant_buy: boolean;
 }
 
 export interface GetBasicAuctionListParams {

@@ -4,7 +4,9 @@ import { AxiosError } from 'axios';
 import { postAuctionLike } from '@/apis/queryFunctions/basicAuction';
 import { PostLikeParams } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
+import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
+import EVENT_ID from '@/static/eventId';
 
 function usePostAuctionLike(id: number, isLike: boolean) {
   const queryClient = useQueryClient();
@@ -17,6 +19,9 @@ function usePostAuctionLike(id: number, isLike: boolean) {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuction', id] });
       queryClient.invalidateQueries({ queryKey: ['userInfo'] });
+      mixpanel.track(EVENT_ID.AUCTION_DETAIL_HEART_BUTTON_CLICKED, {
+        is_login: true,
+      });
 
       if (isLike) {
         showToast('success', '찜 목록에서 삭제되었습니다.');
@@ -28,6 +33,9 @@ function usePostAuctionLike(id: number, isLike: boolean) {
       if (e.response) {
         if (e.response.status === 401) {
           showToast('info', '로그인이 필요한 서비스입니다.');
+          mixpanel.track(EVENT_ID.AUCTION_DETAIL_HEART_BUTTON_CLICKED, {
+            is_login: false,
+          });
         } else {
           showToast('error', `${e.response.data.result_msg}`);
         }

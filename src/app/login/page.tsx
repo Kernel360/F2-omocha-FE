@@ -7,9 +7,12 @@ import Link from 'next/link';
 import useLogin from '@/apis/queryHooks/Auth/useLogin';
 import GoogleIcon from '@/assets/svg/google.svg';
 import NaverIcon from '@/assets/svg/naver.svg';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 import sha256 from '@/utils/sha256';
 
 import * as S from './Login.css';
@@ -35,6 +38,10 @@ function Home() {
       email: data.emailRequired,
       password: newPassword,
     });
+  };
+
+  const handleJoinMixpanel = () => {
+    mixpanel.track(EVENT_ID.JOIN_BUTTON_CLICKED);
   };
 
   return (
@@ -70,14 +77,14 @@ function Home() {
             </div>
           </form>
           <ul className={S.optionSection}>
-            <Link href="join" rel="stylesheet" scroll={false}>
+            <Link href="join" rel="stylesheet" scroll={false} onClick={handleJoinMixpanel}>
               <li className={S.option}>회원가입 하기</li>
             </Link>
           </ul>
           <span className={S.snsLoginTitle}>SNS계정으로 간편 로그인 / 회원가입</span>
           <div className={S.snsLoginSection}>
             <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/oauth/authorize/google`}>
-              <div className={S.snsLoginButton.goggle}>
+              <div className={S.snsLoginButton.google}>
                 <GoogleIcon />
               </div>
             </Link>
@@ -89,6 +96,7 @@ function Home() {
           </div>
         </div>
       </MaxLayout>
+      <ClientSidePageRef eventId={EVENT_ID.LOGIN_PAGE_VIEWED} />
     </div>
   );
 }

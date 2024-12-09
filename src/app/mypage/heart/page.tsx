@@ -7,15 +7,17 @@ import { useRouter } from 'next/navigation';
 import useGetAuctionLikeList from '@/apis/queryHooks/User/useGetAuctionLikeList';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import AuctionCard from '@/components/AuctionCard';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import ListLayout from '@/components/ListLayout';
 import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import useRequireAuth from '@/hooks/useRequireAuth';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './Heart.css';
 
 function Home() {
-  useRequireAuth();
+  const { isCheckingAuth } = useRequireAuth();
 
   const { data: user } = useGetUser();
   const router = useRouter();
@@ -29,6 +31,10 @@ function Home() {
     hasNextPage,
     fetchNextPage,
   });
+
+  if (isCheckingAuth) {
+    return null;
+  }
 
   if (isLoading)
     return (
@@ -69,6 +75,7 @@ function Home() {
                     startTime={item.start_date}
                     endTime={item.end_date}
                     nowPrice={item.now_price}
+                    pageContext="heart_page"
                   />
                 </Suspense>
               )),
@@ -76,6 +83,7 @@ function Home() {
           </ListLayout>
           {isFetchingNextPage && hasNextPage && <AuctionListSkeletonUI count={4} />}
           <div ref={endCursorRef} />
+          <ClientSidePageRef eventId={EVENT_ID.MYPAGE_HEART_PAGE_VIEWED} />
         </>
       )}
     </div>

@@ -131,7 +131,7 @@ export const snsLoginBaseButton = style({
 });
 
 export const snsLoginButton = styleVariants({
-  goggle: [
+  google: [
     snsLoginBaseButton,
     {
       background: '#FFF',

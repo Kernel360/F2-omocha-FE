@@ -6,6 +6,8 @@ import Link from 'next/link';
 
 import logoIcon from '@/assets/png/logo.png';
 import SearchBar from '@/components/HeaderSection/components/SearchBar/searchbar';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
 
 import * as S from './MobileUserHeader.css';
@@ -15,6 +17,10 @@ interface MobileUserHeaderProps {
 }
 
 function MobileUserHeader({ openNav }: MobileUserHeaderProps) {
+  const handleMixpanel = () => {
+    mixpanel.track(EVENT_ID.MAIN_BUTTON_CLICKED);
+  };
+
   return (
     <section className={S.topHeader}>
       <div className={S.IconWrapper}>
@@ -23,7 +29,7 @@ function MobileUserHeader({ openNav }: MobileUserHeaderProps) {
           <SearchBar />
         </Suspense>
       </div>
-      <Link href="/" scroll={false} className={S.topHeaderLogo}>
+      <Link href="/" scroll={false} className={S.topHeaderLogo} onClick={handleMixpanel}>
         <Image width={24} height={24} src={logoIcon} alt="logo" className={S.logo} />
         <div className={S.logo}>OMOCHA</div>
       </Link>

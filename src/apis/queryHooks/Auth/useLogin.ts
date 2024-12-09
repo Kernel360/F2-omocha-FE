@@ -5,8 +5,10 @@ import { useRouter } from 'next/navigation';
 import { postLogin } from '@/apis/queryFunctions/Auth';
 import { LoginParams } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
+import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
+import EVENT_ID from '@/static/eventId';
 
 function useLogin() {
   const router = useRouter();
@@ -18,7 +20,7 @@ function useLogin() {
 
   const { mutate } = useMutation({
     mutationFn: (loginParams: LoginParams) => postLogin(loginParams),
-    onSuccess: data => {
+    onSuccess: (data, param) => {
       sessionStorage.setItem('accessToken', data.result_data.access_token);
       localStorage.setItem('refreshToken', data.result_data.refresh_token);
       setIsLoggedIn(true);
@@ -29,6 +31,13 @@ function useLogin() {
       // } else {
       //   router.push(prevUrl || '/');
       // }
+
+      mixpanel.track(EVENT_ID.LOGIN_SUBMIT_BUTTON_CLICKED);
+      mixpanel.identify(param.email);
+      mixpanel.people.set({
+        $email: param.email,
+        login_type: 'general',
+      });
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {

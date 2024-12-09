@@ -54,7 +54,7 @@ function CategoryTree() {
       <h2 className={S.auctionTypeTitle}>경매 상품 카테고리</h2>
 
       <Controller
-        name="categoryIdsRequired"
+        name="categoryIdRequired"
         control={control}
         rules={{
           required: '카테고리를 선택해 주세요.',
@@ -79,10 +79,10 @@ function CategoryTree() {
           </Cascader>
         )}
       />
-      {errors.categoryIdsRequired && (
+      {errors.categoryIdRequired && (
         <span className={S.error}>
           <TriangleAlertIcon width={17} height={17} />
-          {errors.categoryIdsRequired?.message}
+          {errors.categoryIdRequired?.message}
         </span>
       )}
     </label>

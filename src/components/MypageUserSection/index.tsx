@@ -16,7 +16,11 @@ function MypageUserSection() {
   const { data: user } = useGetUser();
   const { value: isOpenImageUploadModal, toggle: setIsOpenImageUploadModal } = useBooleanState();
 
-  useRequireAuth();
+  const { isCheckingAuth } = useRequireAuth();
+
+  if (isCheckingAuth) {
+    return null;
+  }
 
   return (
     <div className={S.profile}>

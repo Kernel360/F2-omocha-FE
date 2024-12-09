@@ -6,20 +6,31 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import logoIcon from '@/assets/png/logo.png';
 import useLogout from '@/hooks/useLogout';
+import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 import { SUB_CATEGORY } from '@/static/category';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './UserHeader.css';
 
 function UserHeader() {
   const router = useRouter();
-
   const { isLoggedIn } = useAuth();
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const handleLogout = useLogout();
+
+  const handleMixpanel = (eventId: string, prevEvent?: string) => {
+    if (!isLoggedIn) {
+      mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
+        prev_event: prevEvent,
+      });
+      return;
+    }
+    mixpanel.track(eventId);
+  };
 
   return (
     <section className={S.topHeader}>
@@ -36,6 +47,7 @@ function UserHeader() {
                 href={category.path}
                 scroll={false}
                 className={S.TopHeaderUnit}
+                onClick={() => handleMixpanel(category.eventId, category.name)}
               >
                 {category.name}
               </Link>
@@ -50,6 +62,7 @@ function UserHeader() {
               onClick={() => {
                 if (isLoggedIn) {
                   // setTrue();
+                  // handleMixpanel(category.eventId); // 알림 이벤트ID 버튼 추가 필요
                 } else {
                   router.push(
                     searchParams.size > 0
@@ -57,6 +70,7 @@ function UserHeader() {
                       : `/login?prevUrl=${pathname}`,
                     { scroll: false },
                   );
+                  handleMixpanel(EVENT_ID.LOGIN_BUTTON_CLICKED);
                 }
               }}
             >
@@ -77,6 +91,7 @@ function UserHeader() {
             }
             scroll={false}
             className={S.TopHeaderUnit}
+            onClick={() => mixpanel.track(EVENT_ID.LOGIN_BUTTON_CLICKED)}
           >
             로그인
           </Link>

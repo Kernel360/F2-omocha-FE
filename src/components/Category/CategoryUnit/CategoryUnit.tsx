@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 import { Category } from '@/apis/types/category';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './CategoryUnit.css';
 
@@ -18,12 +20,22 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
 
   const isPick = unit.category_id === pickCategory;
 
+  const handleMixpanel = (name: string) => {
+    mixpanel.track(EVENT_ID.CATEGORY_BUTTON_CLICKED, {
+      category_name: name,
+    });
+  };
+
   return (
     <Collapsible.Root className="CollapsibleRoot" defaultOpen={!!unit.isOpen}>
       <Collapsible.Trigger asChild>
         <div className={S.unitButton}>
           <Collapsible.Trigger asChild>
-            <Link scroll={false} href={`/basicauction/?categoryId=${unit.category_id}&page=1`}>
+            <Link
+              scroll={false}
+              href={`/basicauction/?categoryId=${unit.category_id}&page=1`}
+              onClick={() => handleMixpanel(unit.name)}
+            >
               <span className={isPick ? S.pickUnitButtonSpan : S.unitButtonSpan}>{unit.name}</span>
             </Link>
           </Collapsible.Trigger>
@@ -39,6 +51,7 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
               key={sub_category.category_id}
               scroll={false}
               href={`/basicauction/?categoryId=${sub_category.category_id}&page=1`}
+              onClick={() => handleMixpanel(sub_category.name)}
             >
               <div className={`${S.unitContent} ${S.unitContentForSpan}`}>
                 <span
