@@ -67,12 +67,15 @@ export default function BasicSold() {
                   <button
                     type="button"
                     onClick={() => {
-                      router.push(`/basicauction/${history.auction_id}`, { scroll: false });
+                      router.push(
+                        `/basicauction/${history.auction_id}?categoryId=${history.category_id}`,
+                        { scroll: false },
+                      );
                       mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
                         page_context: 'record_page',
                         now_price: history.now_price,
                         is_expired: history.auction_status !== 'BIDDING',
-                        // 카테고리 아이디 추가 필요
+                        category_id: history.category_id,
                       });
                     }}
                     className={S.bidTitle}

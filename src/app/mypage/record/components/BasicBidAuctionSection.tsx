@@ -26,7 +26,7 @@ export default function BasicBidAuctionSection() {
           <button
             className={S.noListButton}
             type="button"
-            onClick={() => router.push('/basicauction', { scroll: false })}
+            onClick={() => router.push('/basicauction?page=1', { scroll: false })}
           >
             경매 구경하러 가기
           </button>

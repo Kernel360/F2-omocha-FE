@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import mixpanel from '@/lib/mixpanel';
@@ -9,6 +10,7 @@ function useLogout() {
   const router = useRouter();
   const { setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
     localStorage.removeItem('refreshToken');
@@ -16,6 +18,7 @@ function useLogout() {
     setIsLoggedIn(false);
     router.push('/');
     showToast('success', '로그아웃 되었습니다.');
+    queryClient.clear();
     mixpanel.track(EVENT_ID.LOGOUT_BUTTON_CLICKED);
     mixpanel.reset();
   };

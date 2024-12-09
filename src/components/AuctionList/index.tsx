@@ -1,9 +1,8 @@
 'use client';
 
-import { Suspense } from 'react';
-
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
@@ -29,6 +28,7 @@ export default function AuctionList({
   eventId,
 }: AuctionListProps) {
   const { isLoggedIn } = useAuth();
+  const router = useRouter();
 
   const { data } = useGetBasicAuctionList({
     title: '',
@@ -56,9 +56,20 @@ export default function AuctionList({
         </Link>
       </div>
       <div className={S.listWrapper}>
-        <ListLayout>
-          {data.result_data.content.map(item => (
-            <Suspense key={item.auction_id} fallback={<>AuctionCard</>}>
+        {data.result_data.total_elements === 0 ? (
+          <div className={S.noListWrapper}>
+            <div className={S.noListTitle}>{`현재 경매중인 ${pathname}이 없습니다.`}</div>
+            <button
+              className={S.noListButton}
+              type="button"
+              onClick={() => router.push('/create')} // mixpanel 추가 필요
+            >
+              경매 등록하러 가기
+            </button>
+          </div>
+        ) : (
+          <ListLayout>
+            {data.result_data.content.map(item => (
               <AuctionCard
                 key={item.auction_id}
                 id={item.auction_id}
@@ -71,11 +82,12 @@ export default function AuctionList({
                 nowPrice={item.now_price}
                 auctionStatus={item.auction_status}
                 instantBuyPrice={item.instant_buy_price}
+                categoryId={item.category_id}
                 pageContext="main_page"
               />
-            </Suspense>
-          ))}
-        </ListLayout>
+            ))}
+          </ListLayout>
+        )}
       </div>
     </section>
   );

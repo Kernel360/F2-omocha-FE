@@ -32,7 +32,9 @@ function useLogin() {
       //   router.push(prevUrl || '/');
       // }
 
-      mixpanel.track(EVENT_ID.LOGIN_SUBMIT_BUTTON_CLICKED);
+      mixpanel.track(EVENT_ID.LOGIN_SUBMIT_BUTTON_CLICKED, {
+        login_type: 'general',
+      });
       mixpanel.identify(param.email);
       mixpanel.people.set({
         $email: param.email,

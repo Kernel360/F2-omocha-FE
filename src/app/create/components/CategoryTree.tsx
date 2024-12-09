@@ -8,10 +8,11 @@ import Cascader, { CascaderProps } from 'rc-cascader';
 
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category, TransformCategoriesToOptions } from '@/apis/types/category';
+import { AuctionInputs } from '@/app/create/types/InputTypes';
 
 import * as S from '../Basicauction.css';
+
 import './CategoryTree.css';
-import { AuctionInputs } from '../types/InputTypes';
 
 const transformCategoriesToOptions = (categories: Category[]): TransformCategoriesToOptions[] => {
   return categories.map(category => ({

@@ -54,7 +54,7 @@ export default function Home() {
       start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
       instant_buy_price: data.instantBuyPrice,
-      category_ids: data.categoryIdRequired,
+      category_id: data.categoryIdRequired[0],
     };
     openAuctionConfirmModal();
     return auctionData;

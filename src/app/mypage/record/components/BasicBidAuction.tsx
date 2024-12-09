@@ -19,7 +19,7 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
     <li className={S.list} key={bidAuctionHistory.auction_id}>
       <Image
         className={S.image}
-        src={`https://s3.ap-northeast-2.amazonaws.com/omocha.storages/${bidAuctionHistory.thumbnail_path}`}
+        src={`${process.env.NEXT_PUBLIC_S3_URL}${bidAuctionHistory.thumbnail_path}`}
         width={150}
         height={150}
         alt="경매 사진"
@@ -28,13 +28,17 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
         <li className={`${S.listFirst} ${S.listData}`}>
           <button
             type="button"
-            onClick={() => {
-              router.push(`/basicauction/${bidAuctionHistory.auction_id}`, { scroll: false });
+            onClick={e => {
+              router.push(
+                `/basicauction/${bidAuctionHistory.auction_id}?categoryId=${bidAuctionHistory.category_id}`,
+                { scroll: false },
+              );
+              e.stopPropagation();
               mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
                 page_context: 'record_page',
                 now_price: bidAuctionHistory.now_price,
                 is_expired: bidAuctionHistory.auction_status !== 'BIDDING',
-                // 카테고리 아이디 추가 필요
+                category_id: bidAuctionHistory.category_id,
               });
             }}
             className={S.bidTitle}

@@ -55,7 +55,10 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
         <BreadcrumbSection />
       </Suspense>
       <div className={S.auctionInfoWrapper}>
-        <AuctionImageInfo imageList={data.result_data.image_paths} />
+        <AuctionImageInfo
+          imageList={data.result_data.image_paths}
+          thumbnail={data.result_data.thumbnail_path}
+        />
         <AuctionInfo
           id={id}
           title={data.result_data.title}

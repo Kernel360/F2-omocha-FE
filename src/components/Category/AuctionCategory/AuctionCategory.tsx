@@ -35,12 +35,12 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
       >
         <span className={unitButtonStyle()}>ALL</span>
       </button>
-      {categoryData.map(category => (
-        // eslint-disable-next-line react/jsx-key
-        <Suspense fallback={<>CategoryUnit</>}>
+      <Suspense fallback={<>CategoryUnit</>}>
+        {categoryData.map(category => (
+          // eslint-disable-next-line react/jsx-key
           <CategoryUnit unit={category} key={category.category_id} />
-        </Suspense>
-      ))}
+        ))}
+      </Suspense>
     </div>
   );
 }

@@ -13,6 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   if (isCheckingAuth) {
     return null;
   }
+
   return (
     <div className={S.backContainer}>
       <MaxLayout>

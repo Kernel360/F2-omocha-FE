@@ -20,15 +20,14 @@ function SubCategoryUnit({ categoryData }: SubCategoryUnitProps) {
   return (
     <div className={S.category}>
       {categoryData.map(category => (
-        <div key={category.category_id} className={S.subCategory}>
-          <Link
-            href={`/basicauction?categoryId=${category.category_id}&page=1`}
-            className={S.subCategoryLink}
-            onClick={() => handleMixpanel(category.name)}
-          >
-            {category.name}
-          </Link>
-        </div>
+        <Link
+          key={category.category_id}
+          href={`/basicauction?categoryId=${category.category_id}&page=1`}
+          onClick={() => handleMixpanel(category.name)}
+          className={S.subCategoryLink}
+        >
+          <div className={S.subCategoryName}>{category.name}</div>
+        </Link>
       ))}
     </div>
   );

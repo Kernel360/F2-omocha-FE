@@ -42,6 +42,7 @@ export interface AuctionData {
   start_date: string;
   end_date: string;
   created_at: string;
+  category_id: number;
   category_response: Category[];
 }
 

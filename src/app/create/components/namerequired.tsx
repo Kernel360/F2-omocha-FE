@@ -1,11 +1,10 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
+import CategoryTree from '@/app/create/components/CategoryTree';
+import { AuctionInputs } from '@/app/create/types/InputTypes';
 import CommonInput from '@/components/CommonInput';
 
 import * as S from '../Basicauction.css';
-import { AuctionInputs } from '../types/InputTypes';
-
-import CategoryTree from './CategoryTree';
 
 interface NameRequiredProps {
   register: UseFormRegister<AuctionInputs>;

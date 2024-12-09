@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import { ClockIcon, HeartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 
-import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import usePostAuctionLike from '@/apis/queryHooks/basicAuction/usePostAuctionLike';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
@@ -24,6 +22,7 @@ interface AuctionCardProps {
   nowPrice: number | null;
   auctionStatus?: string;
   instantBuyPrice?: number | null;
+  categoryId: number;
   pageContext?: string;
 }
 
@@ -37,18 +36,14 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
     nowPrice,
     auctionStatus,
     instantBuyPrice,
+    categoryId,
     pageContext,
   } = SAMPLE;
-
-  const searchParams = useSearchParams();
-  const pickCategory = Number(searchParams.get('categoryId'));
 
   const isExpired = auctionStatus !== 'BIDDING'; // new Date() > new Date(endTime);
   const [isLike, setIsLike] = useState(false); // 서버와 클라이언트의 불일치 문제 해결을 위해 isLike를 상태로 관리
   const dDay = calculateDDay(endTime);
   const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);
-  const { data: auctionData } = useGetBasicAuction(id);
-  const categoryId = auctionData?.result_data.category_id;
 
   useEffect(() => {
     setIsLike(initialLike);
@@ -63,7 +58,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   const handleMixpanel = () => {
     mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
       page_context: pageContext, // 이전 페이지 경로
-      category_id: pickCategory === 0 ? categoryId : pickCategory, // 카테고리 아이디
+      category_id: categoryId, // 카테고리 아이디
       now_price: nowPrice, // 현재가
       is_expired: isExpired, // 경매 종료 여부
     });
@@ -72,7 +67,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   return (
     <Link
       className={S.cardWrapper}
-      href={`/basicauction/${id}?categoryId=${pickCategory === 0 ? categoryId : pickCategory}`}
+      href={`/basicauction/${id}?categoryId=${categoryId}`}
       onClick={handleMixpanel}
     >
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
