@@ -46,6 +46,7 @@ export interface BidAuctionHistoriesData {
   now_price: number | null;
   end_date: string;
   review_status: boolean;
+  category_id: number;
 }
 
 export interface BidAuctionHistoriesUnitData {
@@ -61,4 +62,5 @@ export interface AuctionHistoriesData {
   end_date: string;
   thumbnail_path: string;
   review_status: boolean;
+  category_id: number;
 }

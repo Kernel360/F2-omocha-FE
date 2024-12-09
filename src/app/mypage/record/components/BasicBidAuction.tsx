@@ -29,13 +29,16 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
           <button
             type="button"
             onClick={e => {
-              router.push(`/basicauction/${bidAuctionHistory.auction_id}`, { scroll: false }); // 카테고리 추가 필요
+              router.push(
+                `/basicauction/${bidAuctionHistory.auction_id}?categoryId=${bidAuctionHistory.category_id}`,
+                { scroll: false },
+              );
               e.stopPropagation();
               mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
                 page_context: 'record_page',
                 now_price: bidAuctionHistory.now_price,
                 is_expired: bidAuctionHistory.auction_status !== 'BIDDING',
-                // 카테고리 아이디 추가 필요
+                category_id: bidAuctionHistory.category_id,
               });
             }}
             className={S.bidTitle}
