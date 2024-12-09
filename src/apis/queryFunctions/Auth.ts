@@ -15,6 +15,11 @@ import { setCookies } from '@/utils/setCookies';
 
 import createFetchApiClient from './featchApiClient';
 
+export const setTokenCookies = (accessToken: string, refreshToken: string) => {
+  setCookies('accessToken', accessToken);
+  setCookies('refreshToken', refreshToken);
+};
+
 export const postLogin = async (params: LoginParams) => {
   const response = await createFetchApiClient<Response<PostLoginResponseData>>('/v2/auth/login', {
     method: 'POST',

@@ -1,15 +1,12 @@
-'use client';
-
-import { Suspense } from 'react';
+'use server';
 
 import OauthCallbackHandler from './OauthCallbackHandler';
 
-function Oauthcallback() {
-  return (
-    <Suspense fallback="OauthCallbackHandler">
-      <OauthCallbackHandler />
-    </Suspense>
-  );
+async function Oauthcallback({ searchParams }: { searchParams: { [key: string]: string } }) {
+  const accessToken = searchParams.access_token;
+  const refreshToken = searchParams.refresh_token;
+
+  return <OauthCallbackHandler accessToken={accessToken} refreshToken={refreshToken} />;
 }
 
 export default Oauthcallback;
