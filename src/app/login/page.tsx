@@ -40,19 +40,6 @@ function Home() {
     });
   };
 
-  const handleSocialLoginMixpanel = (type: 'naver' | 'google') => {
-    if (type === 'google') {
-      mixpanel.track(EVENT_ID.LOGIN_WITH_GOOGLE_BUTTON_CLICKED);
-      // 사용자 정보 업데이트
-      return;
-    }
-
-    if (type === 'naver') {
-      mixpanel.track(EVENT_ID.LOGIN_WITH_NAVER_BUTTON_CLICKED);
-      // 사용자 정보 업데이트
-    }
-  };
-
   const handleJoinMixpanel = () => {
     mixpanel.track(EVENT_ID.JOIN_BUTTON_CLICKED);
   };
@@ -96,18 +83,12 @@ function Home() {
           </ul>
           <span className={S.snsLoginTitle}>SNS계정으로 간편 로그인 / 회원가입</span>
           <div className={S.snsLoginSection}>
-            <Link
-              href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/oauth/authorize/google`}
-              onClick={() => handleSocialLoginMixpanel('google')}
-            >
-              <div className={S.snsLoginButton.goggle}>
+            <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/oauth/authorize/google`}>
+              <div className={S.snsLoginButton.google}>
                 <GoogleIcon />
               </div>
             </Link>
-            <Link
-              href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/oauth/authorize/naver`}
-              onClick={() => handleSocialLoginMixpanel('naver')}
-            >
+            <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/oauth/authorize/naver`}>
               <div className={S.snsLoginButton.naver}>
                 <NaverIcon />
               </div>

@@ -62,7 +62,10 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
 
   const handleMixpanel = () => {
     mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
-      page_context: pageContext,
+      page_context: pageContext, // 이전 페이지 경로
+      category_id: pickCategory === 0 ? categoryId : pickCategory, // 카테고리 아이디
+      now_price: nowPrice, // 현재가
+      is_expired: isExpired, // 경매 종료 여부
     });
   };
 

@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { BidAuctionHistoriesData } from '@/apis/types/User';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './BasicBidAuction.css';
 
@@ -26,9 +28,15 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
         <li className={`${S.listFirst} ${S.listData}`}>
           <button
             type="button"
-            onClick={() =>
-              router.push(`/basicauction/${bidAuctionHistory.auction_id}`, { scroll: false })
-            }
+            onClick={() => {
+              router.push(`/basicauction/${bidAuctionHistory.auction_id}`, { scroll: false });
+              mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
+                page_context: 'record_page',
+                now_price: bidAuctionHistory.now_price,
+                is_expired: bidAuctionHistory.auction_status !== 'BIDDING',
+                // 카테고리 아이디 추가 필요
+              });
+            }}
             className={S.bidTitle}
           >
             <span>{bidAuctionHistory.title}</span>
