@@ -26,12 +26,12 @@ if (process.env.NEXT_PUBLIC_NODE_ENV === 'dev') {
 if (typeof window === 'undefined') {
   const mixpanelModule = require('mixpanel');
   mixpanel = mixpanelModule.default as MixpanelServer;
-  mixpanel.init(token, options);
+  mixpanel?.init(token, options);
   console.log('Using Server Side Mixpanel');
 } else {
   const mixpanelModule = require('mixpanel-browser');
   mixpanel = mixpanelModule.default as MixpanelClient;
-  mixpanel.init(token, {
+  mixpanel?.init(token, {
     ...options,
     persistence: 'localStorage',
   });
