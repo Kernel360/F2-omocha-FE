@@ -33,7 +33,6 @@ function createApiClient() {
     },
     async error => {
       const refreshToken = localStorage.getItem('refreshToken');
-
       const originalRequest = error.config;
 
       if (error.response?.status === 401) {
@@ -60,8 +59,15 @@ function createApiClient() {
               originalRequest.headers.Authorization = newAccessToken;
               return await client(originalRequest);
             }
+
+            console.error('refreshToken도 만료되었습니다.');
+            alert('재로그인이 필요합니다.');
+            localStorage.removeItem('refreshToken');
+            sessionStorage.removeItem('accessToken');
+            window.location.href = '/login';
           } catch (e) {
-            console.error('Failed to reissue token:', e);
+            alert('재로그인이 필요합니다.');
+            console.error('accessToken 재발급 실패');
             localStorage.removeItem('refreshToken');
             sessionStorage.removeItem('accessToken');
             window.location.href = '/login';
