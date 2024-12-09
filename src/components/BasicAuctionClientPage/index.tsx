@@ -7,7 +7,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
-import { useAuth } from '@/provider/authProvider';
 import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
 import Pagination from '../Pagination';
@@ -21,8 +20,6 @@ function BasicAuctionClientPage() {
   const currentPage = Number(searchParams.get('page'));
   const router = useRouter();
 
-  const { isLoggedIn } = useAuth();
-
   const { data, pageInfo } = useGetBasicAuctionList({
     categoryId: pickCategory || undefined,
     title: searchKeywordParam || undefined,
@@ -31,7 +28,6 @@ function BasicAuctionClientPage() {
     direction: searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || undefined,
     size: 20, // 사이즈 2로 ALL 에서 검토
     page: Math.max(currentPage - 1, 0),
-    isLogin: isLoggedIn,
   });
 
   if (!data) return null;

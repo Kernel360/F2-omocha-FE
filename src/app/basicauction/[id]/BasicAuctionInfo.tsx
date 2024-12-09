@@ -1,7 +1,5 @@
 'use client';
 
-import React, { Suspense } from 'react';
-
 import dynamic from 'next/dynamic';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
@@ -49,9 +47,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
 
   return (
     <div className={S.auctionWrapper}>
-      <Suspense fallback={<>Loading...</>}>
-        <BreadcrumbSection />
-      </Suspense>
+      <BreadcrumbSection />
       <div className={S.auctionInfoWrapper}>
         <AuctionImageInfo imageList={data.result_data.image_paths} />
         <AuctionInfo

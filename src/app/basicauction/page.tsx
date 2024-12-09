@@ -1,7 +1,10 @@
 import { Suspense } from 'react';
 
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Metadata } from 'next';
 
+import { AuctionData, GetBasicAuctionListParams } from '@/apis/types/basicAuction';
+import { ListResponse } from '@/apis/types/common';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import Checkbox from '@/app/basicauction/components/checkbox';
 import BasicAuctionClientPage from '@/components/BasicAuctionClientPage';
@@ -9,6 +12,9 @@ import BreadcrumbSection from '@/components/BreadcrumbSection';
 import AuctionCategoryLeftSection from '@/components/LeftSection/components/AuctionCategoryLeftSection/AuctionCategoryLeftSection';
 import MobileAuctionCategoryLeftSection from '@/components/LeftSection/components/MobileAuctionCategoryLeftSection/MobileAuctionCategoryLeftSection';
 import MaxLayout from '@/components/MaxLayout';
+import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
+import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+import filteredParams from '@/utils/filteredParams';
 import { flattenCategories } from '@/utils/flattenCategoriesTree';
 import getMetadata from '@/utils/getMetadata';
 
@@ -53,7 +59,28 @@ export const generateMetadata = async ({
   }
 };
 
-function Home() {
+async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: number | string | undefined };
+}) {
+  const params = {
+    ...searchParams,
+    page: Math.max(Number(searchParams.page ?? 1) - 1, 0),
+    categoryId: Number(searchParams.categoryId) || undefined, // 0일 때 undefined로 변환
+    size: 20, // 사이즈 2로 ALL 에서 검토
+  };
+
+  const newParams = filteredParams<GetBasicAuctionListParams>(params);
+
+  const queryClient = await usePrefetchQueryWithCookie<
+    ListResponse<AuctionData[]>,
+    ['basicAuctionList', typeof newParams]
+  >({
+    queryKey: ['basicAuctionList', newParams],
+    api: `/v2/auctions?${convertQueryParamsObjectToString<GetBasicAuctionListParams>(newParams)}`,
+  });
+
   return (
     <MaxLayout>
       <div className={S.basicAuctionContainer}>
@@ -73,9 +100,9 @@ function Home() {
               <AuctionDropDown />
             </div>
           </div>
-          <Suspense fallback={<>BasicAuctionClientPage</>}>
+          <HydrationBoundary state={dehydrate(queryClient)}>
             <BasicAuctionClientPage />
-          </Suspense>
+          </HydrationBoundary>
         </section>
       </div>
     </MaxLayout>
