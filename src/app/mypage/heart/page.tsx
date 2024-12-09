@@ -10,13 +10,10 @@ import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import useRequireAuth from '@/hooks/useRequireAuth';
 
 import * as S from './Heart.css';
 
 function Home() {
-  useRequireAuth();
-
   const { data: user } = useGetUser();
   const router = useRouter();
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } = useGetAuctionLikeList(

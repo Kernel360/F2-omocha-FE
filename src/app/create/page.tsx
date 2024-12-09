@@ -17,14 +17,12 @@ import MaxLayout from '@/components/MaxLayout';
 import { Modal } from '@/components/Modal/Modal';
 import useBooleanState from '@/hooks/useBooleanState';
 import useDebounce from '@/hooks/useDebounce';
-import useRequireAuth from '@/hooks/useRequireAuth';
+
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
 
 export default function Home() {
-  useRequireAuth();
-
   const methods = useForm<AuctionInputs>();
   const {
     register,
