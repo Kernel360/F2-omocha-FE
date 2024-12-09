@@ -1,13 +1,19 @@
 'use client';
 
 import ChangePassword from '@/app/mypage/profile/components/changepassword';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import MypageProfileClientPage from '@/components/MypageProfileClientPage';
 import useRequireAuth from '@/hooks/useRequireAuth';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './Profile.css';
 
 function Home() {
-  useRequireAuth();
+  const { isCheckingAuth } = useRequireAuth();
+
+  if (isCheckingAuth) {
+    return null;
+  }
 
   return (
     <div className={S.profile}>
@@ -19,6 +25,7 @@ function Home() {
       <section className={S.section}>
         <ChangePassword />
       </section>
+      <ClientSidePageRef eventId={EVENT_ID.MYPAGE_PROFILE_PAGE_VIEWED} />
     </div>
   );
 }

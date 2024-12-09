@@ -1,7 +1,9 @@
 import { usePathname, useRouter } from 'next/navigation';
 
 import useGetBasicAuctionBidList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionBidList';
+import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './AuctionBidListModal.css';
 
@@ -19,6 +21,9 @@ function AuctionBidListModal({ id }: AuctionBidListModalProps) {
 
   const moveToLogin = () => {
     router.push(`/login?prevUrl=${pathname}`, { scroll: false });
+    mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
+      prev_event: '입찰기록보기',
+    });
   };
 
   if (!isLoggedIn) {

@@ -3,7 +3,9 @@ import { AxiosError } from 'axios';
 
 import { postBasicAuctionInstantBuy } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
+import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
+import EVENT_ID from '@/static/eventId';
 
 function usePostBasicAuctionInstantBuy(id: number) {
   const queryClient = useQueryClient();
@@ -17,7 +19,8 @@ function usePostBasicAuctionInstantBuy(id: number) {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionBidList', id] });
       queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
       queryClient.invalidateQueries({ queryKey: ['nowPrice', id] });
-      showToast('success', '입찰에 성공했습니다.');
+      showToast('success', '즉시 구매에 성공했습니다.');
+      mixpanel.track(EVENT_ID.AUCTION_DETAIL_INSTANT_BUY_BUTTON_CLICKED);
     },
     onError: (e: AxiosError<Response<string>>) => {
       queryClient.invalidateQueries({ queryKey: ['nowPrice', id] });

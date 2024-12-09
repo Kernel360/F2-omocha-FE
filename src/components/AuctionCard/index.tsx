@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import usePostAuctionLike from '@/apis/queryHooks/basicAuction/usePostAuctionLike';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 import calculateDDay from '@/utils/calculatedDDay';
 
 import * as S from './AuctionCard.css';
@@ -21,6 +23,7 @@ interface AuctionCardProps {
   auctionStatus?: string;
   instantBuyPrice?: number | null;
   categoryId: number;
+  pageContext?: string;
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
@@ -34,6 +37,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
     auctionStatus,
     instantBuyPrice,
     categoryId,
+    pageContext,
   } = SAMPLE;
 
   const isExpired = auctionStatus !== 'BIDDING'; // new Date() > new Date(endTime);
@@ -46,12 +50,26 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   }, [initialLike]);
 
   const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     e.preventDefault();
     postAuctionLike({ auction_id: id });
   };
 
+  const handleMixpanel = () => {
+    mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
+      page_context: pageContext, // 이전 페이지 경로
+      category_id: categoryId, // 카테고리 아이디
+      now_price: nowPrice, // 현재가
+      is_expired: isExpired, // 경매 종료 여부
+    });
+  };
+
   return (
-    <Link className={S.cardWrapper} href={`/basicauction/${id}?categoryId=${categoryId}`}>
+    <Link
+      className={S.cardWrapper}
+      href={`/basicauction/${id}?categoryId=${categoryId}`}
+      onClick={handleMixpanel}
+    >
       {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
       <button type="button" className={S.heartStyle} onClick={handleLike}>
         <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />

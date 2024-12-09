@@ -5,6 +5,8 @@ import {
   PostRegisterResponseData,
   PostEmailAuthParams,
   CheckEmailAuthParams,
+  LoginParams,
+  PostLoginResponseData,
 } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
 
@@ -27,5 +29,10 @@ export const postEmailAuth = async (params: PostEmailAuthParams) => {
 
 export const postEmailValidationCode = async (params: CheckEmailAuthParams) => {
   const response = await apiClient.post<Response<boolean>>('v2/mail/code', params);
+  return response.data;
+};
+
+export const postLogin = async (params: LoginParams) => {
+  const response = await apiClient.post<Response<PostLoginResponseData>>('v2/auth/login', params);
   return response.data;
 };

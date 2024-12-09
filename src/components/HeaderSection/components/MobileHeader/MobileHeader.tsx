@@ -5,14 +5,13 @@ import { Suspense, useEffect } from 'react';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
+import CategoryHeader from '@/components/HeaderSection/components/CategoryHeader';
+import MobileSlideNav from '@/components/HeaderSection/components/MobileSlideNav';
+import MobileUserHeader from '@/components/HeaderSection/components/MobileUserHeader';
+import MaxLayout from '@/components/MaxLayout';
 import SlideSideNav from '@/components/SlideSideNav';
 import useBooleanState from '@/hooks/useBooleanState';
 import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
-
-import MaxLayout from '../../../MaxLayout';
-import CategoryHeader from '../CategoryHeader';
-import MobileSlideNav from '../MobileSlideNav';
-import MobileUserHeader from '../MobileUserHeader';
 
 import * as S from './MobileHeader.css';
 

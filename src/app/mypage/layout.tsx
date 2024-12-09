@@ -8,7 +8,12 @@ import useRequireAuth from '@/hooks/useRequireAuth';
 import * as S from './Layout.css';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  useRequireAuth();
+  const { isCheckingAuth } = useRequireAuth();
+
+  if (isCheckingAuth) {
+    return null;
+  }
+
   return (
     <div className={S.backContainer}>
       <MaxLayout>

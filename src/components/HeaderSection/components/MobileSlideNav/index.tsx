@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 import useLogout from '@/hooks/useLogout';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
 
 import * as S from './MobileSlideNav.css';
@@ -33,11 +35,29 @@ function MobileSlideNav({
   const logout = () => {
     handleLogout();
     onClose();
+    mixpanel.track(EVENT_ID.LOGOUT_BUTTON_CLICKED);
+    mixpanel.reset();
+  };
+
+  const handleMixpanel = (eventId: string, prevEvent: string) => {
+    if (!isLogin) {
+      mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
+        prev_event: prevEvent,
+      });
+      return;
+    }
+    mixpanel.track(eventId);
   };
 
   return (
     <div className={S.container}>
-      <Link href="/" onClick={onClose}>
+      <Link
+        href="/"
+        onClick={() => {
+          onClose();
+          mixpanel.track(EVENT_ID.MAIN_BUTTON_CLICKED);
+        }}
+      >
         <div className={S.logo}>OMOCHA</div>
       </Link>
       <div>
@@ -76,28 +96,66 @@ function MobileSlideNav({
                   : `/login?prevUrl=${pathname}`
               }
               className={S.button.login}
-              onClick={onClose}
+              onClick={() => {
+                onClose();
+                mixpanel.track(EVENT_ID.LOGIN_BUTTON_CLICKED);
+              }}
             >
               로그인
             </Link>
-            <Link href="/join" className={S.button.join} onClick={onClose}>
+            <Link
+              href="/join"
+              className={S.button.join}
+              onClick={() => {
+                onClose();
+                mixpanel.track(EVENT_ID.JOIN_BUTTON_CLICKED);
+              }}
+            >
               회원가입
             </Link>
           </div>
         )}
       </div>
       <hr className={S.division} />
-      <Link href="/create" className={S.button.uploadAuction} onClick={onClose}>
+      <Link
+        href="/create"
+        className={S.button.uploadAuction}
+        onClick={() => {
+          onClose();
+          handleMixpanel(EVENT_ID.AUCTION_CREATE_BUTTON_CLICKED, '경매 등록');
+        }}
+      >
         경매 등록
       </Link>
       <hr className={S.division} />
-      <Link href="/mypage/profile" className={S.normalNavButtonBase} onClick={onClose}>
-        회원 정보
+      <Link
+        href="/mypage/profile"
+        className={S.normalNavButtonBase}
+        onClick={() => {
+          onClose();
+          handleMixpanel(EVENT_ID.MYPAGE_PROFILE_BUTTON_CLICKED, '마이페이지');
+        }}
+      >
+        마이페이지
       </Link>
-      <Link href="/mypage/heart" className={S.normalNavButtonBase} onClick={onClose}>
+      <Link
+        href="/mypage/heart"
+        className={S.normalNavButtonBase}
+        onClick={() => {
+          onClose();
+          handleMixpanel(EVENT_ID.MYPAGE_HEART_BUTTON_CLICKED, '찜');
+        }}
+      >
         <>찜{isLogin && <div className={S.likeCount}>{userHeartCount}</div>}</>
       </Link>
-      <Link href="/mypage/record" className={S.normalNavButtonBase} onClick={onClose}>
+      <Link
+        href="/mypage/record"
+        className={S.normalNavButtonBase}
+        onClick={() => {
+          onClose();
+          handleMixpanel(EVENT_ID.MYPAGE_RECORD_BUTTON_CLICKED, '거래 내역');
+        }}
+      >
         거래 내역
       </Link>
       <hr className={S.division} />

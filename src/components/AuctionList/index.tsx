@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
+import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 
 import * as S from './AuctionList.css';
@@ -16,9 +17,16 @@ export interface AuctionListProps {
   direction: string;
   pathname: string;
   path: string;
+  eventId: string;
 }
 
-export default function AuctionList({ sort, direction, pathname, path }: AuctionListProps) {
+export default function AuctionList({
+  sort,
+  direction,
+  pathname,
+  path,
+  eventId,
+}: AuctionListProps) {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
 
@@ -32,13 +40,17 @@ export default function AuctionList({ sort, direction, pathname, path }: Auction
     isLogin: isLoggedIn,
   });
 
+  const handleMixpanel = () => {
+    mixpanel.track(eventId);
+  };
+
   if (!data) return null;
 
   return (
     <section className={S.section}>
       <div className={S.title}>
         <h3>{pathname}</h3>
-        <Link className={S.link} href={path}>
+        <Link className={S.link} href={path} onClick={handleMixpanel}>
           경매 전체보기
           <ArrowRightIcon />
         </Link>
@@ -71,6 +83,7 @@ export default function AuctionList({ sort, direction, pathname, path }: Auction
                 auctionStatus={item.auction_status}
                 instantBuyPrice={item.instant_buy_price}
                 categoryId={item.category_id}
+                pageContext="main_page"
               />
             ))}
           </ListLayout>
