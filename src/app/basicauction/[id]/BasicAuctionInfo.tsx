@@ -13,7 +13,6 @@ import BreadcrumbSection from '@/components/BreadcrumbSection';
 import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import TabsLayout from '@/components/TabsLayout';
 import EVENT_ID from '@/static/eventId';
-import { sha256 } from '@/utils/textUtils';
 
 import * as S from './BasicAuctionInfo.css';
 
@@ -42,14 +41,6 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
   const { data } = useGetBasicAuction(id);
 
   const user = useGetUser();
-
-  const happy = async () => {
-    const test = await sha256('');
-
-    console.log(test);
-  };
-
-  console.log(happy());
 
   if (!data) return null;
 

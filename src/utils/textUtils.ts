@@ -1,3 +1,5 @@
+import { Descendant, Element, Text } from 'slate';
+
 function maskEmail(email: string): string {
   const [localPart, domain] = email.split('@');
 
@@ -31,4 +33,28 @@ async function sha256(message: string) {
   return hashHex;
 }
 
-export { maskEmail, sha256 };
+function countContentText(data: Descendant[]) {
+  let totalCount = 0;
+
+  if (!Array.isArray(data)) {
+    return 0;
+  }
+
+  function countCharacters(node: Descendant) {
+    if (Text.isText(node)) {
+      totalCount += node.text.length;
+    } else if (Element.isElement(node)) {
+      node.children.forEach(child => {
+        countCharacters(child);
+      });
+    }
+  }
+
+  data.forEach(node => {
+    countCharacters(node);
+  });
+
+  return totalCount;
+}
+
+export { maskEmail, sha256, countContentText };
