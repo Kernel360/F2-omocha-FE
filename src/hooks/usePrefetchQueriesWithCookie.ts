@@ -22,6 +22,7 @@ async function usePrefetchQueriesWithCookie<T, TQueryKey extends QueryKey>(
         queryFn: async () => {
           try {
             const response = await createFetchApiClient<Response<T>>(api);
+
             return response;
           } catch (e) {
             if (e instanceof AxiosError) {

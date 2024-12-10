@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { setTokenCookies } from '@/apis/queryFunctions/Auth';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
-import { setTokenCookies } from '@/apis/queryFunctions/Auth';
 
 interface OauthCallbackHandlerProps {
   accessToken: string;

@@ -67,10 +67,9 @@ export const postEmailAuth = async (params: PostEmailAuthParams) => {
 
 export const getEmailValidation = async (params: CheckEmailParams) => {
   // 얘는 왜 get인데 body에 담겨가죠?
-  const response = await createFetchApiClient<Response<boolean>>('/v2/auth/validate-email', {
-    method: 'GET',
-    body: JSON.stringify(params),
-  });
+  const response = await createFetchApiClient<Response<boolean>>(
+    `/v2/auth/validate-email/${params.email}`,
+  );
 
   if (!response) {
     throw new Error('Failed to getEmailValidation');

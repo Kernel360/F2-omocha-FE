@@ -3,7 +3,7 @@ import MainCarousel from '@/components/MainCarousel';
 import MaxLayout from '@/components/MaxLayout';
 import SpecialSection from '@/components/SpecialSection';
 
-export default function Home() {
+export default async function Home() {
   return (
     <div>
       <MainCarousel />

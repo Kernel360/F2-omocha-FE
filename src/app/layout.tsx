@@ -1,5 +1,3 @@
-// import { Suspense } from 'react';
-
 import { Suspense } from 'react';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -44,7 +42,6 @@ export default async function RootLayout({
 }>) {
   const accessToken = !!cookies().get('accessToken')?.value;
   const queryClient = await usePrefetchQueriesWithCookie([
-    { queryKey: ['userInfo'], api: '/v2/member' },
     { queryKey: ['category'], api: '/v2/categories' },
   ]);
 

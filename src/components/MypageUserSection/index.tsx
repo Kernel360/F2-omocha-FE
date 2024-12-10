@@ -7,7 +7,6 @@ import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import { Modal } from '@/components/Modal/Modal';
 import ImageUploadModal from '@/components/MypageUserSection/components/ImageUploadModal';
 import useBooleanState from '@/hooks/useBooleanState';
-
 import colors from '@/styles/color';
 
 import * as S from './MypageUserSection.css';
