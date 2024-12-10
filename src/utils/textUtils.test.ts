@@ -1,4 +1,4 @@
-import { maskEmail, countContentText } from './textUtils'; // 파일 경로는 실제 파일 위치로 변경
+import { maskEmail, countContentText } from './textUtils';
 
 describe('maskEmail', () => {
   it('로컬 부분이 1글자일 경우 빈 문자열을 반환해야 한다', () => {

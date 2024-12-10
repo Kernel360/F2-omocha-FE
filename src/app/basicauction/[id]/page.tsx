@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { BasicAuctionResponseData } from '@/apis/types/basicAuction';
 import MaxLayout from '@/components/MaxLayout';
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
-import { flattenCategories } from '@/utils/flattenCategoriesTree';
+import flattenCategoriesTree from '@/utils/flattenCategoriesTree';
 import getMetadata from '@/utils/getMetadata';
 
 import BasicAuctionInfo from './BasicAuctionInfo';
@@ -25,7 +25,7 @@ export const generateMetadata = async ({
       .then(res => res.json())
       .then(jsonRes => jsonRes.result_data);
 
-    const flattenCategoriesList = flattenCategories(auctionData.categories);
+    const flattenCategoriesList = flattenCategoriesTree(auctionData.categories);
     const categoryId = flattenCategoriesList[flattenCategoriesList.length - 1].category_id;
     const categoryName = flattenCategoriesList[flattenCategoriesList.length - 1].name;
 

@@ -11,7 +11,7 @@ import AuctionCategoryLeftSection from '@/components/LeftSection/components/Auct
 import MobileAuctionCategoryLeftSection from '@/components/LeftSection/components/MobileAuctionCategoryLeftSection/MobileAuctionCategoryLeftSection';
 import MaxLayout from '@/components/MaxLayout';
 import EVENT_ID from '@/static/eventId';
-import { flattenCategories } from '@/utils/flattenCategoriesTree';
+import flattenCategoriesTree from '@/utils/flattenCategoriesTree';
 import getMetadata from '@/utils/getMetadata';
 
 import * as S from './Basicauction.css';
@@ -39,7 +39,7 @@ export const generateMetadata = async ({
       .then(res => res.json())
       .then(jsonRes => jsonRes.result_data);
 
-    const flattenCategoriesList = flattenCategories(categoryListTree);
+    const flattenCategoriesList = flattenCategoriesTree(categoryListTree);
     const categoryName = flattenCategoriesList[flattenCategoriesList.length - 1].name;
 
     return getMetadata({
