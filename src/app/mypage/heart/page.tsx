@@ -1,21 +1,21 @@
 'use client';
 
-import { Suspense } from 'react';
-
 import { useRouter } from 'next/navigation';
 
 import useGetAuctionLikeList from '@/apis/queryHooks/User/useGetAuctionLikeList';
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import AuctionCard from '@/components/AuctionCard';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import ListLayout from '@/components/ListLayout';
 import CardListSkeleton from '@/components/Skeleton/CardListSkeleton';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import useRequireAuth from '@/hooks/useRequireAuth';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './Heart.css';
 
 function Home() {
-  useRequireAuth();
+  const { isCheckingAuth } = useRequireAuth();
 
   const { data: user } = useGetUser();
   const router = useRouter();
@@ -29,6 +29,10 @@ function Home() {
     hasNextPage,
     fetchNextPage,
   });
+
+  if (isCheckingAuth) {
+    return null;
+  }
 
   if (isLoading)
     return (
@@ -57,25 +61,25 @@ function Home() {
           <ListLayout>
             {data?.pages.map(page =>
               page.result_data.content.map(item => (
-                <Suspense key={item.auction_id} fallback={<>AuctionCard</>}>
-                  <AuctionCard
-                    key={item.auction_id}
-                    id={item.auction_id}
-                    thumbnailImage={item.thumbnail_path}
-                    title={item.title}
-                    isLike={!!item.liked_date}
-                    auctionStatus={item.auction_status}
-                    startPrice={item.start_price}
-                    startTime={item.start_date}
-                    endTime={item.end_date}
-                    nowPrice={item.now_price}
-                  />
-                </Suspense>
+                <AuctionCard
+                  key={item.auction_id}
+                  id={item.auction_id}
+                  thumbnailImage={item.thumbnail_path}
+                  title={item.title}
+                  isLike={!!item.liked_date}
+                  auctionStatus={item.auction_status}
+                  startPrice={item.start_price}
+                  startTime={item.start_date}
+                  endTime={item.end_date}
+                  nowPrice={item.now_price}
+                  categoryId={item.category_id}
+                />
               )),
             )}
           </ListLayout>
           {isFetchingNextPage && hasNextPage && <CardListSkeleton count={4} />}
           <div ref={endCursorRef} />
+          <ClientSidePageRef eventId={EVENT_ID.MYPAGE_HEART_PAGE_VIEWED} />
         </>
       )}
     </div>

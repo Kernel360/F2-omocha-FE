@@ -12,18 +12,20 @@ import ImageRequired from '@/app/create/components/imagerequired';
 import NameRequiredProps from '@/app/create/components/namerequired';
 import TypePriceRequired from '@/app/create/components/typepricerequired';
 import { AuctionInputs } from '@/app/create/types/InputTypes';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import CommonButton from '@/components/CommonButton';
 import MaxLayout from '@/components/MaxLayout';
 import { Modal } from '@/components/Modal/Modal';
 import useBooleanState from '@/hooks/useBooleanState';
 import useDebounce from '@/hooks/useDebounce';
 import useRequireAuth from '@/hooks/useRequireAuth';
+import EVENT_ID from '@/static/eventId';
 import formatDate from '@/utils/formatDate';
 
 import * as S from './Basicauction.css';
 
 export default function Home() {
-  useRequireAuth();
+  const { isCheckingAuth } = useRequireAuth();
 
   const methods = useForm<AuctionInputs>();
   const {
@@ -36,6 +38,7 @@ export default function Home() {
   } = methods;
 
   const { mutate: postBasicAuction } = usePostBasicAuction();
+
   const {
     value: isOpenAuctionConfirmModal,
     toggle: setIsOpenAuctionConfirmModal,
@@ -51,7 +54,7 @@ export default function Home() {
       start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
       instant_buy_price: data.instantBuyPrice,
-      category_ids: data.categoryIdsRequired,
+      category_id: data.categoryIdRequired[0],
     };
     openAuctionConfirmModal();
     return auctionData;
@@ -69,7 +72,7 @@ export default function Home() {
       start_date: formatDate(new Date().toString()),
       end_date: formatDate(data.endDateRequired),
       instant_buy_price: instantBuyPriceValue ? data.instantBuyPrice : null,
-      category_ids: data.categoryIdsRequired,
+      category_id: data.categoryIdRequired[0],
     };
 
     formData.append('auctionRequest', JSON.stringify(auctionRequest));
@@ -79,7 +82,11 @@ export default function Home() {
     formData.append('thumbnailPath', data.imagesRequired[0].file);
 
     postBasicAuction(formData);
-  }, 500);
+  }, 300);
+
+  if (isCheckingAuth) {
+    return null;
+  }
 
   return (
     <div className={S.backContainer}>
@@ -113,6 +120,7 @@ export default function Home() {
           </FormProvider>
         </div>
       </MaxLayout>
+      <ClientSidePageRef eventId={EVENT_ID.AUCTION_CREATE_PAGE_VIEWED} />
     </div>
   );
 }

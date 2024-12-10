@@ -1,34 +1,45 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-import setTokenCookies from '@/apis/queryFunctions/setTokenCookies';
+import { postLogin } from '@/apis/queryFunctions/Auth';
 import { LoginParams } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
+import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
+import EVENT_ID from '@/static/eventId';
 
 function useLogin() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
-  const prevUrl = searchParams.get('prevUrl');
+  // const prevUrl = searchParams.get('prevUrl');
   const { showToast } = useToast();
   const { setIsLoggedIn } = useAuth();
 
   const { mutate } = useMutation({
-    mutationFn: (loginParams: LoginParams) => setTokenCookies(loginParams),
-    onSuccess: data => {
-      sessionStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
+    mutationFn: (loginParams: LoginParams) => postLogin(loginParams),
+    onSuccess: (data, param) => {
+      sessionStorage.setItem('accessToken', data.result_data.access_token);
+      localStorage.setItem('refreshToken', data.result_data.refresh_token);
       setIsLoggedIn(true);
       showToast('success', '로그인 되었습니다.');
 
-      if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
-        router.push('/');
-      } else {
-        router.push(prevUrl || '/');
-      }
+      // if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
+      router.push('/');
+      // } else {
+      //   router.push(prevUrl || '/');
+      // }
+
+      mixpanel.track(EVENT_ID.LOGIN_SUBMIT_BUTTON_CLICKED, {
+        login_type: 'general',
+      });
+      mixpanel.identify(param.email);
+      mixpanel.people.set({
+        $email: param.email,
+        login_type: 'general',
+      });
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {

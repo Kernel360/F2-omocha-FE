@@ -17,10 +17,12 @@ import {
   emailValidation,
   passwordValidation,
 } from '@/app/join/utils/joinValidation';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
 import useBooleanState from '@/hooks/useBooleanState';
+import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
 import sha256 from '@/utils/sha256';
 
@@ -219,6 +221,7 @@ function Home() {
           </form>
         </div>
       </MaxLayout>
+      <ClientSidePageRef eventId={EVENT_ID.JOIN_PAGE_VIEWED} />
     </div>
   );
 }
