@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useSlate } from 'slate-react';
 
-import customEditor from '@/utils/customEditor';
+import useCustomEditor from '@/components/TextEditor/hooks/useCustomEditor';
 
 import * as S from './TextEditor.css';
 
@@ -18,7 +18,7 @@ const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
 // 블록 단위 버튼
 function BlockButton({ format, icon }: BlockButtonProps) {
   const editor = useSlate();
-  const { isBlockActive, toggleBlock } = customEditor();
+  const { isBlockActive, toggleBlock } = useCustomEditor();
 
   const isActive = isBlockActive(
     editor,

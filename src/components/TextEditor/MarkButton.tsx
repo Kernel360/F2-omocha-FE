@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useSlate } from 'slate-react';
 
-import customEditor from '@/utils/customEditor';
+import useCustomEditor from '@/components/TextEditor/hooks/useCustomEditor';
 
 import * as S from './TextEditor.css';
 
@@ -14,7 +14,7 @@ interface MarkButtonProps {
 // 마크 단위 버튼
 function MarkButton({ format, icon }: MarkButtonProps) {
   const editor = useSlate();
-  const { isMarkActive, toggleMark } = customEditor();
+  const { isMarkActive, toggleMark } = useCustomEditor();
   const isActive = isMarkActive(editor, format);
   return (
     <button
