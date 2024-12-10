@@ -1,5 +1,3 @@
-import { headers } from 'next/headers';
-
 import {
   GetBasicAuctionListParams,
   BasicAuctionResponseData,
@@ -30,7 +28,6 @@ export const postBasicAuction = async (param: FormData) => {
       body: param,
       headers: {
         'Content-Type': 'multipart/form-data',
-        ...headers,
       },
     },
   );

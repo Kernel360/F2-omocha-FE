@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-// import useLogout from '@/hooks/useLogout';
 import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
