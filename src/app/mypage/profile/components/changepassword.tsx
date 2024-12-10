@@ -15,7 +15,7 @@ import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
 import useBooleanState from '@/hooks/useBooleanState';
 import colors from '@/styles/color';
-import sha256 from '@/utils/sha256';
+import { sha256 } from '@/utils/textUtils';
 
 import * as S from './ChangePassword.css';
 

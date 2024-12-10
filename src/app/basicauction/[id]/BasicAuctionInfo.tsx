@@ -6,16 +6,16 @@ import dynamic from 'next/dynamic';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
+import BasicAuctionInfoQnA from '@/app/basicauction/[id]/BasicAuctionInfoQnA';
 import AuctionImageInfo from '@/components/AuctionImageInfo';
 import AuctionInfo from '@/components/AuctionInfo';
 import BreadcrumbSection from '@/components/BreadcrumbSection';
 import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import TabsLayout from '@/components/TabsLayout';
 import EVENT_ID from '@/static/eventId';
-import { convertQueryParamsObjectToString } from '@/utils/paramUtils';
+import { sha256 } from '@/utils/textUtils';
 
 import * as S from './BasicAuctionInfo.css';
-import BasicAuctionInfoQnA from './BasicAuctionInfoQnA';
 
 const BasicAuctionInfoContent = dynamic(
   () => import('@/app/basicauction/[id]/BasicAuctionInfoContent').then(module => module.default),
@@ -43,24 +43,20 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
 
   const user = useGetUser();
 
+  const happy = async () => {
+    const test = await sha256('');
+
+    console.log(test);
+  };
+
+  console.log(happy());
+
   if (!data) return null;
 
   const sellerId = data.result_data.member_id;
   const userId = user.data?.member_id;
   const userEmail = user.data?.email;
   const isSeller = sellerId === userId;
-  const params = {
-    name: 'John Doe Haha',
-    age: 30,
-    hobbies: ['reading', 'coding'],
-    emptyField: '',
-    nullField: null,
-    undefinedField: undefined,
-  };
-
-  const result = convertQueryParamsObjectToString(params);
-
-  console.log(result);
 
   return (
     <div className={S.auctionWrapper}>
