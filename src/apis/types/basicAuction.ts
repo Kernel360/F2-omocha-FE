@@ -59,7 +59,6 @@ export interface GetBasicAuctionListParams {
   sort?: string;
   page?: number;
   size?: number;
-  isLogin?: boolean;
 }
 
 // ---- 입찰

@@ -8,7 +8,6 @@ import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAu
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 import mixpanel from '@/lib/mixpanel';
-import { useAuth } from '@/provider/authProvider';
 
 import * as S from './AuctionList.css';
 
@@ -27,7 +26,6 @@ export default function AuctionList({
   path,
   eventId,
 }: AuctionListProps) {
-  const { isLoggedIn } = useAuth();
   const router = useRouter();
 
   const { data } = useGetBasicAuctionList({
@@ -37,7 +35,6 @@ export default function AuctionList({
     page: 0,
     size: 8,
     auctionStatus: 'BIDDING',
-    isLogin: isLoggedIn,
   });
 
   const handleMixpanel = () => {

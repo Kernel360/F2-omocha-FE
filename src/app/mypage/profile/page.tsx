@@ -3,18 +3,11 @@
 import ChangePassword from '@/app/mypage/profile/components/changepassword';
 import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import MypageProfileClientPage from '@/components/MypageProfileClientPage';
-import useRequireAuth from '@/hooks/useRequireAuth';
 import EVENT_ID from '@/static/eventId';
 
 import * as S from './Profile.css';
 
 function Home() {
-  const { isCheckingAuth } = useRequireAuth();
-
-  if (isCheckingAuth) {
-    return null;
-  }
-
   return (
     <div className={S.profile}>
       <h3>회원 정보 수정</h3>

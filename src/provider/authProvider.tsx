@@ -8,7 +8,6 @@ import {
   useState,
   Dispatch,
   SetStateAction,
-  useEffect,
 } from 'react';
 
 interface AuthContextType {
@@ -25,12 +24,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children, isLoggedIn }: AuthProviderProps) {
   const [isLoggedInState, setIsLoggedInState] = useState(isLoggedIn || false);
-  useEffect(() => {
-    const accessToken = sessionStorage.getItem('accessToken');
-    setIsLoggedInState(!!accessToken); // 토큰이 있으면 true로 설정
-  }, []);
 
-  // value에 isLoggedIn과 setIsLoggedIn을 모두 포함한 객체 전달
   const value = useMemo(
     () => ({
       isLoggedIn: isLoggedInState,
