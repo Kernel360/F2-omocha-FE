@@ -2,6 +2,6 @@
 
 import deleteTokenCookies from '@/utils/deleteTokenCookies';
 
-export async function handleLogout() {
-  await deleteTokenCookies();
+export function handleLogout() {
+  deleteTokenCookies();
 }

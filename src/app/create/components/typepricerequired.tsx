@@ -2,6 +2,7 @@ import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from 'rea
 
 import * as Toggle from '@radix-ui/react-toggle';
 
+import { AuctionInputs } from '@/app/create/types/InputTypes';
 import {
   bidUnitValidation,
   startPriceValidation,
@@ -11,7 +12,6 @@ import CommonInput from '@/components/CommonInput';
 import useBooleanState from '@/hooks/useBooleanState';
 
 import * as S from '../Basicauction.css';
-import { AuctionInputs } from '../types/InputTypes';
 
 interface TypePriceRequiredProps {
   watch: UseFormWatch<AuctionInputs>;

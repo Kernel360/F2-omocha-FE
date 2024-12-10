@@ -1,20 +1,22 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import logoIcon from '@/assets/png/logo.png';
-import { handleLogout } from '@/hooks/useLogout';
+import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
 import { SUB_CATEGORY } from '@/static/category';
+import EVENT_ID from '@/static/eventId';
+import { handleLogout } from '@/utils/handleLogout';
 
 import * as S from './UserHeader.css';
 
 function UserHeader() {
   const router = useRouter();
-
   const { isLoggedIn } = useAuth();
 
   const pathname = usePathname();
@@ -22,6 +24,7 @@ function UserHeader() {
 
   const { setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
+  const queryClient = useQueryClient();
 
   const logout = async () => {
     await handleLogout();
@@ -29,6 +32,19 @@ function UserHeader() {
     router.push('/');
     setIsLoggedIn(false);
     showToast('success', '로그아웃 되었습니다.');
+    queryClient.clear();
+    mixpanel.track(EVENT_ID.LOGOUT_BUTTON_CLICKED);
+    mixpanel.reset();
+  };
+
+  const handleMixpanel = (eventId: string, prevEvent?: string) => {
+    if (!isLoggedIn) {
+      mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
+        prev_event: prevEvent,
+      });
+      return;
+    }
+    mixpanel.track(eventId);
   };
 
   return (
@@ -46,6 +62,7 @@ function UserHeader() {
                 href={category.path}
                 scroll={false}
                 className={S.TopHeaderUnit}
+                onClick={() => handleMixpanel(category.eventId, category.name)}
               >
                 {category.name}
               </Link>
@@ -60,6 +77,7 @@ function UserHeader() {
               onClick={() => {
                 if (isLoggedIn) {
                   // setTrue();
+                  // handleMixpanel(category.eventId); // 알림 이벤트ID 버튼 추가 필요
                 } else {
                   router.push(
                     searchParams.size > 0
@@ -67,6 +85,7 @@ function UserHeader() {
                       : `/login?prevUrl=${pathname}`,
                     { scroll: false },
                   );
+                  handleMixpanel(EVENT_ID.LOGIN_BUTTON_CLICKED);
                 }
               }}
             >
@@ -87,6 +106,7 @@ function UserHeader() {
             }
             scroll={false}
             className={S.TopHeaderUnit}
+            onClick={() => mixpanel.track(EVENT_ID.LOGIN_BUTTON_CLICKED)}
           >
             로그인
           </Link>

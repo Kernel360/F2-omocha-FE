@@ -6,7 +6,7 @@ import MypageUserSection from '@/components/MypageUserSection';
 
 import * as S from './Layout.css';
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={S.backContainer}>
       <MaxLayout>

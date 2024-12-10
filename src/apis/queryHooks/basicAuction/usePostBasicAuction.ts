@@ -4,7 +4,9 @@ import { useRouter } from 'next/navigation';
 
 import { postBasicAuction } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
+import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
+import EVENT_ID from '@/static/eventId';
 
 function usePostBasicAuction() {
   const queryClient = useQueryClient();
@@ -13,10 +15,15 @@ function usePostBasicAuction() {
 
   const { mutate, error } = useMutation({
     mutationFn: (param: FormData) => postBasicAuction(param),
-    onSuccess: () => {
+    onSuccess: data => {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
-      router.push('/basicauction', { scroll: false });
+      router.push('/basicauction?page=1', { scroll: false });
       showToast('success', '경매 등록에 성공했습니다.');
+
+      // 즉시 구매가 여부 확인 필요
+      mixpanel.track(EVENT_ID.AUCTION_CREATE_SUBMIT_BUTTON_CLICKED, {
+        is_instant_buy: data.result_data.is_instant_buy,
+      });
     },
     onError: (e: AxiosError<Response<string>>) => {
       if (e.response) {

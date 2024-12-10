@@ -3,6 +3,8 @@ import { Suspense } from 'react';
 import { Category } from '@/apis/types/category';
 import CategoryUnit from '@/components/Category/CategoryUnit/CategoryUnit';
 import useSetSearchParams from '@/hooks/useSetSearchParam';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './AuctionCategory.css';
 
@@ -15,6 +17,9 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
 
   const handleCategory = () => {
     setMultipleSearchParams({ categoryId: '', page: '1' });
+    mixpanel.track(EVENT_ID.CATEGORY_BUTTON_CLICKED, {
+      category_name: 'ALL',
+    });
   };
 
   const unitButtonStyle = () => {
@@ -30,12 +35,12 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
       >
         <span className={unitButtonStyle()}>ALL</span>
       </button>
-      {categoryData.map(category => (
-        // eslint-disable-next-line react/jsx-key
-        <Suspense key={category.category_id} fallback={<>CategoryUnit</>}>
-          <CategoryUnit unit={category} />
-        </Suspense>
-      ))}
+      <Suspense fallback={<>CategoryUnit</>}>
+        {categoryData.map(category => (
+          // eslint-disable-next-line react/jsx-key
+          <CategoryUnit unit={category} key={category.category_id} />
+        ))}
+      </Suspense>
     </div>
   );
 }

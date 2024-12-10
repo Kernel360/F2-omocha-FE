@@ -1,6 +1,8 @@
 import { usePathname, useRouter } from 'next/navigation';
 
+import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './HaveToLoginNotiModal.css';
 
@@ -12,6 +14,9 @@ function HaveToLoginNotiModal() {
 
   const moveToLogin = () => {
     router.push(`/login?prevUrl=${pathname}`, { scroll: false });
+    mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
+      prev_event: 'QnA쓰기',
+    });
   };
 
   if (!isLoggedIn) {

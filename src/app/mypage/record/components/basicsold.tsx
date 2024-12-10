@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import useGetAuctionHistories from '@/apis/queryHooks/User/useGetAuctionHistories';
+import mixpanel from '@/lib/mixpanel';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './BasicSold.css';
 
@@ -64,9 +66,18 @@ export default function BasicSold() {
                 <li className={`${S.listFirst} ${S.listData}`}>
                   <button
                     type="button"
-                    onClick={() =>
-                      router.push(`/basicauction/${history.auction_id}`, { scroll: false })
-                    }
+                    onClick={() => {
+                      router.push(
+                        `/basicauction/${history.auction_id}?categoryId=${history.category_id}`,
+                        { scroll: false },
+                      );
+                      mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
+                        page_context: 'record_page',
+                        now_price: history.now_price,
+                        is_expired: history.auction_status !== 'BIDDING',
+                        category_id: history.category_id,
+                      });
+                    }}
                     className={S.bidTitle}
                   >
                     <span>{history.title}</span>

@@ -7,7 +7,9 @@ import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuctio
 import AuctionImageInfo from '@/components/AuctionImageInfo';
 import AuctionInfo from '@/components/AuctionInfo';
 import BreadcrumbSection from '@/components/BreadcrumbSection';
+import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import TabsLayout from '@/components/TabsLayout';
+import EVENT_ID from '@/static/eventId';
 
 import * as S from './BasicAuctionInfo.css';
 import BasicAuctionInfoQnA from './BasicAuctionInfoQnA';
@@ -49,7 +51,10 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
     <div className={S.auctionWrapper}>
       <BreadcrumbSection />
       <div className={S.auctionInfoWrapper}>
-        <AuctionImageInfo imageList={data.result_data.image_paths} />
+        <AuctionImageInfo
+          imageList={data.result_data.image_paths}
+          thumbnail={data.result_data.thumbnail_path}
+        />
         <AuctionInfo
           id={id}
           title={data.result_data.title}
@@ -77,6 +82,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
           />,
         ]}
       />
+      <ClientSidePageRef eventId={EVENT_ID.AUCTION_DETAIL_PAGE_VIEWED} />
     </div>
   );
 }

@@ -17,7 +17,7 @@ function AuctionConfirmModal({ onSubmit, onCancel }: AuctionConfirmModalProps) {
   return (
     <div className={S.confirmModal}>
       <div className={S.confirmDescription}>
-        <span>정말 판매를 등록하시겠습니까?</span>
+        <span>정말 경매 상품을 등록하시겠습니까?</span>
         <span>한 번 등록하면 수정할 수 없습니다.</span>
       </div>
       <div className={S.buttonWrapper}>

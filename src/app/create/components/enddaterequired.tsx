@@ -1,10 +1,10 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
+import { AuctionInputs } from '@/app/create/types/InputTypes';
+import { endDateValidation } from '@/app/create/utils/createValidation';
 import CommonInput from '@/components/CommonInput';
 
 import * as S from '../Basicauction.css';
-import { AuctionInputs } from '../types/InputTypes';
-import { endDateValidation } from '../utils/createValidation';
 
 interface EndDateRequiredProps {
   register: UseFormRegister<AuctionInputs>;
