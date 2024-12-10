@@ -17,7 +17,7 @@ import {
   AuctionQnAData,
 } from '@/apis/types/basicAuction';
 import { ListResponse, Response } from '@/apis/types/common';
-import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+import { convertQueryParamsObjectToString } from '@/utils/paramUtils';
 
 const apiClient = createApiClient();
 

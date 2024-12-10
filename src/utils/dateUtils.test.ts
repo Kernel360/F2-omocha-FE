@@ -1,6 +1,6 @@
-import { calcRemainingTime, calculatedDDay, formatDateToLocal, formatDateToUTC } from './dateUtils';
+import { calcRemainingTime, calculateDDay, formatDateToLocal, formatDateToUTC } from './dateUtils';
 
-describe('calculatedDDay', () => {
+describe('calculateDDay', () => {
   beforeEach(() => {
     // 현재 시간을 고정하기 위해 Date를 Mock 처리
     jest.useFakeTimers();
@@ -13,25 +13,25 @@ describe('calculatedDDay', () => {
 
   it('미래 날짜에 대해 올바른 D-Day를 계산해야 합니다', () => {
     const futureDate = '2024-12-10T00:00:00Z';
-    const result = calculatedDDay(futureDate);
+    const result = calculateDDay(futureDate);
     expect(result).toBe(5); // 미래 날짜
   });
 
   it('같은 날에 대해 0을 반환해야 합니다', () => {
     const sameDay = '2024-12-05T23:59:59Z';
-    const result = calculatedDDay(sameDay);
+    const result = calculateDDay(sameDay);
     expect(result).toBe(0); // 같은 날
   });
 
   it('과거 날짜에 대해 음수 D-Day를 계산해야 합니다', () => {
     const pastDate = '2024-12-01T00:00:00Z';
-    const result = calculatedDDay(pastDate);
+    const result = calculateDDay(pastDate);
     expect(result).toBe(-4); // 과거 날짜
   });
 
   it('잘못된 날짜 형식에 대해 적절히 처리해야 합니다', () => {
     const invalidDate = 'invalid-date';
-    expect(() => calculatedDDay(invalidDate)).toThrow();
+    expect(() => calculateDDay(invalidDate)).toThrow();
   });
 });
 

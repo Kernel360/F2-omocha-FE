@@ -12,6 +12,7 @@ import BreadcrumbSection from '@/components/BreadcrumbSection';
 import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import TabsLayout from '@/components/TabsLayout';
 import EVENT_ID from '@/static/eventId';
+import { convertQueryParamsObjectToString } from '@/utils/paramUtils';
 
 import * as S from './BasicAuctionInfo.css';
 import BasicAuctionInfoQnA from './BasicAuctionInfoQnA';
@@ -48,6 +49,18 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
   const userId = user.data?.member_id;
   const userEmail = user.data?.email;
   const isSeller = sellerId === userId;
+  const params = {
+    name: 'John Doe Haha',
+    age: 30,
+    hobbies: ['reading', 'coding'],
+    emptyField: '',
+    nullField: null,
+    undefinedField: undefined,
+  };
+
+  const result = convertQueryParamsObjectToString(params);
+
+  console.log(result);
 
   return (
     <div className={S.auctionWrapper}>

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getBasicAuctionList } from '@/apis/queryFunctions/basicAuction';
 import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
-import filteredParams from '@/utils/filteredParams';
+import { filteredParams } from '@/utils/paramUtils';
 
 function useGetBasicAuctionList(params: GetBasicAuctionListParams) {
   const newParams = filteredParams<GetBasicAuctionListParams>(params);

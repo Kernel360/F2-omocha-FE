@@ -1,6 +1,6 @@
 import createApiClient from '@/apis/queryFunctions/apiClient';
 import { Response } from '@/apis/types/common';
-import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+import { convertQueryParamsObjectToString } from '@/utils/paramUtils';
 
 import {
   ChatroomListResponseData,
