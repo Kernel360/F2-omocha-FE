@@ -11,11 +11,24 @@ const createJestConfig = nextJest({
 const config: Config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
-  // 기존 코드
-  // testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
-  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(test).[tj]s?(x)'], // playwright과 겹치는 spec 파일 제외
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  roots: ['<rootDir>/tests/utils'],
+  // 테스트 제외 경로
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+  // 커버리지 보고서
+  coverageDirectory: 'coverage',
+  collectCoverage: true,
+  collectCoverageFrom: [
+    'src/**/*.[jt]s?(x)',
+    '!**/*.stories.[jt]s?(x)',
+    '!**/node_modules/**',
+    '!**/.next/**',
+    '!<rootDir>/jest.config.ts',
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

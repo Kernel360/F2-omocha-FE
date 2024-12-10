@@ -1,6 +1,5 @@
 import { META } from '@/static/metadata';
-
-import getMetadata from './getMetadata';
+import getMetadata from '@/utils/getMetadata';
 
 describe('getMetadata', () => {
   it('기본 메타데이터를 반환해야 한다', () => {

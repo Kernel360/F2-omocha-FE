@@ -1,4 +1,4 @@
-import { convertSlateToHTML } from './convertSlateToHTML';
+import { convertSlateToHTML } from '@/utils/convertSlateToHTML';
 
 describe('convertSlateToHTML', () => {
   it('빈 배열에 대해 빈 문자열을 반환해야 한다', () => {

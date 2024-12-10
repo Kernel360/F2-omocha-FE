@@ -1,4 +1,9 @@
-import { calcRemainingTime, calculateDDay, formatDateToLocal, formatDateToUTC } from './dateUtils';
+import {
+  calcRemainingTime,
+  calculateDDay,
+  formatDateToLocal,
+  formatDateToUTC,
+} from '@/utils/dateUtils';
 
 describe('calculateDDay', () => {
   beforeEach(() => {

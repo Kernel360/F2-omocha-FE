@@ -1,6 +1,5 @@
 import { Category } from '@/apis/types/category';
-
-import flattenCategoriesTree from './flattenCategoriesTree';
+import flattenCategoriesTree from '@/utils/flattenCategoriesTree';
 
 describe('flattenCategoriesTree', () => {
   it('빈 카테고리 배열에 대해 빈 배열을 반환해야 한다', () => {

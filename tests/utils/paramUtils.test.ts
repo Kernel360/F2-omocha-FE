@@ -1,4 +1,4 @@
-import { convertQueryParamsObjectToString, filteredParams } from './paramUtils'; // 경로를 실제 파일 위치에 맞게 수정
+import { convertQueryParamsObjectToString, filteredParams } from '@/utils/paramUtils'; // 경로를 실제 파일 위치에 맞게 수정
 
 describe('convertQueryParamsObjectToString', () => {
   it('객체를 쿼리 문자열로 변환해야 합니다', () => {

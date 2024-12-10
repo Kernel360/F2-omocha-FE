@@ -1,4 +1,4 @@
-import { maskEmail, countContentText } from './textUtils';
+import { maskEmail, countContentText } from '@/utils/textUtils';
 
 describe('maskEmail', () => {
   it('로컬 부분이 1글자일 경우 빈 문자열을 반환해야 한다', () => {
