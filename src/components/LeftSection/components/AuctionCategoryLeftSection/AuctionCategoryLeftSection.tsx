@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import useGetCategory from '@/apis/queryHooks/category/useGetCategory';
 import { Category } from '@/apis/types/category';
 import AuctionCategory from '@/components/Category/AuctionCategory/AuctionCategory';
+import SkeletonCard from '@/components/Skeleton/components/SkeletonCard';
 import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 
 import * as S from './AuctionCategoryLeftSection.css';
@@ -36,7 +37,7 @@ export default function AuctionCategoryLeftSection() {
   const { viewportWidth } = useResizeViewportWidth();
   const pickCategory = Number(searchParams.get('categoryId'));
 
-  const { data: categoryData } = useGetCategory();
+  const { data: categoryData, isLoading } = useGetCategory();
 
   const newData = useMemo(() => {
     if (categoryData && pickCategory) {
@@ -46,10 +47,25 @@ export default function AuctionCategoryLeftSection() {
 
       return addIsOpenPropertyData;
     }
-    return categoryData;
-  }, [categoryData, pickCategory]);
 
-  const rootCategory = (newData as Category[]).find(category => category.isOpen === true)?.name;
+    return [];
+  }, [categoryData, pickCategory, isLoading]);
+
+  const rootCategory = newData.find(category => category.isOpen)?.name;
+
+  if (!viewportWidth || (isLoading && newData.length < 1)) {
+    return (
+      <section className={S.leftSection}>
+        <SkeletonCard width={160} height={32} />
+        <div className={S.container}>
+          <SkeletonCard width={120} height={24} />
+          <SkeletonCard width={120} height={24} />
+          <SkeletonCard width={120} height={24} />
+          <SkeletonCard width={120} height={24} />
+        </div>
+      </section>
+    );
+  }
 
   return (
     viewportWidth &&
