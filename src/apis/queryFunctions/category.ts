@@ -1,10 +1,15 @@
-import createApiClient from '@/apis/queryFunctions/apiClient';
 import { Category } from '@/apis/types/category';
 import { Response } from '@/apis/types/common';
 
-const apiClient = createApiClient();
+import createFetchApiClient from './featchApiClient';
 
 export const getCategory = async () => {
-  const response = await apiClient.get<Response<Category[]>>(`/v2/categories`);
-  return response.data;
+  const response = await createFetchApiClient<Response<Category[]>>(`/v2/categories`);
+
+  console.log('response getCategory', response);
+  if (!response) {
+    throw new Error('Failed to getCategory');
+  }
+
+  return response;
 };

@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { postAuctionLike } from '@/apis/queryFunctions/basicAuction';
-import { PostLikeParams } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
@@ -13,7 +12,7 @@ function usePostAuctionLike(id: number, isLike: boolean) {
   const { showToast } = useToast();
 
   const { mutate, error } = useMutation({
-    mutationFn: (param: PostLikeParams) => postAuctionLike(id, param),
+    mutationFn: () => postAuctionLike(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auctionLikeList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });

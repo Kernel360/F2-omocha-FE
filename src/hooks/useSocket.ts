@@ -4,7 +4,7 @@ import * as StompJs from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 interface UseSocketParams {
-  access: string | null;
+  access: string | undefined;
   url: string;
   config: StompJs.StompConfig;
   afterConnect: (client: StompJs.Client) => void;
@@ -18,7 +18,7 @@ function useSocket({ access, url, config, afterConnect }: UseSocketParams) {
       ...config,
       webSocketFactory: () => new SockJS(url),
       connectHeaders: {
-        Authorization: access!,
+        Authorization: access || '', // access token이 없는 경우를 좀 더 살펴야겠음
       },
     });
 

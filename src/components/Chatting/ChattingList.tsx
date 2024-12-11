@@ -55,7 +55,7 @@ function ChattingList({ onClose }: ChattingListProps) {
             </button>
           </h3>
           <ul className={S.chattingListWrapper}>
-            {data.content.length === 0 ? (
+            {data.result_data.content.length === 0 ? (
               <div className={S.noListWrapper}>
                 <div className={S.noListTitleWrapper}>
                   <div className={S.noListTitle}>아직 생성된 채팅이 없습니다.</div>
@@ -63,7 +63,7 @@ function ChattingList({ onClose }: ChattingListProps) {
                 </div>
               </div>
             ) : (
-              data.content.map(chat => (
+              data.result_data.content.map(chat => (
                 <button
                   key={chat.auction_id}
                   type="button"

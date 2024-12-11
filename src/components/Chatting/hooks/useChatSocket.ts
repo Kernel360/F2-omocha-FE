@@ -1,8 +1,11 @@
 import { useRef, useState } from 'react';
 
+// import { cookies } from 'next/headers';
+
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import { Message } from '@/apis/types/chat';
 import useSocket from '@/hooks/useSocket';
+import { useCookies } from '@/provider/cookiesProvider';
 
 interface UseChatSocketParams {
   roomId: number;
@@ -23,7 +26,11 @@ function useChatSocket({
   onMessage,
   checkBottom,
 }: UseChatSocketParams) {
-  const accessToken = sessionStorage.getItem('accessToken');
+  const { clientAccessToken } = useCookies();
+  console.log('clientAccessToken: useChatSocket.ts', clientAccessToken);
+
+  // const accessToken = sessionStorage.getItem('accessToken');
+  // const accessToken = cookies().get('accessToken')?.value;
 
   const [newMessage, setNewMessage] = useState<Message | null>(null);
   const user = useGetUser();
@@ -80,7 +87,7 @@ function useChatSocket({
   };
 
   const { client } = useSocket({
-    access: accessToken,
+    access: clientAccessToken,
     url: `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URL}`,
     config: {
       // https://stomp-js.github.io/api-docs/latest/classes/Client.html

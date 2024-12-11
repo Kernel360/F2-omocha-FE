@@ -1,43 +1,15 @@
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-
-import { AuctionData, GetBasicAuctionListParams } from '@/apis/types/basicAuction';
-import { ListResponse } from '@/apis/types/common';
 import AuctionList from '@/components/AuctionList';
 import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import MainCarousel from '@/components/MainCarousel';
 import MaxLayout from '@/components/MaxLayout';
 import SpecialSection from '@/components/SpecialSection';
-import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 import EVENT_ID from '@/static/eventId';
-import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
-import filteredParams from '@/utils/filteredParams';
 
 export default async function Home() {
-  const params = {
-    title: '',
-    auctionStatus: 'BIDDING',
-    sort: 'bidCount',
-    direction: 'DESC',
-    page: 0,
-    size: 4,
-  };
-
-  const newParams = filteredParams<GetBasicAuctionListParams>(params);
-
-  const queryClient = await usePrefetchQueryWithCookie<
-    ListResponse<AuctionData[]>,
-    ['basicAuctionList', typeof newParams]
-  >({
-    queryKey: ['basicAuctionList', newParams],
-    api: `/v2/auctions?${convertQueryParamsObjectToString<GetBasicAuctionListParams>(newParams)}`,
-  });
-
   return (
     <div>
       <MainCarousel />
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <SpecialSection />
-      </HydrationBoundary>
+      <SpecialSection />
       <MaxLayout>
         <AuctionList
           sort="createdAt"

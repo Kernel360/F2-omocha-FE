@@ -34,7 +34,7 @@ function ChattingMessageSection({ lastChat, roomId }: ChattingMessageSectionProp
   const fetchLastChat = useCallback(async () => {
     const reversedMessages = await getLastChat(roomId, messages[0].created_at);
     if (reversedMessages) {
-      const newLastChat = reversedMessages.content.map(message => message).reverse();
+      const newLastChat = reversedMessages.result_data.content.map(message => message).reverse();
       setMessages(prevMessages => [...newLastChat, ...prevMessages]);
     }
   }, [roomId, messages]);

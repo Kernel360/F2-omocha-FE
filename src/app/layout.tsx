@@ -1,11 +1,10 @@
-// import { Suspense } from 'react';
-
 import { Suspense } from 'react';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
+import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
@@ -15,6 +14,7 @@ import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
+import { CookiesProvider } from '@/provider/cookiesProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 import { ToastProvider } from '@/provider/toastProvider';
 import getMetadata from '@/utils/getMetadata';
@@ -41,6 +41,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const accessTokenState = !!cookies().get('accessToken')?.value;
+  const accessToken = cookies().get('accessToken')?.value;
   const queryClient = await usePrefetchQueriesWithCookie([
     { queryKey: ['category'], api: '/v2/categories' },
   ]);
@@ -56,16 +58,17 @@ export default async function RootLayout({
             <Suspense fallback={<div>Loading...NavigationEvents</div>}>
               <NavigationEvents />
             </Suspense>
-            <AuthProvider>
-              <HydrationBoundary state={dehydrate(queryClient)}>
-                <HeaderSection />
-                <div className={S.container}>
-                  {/* <Suspense fallback={<div>Loading...</div>}></Suspense> */}
-                  {children}
-                  <ChattingIconButton />
-                  <ScrollToTopButton />
-                </div>
-              </HydrationBoundary>
+            <AuthProvider isLoggedIn={accessTokenState}>
+              <CookiesProvider initClientAccessToken={accessToken}>
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                  <HeaderSection />
+                  <div className={S.container}>
+                    {children}
+                    <ChattingIconButton />
+                    <ScrollToTopButton />
+                  </div>
+                </HydrationBoundary>
+              </CookiesProvider>
             </AuthProvider>
             <Footer />
             <ReactQueryDevtools initialIsOpen={false} />
