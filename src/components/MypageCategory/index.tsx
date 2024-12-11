@@ -30,7 +30,7 @@ function MypageCategory() {
             onClick={() => handleMixpanel(category.eventId)}
           >
             <span>{category.name}</span>
-            <span className={S.likeCount}>{user?.like_count}</span>
+            <span className={S.likeCount}>{user?.like_count ? user.like_count : 0}</span>
           </Link>
         </li>
       );

@@ -37,14 +37,14 @@ function Home() {
   if (isLoading)
     return (
       <div className={S.heart}>
-        <h3>찜 목록 ({user?.like_count})</h3>
+        <h3>찜 목록 ({user?.like_count ? user.like_count : 0})</h3>
         <CardListSkeleton count={4} />
       </div>
     );
 
   return (
     <div className={S.heart}>
-      <h3>찜 목록 ({user?.like_count})</h3>
+      <h3>찜 목록 ({user?.like_count ? user.like_count : 0})</h3>
       {data?.pages[0].result_data.total_elements === 0 ? (
         <div className={S.noListWrapper}>
           <div className={S.noListTitle}>아직 찜한 경매가 없습니다.</div>

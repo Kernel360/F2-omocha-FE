@@ -11,6 +11,7 @@ import useRequireAuth from '@/hooks/useRequireAuth';
 import colors from '@/styles/color';
 
 import * as S from './MypageUserSection.css';
+import SkeletonCard from '../Skeleton/components/SkeletonCard';
 
 function MypageUserSection() {
   const { data: user } = useGetUser();
@@ -46,7 +47,11 @@ function MypageUserSection() {
           onClose={setIsOpenImageUploadModal}
         />
       </Modal>
-      <h2 className={S.profileTitle}>{user?.nickname}</h2>
+      {user?.nickname ? (
+        <h2 className={S.profileTitle}>{user.nickname}</h2>
+      ) : (
+        <SkeletonCard width={160} height={25} />
+      )}
     </div>
   );
 }
