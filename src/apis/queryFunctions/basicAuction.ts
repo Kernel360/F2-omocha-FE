@@ -10,7 +10,6 @@ import {
   PostAuctionQnAAnswerResponseData,
   PostAuctionQnAAnswerParams,
   GetNowPriceResponseData,
-  PostLikeParams,
   PostLikeResponseData,
   AuctionData,
   AuctionQnAData,
@@ -185,12 +184,11 @@ export const getNowPrice = async (id: number) => {
 
 // 찜 ----
 
-export const postAuctionLike = async (id: number, params: PostLikeParams) => {
+export const postAuctionLike = async (id: number) => {
   const response = await createFetchApiClient<Response<PostLikeResponseData>>(
-    `v2/auctions/likes/${id}`,
+    `/v2/auctions/likes/${id}`,
     {
       method: 'POST',
-      body: JSON.stringify(params),
     },
   );
 
