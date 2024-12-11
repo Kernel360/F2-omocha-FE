@@ -9,7 +9,7 @@ import {
   AuctionHistoriesData,
 } from '@/apis/types/User';
 import { ListParams, ListResponse, Response } from '@/apis/types/common';
-import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+import { convertQueryParamsObjectToString } from '@/utils/paramUtils';
 
 const apiClient = createApiClient();
 

@@ -2,11 +2,11 @@ import { useCallback } from 'react';
 
 import { Editor } from 'slate';
 
-import customEditor from '@/utils/customEditor';
+import useCustomEditor from '@/components/TextEditor/hooks/useCustomEditor';
 
 // 에디터 단축키
 function useEditorShortcuts(editor: Editor) {
-  const { toggleMark } = customEditor();
+  const { toggleMark } = useCustomEditor();
   return useCallback(
     (event: React.KeyboardEvent) => {
       if (!event.ctrlKey && !event.metaKey) {

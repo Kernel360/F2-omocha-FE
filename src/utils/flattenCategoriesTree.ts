@@ -1,6 +1,6 @@
 import { Category } from '@/apis/types/category';
 
-export function flattenCategories(categories: Category[]): Category[] {
+export default function flattenCategoriesTree(categories: Category[]): Category[] {
   const flatList: Category[] = [];
 
   function traverse(category: Category) {

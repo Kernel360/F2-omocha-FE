@@ -24,7 +24,7 @@ import MaxLayout from '@/components/MaxLayout';
 import useBooleanState from '@/hooks/useBooleanState';
 import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
-import sha256 from '@/utils/sha256';
+import { sha256 } from '@/utils/textUtils';
 
 import * as S from './Join.css';
 

@@ -13,7 +13,7 @@ import CommonInput from '@/components/CommonInput';
 import MaxLayout from '@/components/MaxLayout';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
-import sha256 from '@/utils/sha256';
+import { sha256 } from '@/utils/textUtils';
 
 import * as S from './Login.css';
 

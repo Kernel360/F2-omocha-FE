@@ -1,7 +1,7 @@
 import { RegisterOptions } from 'react-hook-form';
 
 import { AuctionInputs, ImageUpload } from '@/app/create/types/InputTypes';
-import formatDate from '@/utils/formatDate';
+import { formatDateToUTC } from '@/utils/dateUtils';
 
 const MAX_PRICE = 1000000000;
 
@@ -53,7 +53,7 @@ export const endDateValidation = {
   required: '종료 시각을 입력해 주세요.',
   validate: (value: string | ImageUpload | ImageUpload[] | File | number[] | number | null) => {
     return (
-      formatDate(value as string) > formatDate(new Date().toString()) ||
+      formatDateToUTC(value as string) > formatDateToUTC(new Date().toISOString()) ||
       '현재 시각보다 이전 시간은 선택할 수 없습니다.'
     );
   },

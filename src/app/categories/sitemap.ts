@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 import { Category } from '@/apis/types/category';
-import { flattenCategories } from '@/utils/flattenCategoriesTree';
+import flattenCategoriesTree from '@/utils/flattenCategoriesTree';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .then(res => res.json())
       .then(jsonRes => jsonRes.result_data);
 
-    const flattenCategoriesList = flattenCategories(categoriesList);
+    const flattenCategoriesList = flattenCategoriesTree(categoriesList);
 
     return flattenCategoriesList.map((category: Category) => ({
       url: `https://www.omocha-auction.com/categories/${category.category_id}`,

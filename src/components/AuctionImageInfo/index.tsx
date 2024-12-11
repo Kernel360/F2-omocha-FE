@@ -7,12 +7,10 @@ import * as S from './AuctionImageInfo.css';
 
 interface AuctionImageInfoProps {
   imageList: string[];
-  thumbnail: string;
 }
 
-function AuctionImageInfo({ imageList, thumbnail }: AuctionImageInfoProps) {
-  const images = [thumbnail, ...imageList];
-  const [focusImage, setFocusImage] = useState<string>(images[0]);
+function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
+  const [focusImage, setFocusImage] = useState<string>(imageList[0]);
 
   const checkFocusImage = (image: string) => {
     if (focusImage === image) {
@@ -24,7 +22,7 @@ function AuctionImageInfo({ imageList, thumbnail }: AuctionImageInfoProps) {
   return (
     <div className={S.imageSection}>
       <div className={S.subImageWrapper}>
-        {images.map(image => (
+        {imageList.map(image => (
           <button
             type="button"
             key={image}
