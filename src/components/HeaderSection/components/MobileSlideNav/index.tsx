@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { UserIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,6 +34,8 @@ function MobileSlideNav({
   const router = useRouter();
   const { setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
+  const queryClient = useQueryClient();
+
   const searchParams = useSearchParams();
 
   const logout = async () => {
@@ -41,6 +44,7 @@ function MobileSlideNav({
     router.push('/');
     setIsLoggedIn(false);
     showToast('success', '로그아웃 되었습니다.');
+    queryClient.clear();
     onClose();
     mixpanel.track(EVENT_ID.LOGOUT_BUTTON_CLICKED);
     mixpanel.reset();
