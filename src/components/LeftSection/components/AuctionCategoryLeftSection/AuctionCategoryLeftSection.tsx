@@ -48,7 +48,7 @@ export default function AuctionCategoryLeftSection() {
       return addIsOpenPropertyData;
     }
 
-    return [];
+    return categoryData;
   }, [categoryData, pickCategory, isLoading]);
 
   const rootCategory = newData.find(category => category.isOpen)?.name;
