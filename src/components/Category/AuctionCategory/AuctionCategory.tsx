@@ -1,5 +1,3 @@
-// import { Suspense } from 'react';
-
 import { Category } from '@/apis/types/category';
 import CategoryUnit from '@/components/Category/CategoryUnit/CategoryUnit';
 import useSetSearchParams from '@/hooks/useSetSearchParam';
@@ -28,8 +26,6 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
 
   return (
     <div className={S.container}>
-      {/* // 요소요소 4개정도만 두기
-       */}
       <button
         type="button"
         className={`${S.unitContent} ${S.unitContentForSpan}`}
@@ -37,12 +33,10 @@ function AuctionCategory({ categoryData }: AuctionCategoryProps) {
       >
         <span className={unitButtonStyle()}>ALL</span>
       </button>
-      {/* <Suspense fallback={<>CategoryUnit</>}> */}
       {categoryData.map(category => (
         // eslint-disable-next-line react/jsx-key
         <CategoryUnit unit={category} key={category.category_id} />
       ))}
-      {/* </Suspense> */}
     </div>
   );
 }

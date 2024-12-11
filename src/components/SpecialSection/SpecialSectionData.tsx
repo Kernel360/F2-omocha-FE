@@ -30,7 +30,6 @@ function SpecialSectionData() {
   };
 
   if (isLoading || !data) {
-    // 4번 반복
     return (
       <div className={S.specialAuction}>
         {[...Array(4)].map((_, index) => (
