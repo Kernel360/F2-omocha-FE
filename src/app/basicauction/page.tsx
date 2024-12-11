@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+// import { Suspense } from 'react';
 
 import { Metadata } from 'next';
 
@@ -59,25 +59,25 @@ function Home() {
   return (
     <MaxLayout>
       <div className={S.basicAuctionContainer}>
-        <Suspense fallback={<>AuctionCategoryLeftSection</>}>
-          <AuctionCategoryLeftSection />
-        </Suspense>
+        {/* <Suspense fallback={<>AuctionCategoryLeftSection</>}> */}
+        <AuctionCategoryLeftSection />
+        {/* </Suspense> */}
         <section className={S.rightSection}>
-          <Suspense fallback={<>BreadcrumbSection</>}>
-            <BreadcrumbSection />
-          </Suspense>
+          {/* <Suspense fallback={<>BreadcrumbSection</>}> */}
+          <BreadcrumbSection />
+          {/* </Suspense> */}
           <div className={S.topInfoSection}>
-            <Suspense fallback={<>MobileAuctionCategoryLeftSection</>}>
-              <MobileAuctionCategoryLeftSection />
-            </Suspense>
+            {/* <Suspense fallback={<>MobileAuctionCategoryLeftSection</>}> */}
+            <MobileAuctionCategoryLeftSection />
+            {/* </Suspense> */}
             <div className={S.optionSection}>
               <Checkbox />
               <AuctionDropDown />
             </div>
           </div>
-          <Suspense fallback={<>BasicAuctionClientPage</>}>
-            <BasicAuctionClientPage />
-          </Suspense>
+          {/* <Suspense fallback={<>BasicAuctionClientPage</>}> */}
+          <BasicAuctionClientPage />
+          {/* </Suspense> */}
         </section>
       </div>
       <ClientSidePageRef eventId={EVENT_ID.AUCTION_LIST_PAGE_VIEWED} />
