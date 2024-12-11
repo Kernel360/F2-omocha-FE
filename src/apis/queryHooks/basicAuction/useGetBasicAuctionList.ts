@@ -7,7 +7,7 @@ import { filteredParams } from '@/utils/paramUtils';
 function useGetBasicAuctionList(params: GetBasicAuctionListParams) {
   const newParams = filteredParams<GetBasicAuctionListParams>(params);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['basicAuctionList', newParams],
     queryFn: () => getBasicAuctionList(newParams),
   });
@@ -17,7 +17,7 @@ function useGetBasicAuctionList(params: GetBasicAuctionListParams) {
     currentPage: data?.result_data.number || 0,
   };
 
-  return { data, pageInfo };
+  return { data, isLoading, pageInfo };
 }
 
 export default useGetBasicAuctionList;

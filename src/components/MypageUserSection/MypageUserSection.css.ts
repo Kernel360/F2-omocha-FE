@@ -8,8 +8,9 @@ export const profile = style({
   gap: '30px',
   width: '180px',
   borderBottom: '1px solid #eaeaea',
-  padding: '10px 0 30px 10px',
+  padding: '10px 10px 30px 10px',
   boxSizing: 'border-box',
+  alignItems: 'center',
 });
 
 export const image = style({

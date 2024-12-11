@@ -65,12 +65,14 @@ export const popularItem = style({
 });
 
 export const specialAuction = style({
-  maxWidth: '960px',
+  minHeight: '264px',
+  maxWidth: '800px',
   width: '100%',
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(190px, auto))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 180px))',
   gap: '16px',
   alignItems: 'center',
+  justifyContent: 'center',
 });
 
 export const noListWrapper = style({
@@ -116,6 +118,11 @@ export const specialAuctionImage = style({
 export const specialAuctionTitle = style({
   fontSize: '14px',
   padding: '0 6px',
+});
+
+export const specialAuctionTitleSuspenseBlock = style({
+  width: '100px',
+  margin: '0 auto',
 });
 
 export const specialAuctionPriceTitle = style({

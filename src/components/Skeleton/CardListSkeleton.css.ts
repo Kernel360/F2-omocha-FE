@@ -14,7 +14,7 @@ export const cardContainer = style({
   alignItems: 'center',
   gap: '8px',
   width: '220px',
-  height: '288px',
+  height: '314px',
   border: '1px solid rgba(229, 229, 229, 1)',
   borderRadius: '12px',
   boxShadow: shadow.box3,

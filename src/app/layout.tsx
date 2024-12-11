@@ -1,5 +1,3 @@
-// import { Suspense } from 'react';
-
 import { Suspense } from 'react';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -60,7 +58,6 @@ export default async function RootLayout({
               <HydrationBoundary state={dehydrate(queryClient)}>
                 <HeaderSection />
                 <div className={S.container}>
-                  {/* <Suspense fallback={<div>Loading...</div>}></Suspense> */}
                   {children}
                   <ChattingIconButton />
                   <ScrollToTopButton />
