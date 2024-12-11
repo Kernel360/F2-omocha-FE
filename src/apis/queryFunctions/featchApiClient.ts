@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+// import { redirect } from 'next/navigation';
 
 import { Response as CustomResponse } from '@/apis/types/common';
 import deleteTokenCookies from '@/utils/deleteTokenCookies';
@@ -44,7 +44,7 @@ async function createFetchApiClient<T>(
 
     if (!refreshToken) {
       deleteTokenCookies();
-      redirect('/login');
+      // redirect('/login');
     }
 
     const response = await createFetchApiClient<CustomResponse<PostLoginResponseData>>(
@@ -57,7 +57,7 @@ async function createFetchApiClient<T>(
 
     if (!response) {
       deleteTokenCookies();
-      redirect('/login');
+      // redirect('/login');
       throw new Error('Failed to refreshAccessToken');
     }
 
@@ -100,7 +100,7 @@ async function createFetchApiClient<T>(
         }
 
         deleteTokenCookies();
-        redirect('/login');
+        // redirect('/login');
         throw new Error('Session expired. Please log in again.');
       }
 
@@ -112,7 +112,7 @@ async function createFetchApiClient<T>(
   } catch (error) {
     console.error('Fetch error:', error);
     deleteTokenCookies();
-    redirect('/login');
+    // redirect('/login');
     throw error;
   }
 }
