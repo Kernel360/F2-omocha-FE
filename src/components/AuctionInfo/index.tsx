@@ -15,6 +15,7 @@ import { Modal } from '@/components/Modal/Modal';
 import ModalFooter from '@/components/Modal/ModalFooter';
 import useBooleanState from '@/hooks/useBooleanState';
 import useDebounce from '@/hooks/useDebounce';
+import { formatDateToLocal } from '@/utils/dateUtils';
 
 import AuctionButtonSection from './AuctionButtonSection';
 import * as S from './AuctionInfo.css';
@@ -120,9 +121,13 @@ function AuctionInfo(props: AuctionInfoProps) {
       <hr className={S.division} />
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>남은 시간</span>
-        <AuctionCountdown endTime={endTime} setExpired={setExpired} auctionStatus={auctionStatus} />
+        <AuctionCountdown
+          endTime={formatDateToLocal(endTime)}
+          setExpired={setExpired}
+          auctionStatus={auctionStatus}
+        />
       </div>
-      <div className={S.endTimeDescription}>{endTime}</div>
+      <div className={S.endTimeDescription}>{formatDateToLocal(endTime)}</div>
       <div className={S.infoRow}>
         <span className={S.infoRowTitle}>입찰 기록</span>
         <div className={S.infoRight}>

@@ -6,7 +6,7 @@ import usePostBasicAuctionQnAAnswer from '@/apis/queryHooks/basicAuction/usePost
 import { AuctionQnAData } from '@/apis/types/basicAuction';
 import ModalFooter from '@/components/Modal/ModalFooter';
 import useBooleanState from '@/hooks/useBooleanState';
-import maskEmail from '@/utils/maskEmail';
+import { maskEmail } from '@/utils/textUtils';
 
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import * as S from './QnAUnit.css';

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import usePostAuctionLike from '@/apis/queryHooks/basicAuction/usePostAuctionLike';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
-import calculateDDay from '@/utils/calculatedDDay';
+import { calculateDDay } from '@/utils/dateUtils';
 
 import * as S from './AuctionCard.css';
 
