@@ -14,6 +14,7 @@ import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
+import { CookiesProvider } from '@/provider/cookiesProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 import { ToastProvider } from '@/provider/toastProvider';
 import getMetadata from '@/utils/getMetadata';
@@ -40,7 +41,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const accessToken = !!cookies().get('accessToken')?.value;
+  const accessTokenState = !!cookies().get('accessToken')?.value;
+  const accessToken = cookies().get('accessToken')?.value;
   const queryClient = await usePrefetchQueriesWithCookie([
     { queryKey: ['category'], api: '/v2/categories' },
   ]);
@@ -56,15 +58,17 @@ export default async function RootLayout({
             <Suspense fallback={<div>Loading...NavigationEvents</div>}>
               <NavigationEvents />
             </Suspense>
-            <AuthProvider isLoggedIn={accessToken}>
-              <HydrationBoundary state={dehydrate(queryClient)}>
-                <HeaderSection />
-                <div className={S.container}>
-                  {children}
-                  <ChattingIconButton />
-                  <ScrollToTopButton />
-                </div>
-              </HydrationBoundary>
+            <AuthProvider isLoggedIn={accessTokenState}>
+              <CookiesProvider initClientAccessToken={accessToken}>
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                  <HeaderSection />
+                  <div className={S.container}>
+                    {children}
+                    <ChattingIconButton />
+                    <ScrollToTopButton />
+                  </div>
+                </HydrationBoundary>
+              </CookiesProvider>
             </AuthProvider>
             <Footer />
             <ReactQueryDevtools initialIsOpen={false} />

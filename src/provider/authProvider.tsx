@@ -24,13 +24,16 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children, isLoggedIn }: AuthProviderProps) {
   const [isLoggedInState, setIsLoggedInState] = useState(isLoggedIn || false);
+  const [clientAccessToken, setClientAccessToken] = useState('');
 
   const value = useMemo(
     () => ({
       isLoggedIn: isLoggedInState,
       setIsLoggedIn: setIsLoggedInState,
+      clientAccessToken,
+      setClientAccessToken,
     }),
-    [isLoggedInState],
+    [isLoggedInState, clientAccessToken],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
