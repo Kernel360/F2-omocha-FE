@@ -4,11 +4,11 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import { useRouter } from 'next/navigation';
 
 import useGetBidAuctionHistories from '@/apis/queryHooks/User/useGetBidAuctionHistories';
+import SkeletonCard from '@/components/Skeleton/components/SkeletonCard';
 
 import * as S from './BasicBid.css';
 import BasicBidAuction from './BasicBidAuction';
 import BasicBidAuctionBidList from './BasicBidAuctionBidList';
-import SkeletonCard from '@/components/Skeleton/components/SkeletonCard';
 
 export default function BasicBidAuctionSection() {
   const router = useRouter();

@@ -10,8 +10,9 @@ import useBooleanState from '@/hooks/useBooleanState';
 import useRequireAuth from '@/hooks/useRequireAuth';
 import colors from '@/styles/color';
 
-import * as S from './MypageUserSection.css';
 import SkeletonCard from '../Skeleton/components/SkeletonCard';
+
+import * as S from './MypageUserSection.css';
 
 function MypageUserSection() {
   const { data: user } = useGetUser();
