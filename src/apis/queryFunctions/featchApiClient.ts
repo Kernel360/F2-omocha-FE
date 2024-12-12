@@ -12,9 +12,9 @@ import { redirect } from 'next/navigation';
 //     ),
 //   ]);
 // }
-function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
-  return fetch(url, options);
-}
+// function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
+//   return fetch(url, options);
+// }
 
 const refreshAccessToken = async (refreshToken: string | undefined) => {
   // refreshToken로 재발급 로직임
@@ -72,7 +72,8 @@ async function createFetchApiClient<T>({
   };
 
   try {
-    const response = await fetchWithTimeout(url, defaultOptions);
+    // const response = await fetchWithTimeout(url, defaultOptions);
+    const response = await fetch(url, defaultOptions);
 
     if (!response.ok) {
       if (response.status === 401) {
@@ -95,7 +96,8 @@ async function createFetchApiClient<T>({
 
           console.log('defaultOptions.headers', defaultOptions.headers);
 
-          const retryResponse = await fetchWithTimeout(url, defaultOptions);
+          // const retryResponse = await fetchWithTimeout(url, defaultOptions);
+          const retryResponse = await fetch(url, defaultOptions);
 
           if (!retryResponse.ok) {
             console.log('새 accessToken으로 요청 재시도 실패');

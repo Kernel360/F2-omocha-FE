@@ -29,10 +29,9 @@ function useLogin() {
       setCookie('accessToken', accessToken, { maxAge: 60 * 30 });
       setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 });
 
-      router.refresh();
       setIsLoggedIn(true);
       showToast('success', '로그인 되었습니다.');
-
+      router.refresh();
       if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
         router.push('/');
       } else {
