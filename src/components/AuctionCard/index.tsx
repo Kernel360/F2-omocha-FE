@@ -23,7 +23,6 @@ interface AuctionCardProps {
   nowPrice: number | null;
   auctionStatus?: string;
   instantBuyPrice?: number | null;
-  // categoryId: number;
   pageContext?: string;
 }
 
@@ -37,7 +36,6 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
     nowPrice,
     auctionStatus,
     instantBuyPrice,
-    // categoryId,
     pageContext,
   } = SAMPLE;
 
