@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import { Metadata } from 'next';
 
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
@@ -59,25 +57,17 @@ function Home() {
   return (
     <MaxLayout>
       <div className={S.basicAuctionContainer}>
-        <Suspense fallback={<>AuctionCategoryLeftSection</>}>
-          <AuctionCategoryLeftSection />
-        </Suspense>
+        <AuctionCategoryLeftSection />
         <section className={S.rightSection}>
-          <Suspense fallback={<>BreadcrumbSection</>}>
-            <BreadcrumbSection />
-          </Suspense>
+          <BreadcrumbSection />
           <div className={S.topInfoSection}>
-            <Suspense fallback={<>MobileAuctionCategoryLeftSection</>}>
-              <MobileAuctionCategoryLeftSection />
-            </Suspense>
+            <MobileAuctionCategoryLeftSection />
             <div className={S.optionSection}>
               <Checkbox />
               <AuctionDropDown />
             </div>
           </div>
-          <Suspense fallback={<>BasicAuctionClientPage</>}>
-            <BasicAuctionClientPage />
-          </Suspense>
+          <BasicAuctionClientPage />
         </section>
       </div>
       <ClientSidePageRef eventId={EVENT_ID.AUCTION_LIST_PAGE_VIEWED} />
