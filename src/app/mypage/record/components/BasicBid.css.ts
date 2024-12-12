@@ -11,6 +11,17 @@ export const basicBid = style({
   borderRadius: '8px',
 });
 
+export const skeletonBasicBid = style({
+  padding: '20px 0 ',
+  display: 'flex',
+  flexDirection: 'column',
+  listStyle: 'none',
+  maxHeight: '560px',
+  overflow: 'scroll',
+  borderRadius: '8px',
+  gap: '20px',
+});
+
 export const noListWrapper = style({
   display: 'flex',
   flexDirection: 'column',

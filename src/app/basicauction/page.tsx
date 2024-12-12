@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Metadata } from 'next';
 
@@ -67,25 +65,19 @@ async function Home({ searchParams }: { searchParams: GetBasicAuctionListParams 
   return (
     <MaxLayout>
       <div className={S.basicAuctionContainer}>
-        <Suspense fallback={<>AuctionCategoryLeftSection</>}>
-          <AuctionCategoryLeftSection />
-        </Suspense>
+        <AuctionCategoryLeftSection />
         <section className={S.rightSection}>
           <HydrationBoundary state={dehydrate(queryClient)}>
             <BreadcrumbSection pickCategoryProps={searchParams.categoryId!} />
           </HydrationBoundary>
           <div className={S.topInfoSection}>
-            <Suspense fallback={<>MobileAuctionCategoryLeftSection</>}>
-              <MobileAuctionCategoryLeftSection />
-            </Suspense>
+            <MobileAuctionCategoryLeftSection />
             <div className={S.optionSection}>
               <Checkbox />
               <AuctionDropDown />
             </div>
           </div>
-          <Suspense fallback={<>BasicAuctionClientPage</>}>
-            <BasicAuctionClientPage />
-          </Suspense>
+          <BasicAuctionClientPage />
         </section>
       </div>
       <ClientSidePageRef eventId={EVENT_ID.AUCTION_LIST_PAGE_VIEWED} />

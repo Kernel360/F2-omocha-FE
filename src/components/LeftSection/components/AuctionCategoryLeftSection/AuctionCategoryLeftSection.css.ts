@@ -9,6 +9,11 @@ export const leftSection = style({
   gap: '16px',
   maxWidth: '160px',
   width: '100%',
+  '@media': {
+    'screen and (max-width: 504px)': {
+      display: 'none',
+    },
+  },
 });
 
 export const pickCategory = style({
@@ -16,4 +21,14 @@ export const pickCategory = style({
   color: colors.black1,
   fontWeight: 'bold',
   textAlign: 'center',
+});
+
+export const container = style({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  boxSizing: 'border-box',
+  padding: '20px',
+  borderTop: `4px solid ${colors.gray10}`,
+  gap: '10px',
 });
