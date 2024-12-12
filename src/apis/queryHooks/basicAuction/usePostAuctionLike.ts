@@ -6,13 +6,15 @@ import { Response } from '@/apis/types/common';
 import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
+import { useCookies } from '@/provider/cookiesProvider';
 
 function usePostAuctionLike(id: number, isLike: boolean) {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
+  const { clientToken } = useCookies();
 
   const { mutate, error } = useMutation({
-    mutationFn: () => postAuctionLike(id),
+    mutationFn: () => postAuctionLike(id, clientToken),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auctionLikeList'] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });

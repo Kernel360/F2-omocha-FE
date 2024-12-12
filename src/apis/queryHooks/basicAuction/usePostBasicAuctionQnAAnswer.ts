@@ -8,13 +8,15 @@ import {
 } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
 import { useToast } from '@/provider/toastProvider';
+import { useCookies } from '@/provider/cookiesProvider';
 
 function usePostAuctionQnAAnswer() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
+  const { clientToken } = useCookies();
 
   const { mutate, error } = useMutation({
-    mutationFn: (data: PostAuctionQnAAnswerParams) => postAuctionQnAAnswer(data),
+    mutationFn: (data: PostAuctionQnAAnswerParams) => postAuctionQnAAnswer(data, clientToken),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auctionQnAList'] });
       showToast('success', 'QnA 등록에 성공했습니다.');

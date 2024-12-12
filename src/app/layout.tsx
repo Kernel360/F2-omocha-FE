@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { getCookies } from 'cookies-next';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import { cookies } from 'next/headers';
@@ -42,7 +43,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const accessTokenState = !!cookies().get('accessToken')?.value;
-  const accessToken = cookies().get('accessToken')?.value;
+  // const accessToken = cookies().get('accessToken')?.value;
+  const cookiesTest = await getCookies({ cookies });
+  const { accessToken } = cookiesTest;
+  const { refreshToken } = cookiesTest;
+  console.log('cookiesTest', cookiesTest.accessToken);
+  console.log('cookiesTest', cookiesTest.refreshToken);
+
   const queryClient = await usePrefetchQueriesWithCookie([
     { queryKey: ['category'], api: '/v2/categories' },
   ]);
@@ -59,7 +66,10 @@ export default async function RootLayout({
               <NavigationEvents />
             </Suspense>
             <AuthProvider isLoggedIn={accessTokenState}>
-              <CookiesProvider initClientAccessToken={accessToken}>
+              <CookiesProvider
+                initClientAccessToken={accessToken}
+                initClientRefreshToken={refreshToken}
+              >
                 <HydrationBoundary state={dehydrate(queryClient)}>
                   <HeaderSection />
                   <div className={S.container}>

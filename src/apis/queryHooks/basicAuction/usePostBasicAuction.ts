@@ -7,14 +7,15 @@ import { Response } from '@/apis/types/common';
 import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
+import { useCookies } from '@/provider/cookiesProvider';
 
 function usePostBasicAuction() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { showToast } = useToast();
-
+  const { clientToken } = useCookies();
   const { mutate, error } = useMutation({
-    mutationFn: (param: FormData) => postBasicAuction(param),
+    mutationFn: (param: FormData) => postBasicAuction(param, clientToken),
     onSuccess: data => {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       router.push('/basicauction?page=1', { scroll: false });

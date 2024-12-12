@@ -4,7 +4,7 @@ import { Response } from '@/apis/types/common';
 import createFetchApiClient from './featchApiClient';
 
 export const getCategory = async () => {
-  const response = await createFetchApiClient<Response<Category[]>>(`/v2/categories`);
+  const response = await createFetchApiClient<Response<Category[]>>({ endpoint: `/v2/categories` });
 
   console.log('response getCategory', response);
   if (!response) {

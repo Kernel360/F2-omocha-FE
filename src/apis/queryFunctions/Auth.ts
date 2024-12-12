@@ -1,4 +1,4 @@
-'use server';
+import { deleteCookie, setCookie } from 'cookies-next';
 
 import {
   CheckEmailAuthParams,
@@ -10,24 +10,21 @@ import {
   RegisterParams,
 } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
-import deleteTokenCookies from '@/utils/deleteTokenCookies';
-import { setCookies } from '@/utils/setCookies';
 
 import createFetchApiClient from './featchApiClient';
 
-export const setTokenCookies = (accessToken: string, refreshToken: string) => {
-  setCookies('accessToken', accessToken);
-  setCookies('refreshToken', refreshToken);
-};
-
 export const postLogin = async (params: LoginParams) => {
-  const response = await createFetchApiClient<Response<PostLoginResponseData>>('/v2/auth/login', {
-    method: 'POST',
-    body: JSON.stringify(params),
+  const response = await createFetchApiClient<Response<PostLoginResponseData>>({
+    endpoint: '/v2/auth/login',
+    options: {
+      method: 'POST',
+      body: JSON.stringify(params),
+    },
   });
 
   if (!response) {
-    deleteTokenCookies();
+    deleteCookie('accessToken');
+    deleteCookie('refreshToken');
     throw new Error('Failed to postLogin');
   }
 
@@ -35,16 +32,22 @@ export const postLogin = async (params: LoginParams) => {
   const refreshToken = response.result_data.refresh_token;
 
   if (accessToken && refreshToken) {
-    setCookies('accessToken', response.result_data.access_token);
-    setCookies('refreshToken', response.result_data.refresh_token);
+    setCookie('accessToken', accessToken, { maxAge: 60 * 30 });
+    setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 });
   }
   return response;
 };
 
+// ---------
+// 이메일 인증 관련 API
+
 export const postEmailValidationCode = async (params: CheckEmailAuthParams) => {
-  const response = await createFetchApiClient<Response<boolean>>('/v2/mail/code', {
-    method: 'POST',
-    body: JSON.stringify(params),
+  const response = await createFetchApiClient<Response<boolean>>({
+    endpoint: '/v2/mail/code',
+    options: {
+      method: 'POST',
+      body: JSON.stringify(params),
+    },
   });
   if (!response) {
     throw new Error('Failed to postEmailValidationCode');
@@ -53,9 +56,12 @@ export const postEmailValidationCode = async (params: CheckEmailAuthParams) => {
 };
 
 export const postEmailAuth = async (params: PostEmailAuthParams) => {
-  const response = await createFetchApiClient<Response<null>>('/v2/mail', {
-    method: 'POST',
-    body: JSON.stringify(params),
+  const response = await createFetchApiClient<Response<null>>({
+    endpoint: '/v2/mail',
+    options: {
+      method: 'POST',
+      body: JSON.stringify(params),
+    },
   });
 
   if (!response) {
@@ -66,11 +72,9 @@ export const postEmailAuth = async (params: PostEmailAuthParams) => {
 };
 
 export const getEmailValidation = async (params: CheckEmailParams) => {
-  // 얘는 왜 get인데 body에 담겨가죠?
-  const response = await createFetchApiClient<Response<boolean>>(
-    `/v2/auth/validate-email/${params.email}`,
-  );
-
+  const response = await createFetchApiClient<Response<boolean>>({
+    endpoint: `/v2/auth/validate-email/${params.email}`,
+  });
   if (!response) {
     throw new Error('Failed to getEmailValidation');
   }
@@ -79,13 +83,13 @@ export const getEmailValidation = async (params: CheckEmailParams) => {
 };
 
 export const postRegister = async (param: RegisterParams) => {
-  const response = await createFetchApiClient<Response<PostRegisterResponseData>>(
-    '/v2/auth/register',
-    {
+  const response = await createFetchApiClient<Response<PostRegisterResponseData>>({
+    endpoint: '/v2/auth/register',
+    options: {
       method: 'POST',
       body: JSON.stringify(param),
     },
-  );
+  });
 
   if (!response) {
     throw new Error('Failed to postRegister');

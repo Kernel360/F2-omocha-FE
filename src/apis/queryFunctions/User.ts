@@ -12,8 +12,14 @@ import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectTo
 
 import createFetchApiClient from './featchApiClient';
 
-export const getUser = async () => {
-  const response = await createFetchApiClient<Response<UserResponseData>>('/v2/member');
+export const getUser = async (authorizationToken: {
+  accessToken: string | undefined;
+  refreshToken: string | undefined;
+}) => {
+  const response = await createFetchApiClient<Response<UserResponseData>>({
+    endpoint: '/v2/member',
+    authorizationToken,
+  });
   if (!response) {
     throw new Error('Failed to getUser');
   }
@@ -21,14 +27,21 @@ export const getUser = async () => {
 };
 //----------------------------------------------
 
-export const patchProfileImage = async (param: FormData) => {
-  const response = await createFetchApiClient<Response<PatchProfileImageResponseData>>(
-    '/v2/member/profile-image',
-    {
+export const patchProfileImage = async (
+  param: FormData,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<PatchProfileImageResponseData>>({
+    endpoint: '/v2/member/profile-image',
+    options: {
       method: 'PATCH',
       body: param,
     },
-  );
+    authorizationToken,
+  });
   if (!response) {
     throw new Error('Failed to patchProfileImage');
   }
@@ -36,9 +49,12 @@ export const patchProfileImage = async (param: FormData) => {
 };
 
 export const patchPassword = async (param: PatchPasswordParams) => {
-  const response = await createFetchApiClient<Response<null>>('/v2/member/password', {
-    method: 'PATCH',
-    body: JSON.stringify(param),
+  const response = await createFetchApiClient<Response<null>>({
+    endpoint: '/v2/member/password',
+    options: {
+      method: 'PATCH',
+      body: JSON.stringify(param),
+    },
   });
   if (!response) {
     throw new Error('Failed to patchPassword');
@@ -46,41 +62,62 @@ export const patchPassword = async (param: PatchPasswordParams) => {
   return response;
 };
 
-export const getBidAuctionHistories = async () => {
-  const response =
-    await createFetchApiClient<Response<ListResponse<BidAuctionHistoriesData[]>>>(
-      '/v2/auctions/bid/me',
-    );
+export const getBidAuctionHistories = async (authorizationToken: {
+  accessToken: string | undefined;
+  refreshToken: string | undefined;
+}) => {
+  const response = await createFetchApiClient<Response<ListResponse<BidAuctionHistoriesData[]>>>({
+    endpoint: '/v2/auctions/bid/me',
+    authorizationToken,
+  });
   if (!response) {
     throw new Error('Failed to getBidAuctionHistories');
   }
   return response;
 };
 
-export const getBidAuctionHistoriesUnit = async (auctionId: number | null) => {
+export const getBidAuctionHistoriesUnit = async (
+  auctionId: number | null,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
   const response = await createFetchApiClient<
     Response<ListResponse<BidAuctionHistoriesUnitData[]>>
-  >(`/v2/bids/me/${auctionId}`);
+  >({ endpoint: `/v2/bids/me/${auctionId}`, authorizationToken });
   if (!response) {
     throw new Error('Failed to getBidAuctionHistoriesUnit');
   }
   return response;
 };
 
-export const getAuctionHistories = async () => {
-  const response =
-    await createFetchApiClient<Response<ListResponse<AuctionHistoriesData[]>>>('/v2/auctions/me');
+export const getAuctionHistories = async (authorizationToken: {
+  accessToken: string | undefined;
+  refreshToken: string | undefined;
+}) => {
+  const response = await createFetchApiClient<Response<ListResponse<AuctionHistoriesData[]>>>({
+    endpoint: '/v2/auctions/me',
+    authorizationToken,
+  });
   if (!response) {
     throw new Error('Failed to getAuctionHistories');
   }
   return response;
 };
 
-export const getAuctionLikeList = async (params: ListParams) => {
+export const getAuctionLikeList = async (
+  params: ListParams,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
   const queryString = convertQueryParamsObjectToString(params);
-  const response = await createFetchApiClient<Response<ListResponse<GetAuctionLikeData[]>>>(
-    `/v2/auctions/likes?${queryString}`,
-  );
+  const response = await createFetchApiClient<Response<ListResponse<GetAuctionLikeData[]>>>({
+    endpoint: `/v2/auctions/likes?${queryString}`,
+    authorizationToken,
+  });
   if (!response) {
     throw new Error('Failed to getAuctionLikeList');
   }

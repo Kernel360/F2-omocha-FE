@@ -19,17 +19,24 @@ import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectTo
 
 import createFetchApiClient from './featchApiClient';
 
-export const postBasicAuction = async (param: FormData) => {
-  const response = await createFetchApiClient<Response<PostBasicAuctionResponseData>>(
-    '/v2/auctions',
-    {
+export const postBasicAuction = async (
+  param: FormData,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<PostBasicAuctionResponseData>>({
+    endpoint: '/v2/auctions',
+    options: {
       method: 'POST',
       body: param,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     },
-  );
+    authorizationToken,
+  });
 
   if (!response) {
     throw new Error('Failed to postBasicAuction');
@@ -38,10 +45,17 @@ export const postBasicAuction = async (param: FormData) => {
   return response;
 };
 
-export const getBasicAuction = async (id: number) => {
-  const response = await createFetchApiClient<Response<BasicAuctionResponseData>>(
-    `/v2/auctions/${id}`,
-  );
+export const getBasicAuction = async (
+  id: number,
+  // authorizationToken: {
+  //   accessToken: string | undefined;
+  //   refreshToken: string | undefined;
+  // },
+) => {
+  const response = await createFetchApiClient<Response<BasicAuctionResponseData>>({
+    endpoint: `/v2/auctions/${id}`,
+    // authorizationToken,
+  });
 
   if (!response) {
     throw new Error('Failed to getBasicAuction');
@@ -50,12 +64,20 @@ export const getBasicAuction = async (id: number) => {
   return response;
 };
 
-export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => {
+export const getBasicAuctionList = async (
+  // 인증 필요한가?
+  params: GetBasicAuctionListParams,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
   const queryString = convertQueryParamsObjectToString<GetBasicAuctionListParams>(params);
 
-  const response = await createFetchApiClient<Response<ListResponse<AuctionData[]>>>(
-    `/v2/auctions?${queryString}`,
-  );
+  const response = await createFetchApiClient<Response<ListResponse<AuctionData[]>>>({
+    endpoint: `/v2/auctions?${queryString}`,
+    authorizationToken,
+  });
 
   if (!response) {
     throw new Error('Failed to getFetchBasicAuctionList');
@@ -64,8 +86,17 @@ export const getBasicAuctionList = async (params: GetBasicAuctionListParams) => 
   return response;
 };
 
-export const getBasicAuctionBidList = async (id: number) => {
-  const response = await createFetchApiClient<Response<GetBasicAuctionBidInfo[]>>(`/v2/bids/${id}`);
+export const getBasicAuctionBidList = async (
+  id: number,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<GetBasicAuctionBidInfo[]>>({
+    endpoint: `/v2/bids/${id}`,
+    authorizationToken,
+  });
 
   if (!response) {
     throw new Error('Failed to getBasicAuctionBidList');
@@ -74,14 +105,22 @@ export const getBasicAuctionBidList = async (id: number) => {
   return response;
 };
 
-export const postBasicAuctionBid = async (id: number, param: PostBasicAuctionBidParams) => {
-  const response = await createFetchApiClient<Response<PostBasicAuctionBidResponseData>>(
-    `/v2/bids/${id}`,
-    {
+export const postBasicAuctionBid = async (
+  id: number,
+  param: PostBasicAuctionBidParams,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<PostBasicAuctionBidResponseData>>({
+    endpoint: `/v2/bids/${id}`,
+    options: {
       method: 'POST',
       body: JSON.stringify(param),
     },
-  );
+    authorizationToken,
+  });
 
   if (!response) {
     throw new Error('Failed to postBasicAuctionBid');
@@ -90,9 +129,19 @@ export const postBasicAuctionBid = async (id: number, param: PostBasicAuctionBid
   return response;
 };
 
-export const postBasicAuctionInstantBuy = async (id: number) => {
-  const response = await createFetchApiClient<Response<null>>(`/v2/bids/${id}/instant-buy`, {
-    method: 'POST',
+export const postBasicAuctionInstantBuy = async (
+  id: number,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<null>>({
+    endpoint: `/v2/bids/${id}/instant-buy`,
+    options: {
+      method: 'POST',
+    },
+    authorizationToken,
   });
 
   if (!response) {
@@ -102,9 +151,19 @@ export const postBasicAuctionInstantBuy = async (id: number) => {
   return response;
 };
 
-export const deleteAuction = async (id: number) => {
-  const response = await createFetchApiClient<Response<null>>(`/v2/auctions/${id}`, {
-    method: 'DELETE',
+export const deleteAuction = async (
+  id: number,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<null>>({
+    endpoint: `/v2/auctions/${id}`,
+    options: {
+      method: 'DELETE',
+    },
+    authorizationToken,
   });
 
   if (!response) {
@@ -114,10 +173,17 @@ export const deleteAuction = async (id: number) => {
   return response;
 };
 
-export const getAuctionQnAList = async (id: number) => {
-  const response = await createFetchApiClient<Response<ListResponse<AuctionQnAData[]>>>(
-    `/v2/questions/${id}`,
-  );
+export const getAuctionQnAList = async (
+  id: number,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<ListResponse<AuctionQnAData[]>>>({
+    endpoint: `/v2/questions/${id}`,
+    authorizationToken,
+  });
 
   if (!response) {
     throw new Error('Failed to getAuctionQnAList');
@@ -126,14 +192,21 @@ export const getAuctionQnAList = async (id: number) => {
   return response;
 };
 
-export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
-  const response = await createFetchApiClient<Response<PostAuctionQnAResponseData>>(
-    `/v2/questions`,
-    {
+export const postAuctionQnA = async (
+  param: PostAuctionQnAParams,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<PostAuctionQnAResponseData>>({
+    endpoint: `/v2/questions`,
+    options: {
       method: 'POST',
       body: JSON.stringify(param),
     },
-  );
+    authorizationToken,
+  });
 
   if (!response) {
     throw new Error('Failed to postAuctionQnA');
@@ -142,14 +215,21 @@ export const postAuctionQnA = async (param: PostAuctionQnAParams) => {
   return response;
 };
 
-export const postAuctionQnAAnswer = async (param: PostAuctionQnAAnswerParams) => {
-  const response = await createFetchApiClient<Response<PostAuctionQnAAnswerResponseData>>(
-    `/v2/answers`,
-    {
+export const postAuctionQnAAnswer = async (
+  param: PostAuctionQnAAnswerParams,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<PostAuctionQnAAnswerResponseData>>({
+    endpoint: `/v2/answers`,
+    options: {
       method: 'POST',
       body: JSON.stringify(param),
     },
-  );
+    authorizationToken,
+  });
 
   if (!response) {
     throw new Error('Failed to postAuctionQnAAnswer');
@@ -158,9 +238,19 @@ export const postAuctionQnAAnswer = async (param: PostAuctionQnAAnswerParams) =>
   return response;
 };
 
-export const deleteAuctionQnA = async (id: number) => {
-  const response = await createFetchApiClient<Response<null>>(`/v2/questions/${id}`, {
-    method: 'DELETE',
+export const deleteAuctionQnA = async (
+  id: number,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<null>>({
+    endpoint: `/v2/questions/${id}`,
+    options: {
+      method: 'DELETE',
+    },
+    authorizationToken,
   });
 
   if (!response) {
@@ -171,9 +261,9 @@ export const deleteAuctionQnA = async (id: number) => {
 };
 
 export const getNowPrice = async (id: number) => {
-  const response = await createFetchApiClient<Response<GetNowPriceResponseData>>(
-    `/v2/bids/${id}/now-price`,
-  );
+  const response = await createFetchApiClient<Response<GetNowPriceResponseData>>({
+    endpoint: `/v2/bids/${id}/now-price`,
+  });
 
   if (!response) {
     throw new Error('Failed to getNowPrice');
@@ -184,13 +274,20 @@ export const getNowPrice = async (id: number) => {
 
 // 찜 ----
 
-export const postAuctionLike = async (id: number) => {
-  const response = await createFetchApiClient<Response<PostLikeResponseData>>(
-    `/v2/auctions/likes/${id}`,
-    {
+export const postAuctionLike = async (
+  id: number,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<PostLikeResponseData>>({
+    endpoint: `/v2/auctions/likes/${id}`,
+    options: {
       method: 'POST',
     },
-  );
+    authorizationToken,
+  });
 
   if (!response) {
     throw new Error('Failed to postAuctionLike');

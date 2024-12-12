@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 
 import createFetchApiClient from '@/apis/queryFunctions/featchApiClient';
 import { Response } from '@/apis/types/common';
+// import { useCookies } from '@/provider/cookiesProvider';
 
 interface UsePrefetchQueriesWithCookieProps<T, TQueryKey extends QueryKey> {
   queryKey: TQueryKey;
@@ -14,6 +15,7 @@ async function usePrefetchQueriesWithCookie<T, TQueryKey extends QueryKey>(
   queries: UsePrefetchQueriesWithCookieProps<T, TQueryKey>[],
 ) {
   const queryClient = new QueryClient();
+  // const { clientToken } = useCookies();
 
   await Promise.all(
     queries.map(async ({ queryKey, api }) => {
@@ -21,7 +23,10 @@ async function usePrefetchQueriesWithCookie<T, TQueryKey extends QueryKey>(
         queryKey,
         queryFn: async () => {
           try {
-            const response = await createFetchApiClient<Response<T>>(api);
+            const response = await createFetchApiClient<Response<T>>({
+              endpoint: api,
+              // authorizationToken: clientToken,
+            });
 
             return response;
           } catch (e) {

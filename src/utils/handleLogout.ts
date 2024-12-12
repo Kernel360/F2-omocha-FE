@@ -1,7 +1,6 @@
-'use server';
+import { deleteCookie } from 'cookies-next';
 
-import deleteTokenCookies from '@/utils/deleteTokenCookies';
-
-export async function handleLogout() {
-  await deleteTokenCookies();
+export function handleLogout() {
+  deleteCookie('accessToken');
+  deleteCookie('refreshToken');
 }

@@ -6,13 +6,15 @@ import { Response } from '@/apis/types/common';
 import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
+import { useCookies } from '@/provider/cookiesProvider';
 
 function usePostBasicAuctionInstantBuy(id: number) {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
+  const { clientToken } = useCookies();
 
   const { mutate, error } = useMutation({
-    mutationFn: () => postBasicAuctionInstantBuy(id),
+    mutationFn: () => postBasicAuctionInstantBuy(id, clientToken),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['basicAuction', id] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });

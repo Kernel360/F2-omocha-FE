@@ -5,12 +5,16 @@ import { deleteAuctionQnA } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
 import { useToast } from '@/provider/toastProvider';
 
+import { useCookies } from '@/provider/cookiesProvider';
+
 function useDeleteBasicAuctionQnA() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 
+  const { clientToken } = useCookies();
+
   const { mutate, error } = useMutation({
-    mutationFn: (id: number) => deleteAuctionQnA(id),
+    mutationFn: (id: number) => deleteAuctionQnA(id, clientToken),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auctionQnAList'] });
       showToast('success', 'QnA에 삭제에 성공했습니다.');

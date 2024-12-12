@@ -3,14 +3,16 @@ import { AxiosError } from 'axios';
 
 import { patchProfileImage } from '@/apis/queryFunctions/User';
 import { Response } from '@/apis/types/common';
+import { useCookies } from '@/provider/cookiesProvider';
 import { useToast } from '@/provider/toastProvider';
 
 function usePatchProfileImage() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
+  const { clientToken } = useCookies();
 
   const { mutate, error } = useMutation({
-    mutationFn: (param: FormData) => patchProfileImage(param),
+    mutationFn: (param: FormData) => patchProfileImage(param, clientToken),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userInfo'] });
       showToast('success', '프로필 변경에 성공했습니다.');

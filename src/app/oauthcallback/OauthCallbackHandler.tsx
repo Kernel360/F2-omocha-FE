@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 
+import { setCookie } from 'cookies-next';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { setTokenCookies } from '@/apis/queryFunctions/Auth';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
@@ -27,7 +27,9 @@ function OauthCallbackHandler({ accessToken, refreshToken }: OauthCallbackHandle
 
     const handleLogin = () => {
       if (accessToken && refreshToken) {
-        setTokenCookies(accessToken, refreshToken);
+        setCookie('accessToken', accessToken, { maxAge: 60 * 30 });
+        setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 });
+
         setIsLoggedIn(true);
         showToast('success', '로그인 되었습니다.');
         router.push('/');

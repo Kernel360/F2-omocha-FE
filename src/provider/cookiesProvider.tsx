@@ -10,27 +10,43 @@ import {
   SetStateAction,
 } from 'react';
 
+// ClientToken 타입 정의
+interface ClientToken {
+  accessToken: string | undefined;
+  refreshToken: string | undefined;
+}
+
+// Context 타입 정의
 interface CookiesContextType {
-  clientAccessToken: string | undefined;
-  setClientAccessToken: Dispatch<SetStateAction<string | undefined>>; // isSetLoggedIn을 상태 변경 함수로 포함
+  clientToken: ClientToken;
+  setToken: Dispatch<SetStateAction<ClientToken>>;
 }
 
 interface CookiesProviderProps {
   children: ReactNode;
-  initClientAccessToken?: string;
+  initClientAccessToken: string | undefined;
+  initClientRefreshToken: string | undefined;
 }
 
+// Context 생성 시 초기값 설정
 const CookiesContext = createContext<CookiesContextType | undefined>(undefined);
 
-export function CookiesProvider({ children, initClientAccessToken }: CookiesProviderProps) {
-  const [clientAccessToken, setClientAccessToken] = useState(initClientAccessToken);
+export function CookiesProvider({
+  children,
+  initClientAccessToken,
+  initClientRefreshToken,
+}: CookiesProviderProps) {
+  const [clientToken, setToken] = useState({
+    accessToken: initClientAccessToken,
+    refreshToken: initClientRefreshToken,
+  });
 
   const value = useMemo(
     () => ({
-      clientAccessToken,
-      setClientAccessToken,
+      clientToken,
+      setToken,
     }),
-    [clientAccessToken],
+    [clientToken],
   );
 
   return <CookiesContext.Provider value={value}>{children}</CookiesContext.Provider>;
@@ -40,8 +56,8 @@ export const useCookies = () => {
   const context = useContext(CookiesContext);
 
   if (!context) {
-    throw new Error('useAuth는 AuthProvider 내에서만 사용할 수 있습니다.');
+    throw new Error('useCookies는 CookiesProvider 내에서만 사용할 수 있습니다.');
   }
 
-  return context; // isLoggedIn과 setIsLoggedIn 반환
+  return context;
 };

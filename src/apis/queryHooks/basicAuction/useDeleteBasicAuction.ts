@@ -5,14 +5,16 @@ import { useRouter } from 'next/navigation';
 import { deleteAuction } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
 import { useToast } from '@/provider/toastProvider';
+import { useCookies } from '@/provider/cookiesProvider';
 
 function useDeleteBasicAuction() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { showToast } = useToast();
+  const { clientToken } = useCookies();
 
   const { mutate, error } = useMutation({
-    mutationFn: (id: number) => deleteAuction(id),
+    mutationFn: (id: number) => deleteAuction(id, clientToken),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       router.push('/basicauction', { scroll: false });
