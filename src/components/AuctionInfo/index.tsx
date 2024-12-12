@@ -49,7 +49,7 @@ function AuctionInfo(props: AuctionInfoProps) {
     instantBuyPrice,
   } = props;
 
-  const { mutate: postBidMutate } = usePostBasicAuctionBid();
+  const { mutate: postBidMutate } = usePostBasicAuctionBid(id);
   const { mutate: postInstantBuyMutate } = usePostBasicAuctionInstantBuy(id);
   const { mutate: deleteAuctionMutate } = useDeleteBasicAuction();
 

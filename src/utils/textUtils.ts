@@ -12,6 +12,11 @@ function maskEmail(email: string): string {
     return `${localPart[0]}*${localPart.slice(2)}@${domain}`;
   }
 
+  // 로컬 부분이 3글자 이하인 경우 가운데만 '*'로 마스킹
+  if (localPart.length <= 3) {
+    return `${localPart[0]}*${localPart.slice(2)}@${domain}`;
+  }
+
   // 로컬 부분의 앞 2글자, 뒷 1글자를 남기고 중간을 '*'로 마스킹
   const maskedLocalPart = `${localPart.slice(0, 2)}${'*'.repeat(localPart.length - 3)}${localPart.slice(-1)}`;
 

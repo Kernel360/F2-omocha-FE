@@ -8,7 +8,7 @@ import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
 
-function usePostBasicAuctionBid() {
+function usePostBasicAuctionBid(auctionId: number) {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 
@@ -27,11 +27,11 @@ function usePostBasicAuctionBid() {
         bid_price: params.params.bid_price,
       });
     },
-    onError: (error: AxiosError<Response<string>>, params) => {
-      queryClient.invalidateQueries({ queryKey: ['basicAuction', params.id] });
+    onError: (err: AxiosError<Response<string>>) => {
+      queryClient.invalidateQueries({ queryKey: ['basicAuction', auctionId] });
 
-      if (error.response) {
-        showToast('error', `${error.response.data.result_msg}`);
+      if (err.response) {
+        showToast('error', `${err.response.data.result_msg}`);
       } else {
         showToast('error', '알 수 없는 오류가 발생했습니다. 새로고침을 진행해 주세요.');
       }

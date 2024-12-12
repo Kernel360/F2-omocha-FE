@@ -64,7 +64,7 @@ function AuctionBidListModal({ id }: AuctionBidListModalProps) {
             {data.result_data.length > 0 ? (
               data.result_data.map(unit => (
                 <tr key={unit.created_at}>
-                  <td className={S.td}>{unit.buyer_member_id}</td>
+                  <td className={S.td}>{unit.buyer_nickname}</td>
                   <td className={S.td}>{unit.bid_price.toLocaleString('ko-kr')}</td>
                   <td className={S.td}>{unit.created_at}</td>
                 </tr>
