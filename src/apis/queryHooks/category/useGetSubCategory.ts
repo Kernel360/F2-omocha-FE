@@ -20,6 +20,7 @@ function useGetSubCategory(pickedCategoryId: number) {
   const { data } = useQuery({
     queryKey: ['category'],
     queryFn: () => getCategory(),
+    enabled: pickedCategoryId !== 0,
   });
 
   if (!data) return { data: [] as Category[] };
