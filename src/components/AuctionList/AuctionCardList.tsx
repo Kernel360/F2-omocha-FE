@@ -1,6 +1,5 @@
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import ListLayout from '@/components/ListLayout';
-import { useAuth } from '@/provider/authProvider';
 
 import AuctionCard from '../AuctionCard';
 import CardListSkeleton from '../Skeleton/CardListSkeleton';
@@ -13,8 +12,6 @@ interface AuctionCardListProps {
 }
 
 function AuctionCardList({ sort, direction }: AuctionCardListProps) {
-  const { isLoggedIn } = useAuth();
-
   const { data, isLoading } = useGetBasicAuctionList({
     title: '',
     sort,
@@ -22,7 +19,6 @@ function AuctionCardList({ sort, direction }: AuctionCardListProps) {
     page: 0,
     size: 8,
     auctionStatus: 'BIDDING',
-    isLogin: isLoggedIn,
   });
 
   if (!data || isLoading) {
