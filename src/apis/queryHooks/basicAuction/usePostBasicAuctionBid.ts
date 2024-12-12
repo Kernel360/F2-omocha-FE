@@ -27,10 +27,11 @@ function usePostBasicAuctionBid() {
         bid_price: params.params.bid_price,
       });
     },
-    onError: (e: AxiosError<Response<string>>, params) => {
-      queryClient.invalidateQueries({ queryKey: ['nowPrice', params.id] });
-      if (e.response) {
-        showToast('error', `${e.response.data.result_msg}`);
+    onError: (error: AxiosError<Response<string>>, params) => {
+      queryClient.invalidateQueries({ queryKey: ['basicAuction', params.id] });
+
+      if (error.response) {
+        showToast('error', `${error.response.data.result_msg}`);
       } else {
         showToast('error', '알 수 없는 오류가 발생했습니다. 새로고침을 진행해 주세요.');
       }

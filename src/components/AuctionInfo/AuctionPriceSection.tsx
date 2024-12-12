@@ -6,6 +6,7 @@ import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuctio
 import useGetBasicAuctionNowPrice from '@/apis/queryHooks/basicAuction/useGetBasicAuctionNowPrice';
 
 import * as S from './AuctionInfo.css';
+import useGetBasicAuctionBidList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionBidList';
 
 interface AuctionPriceSectionProps {
   id: number;
@@ -16,6 +17,7 @@ interface AuctionPriceSectionProps {
 function AuctionPriceSection({ id, startPrice, instantBuyPrice }: AuctionPriceSectionProps) {
   const { data: currentPrice, refetch } = useGetBasicAuctionNowPrice(id);
   const { refetch: refetchBasicAuction } = useGetBasicAuction(id);
+  const { refetch: refetchBasicAuctionBidList } = useGetBasicAuctionBidList(id);
 
   const iconRef = useRef<HTMLButtonElement>(null);
 
@@ -25,6 +27,7 @@ function AuctionPriceSection({ id, startPrice, instantBuyPrice }: AuctionPriceSe
     setIsRotating(true);
     refetch();
     refetchBasicAuction();
+    refetchBasicAuctionBidList();
     setTimeout(() => {
       setIsRotating(false);
     }, 1000); // 1초 동안 회전
