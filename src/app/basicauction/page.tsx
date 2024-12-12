@@ -1,7 +1,9 @@
 import { Suspense } from 'react';
 
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Metadata } from 'next';
 
+import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import Checkbox from '@/app/basicauction/components/checkbox';
 import BasicAuctionClientPage from '@/components/BasicAuctionClientPage';
@@ -10,6 +12,7 @@ import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import AuctionCategoryLeftSection from '@/components/LeftSection/components/AuctionCategoryLeftSection/AuctionCategoryLeftSection';
 import MobileAuctionCategoryLeftSection from '@/components/LeftSection/components/MobileAuctionCategoryLeftSection/MobileAuctionCategoryLeftSection';
 import MaxLayout from '@/components/MaxLayout';
+import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 import EVENT_ID from '@/static/eventId';
 import flattenCategoriesTree from '@/utils/flattenCategoriesTree';
 import getMetadata from '@/utils/getMetadata';
@@ -55,7 +58,12 @@ export const generateMetadata = async ({
   }
 };
 
-function Home() {
+async function Home({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
+  const queryClient = await usePrefetchQueryWithCookie({
+    queryKey: ['category', searchParams.categoryId],
+    api: `/v2/categories/${searchParams.categoryId}`,
+  });
+
   return (
     <MaxLayout>
       <div className={S.basicAuctionContainer}>
@@ -63,9 +71,9 @@ function Home() {
           <AuctionCategoryLeftSection />
         </Suspense>
         <section className={S.rightSection}>
-          <Suspense fallback={<>BreadcrumbSection</>}>
-            <BreadcrumbSection />
-          </Suspense>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <BreadcrumbSection pickCategoryProps={searchParams.categoryId!} />
+          </HydrationBoundary>
           <div className={S.topInfoSection}>
             <Suspense fallback={<>MobileAuctionCategoryLeftSection</>}>
               <MobileAuctionCategoryLeftSection />

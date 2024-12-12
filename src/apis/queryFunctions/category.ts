@@ -8,3 +8,8 @@ export const getCategory = async () => {
   const response = await apiClient.get<Response<Category[]>>(`/v2/categories`);
   return response.data;
 };
+
+export const getSubCategoryList = async (categoryId: number) => {
+  const response = await apiClient.get<Response<Category[]>>(`/v2/categories/${categoryId}`);
+  return response.data;
+};
