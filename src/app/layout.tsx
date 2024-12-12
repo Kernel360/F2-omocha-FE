@@ -10,6 +10,7 @@ import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
 import HeaderSection from '@/components/HeaderSection';
 import NavigationEvents from '@/components/NavigationEvents';
+import NetworkErrorModal from '@/components/NetworkErrorModal';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
@@ -55,14 +56,16 @@ export default async function RootLayout({
               <NavigationEvents />
             </Suspense>
             <AuthProvider>
-              <HydrationBoundary state={dehydrate(queryClient)}>
-                <HeaderSection />
-                <div className={S.container}>
-                  {children}
-                  <ChattingIconButton />
-                  <ScrollToTopButton />
-                </div>
-              </HydrationBoundary>
+              <NetworkErrorModal>
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                  <HeaderSection />
+                  <div className={S.container}>
+                    {children}
+                    <ChattingIconButton />
+                    <ScrollToTopButton />
+                  </div>
+                </HydrationBoundary>
+              </NetworkErrorModal>
             </AuthProvider>
             <Footer />
             <ReactQueryDevtools initialIsOpen={false} />
