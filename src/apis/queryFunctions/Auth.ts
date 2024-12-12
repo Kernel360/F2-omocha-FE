@@ -1,5 +1,3 @@
-import { deleteCookie } from 'cookies-next';
-
 import {
   CheckEmailAuthParams,
   CheckEmailParams,

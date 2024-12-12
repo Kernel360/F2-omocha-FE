@@ -1,4 +1,4 @@
-import { deleteCookie, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { redirect } from 'next/navigation';
 
 import { deleteToken } from '@/utils/deleteToken';
