@@ -1,7 +1,8 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Metadata } from 'next';
 
-import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
+import { AuctionData, GetBasicAuctionListParams } from '@/apis/types/basicAuction';
+import { ListResponse } from '@/apis/types/common';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
 import Checkbox from '@/app/basicauction/components/checkbox';
 import BasicAuctionClientPage from '@/components/BasicAuctionClientPage';
@@ -14,6 +15,7 @@ import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 import EVENT_ID from '@/static/eventId';
 import flattenCategoriesTree from '@/utils/flattenCategoriesTree';
 import getMetadata from '@/utils/getMetadata';
+import { convertQueryParamsObjectToString, filteredParams } from '@/utils/paramUtils';
 
 import * as S from './Basicauction.css';
 
@@ -56,10 +58,26 @@ export const generateMetadata = async ({
   }
 };
 
-async function Home({ searchParams }: { searchParams: GetBasicAuctionListParams }) {
-  const queryClient = await usePrefetchQueryWithCookie({
-    queryKey: ['category', searchParams.categoryId],
-    api: `/v2/categories/${searchParams.categoryId}`,
+async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: number | string | undefined };
+}) {
+  const params = {
+    ...searchParams,
+    page: Math.max(Number(searchParams.page ?? 1) - 1, 0),
+    categoryId: Number(searchParams.categoryId) || undefined, // 0일 때 undefined로 변환
+    size: 20, // 사이즈 2로 ALL 에서 검토
+  };
+
+  const newParams = filteredParams<GetBasicAuctionListParams>(params);
+
+  const queryClient = await usePrefetchQueryWithCookie<
+    ListResponse<AuctionData[]>,
+    ['basicAuctionList', typeof newParams]
+  >({
+    queryKey: ['basicAuctionList', newParams],
+    api: `/v2/auctions?${convertQueryParamsObjectToString<GetBasicAuctionListParams>(newParams)}`,
   });
 
   return (
@@ -68,7 +86,7 @@ async function Home({ searchParams }: { searchParams: GetBasicAuctionListParams 
         <AuctionCategoryLeftSection />
         <section className={S.rightSection}>
           <HydrationBoundary state={dehydrate(queryClient)}>
-            <BreadcrumbSection pickCategoryProps={searchParams.categoryId!} />
+            <BreadcrumbSection pickCategoryProps={Number(searchParams.categoryId!)} />
           </HydrationBoundary>
           <div className={S.topInfoSection}>
             <MobileAuctionCategoryLeftSection />
@@ -77,7 +95,9 @@ async function Home({ searchParams }: { searchParams: GetBasicAuctionListParams 
               <AuctionDropDown />
             </div>
           </div>
-          <BasicAuctionClientPage />
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <BasicAuctionClientPage />
+          </HydrationBoundary>
         </section>
       </div>
       <ClientSidePageRef eventId={EVENT_ID.AUCTION_LIST_PAGE_VIEWED} />

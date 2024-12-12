@@ -1,26 +1,46 @@
 'use client';
 
+import { useEffect } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import logoIcon from '@/assets/png/logo.png';
-import useLogout from '@/hooks/useLogout';
 import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
+import { useToast } from '@/provider/toastProvider';
 import { SUB_CATEGORY } from '@/static/category';
 import EVENT_ID from '@/static/eventId';
+import { deleteToken } from '@/utils/deleteToken';
 
 import * as S from './UserHeader.css';
 
 function UserHeader() {
   const router = useRouter();
-  const { isLoggedIn } = useAuth();
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleLogout = useLogout();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { showToast } = useToast();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    // 쿠키 설정 후 router.refresh() 사용
+    router.refresh();
+  }, [isLoggedIn]);
+
+  const logout = async () => {
+    await deleteToken();
+    router.push('/');
+    setIsLoggedIn(false);
+    showToast('success', '로그아웃 되었습니다.');
+    queryClient.clear();
+    mixpanel.track(EVENT_ID.LOGOUT_BUTTON_CLICKED);
+    mixpanel.reset();
+  };
 
   const handleMixpanel = (eventId: string, prevEvent?: string) => {
     if (!isLoggedIn) {
@@ -79,7 +99,7 @@ function UserHeader() {
           );
         })}
         {isLoggedIn ? (
-          <button className={S.logoutButton} type="button" onClick={handleLogout}>
+          <button className={S.logoutButton} type="button" onClick={logout}>
             로그아웃
           </button>
         ) : (

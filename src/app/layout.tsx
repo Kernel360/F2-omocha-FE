@@ -2,8 +2,10 @@ import { Suspense } from 'react';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { getCookies } from 'cookies-next';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
+import { cookies } from 'next/headers';
 
 import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
@@ -39,6 +41,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookiesTest = await getCookies({ cookies });
+  const { accessToken } = cookiesTest;
+
   const queryClient = await usePrefetchQueriesWithCookie([
     { queryKey: ['category'], api: '/v2/categories' },
   ]);
@@ -54,7 +59,7 @@ export default async function RootLayout({
             <Suspense fallback={<div>Loading...NavigationEvents</div>}>
               <NavigationEvents />
             </Suspense>
-            <AuthProvider>
+            <AuthProvider isLoggedIn={!!accessToken}>
               <HydrationBoundary state={dehydrate(queryClient)}>
                 <HeaderSection />
                 <div className={S.container}>

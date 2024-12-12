@@ -23,8 +23,6 @@ function useChatSocket({
   onMessage,
   checkBottom,
 }: UseChatSocketParams) {
-  const accessToken = sessionStorage.getItem('accessToken');
-
   const [newMessage, setNewMessage] = useState<Message | null>(null);
   const user = useGetUser();
   const timerRef = useRef<NodeJS.Timeout | null>(null); // 타이머 ID 저장
@@ -80,7 +78,6 @@ function useChatSocket({
   };
 
   const { client } = useSocket({
-    access: accessToken,
     url: `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URL}`,
     config: {
       // https://stomp-js.github.io/api-docs/latest/classes/Client.html

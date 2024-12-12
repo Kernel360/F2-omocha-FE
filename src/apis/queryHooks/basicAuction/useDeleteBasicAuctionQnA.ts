@@ -4,13 +4,16 @@ import { AxiosError } from 'axios';
 import { deleteAuctionQnA } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
 import { useToast } from '@/provider/toastProvider';
+import getAuthTokens from '@/utils/getAuthTokens';
 
 function useDeleteBasicAuctionQnA() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 
+  const tokens = getAuthTokens();
+
   const { mutate, error } = useMutation({
-    mutationFn: (id: number) => deleteAuctionQnA(id),
+    mutationFn: (id: number) => deleteAuctionQnA(id, tokens),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auctionQnAList'] });
       showToast('success', 'QnA에 삭제에 성공했습니다.');

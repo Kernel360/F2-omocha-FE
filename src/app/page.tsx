@@ -9,9 +9,7 @@ export default async function Home() {
   return (
     <div>
       <MainCarousel />
-
       <SpecialSection />
-
       <MaxLayout>
         <AuctionList
           sort="createdAt"

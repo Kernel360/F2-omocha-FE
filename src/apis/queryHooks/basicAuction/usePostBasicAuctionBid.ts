@@ -7,14 +7,17 @@ import { Response } from '@/apis/types/common';
 import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
+import getAuthTokens from '@/utils/getAuthTokens';
 
 function usePostBasicAuctionBid() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 
+  const tokens = getAuthTokens();
+
   const { mutate, error } = useMutation({
     mutationFn: ({ id, params }: { id: number; params: PostBasicAuctionBidParams }) =>
-      postBasicAuctionBid(id, params),
+      postBasicAuctionBid(id, params, tokens),
     onSuccess: (_, params) => {
       queryClient.invalidateQueries({ queryKey: ['basicAuction', params.id] });
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
