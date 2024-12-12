@@ -2,8 +2,6 @@
 
 import React, { Suspense } from 'react';
 
-import dynamic from 'next/dynamic';
-
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import BasicAuctionInfoQnA from '@/app/basicauction/[id]/BasicAuctionInfoQnA';
@@ -15,13 +13,7 @@ import TabsLayout from '@/components/TabsLayout';
 import EVENT_ID from '@/static/eventId';
 
 import * as S from './BasicAuctionInfo.css';
-
-const BasicAuctionInfoContent = dynamic(
-  () => import('@/app/basicauction/[id]/BasicAuctionInfoContent').then(module => module.default),
-  {
-    ssr: false,
-  },
-);
+import BasicAuctionInfoContent from './BasicAuctionInfoContent';
 
 interface BasicAuctionInfoProps {
   id: number;
