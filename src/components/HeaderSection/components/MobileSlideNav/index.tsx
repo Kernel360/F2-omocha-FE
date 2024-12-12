@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useQueryClient } from '@tanstack/react-query';
 import { UserIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -32,15 +34,18 @@ function MobileSlideNav({
 }: MobileSlideNavProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const { setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
   const searchParams = useSearchParams();
 
+  useEffect(() => {
+    router.refresh();
+  }, [isLoggedIn]);
+
   const logout = async () => {
     await handleLogout();
-    router.refresh();
     router.push('/');
     setIsLoggedIn(false);
     showToast('success', '로그아웃 되었습니다.');

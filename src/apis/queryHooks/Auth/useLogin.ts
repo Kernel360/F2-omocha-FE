@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { setCookie } from 'cookies-next';
@@ -17,7 +19,12 @@ function useLogin() {
 
   const prevUrl = searchParams.get('prevUrl');
   const { showToast } = useToast();
-  const { setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
+  useEffect(() => {
+    // 쿠키 설정 후 router.refresh() 사용
+    router.refresh();
+  }, [isLoggedIn]);
 
   const { mutate } = useMutation({
     mutationFn: (loginParams: LoginParams) => postLogin(loginParams),
@@ -31,7 +38,6 @@ function useLogin() {
 
       setIsLoggedIn(true);
       showToast('success', '로그인 되었습니다.');
-      router.refresh();
       if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
         router.push('/');
       } else {

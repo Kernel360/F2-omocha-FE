@@ -1,21 +1,6 @@
 import { deleteCookie, setCookie } from 'cookies-next';
 import { redirect } from 'next/navigation';
 
-// function fetchWithTimeout(url: string, options: RequestInit, timeout = 10000): Promise<Response> {
-//   return Promise.race([
-//     fetch(url, options).then(response => {
-//       return response;
-//     }),
-//     new Promise<Response>((_, reject) =>
-//       // eslint-disable-next-line no-promise-executor-return
-//       setTimeout(() => reject(new Error('Request timed out')), timeout),
-//     ),
-//   ]);
-// }
-// function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
-//   return fetch(url, options);
-// }
-
 const refreshAccessToken = async (refreshToken: string | undefined) => {
   // refreshToken로 재발급 로직임
   if (!refreshToken) {

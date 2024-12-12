@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,18 +19,21 @@ import * as S from './UserHeader.css';
 
 function UserHeader() {
   const router = useRouter();
-  const { isLoggedIn } = useAuth();
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const { setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    // 쿠키 설정 후 router.refresh() 사용
+    router.refresh();
+  }, [isLoggedIn]);
+
   const logout = async () => {
     await handleLogout();
-    router.refresh();
     router.push('/');
     setIsLoggedIn(false);
     showToast('success', '로그아웃 되었습니다.');
