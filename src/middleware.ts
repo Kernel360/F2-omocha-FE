@@ -1,5 +1,4 @@
 import { getCookie } from 'cookies-next';
-// import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
@@ -10,11 +9,8 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
 
   const { pathname } = req.nextUrl;
-  console.log('middleware', pathname);
 
-  // const accessToken = cookies().get('accessToken')?.value;
   const accessToken = await getCookie('accessToken', { res, req });
-  console.log('await getCookie===========@@@@@@@@@@@@', accessToken);
 
   if (accessToken && afterLoginProtectedRoutes.includes(pathname)) {
     return NextResponse.redirect(new URL('/', req.url));

@@ -1,11 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getBidAuctionHistories } from '@/apis/queryFunctions/User';
-// import { useCookies } from '@/provider/cookiesProvider';
 import getAuthTokens from '@/utils/getAuthTokens';
 
 function useGetBidAuctionHistories() {
-  // const { clientToken } =
   const tokens = getAuthTokens();
 
   const { data, isLoading } = useQuery({

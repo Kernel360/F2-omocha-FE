@@ -3,14 +3,13 @@ import { AxiosError } from 'axios';
 
 import { patchProfileImage } from '@/apis/queryFunctions/User';
 import { Response } from '@/apis/types/common';
-// import { useCookies } from '@/provider/cookiesProvider';
 import { useToast } from '@/provider/toastProvider';
 import getAuthTokens from '@/utils/getAuthTokens';
 
 function usePatchProfileImage() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
-  // const { clientToken } = useCookies();
+
   const tokens = getAuthTokens();
 
   const { mutate, error } = useMutation({

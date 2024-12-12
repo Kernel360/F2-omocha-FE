@@ -30,7 +30,6 @@ function AuctionButtonSection({
   const isExpired = auctionStatus !== 'BIDDING';
 
   const { data: user } = useGetUser();
-  console.log('입찰하기 버튼의 active 판단 요소', user);
 
   return canDelete ? (
     <div className={S.bidButtonWrapper}>

@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 
 import { deleteAuction } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
-// import { useCookies } from '@/provider/cookiesProvider';
 import { useToast } from '@/provider/toastProvider';
 import getAuthTokens from '@/utils/getAuthTokens';
 
@@ -12,7 +11,7 @@ function useDeleteBasicAuction() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { showToast } = useToast();
-  // const { clientToken } = useCookies();
+
   const tokens = getAuthTokens();
 
   const { mutate, error } = useMutation({

@@ -15,7 +15,6 @@ import NavigationEvents from '@/components/NavigationEvents';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
-// import { CookiesProvider } from '@/provider/cookiesProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 import { ToastProvider } from '@/provider/toastProvider';
 import getMetadata from '@/utils/getMetadata';
@@ -42,13 +41,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const accessTokenState = !!cookies().get('accessToken')?.value;
-  // const accessToken = cookies().get('accessToken')?.value;
   const cookiesTest = await getCookies({ cookies });
   const { accessToken } = cookiesTest;
-  // const { refreshToken } = cookiesTest;
-  // console.log('cookiesTest accessToken==========', cookiesTest.accessToken);
-  // console.log('cookiesTest refreshToken===========', cookiesTest.refreshToken);
 
   const queryClient = await usePrefetchQueriesWithCookie([
     { queryKey: ['category'], api: '/v2/categories' },
@@ -66,10 +60,6 @@ export default async function RootLayout({
               <NavigationEvents />
             </Suspense>
             <AuthProvider isLoggedIn={!!accessToken}>
-              {/* <CookiesProvider
-                initClientAccessToken={accessToken}
-                initClientRefreshToken={refreshToken}
-              > */}
               <HydrationBoundary state={dehydrate(queryClient)}>
                 <HeaderSection />
                 <div className={S.container}>
@@ -78,7 +68,6 @@ export default async function RootLayout({
                   <ScrollToTopButton />
                 </div>
               </HydrationBoundary>
-              {/* </CookiesProvider> */}
             </AuthProvider>
             <Footer />
             <ReactQueryDevtools initialIsOpen={false} />

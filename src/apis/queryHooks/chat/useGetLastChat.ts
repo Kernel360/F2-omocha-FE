@@ -1,11 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getLastChat } from '@/apis/queryFunctions/chat';
-// import { useCookies } from '@/provider/cookiesProvider';
 import getAuthTokens from '@/utils/getAuthTokens';
 
 function useGetLastChat(roomId: number | null, chatCreate?: string) {
-  // const { clientToken } = useCookies();
   const tokens = getAuthTokens();
 
   const { data, error, isLoading, refetch } = useQuery({

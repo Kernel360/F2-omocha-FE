@@ -20,7 +20,6 @@ interface ChattingMessageSectionProps {
 
 function ChattingMessageSection({ lastChat, roomId }: ChattingMessageSectionProps) {
   const { data: user } = useGetUser();
-  // const { clientToken } = useCookies();
   const tokens = getAuthTokens();
 
   const { refetch } = useGetChatroomList({

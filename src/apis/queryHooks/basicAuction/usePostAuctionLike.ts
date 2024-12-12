@@ -4,7 +4,6 @@ import { AxiosError } from 'axios';
 import { postAuctionLike } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
 import mixpanel from '@/lib/mixpanel';
-// import { useCookies } from '@/provider/cookiesProvider';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
 import getAuthTokens from '@/utils/getAuthTokens';
@@ -12,7 +11,7 @@ import getAuthTokens from '@/utils/getAuthTokens';
 function usePostAuctionLike(id: number, isLike: boolean) {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
-  // const { clientToken } = useCookies();
+
   const tokens = getAuthTokens();
 
   const { mutate, error } = useMutation({

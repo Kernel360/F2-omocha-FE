@@ -4,14 +4,13 @@ import { AxiosError } from 'axios';
 import { postAuctionQnA } from '@/apis/queryFunctions/basicAuction';
 import { PostAuctionQnAParams, PostAuctionQnAResponseData } from '@/apis/types/basicAuction';
 import { Response } from '@/apis/types/common';
-// import { useCookies } from '@/provider/cookiesProvider';
 import { useToast } from '@/provider/toastProvider';
 import getAuthTokens from '@/utils/getAuthTokens';
 
 function usePostBasicAuctionQnA() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
-  // const { clientToken } = useCookies();
+
   const tokens = getAuthTokens();
 
   const { mutate, error } = useMutation({

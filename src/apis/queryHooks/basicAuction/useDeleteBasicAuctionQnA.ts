@@ -3,7 +3,6 @@ import { AxiosError } from 'axios';
 
 import { deleteAuctionQnA } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
-// import { useCookies } from '@/provider/cookiesProvider';
 import { useToast } from '@/provider/toastProvider';
 import getAuthTokens from '@/utils/getAuthTokens';
 
@@ -11,7 +10,6 @@ function useDeleteBasicAuctionQnA() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 
-  // const { clientToken } = useCookies();
   const tokens = getAuthTokens();
 
   const { mutate, error } = useMutation({

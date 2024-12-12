@@ -52,12 +52,10 @@ async function createFetchApiClient<T>({
         Authorization: `${authorizationToken.accessToken}`,
       }),
     },
-    // credentials: 'include',
     ...options,
   };
 
   try {
-    // const response = await fetchWithTimeout(url, defaultOptions);
     const response = await fetch(url, defaultOptions);
 
     if (!response.ok) {
@@ -69,23 +67,17 @@ async function createFetchApiClient<T>({
         const newAccessToken = refreshAccessTokenResponse.result_data.access_token;
         const newRefreshToken = refreshAccessTokenResponse.result_data.refresh_token;
 
-        console.log('newAccessToken', newAccessToken);
-
         if (newAccessToken && newRefreshToken) {
           // 새 accessToken으로 요청 재시도
-          console.log('새 accessToken으로 요청 재시도');
+
           defaultOptions.headers = {
             ...defaultOptions.headers,
             Authorization: `${newAccessToken}`,
           };
 
-          console.log('defaultOptions.headers', defaultOptions.headers);
-
-          // const retryResponse = await fetchWithTimeout(url, defaultOptions);
           const retryResponse = await fetch(url, defaultOptions);
 
           if (!retryResponse.ok) {
-            console.log('새 accessToken으로 요청 재시도 실패');
             // 새 토큰으로 재요청 했는데 안댐 로그아웃 해야함
             deleteCookie('accessToken');
             deleteCookie('refreshToken');
@@ -95,11 +87,7 @@ async function createFetchApiClient<T>({
           return (await retryResponse.json()) as T;
         }
 
-        // 새 토큰으로 했는데 안댐 로그아웃 해야함
-        console.log('api요청했는데 401이 아닌 걍 에러.');
-        // deleteCookie('accessToken');
-        // deleteCookie('refreshToken');
-        // redirect('/login');
+        throw new Error('Network response was not ok');
       }
 
       const errorData = await response.json();
