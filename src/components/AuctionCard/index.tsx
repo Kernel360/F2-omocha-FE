@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { ClockIcon, HeartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 import usePostAuctionLike from '@/apis/queryHooks/basicAuction/usePostAuctionLike';
 import mixpanel from '@/lib/mixpanel';
@@ -22,7 +23,6 @@ interface AuctionCardProps {
   nowPrice: number | null;
   auctionStatus?: string;
   instantBuyPrice?: number | null;
-  categoryId: number;
   pageContext?: string;
 }
 
@@ -36,7 +36,6 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
     nowPrice,
     auctionStatus,
     instantBuyPrice,
-    categoryId,
     pageContext,
   } = SAMPLE;
 
@@ -44,6 +43,8 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   const [isLike, setIsLike] = useState(false); // 서버와 클라이언트의 불일치 문제 해결을 위해 isLike를 상태로 관리
   const dDay = calculateDDay(endTime);
   const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);
+  const searchParams = useSearchParams();
+  const categoryId = Number(searchParams.get('categoryId'));
 
   useEffect(() => {
     setIsLike(initialLike);

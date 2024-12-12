@@ -38,7 +38,6 @@ function AuctionCardList({ sort, direction }: AuctionCardListProps) {
       <ListLayout>
         {data.result_data.content.map(item => (
           <AuctionCard
-            categoryId={item.category_id}
             key={item.auction_id}
             id={item.auction_id}
             thumbnailImage={item.thumbnail_path}

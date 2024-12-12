@@ -44,7 +44,7 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
   return (
     <div className={S.auctionWrapper}>
       <Suspense fallback={<>Loading...</>}>
-        <BreadcrumbSection />
+        <BreadcrumbSection pickCategoryProps={data.result_data.category_id} />
       </Suspense>
       <div className={S.auctionInfoWrapper}>
         <AuctionImageInfo imageList={data.result_data.image_paths} />

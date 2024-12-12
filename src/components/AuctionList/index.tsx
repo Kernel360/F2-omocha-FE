@@ -4,16 +4,11 @@ import { Suspense } from 'react';
 
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
 
-// import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
-// import AuctionCard from '@/components/AuctionCard';
-// import ListLayout from '@/components/ListLayout';
-// import { useAuth } from '@/provider/authProvider';
+import * as S from '@/components/AuctionList/AuctionList.css';
 import mixpanel from '@/lib/mixpanel';
 
 import AuctionCardList from './AuctionCardList';
-import * as S from './AuctionList.css';
 
 export interface AuctionListProps {
   sort: string;

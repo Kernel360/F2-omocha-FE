@@ -97,7 +97,6 @@ function BasicAuctionClientPage() {
                 nowPrice={item.now_price}
                 auctionStatus={item.auction_status}
                 instantBuyPrice={item.instant_buy_price}
-                categoryId={item.category_id}
               />
             ))}
           </ListLayout>
