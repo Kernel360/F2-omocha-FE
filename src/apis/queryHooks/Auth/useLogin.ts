@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
+import { setCookie } from 'cookies-next';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 // import { postLogin } from '@/apis/queryFunctions/Auth';
 import { postLogin } from '@/apis/queryFunctions/Auth';
@@ -13,24 +14,32 @@ import EVENT_ID from '@/static/eventId';
 
 function useLogin() {
   const router = useRouter();
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
-  // const prevUrl = searchParams.get('prevUrl');
+  const prevUrl = searchParams.get('prevUrl');
   const { showToast } = useToast();
   const { setIsLoggedIn } = useAuth();
 
   const { mutate } = useMutation({
     mutationFn: (loginParams: LoginParams) => postLogin(loginParams),
 
-    onSuccess: (_, param) => {
+    onSuccess: (response, param) => {
+      const accessToken = response.result_data.access_token;
+      const refreshToken = response.result_data.refresh_token;
+
+      if (accessToken && refreshToken) {
+        setCookie('accessToken', accessToken, { maxAge: 60 * 30 });
+        setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 });
+      }
+      router.refresh();
       setIsLoggedIn(true);
       showToast('success', '로그인 되었습니다.');
 
-      // if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
-      router.push('/');
-      // } else {
-      //   router.push(prevUrl || '/');
-      // }
+      if (prevUrl?.startsWith('/join') || prevUrl?.startsWith('/login')) {
+        router.push('/');
+      } else {
+        router.push(prevUrl || '/');
+      }
 
       mixpanel.track(EVENT_ID.LOGIN_SUBMIT_BUTTON_CLICKED, {
         login_type: 'general',

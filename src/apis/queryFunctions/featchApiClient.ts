@@ -1,4 +1,5 @@
 import { deleteCookie, setCookie } from 'cookies-next';
+import { redirect } from 'next/navigation';
 
 function fetchWithTimeout(url: string, options: RequestInit, timeout = 10000): Promise<Response> {
   return Promise.race([
@@ -13,17 +14,10 @@ function fetchWithTimeout(url: string, options: RequestInit, timeout = 10000): P
 }
 
 const refreshAccessToken = async (refreshToken: string | undefined) => {
-  console.log('refreshToken in refreshToken');
-  console.log('확인이 필요해요ㅑ refreshAccessToken', refreshToken);
-
+  // refreshToken로 재발급 로직임
   if (!refreshToken) {
-    console.log('refreshToken is not exist');
-    deleteCookie('accessToken');
-    deleteCookie('refreshToken');
-    // 페이지 이동 필요
+    throw new Error('엑세스 토큰이 없음 재로그인 필요');
   }
-
-  console.log('refreshToken kin refreshAccessToken', refreshToken);
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/auth/token-reissue`,
@@ -36,13 +30,8 @@ const refreshAccessToken = async (refreshToken: string | undefined) => {
     },
   ).then(res => res.json());
 
-  if (response.result_code !== 200) {
-    console.log('refreshToken is not exist');
-    deleteCookie('accessToken');
-    deleteCookie('refreshToken');
-    // 페이지 이동 필요
-
-    throw new Error('Failed to refreshAccessToken');
+  if (response.status_code !== 200) {
+    throw new Error('엑세스 토큰도 상했음 재로그인 필요');
   }
 
   const newAccessToken = response.result_data.access_token;
@@ -69,10 +58,6 @@ async function createFetchApiClient<T>({
 }: CreateFetchApiClientProps): Promise<T> {
   const url = `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api${endpoint}`;
 
-  // const accessToken = getCookie('accessToken');
-
-  // const { accessToken } = authorizationToken;
-
   const defaultOptions: RequestInit = {
     headers: {
       'Content-Type': 'application/json',
@@ -88,22 +73,15 @@ async function createFetchApiClient<T>({
     const response = await fetchWithTimeout(url, defaultOptions, timeout);
 
     if (!response.ok) {
-      console.log('response.status', response.status);
       if (response.status === 401) {
-        console.log('401 error 401 error 401 error 401 error 401 error 401 error 401 error');
-
         const refreshAccessTokenResponse = await refreshAccessToken(
           authorizationToken?.refreshToken,
         );
 
         const newAccessToken = refreshAccessTokenResponse.result_data.access_token;
         const newRefreshToken = refreshAccessTokenResponse.result_data.refresh_token;
-        // 여기서 토큰을 새로 refreshAccessTokenResponse
 
         if (newAccessToken && newRefreshToken) {
-          console.log(
-            '새 accessToken으로 요청 재시도 새 accessToken으로 요청 재시도 새 accessToken으로 요청 재시도 새 accessToken으로 요청 재시도',
-          );
           // 새 accessToken으로 요청 재시도
           defaultOptions.headers = {
             ...defaultOptions.headers,
@@ -113,17 +91,19 @@ async function createFetchApiClient<T>({
           const retryResponse = await fetchWithTimeout(url, defaultOptions, timeout);
 
           if (!retryResponse.ok) {
-            throw new Error('Retry request failed');
+            // 새 토큰으로 재요청 했는데 안댐 로그아웃 해야함
+            deleteCookie('accessToken');
+            deleteCookie('refreshToken');
+            redirect('/login');
           }
 
           return (await retryResponse.json()) as T;
         }
 
+        // 새 토큰으로 했는데 안댐 로그아웃 해야함
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
-        // 페이지 이동 필요
-
-        throw new Error('Session expired. Please log in again.');
+        redirect('/login');
       }
 
       const errorData = await response.json();
@@ -132,12 +112,7 @@ async function createFetchApiClient<T>({
 
     return (await response.json()) as T;
   } catch (error) {
-    console.error('Fetch error:', error);
-
-    // deleteCookie('accessToken');
-    // deleteCookie('refreshToken');
-    // 페이지 이동 필요
-
+    console.error(error);
     throw error;
   }
 }

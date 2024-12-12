@@ -1,4 +1,4 @@
-import { deleteCookie, setCookie } from 'cookies-next';
+import { deleteCookie } from 'cookies-next';
 
 import {
   CheckEmailAuthParams,
@@ -28,13 +28,6 @@ export const postLogin = async (params: LoginParams) => {
     throw new Error('Failed to postLogin');
   }
 
-  const accessToken = response.result_data.access_token;
-  const refreshToken = response.result_data.refresh_token;
-
-  if (accessToken && refreshToken) {
-    setCookie('accessToken', accessToken, { maxAge: 60 * 30 });
-    setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 });
-  }
   return response;
 };
 
