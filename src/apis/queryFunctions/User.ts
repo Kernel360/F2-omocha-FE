@@ -8,7 +8,7 @@ import {
   AuctionHistoriesData,
 } from '@/apis/types/User';
 import { ListParams, ListResponse, Response } from '@/apis/types/common';
-import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+import { convertQueryParamsObjectToString } from '@/utils/paramUtils';
 
 import createFetchApiClient from './featchApiClient';
 
@@ -48,13 +48,20 @@ export const patchProfileImage = async (
   return response;
 };
 
-export const patchPassword = async (param: PatchPasswordParams) => {
+export const patchPassword = async (
+  param: PatchPasswordParams,
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
   const response = await createFetchApiClient<Response<null>>({
     endpoint: '/v2/member/password',
     options: {
       method: 'PATCH',
       body: JSON.stringify(param),
     },
+    authorizationToken,
   });
   if (!response) {
     throw new Error('Failed to patchPassword');

@@ -15,14 +15,14 @@ export default async function Home() {
           sort="createdAt"
           direction="DESC"
           path="/basicauction?page=1&sort=createdAt&direction=DESC"
-          pathname="신규 경매 상품"
+          title="신규 경매 상품"
           eventId={EVENT_ID.VIEW_ALL_NEW_AUCTION_LIST_BUTTON_CLICKED}
         />
         <AuctionList
           sort="endDate"
           direction="ASC"
           path="/basicauction?page=1&sort=endDate&direction=ASC"
-          pathname="마감 임박 상품"
+          title="마감 임박 상품"
           eventId={EVENT_ID.VIEW_ALL_CLOSING_SOON_AUCTION_LIST_BUTTON_CLICKED}
         />
       </MaxLayout>

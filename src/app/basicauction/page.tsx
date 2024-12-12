@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Metadata } from 'next';
 
@@ -15,10 +13,9 @@ import MobileAuctionCategoryLeftSection from '@/components/LeftSection/component
 import MaxLayout from '@/components/MaxLayout';
 import usePrefetchQueryWithCookie from '@/hooks/usePrefetchQueryWithCookie';
 import EVENT_ID from '@/static/eventId';
-import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
-import filteredParams from '@/utils/filteredParams';
-import { flattenCategories } from '@/utils/flattenCategoriesTree';
+import flattenCategoriesTree from '@/utils/flattenCategoriesTree';
 import getMetadata from '@/utils/getMetadata';
+import { convertQueryParamsObjectToString, filteredParams } from '@/utils/paramUtils';
 
 import * as S from './Basicauction.css';
 
@@ -45,7 +42,7 @@ export const generateMetadata = async ({
       .then(res => res.json())
       .then(jsonRes => jsonRes.result_data);
 
-    const flattenCategoriesList = flattenCategories(categoryListTree);
+    const flattenCategoriesList = flattenCategoriesTree(categoryListTree);
     const categoryName = flattenCategoriesList[flattenCategoriesList.length - 1].name;
 
     return getMetadata({
@@ -86,17 +83,13 @@ async function Home({
   return (
     <MaxLayout>
       <div className={S.basicAuctionContainer}>
-        <Suspense fallback={<>AuctionCategoryLeftSection</>}>
-          <AuctionCategoryLeftSection />
-        </Suspense>
+        <AuctionCategoryLeftSection />
         <section className={S.rightSection}>
-          <Suspense fallback={<>BreadcrumbSection</>}>
-            <BreadcrumbSection />
-          </Suspense>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <BreadcrumbSection pickCategoryProps={Number(searchParams.categoryId!)} />
+          </HydrationBoundary>
           <div className={S.topInfoSection}>
-            <Suspense fallback={<>MobileAuctionCategoryLeftSection</>}>
-              <MobileAuctionCategoryLeftSection />
-            </Suspense>
+            <MobileAuctionCategoryLeftSection />
             <div className={S.optionSection}>
               <Checkbox />
               <AuctionDropDown />

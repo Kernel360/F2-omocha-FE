@@ -1,19 +1,19 @@
-/* eslint-disable react/no-array-index-key */
-import ListLayout from '../ListLayout';
+import ListLayout from '@/components/ListLayout';
 
-import * as S from './AuctionListSkeletonUI.css';
+import * as S from './CardListSkeleton.css';
 import SkeletonCard from './components/SkeletonCard';
 import SkeletonText from './components/SkeletonText';
 
-interface AuctionListSkeletonUIProps {
+interface CardListSkeletonProps {
   count?: number;
 }
 
-function AuctionListSkeletonUI({ count }: AuctionListSkeletonUIProps) {
+function CardListSkeleton({ count }: CardListSkeletonProps) {
   return (
     <div className={S.container}>
       <ListLayout>
         {Array.from({ length: count || 4 }).map((_, index) => (
+          // eslint-disable-next-line react/no-array-index-key
           <div key={index} className={S.cardContainer}>
             <SkeletonCard width={186} height={196} />
             <div className={S.textContainer}>
@@ -26,4 +26,4 @@ function AuctionListSkeletonUI({ count }: AuctionListSkeletonUIProps) {
   );
 }
 
-export default AuctionListSkeletonUI;
+export default CardListSkeleton;

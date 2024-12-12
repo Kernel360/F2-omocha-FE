@@ -1,9 +1,10 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import React, { Suspense } from 'react';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
+import BasicAuctionInfoQnA from '@/app/basicauction/[id]/BasicAuctionInfoQnA';
 import AuctionImageInfo from '@/components/AuctionImageInfo';
 import AuctionInfo from '@/components/AuctionInfo';
 import BreadcrumbSection from '@/components/BreadcrumbSection';
@@ -12,14 +13,7 @@ import TabsLayout from '@/components/TabsLayout';
 import EVENT_ID from '@/static/eventId';
 
 import * as S from './BasicAuctionInfo.css';
-import BasicAuctionInfoQnA from './BasicAuctionInfoQnA';
-
-const BasicAuctionInfoContent = dynamic(
-  () => import('@/app/basicauction/[id]/BasicAuctionInfoContent').then(module => module.default),
-  {
-    ssr: false,
-  },
-);
+import BasicAuctionInfoContent from './BasicAuctionInfoContent';
 
 interface BasicAuctionInfoProps {
   id: number;
@@ -49,12 +43,11 @@ function BasicAuctionInfo({ id }: BasicAuctionInfoProps) {
 
   return (
     <div className={S.auctionWrapper}>
-      <BreadcrumbSection />
+      <Suspense fallback={<>Loading...</>}>
+        <BreadcrumbSection pickCategoryProps={data.result_data.category_id} />
+      </Suspense>
       <div className={S.auctionInfoWrapper}>
-        <AuctionImageInfo
-          imageList={data.result_data.image_paths}
-          thumbnail={data.result_data.thumbnail_path}
-        />
+        <AuctionImageInfo imageList={data.result_data.image_paths} />
         <AuctionInfo
           id={id}
           title={data.result_data.title}

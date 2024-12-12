@@ -8,12 +8,12 @@ function useGetBidAuctionHistories() {
   // const { clientToken } =
   const tokens = getAuthTokens();
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['bidAuctionHistories'],
     queryFn: () => getBidAuctionHistories(tokens),
   });
 
-  return { data: data?.result_data };
+  return { data: data?.result_data, isLoading };
 }
 
 export default useGetBidAuctionHistories;

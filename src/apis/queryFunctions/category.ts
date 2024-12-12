@@ -12,3 +12,20 @@ export const getCategory = async () => {
 
   return response;
 };
+
+// export const getSubCategoryList = async (categoryId: number) => {
+//   const response = await apiClient.get<Response<Category[]>>(`/v2/categories/${categoryId}`);
+//   return response.data;
+// };
+
+export const getSubCategoryList = async (categoryId: number) => {
+  const response = await createFetchApiClient<Response<Category[]>>({
+    endpoint: `/v2/categories/${categoryId}`,
+  });
+
+  if (!response) {
+    throw new Error('Failed to getCategory');
+  }
+
+  return response;
+};

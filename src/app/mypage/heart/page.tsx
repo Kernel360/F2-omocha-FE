@@ -7,7 +7,7 @@ import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import AuctionCard from '@/components/AuctionCard';
 import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import ListLayout from '@/components/ListLayout';
-import AuctionListSkeletonUI from '@/components/SkeletonUI/AuctionListSkeletonUI';
+import CardListSkeleton from '@/components/Skeleton/CardListSkeleton';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import EVENT_ID from '@/static/eventId';
 
@@ -30,14 +30,14 @@ function Home() {
   if (isLoading)
     return (
       <div className={S.heart}>
-        <h3>찜 목록 ({user?.like_count})</h3>
-        <AuctionListSkeletonUI count={4} />
+        <h3>찜 목록 ({user?.like_count ? user.like_count : 0})</h3>
+        <CardListSkeleton count={4} />
       </div>
     );
 
   return (
     <div className={S.heart}>
-      <h3>찜 목록 ({user?.like_count})</h3>
+      <h3>찜 목록 ({user?.like_count ? user.like_count : 0})</h3>
       {data?.pages[0].result_data.total_elements === 0 ? (
         <div className={S.noListWrapper}>
           <div className={S.noListTitle}>아직 찜한 경매가 없습니다.</div>
@@ -65,12 +65,11 @@ function Home() {
                   startTime={item.start_date}
                   endTime={item.end_date}
                   nowPrice={item.now_price}
-                  categoryId={item.category_id}
                 />
               )),
             )}
           </ListLayout>
-          {isFetchingNextPage && hasNextPage && <AuctionListSkeletonUI count={4} />}
+          {isFetchingNextPage && hasNextPage && <CardListSkeleton count={4} />}
           <div ref={endCursorRef} />
           <ClientSidePageRef eventId={EVENT_ID.MYPAGE_HEART_PAGE_VIEWED} />
         </>

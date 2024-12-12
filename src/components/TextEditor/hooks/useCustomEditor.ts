@@ -10,7 +10,7 @@ const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
 
 // 참고 - https://github.com/ianstormtaylor/slate/blob/main/site/examples/ts/richtext.tsx
 // https://docs.slatejs.org/api/transforms
-function customEditor() {
+function useCustomEditor() {
   // 활성화된 마크 확인
   const isMarkActive = (editor: Editor, format: string) => {
     const marks = Editor.marks(editor) as Record<string, unknown> | null;
@@ -86,4 +86,4 @@ function customEditor() {
   return { isMarkActive, toggleMark, isBlockActive, toggleBlock };
 }
 
-export default customEditor;
+export default useCustomEditor;

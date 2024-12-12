@@ -23,7 +23,7 @@ import useEditorShortcuts from '@/components/TextEditor/hooks/useEditorShortcuts
 import useImage from '@/components/TextEditor/hooks/useImage';
 import useWithImages from '@/components/TextEditor/hooks/useWithImages';
 import { TEXT_EDITOR_BLOCK_ICON, TEXT_EDITOR_MARK_ICON } from '@/static/textEditorIcon';
-import countContentText from '@/utils/countContentText';
+import { countContentText } from '@/utils/textUtils';
 
 import * as S from '../Basicauction.css';
 

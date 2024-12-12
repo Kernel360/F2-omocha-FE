@@ -1,5 +1,5 @@
 import { Response } from '@/apis/types/common';
-import convertQueryParamsObjectToString from '@/utils/convertQueryParamsObjectToString';
+import { convertQueryParamsObjectToString } from '@/utils/paramUtils';
 
 import {
   ChatroomListResponseData,

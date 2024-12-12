@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -8,6 +10,9 @@ import ListLayout from '@/components/ListLayout';
 import Pagination from '@/components/Pagination';
 import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
+import SkeletonCard from '../Skeleton/components/SkeletonCard';
+import SkeletonText from '../Skeleton/components/SkeletonText';
+
 import * as S from './BasicAuctionClientPage.css';
 
 function BasicAuctionClientPage() {
@@ -17,7 +22,7 @@ function BasicAuctionClientPage() {
   const currentPage = Number(searchParams.get('page'));
   const router = useRouter();
 
-  const { data, pageInfo } = useGetBasicAuctionList({
+  const { data, pageInfo, isLoading } = useGetBasicAuctionList({
     categoryId: pickCategory || undefined,
     title: searchKeywordParam || undefined,
     auctionStatus: searchParams.get(AUCTIONPARAM_KEY.AUCTIONSTATUS) || undefined,
@@ -27,7 +32,31 @@ function BasicAuctionClientPage() {
     page: Math.max(currentPage - 1, 0),
   });
 
-  if (!data) return null;
+  if (isLoading || !data) {
+    return (
+      <div className={S.container}>
+        <div className={S.searchContainer}>
+          <div className={S.count}>
+            <span>전체</span>
+            <span>00</span>
+          </div>
+        </div>
+        <div className={S.listLayoutWrapper}>
+          <ListLayout>
+            {Array.from({ length: 9 }).map((_, index) => (
+              <div key={index} className={S.cardContainer}>
+                <SkeletonCard width={186} height={196} />
+                <div className={S.textContainer}>
+                  <SkeletonText noOfLines={2} gap={8} />
+                </div>
+              </div>
+            ))}
+          </ListLayout>
+        </div>
+        {/* {data.result_data.number_of_elements !== 0 && <Pagination pageInfo={pageInfo} />} */}
+      </div>
+    );
+  }
 
   return (
     <div className={S.container}>
@@ -64,7 +93,6 @@ function BasicAuctionClientPage() {
                 nowPrice={item.now_price}
                 auctionStatus={item.auction_status}
                 instantBuyPrice={item.instant_buy_price}
-                categoryId={item.category_id}
               />
             ))}
           </ListLayout>
