@@ -76,8 +76,6 @@ export default function Home() {
 
     data.imagesRequired.forEach(image => formData.append('images', image.file));
 
-    formData.append('thumbnailPath', data.imagesRequired[0].file);
-
     postBasicAuction(formData);
   }, 300);
 

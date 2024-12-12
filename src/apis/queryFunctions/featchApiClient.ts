@@ -1,16 +1,19 @@
 import { deleteCookie, setCookie } from 'cookies-next';
 import { redirect } from 'next/navigation';
 
-function fetchWithTimeout(url: string, options: RequestInit, timeout = 10000): Promise<Response> {
-  return Promise.race([
-    fetch(url, options).then(response => {
-      return response;
-    }),
-    new Promise<Response>((_, reject) =>
-      // eslint-disable-next-line no-promise-executor-return
-      setTimeout(() => reject(new Error('Request timed out')), timeout),
-    ),
-  ]);
+// function fetchWithTimeout(url: string, options: RequestInit, timeout = 10000): Promise<Response> {
+//   return Promise.race([
+//     fetch(url, options).then(response => {
+//       return response;
+//     }),
+//     new Promise<Response>((_, reject) =>
+//       // eslint-disable-next-line no-promise-executor-return
+//       setTimeout(() => reject(new Error('Request timed out')), timeout),
+//     ),
+//   ]);
+// }
+function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
+  return fetch(url, options);
 }
 
 const refreshAccessToken = async (refreshToken: string | undefined) => {
@@ -53,7 +56,6 @@ interface CreateFetchApiClientProps {
 async function createFetchApiClient<T>({
   endpoint,
   options,
-  timeout,
   authorizationToken,
 }: CreateFetchApiClientProps): Promise<T> {
   const url = `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api${endpoint}`;
@@ -65,12 +67,12 @@ async function createFetchApiClient<T>({
         Authorization: `${authorizationToken.accessToken}`,
       }),
     },
-    credentials: 'include',
+    // credentials: 'include',
     ...options,
   };
 
   try {
-    const response = await fetchWithTimeout(url, defaultOptions, timeout);
+    const response = await fetchWithTimeout(url, defaultOptions);
 
     if (!response.ok) {
       if (response.status === 401) {
@@ -81,16 +83,22 @@ async function createFetchApiClient<T>({
         const newAccessToken = refreshAccessTokenResponse.result_data.access_token;
         const newRefreshToken = refreshAccessTokenResponse.result_data.refresh_token;
 
+        console.log('newAccessToken', newAccessToken);
+
         if (newAccessToken && newRefreshToken) {
           // 새 accessToken으로 요청 재시도
+          console.log('새 accessToken으로 요청 재시도');
           defaultOptions.headers = {
             ...defaultOptions.headers,
             Authorization: `${newAccessToken}`,
           };
 
-          const retryResponse = await fetchWithTimeout(url, defaultOptions, timeout);
+          console.log('defaultOptions.headers', defaultOptions.headers);
+
+          const retryResponse = await fetchWithTimeout(url, defaultOptions);
 
           if (!retryResponse.ok) {
+            console.log('새 accessToken으로 요청 재시도 실패');
             // 새 토큰으로 재요청 했는데 안댐 로그아웃 해야함
             deleteCookie('accessToken');
             deleteCookie('refreshToken');
@@ -101,9 +109,10 @@ async function createFetchApiClient<T>({
         }
 
         // 새 토큰으로 했는데 안댐 로그아웃 해야함
-        deleteCookie('accessToken');
-        deleteCookie('refreshToken');
-        redirect('/login');
+        console.log('api요청했는데 401이 아닌 걍 에러.');
+        // deleteCookie('accessToken');
+        // deleteCookie('refreshToken');
+        // redirect('/login');
       }
 
       const errorData = await response.json();

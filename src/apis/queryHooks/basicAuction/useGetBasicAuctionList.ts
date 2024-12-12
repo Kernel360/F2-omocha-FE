@@ -2,16 +2,18 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getBasicAuctionList } from '@/apis/queryFunctions/basicAuction';
 import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
-import { useCookies } from '@/provider/cookiesProvider';
+// import { useCookies } from '@/provider/cookiesProvider';
 import filteredParams from '@/utils/filteredParams';
+import getAuthTokens from '@/utils/getAuthTokens';
 
 function useGetBasicAuctionList(params: GetBasicAuctionListParams) {
   const newParams = filteredParams<GetBasicAuctionListParams>(params);
-  const { clientToken } = useCookies();
+  // const { clientToken } = useCookies();
+  const tokens = getAuthTokens();
 
   const { data } = useQuery({
     queryKey: ['basicAuctionList', newParams],
-    queryFn: () => getBasicAuctionList(newParams, clientToken),
+    queryFn: () => getBasicAuctionList(newParams, tokens),
   });
 
   const pageInfo = {

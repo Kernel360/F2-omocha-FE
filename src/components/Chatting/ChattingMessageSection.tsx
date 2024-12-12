@@ -8,8 +8,9 @@ import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { Message } from '@/apis/types/chat';
 import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
 import useBooleanState from '@/hooks/useBooleanState';
-import { useCookies } from '@/provider/cookiesProvider';
+// import { useCookies } from '@/provider/cookiesProvider';
 import formatDate from '@/utils/formatDate';
+import getAuthTokens from '@/utils/getAuthTokens';
 
 import * as S from './Chatting.css';
 import useChatSocket from './hooks/useChatSocket';
@@ -21,7 +22,9 @@ interface ChattingMessageSectionProps {
 
 function ChattingMessageSection({ lastChat, roomId }: ChattingMessageSectionProps) {
   const { data: user } = useGetUser();
-  const { clientToken } = useCookies();
+  // const { clientToken } = useCookies();
+  const tokens = getAuthTokens();
+
   const { refetch } = useGetChatroomList({
     pageable: 0,
   });
@@ -33,7 +36,7 @@ function ChattingMessageSection({ lastChat, roomId }: ChattingMessageSectionProp
   const { value: bottomScrollButtonValue, setTrue, setFalse } = useBooleanState(false);
 
   const fetchLastChat = useCallback(async () => {
-    const reversedMessages = await getLastChat(roomId, clientToken, messages[0].created_at);
+    const reversedMessages = await getLastChat(roomId, tokens, messages[0].created_at);
     if (reversedMessages) {
       const newLastChat = reversedMessages.result_data.content.map(message => message).reverse();
       setMessages(prevMessages => [...newLastChat, ...prevMessages]);

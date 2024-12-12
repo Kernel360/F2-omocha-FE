@@ -32,10 +32,9 @@ export const postBasicAuction = async (
       method: 'POST',
       body: param,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        Authorization: `${authorizationToken.accessToken}`,
       },
     },
-    authorizationToken,
   });
 
   if (!response) {
@@ -45,16 +44,9 @@ export const postBasicAuction = async (
   return response;
 };
 
-export const getBasicAuction = async (
-  id: number,
-  // authorizationToken: {
-  //   accessToken: string | undefined;
-  //   refreshToken: string | undefined;
-  // },
-) => {
+export const getBasicAuction = async (id: number) => {
   const response = await createFetchApiClient<Response<BasicAuctionResponseData>>({
     endpoint: `/v2/auctions/${id}`,
-    // authorizationToken,
   });
 
   if (!response) {
@@ -65,7 +57,6 @@ export const getBasicAuction = async (
 };
 
 export const getBasicAuctionList = async (
-  // 인증 필요한가?
   params: GetBasicAuctionListParams,
   authorizationToken: {
     accessToken: string | undefined;
