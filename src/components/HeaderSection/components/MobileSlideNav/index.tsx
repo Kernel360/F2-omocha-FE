@@ -11,7 +11,7 @@ import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
-import { handleLogout } from '@/utils/deleteToken';
+import { deleteToken } from '@/utils/deleteToken';
 
 import * as S from './MobileSlideNav.css';
 
@@ -45,7 +45,7 @@ function MobileSlideNav({
   }, [isLoggedIn]);
 
   const logout = async () => {
-    await handleLogout();
+    await deleteToken();
     router.push('/');
     setIsLoggedIn(false);
     showToast('success', '로그아웃 되었습니다.');
