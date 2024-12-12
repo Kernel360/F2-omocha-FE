@@ -1,6 +1,6 @@
 import { deleteCookie } from 'cookies-next';
 
-export function handleLogout() {
+export function deleteToken() {
   deleteCookie('accessToken');
   deleteCookie('refreshToken');
 }

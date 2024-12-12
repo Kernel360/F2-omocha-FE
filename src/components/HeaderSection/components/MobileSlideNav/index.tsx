@@ -11,7 +11,7 @@ import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
-import { handleLogout } from '@/utils/handleLogout';
+import { handleLogout } from '@/utils/deleteToken';
 
 import * as S from './MobileSlideNav.css';
 

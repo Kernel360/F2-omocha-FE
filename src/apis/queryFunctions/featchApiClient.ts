@@ -1,6 +1,8 @@
 import { deleteCookie, setCookie } from 'cookies-next';
 import { redirect } from 'next/navigation';
 
+import { deleteToken } from '@/utils/deleteToken';
+
 const refreshAccessToken = async (refreshToken: string | undefined) => {
   // refreshToken로 재발급 로직임
   if (!refreshToken) {
@@ -78,9 +80,7 @@ async function createFetchApiClient<T>({
           const retryResponse = await fetch(url, defaultOptions);
 
           if (!retryResponse.ok) {
-            // 새 토큰으로 재요청 했는데 안댐 로그아웃 해야함
-            deleteCookie('accessToken');
-            deleteCookie('refreshToken');
+            deleteToken();
             redirect('/login');
           }
 

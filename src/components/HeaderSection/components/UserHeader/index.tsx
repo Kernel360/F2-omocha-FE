@@ -13,7 +13,7 @@ import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
 import { SUB_CATEGORY } from '@/static/category';
 import EVENT_ID from '@/static/eventId';
-import { handleLogout } from '@/utils/handleLogout';
+import { handleLogout } from '@/utils/deleteToken';
 
 import * as S from './UserHeader.css';
 

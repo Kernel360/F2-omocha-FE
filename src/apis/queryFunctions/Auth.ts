@@ -10,6 +10,7 @@ import {
   RegisterParams,
 } from '@/apis/types/Auth';
 import { Response } from '@/apis/types/common';
+import { deleteToken } from '@/utils/deleteToken';
 
 import createFetchApiClient from './featchApiClient';
 
@@ -23,8 +24,7 @@ export const postLogin = async (params: LoginParams) => {
   });
 
   if (!response) {
-    deleteCookie('accessToken');
-    deleteCookie('refreshToken');
+    deleteToken();
     throw new Error('Failed to postLogin');
   }
 
