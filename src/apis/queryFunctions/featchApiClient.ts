@@ -1,20 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-throw-literal */
 import { setCookie } from 'cookies-next';
 import { redirect } from 'next/navigation';
 
 import { deleteToken } from '@/utils/deleteToken';
+import normalizeErrorKeys from '@/utils/normalizeErrorKeys';
 
 import { FetchError } from '../types/common';
 
 // 에러 키 변환 함수
-function normalizeErrorKeys(errorData: Record<string, any>): Record<string, any> {
-  return {
-    statusCode: errorData.status_code ?? errorData.statusCode,
-    resultMsg: errorData.result_msg ?? errorData.resultMsg,
-    resultData: errorData.result_data ?? errorData.resultData,
-  };
-}
 
 const refreshAccessToken = async (refreshToken: string | undefined) => {
   // refreshToken로 재발급 로직임
