@@ -48,7 +48,7 @@ function CommonImage({
       style={{
         ...(fill
           ? { position: 'relative', width: fillWidth, height: fillHeight }
-          : { width, height }),
+          : { maxWidth: width, maxHeight: height }),
       }}
     >
       {status === 'loading' && (
