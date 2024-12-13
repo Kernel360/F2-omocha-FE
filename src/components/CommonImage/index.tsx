@@ -1,20 +1,23 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import Image from 'next/image';
+import { ImageOffIcon } from 'lucide-react';
+import Image, { StaticImageData } from 'next/image';
+
+import SkeletonCard from '@/components/Skeleton/components/SkeletonCard';
 
 import * as S from './CommonImage.css';
 
 interface CommonImageProps {
-  src: string;
+  src: string | StaticImageData;
   alt: string;
   width?: number;
   height?: number;
+  fillWidth?: number;
+  fillHeight?: number;
   className?: string;
   fill?: boolean;
-  fillWidth?: string;
-  fillHeight?: string;
   sizes?: string;
+  priority?: boolean;
 }
 
 function CommonImage({
@@ -24,46 +27,50 @@ function CommonImage({
   height,
   className,
   fill,
-  sizes = '50vw',
   fillWidth,
   fillHeight,
+  sizes = '50vw',
+  priority,
 }: CommonImageProps) {
-  const [isImageError, setIsImageError] = useState(false);
+  const [status, setStatus] = useState<'loading' | 'error' | 'loaded'>('loading');
 
-  const imageSize = () => {
-    if (isImageError) {
-      return { width: 24, height: 24 };
-    }
-    if (fill) {
-      return { fill, sizes };
-    }
-    return { width, height };
-  };
+  const handleLoad = useCallback(() => {
+    setStatus('loaded');
+  }, [status]);
+
+  const handleError = useCallback(() => {
+    setStatus('error');
+  }, [status]);
 
   return (
     <div
-      className={S.imageBase}
       style={{
         ...(fill
           ? { position: 'relative', width: fillWidth, height: fillHeight }
           : { width, height }),
       }}
     >
-      {isImageError ? (
-        <Image
-          src="/image-off.png"
-          alt="error-image"
-          {...imageSize()}
-          style={{ objectFit: 'contain' }}
-        />
+      {status === 'loading' && (
+        <div className={`${className} ${S.imageLoading}`}>
+          <SkeletonCard width={width} height={height} className={className} />
+        </div>
+      )}
+
+      {status === 'error' ? (
+        <ImageOffIcon size={24} color="lightgray" />
       ) : (
         <Image
           src={src}
           alt={alt}
           style={{ objectFit: 'contain' }}
-          {...imageSize()}
+          width={width}
+          height={height}
+          fill={fill}
+          sizes={sizes}
           className={className}
-          onError={() => setIsImageError(true)}
+          priority={priority}
+          onError={handleError}
+          onLoad={handleLoad}
         />
       )}
     </div>

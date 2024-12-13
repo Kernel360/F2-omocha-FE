@@ -30,7 +30,7 @@ function MobileUserHeader({ openNav }: MobileUserHeaderProps) {
         </Suspense>
       </div>
       <Link href="/" scroll={false} className={S.topHeaderLogo} onClick={handleMixpanel}>
-        <Image width={24} height={24} src={logoIcon} alt="logo" className={S.logo} />
+        <Image src={logoIcon} alt="logo" width={24} height={24} className={S.logo} priority />
         <div className={S.logo}>OMOCHA</div>
       </Link>
     </section>

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { ClockIcon, HeartIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 import usePostAuctionLike from '@/apis/queryHooks/basicAuction/usePostAuctionLike';
+import CommonImage from '@/components/CommonImage';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
 import { calculateDDay } from '@/utils/dateUtils';
@@ -71,18 +71,8 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       href={`/basicauction/${id}?categoryId=${categoryId}`}
       onClick={handleMixpanel}
     >
-      {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
-      <button type="button" className={S.heartStyle} onClick={handleLike}>
-        <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />
-      </button>
-      {!isExpired && (
-        <div className={S.floatTimer}>
-          <ClockIcon size={14} />
-          <span>{`D-${dDay}`}</span>
-        </div>
-      )}
       <div className={S.cardContent}>
-        <Image
+        <CommonImage
           src={`${process.env.NEXT_PUBLIC_S3_URL}${thumbnailImage}`}
           alt="Auction Image"
           width={196}
@@ -90,6 +80,16 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
           className={S.cardImage}
           priority
         />
+        {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
+        <button type="button" className={S.heartStyle} onClick={handleLike}>
+          <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />
+        </button>
+        {!isExpired && (
+          <div className={S.floatTimer}>
+            <ClockIcon size={14} />
+            <span>{`D-${dDay}`}</span>
+          </div>
+        )}
         <span className={S.cardTitle}>{title}</span>
         <div className={nowPrice ? S.cardFlexColor : S.cardFlexText}>
           <span>현재가(KRW)</span>

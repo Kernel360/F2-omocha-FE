@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Image from 'next/image';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
+
+import CommonImage from '../CommonImage';
 
 import * as S from './Chatting.css';
 
@@ -72,7 +73,7 @@ function ChattingUnit({
 
   return (
     <li key={room_id} className={S.chattingWrapper}>
-      <Image
+      <CommonImage
         width={50}
         height={50}
         src={`${process.env.NEXT_PUBLIC_S3_URL}${thumbnail}`}
