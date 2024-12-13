@@ -40,6 +40,7 @@ export const subImageWrapperButton = styleVariants({
 export const subImage = style({
   display: 'flex',
   objectFit: 'contain',
+  borderRadius: '0 !important',
 });
 
 export const mainImageWrapper = style({
@@ -57,4 +58,5 @@ export const mainImage = style({
   width: '100%',
   objectFit: 'contain',
   border: 'none',
+  borderRadius: '0 !important',
 });

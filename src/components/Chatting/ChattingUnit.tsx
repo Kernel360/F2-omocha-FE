@@ -74,6 +74,7 @@ function ChattingUnit({
   return (
     <li key={room_id} className={S.chattingWrapper}>
       <CommonImage
+        className={S.chattingThumbnail}
         width={50}
         height={50}
         src={`${process.env.NEXT_PUBLIC_S3_URL}${thumbnail}`}

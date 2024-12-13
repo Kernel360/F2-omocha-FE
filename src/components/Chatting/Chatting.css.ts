@@ -29,6 +29,10 @@ export const chattingWrapper = style({
   },
 });
 
+export const chattingThumbnail = style({
+  borderRadius: '0 !important',
+});
+
 export const chattingUnitSection = style({
   cursor: 'pointer',
   display: 'flex',
