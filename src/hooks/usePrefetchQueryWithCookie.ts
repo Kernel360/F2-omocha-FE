@@ -1,5 +1,4 @@
 import { QueryClient, QueryKey } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 import createFetchApiClient from '@/apis/queryFunctions/featchApiClient';
 import { Response } from '@/apis/types/common';
@@ -25,8 +24,8 @@ async function usePrefetchQueryWithCookie<T, TQueryKey extends QueryKey>({
         });
         return response;
       } catch (e) {
-        if (e instanceof AxiosError) {
-          console.log(queryKey, '->', e.response?.data);
+        if (e) {
+          console.log(queryKey, '->', e);
         }
         return null;
       }

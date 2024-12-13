@@ -1,9 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-throw-literal */
 import { setCookie } from 'cookies-next';
 import { redirect } from 'next/navigation';
 
 import { deleteToken } from '@/utils/deleteToken';
 
 import { FetchError } from '../types/common';
+
+// 에러 키 변환 함수
+function normalizeErrorKeys(errorData: Record<string, any>): Record<string, any> {
+  return {
+    statusCode: errorData.status_code ?? errorData.statusCode,
+    resultMsg: errorData.result_msg ?? errorData.resultMsg,
+    resultData: errorData.result_data ?? errorData.resultData,
+  };
+}
 
 const refreshAccessToken = async (refreshToken: string | undefined) => {
   // refreshToken로 재발급 로직임
@@ -20,7 +31,7 @@ const refreshAccessToken = async (refreshToken: string | undefined) => {
   ).then(res => res.json());
 
   if (response.status_code !== 200) {
-    throw response;
+    throw normalizeErrorKeys(response);
   }
 
   const newAccessToken = response.result_data.access_token;
@@ -43,7 +54,7 @@ async function createFetchApiClient<T>({
   endpoint,
   options,
   authorizationToken,
-}: CreateFetchApiClientProps): Promise<T> {
+}: CreateFetchApiClientProps) {
   const url = `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api${endpoint}`;
 
   const defaultOptions: RequestInit = {
@@ -88,18 +99,20 @@ async function createFetchApiClient<T>({
 
         const errorData = await response.json();
 
-        throw errorData;
+        throw normalizeErrorKeys(errorData);
       }
 
       const errorData = await response.json();
 
-      throw errorData;
+      throw normalizeErrorKeys(errorData);
     }
 
     return (await response.json()) as T;
   } catch (error: unknown) {
     console.error(error);
-    throw error as FetchError;
+    // {status_code: 400, result_msg: '비밀번호가 일치하지 않습니다.', result_data: null}
+
+    throw normalizeErrorKeys(error as FetchError);
   }
 }
 
