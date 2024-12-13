@@ -7,8 +7,6 @@ import normalizeErrorKeys from '@/utils/normalizeErrorKeys';
 
 import { FetchError } from '../types/common';
 
-// 에러 키 변환 함수
-
 const refreshAccessToken = async (refreshToken: string | undefined) => {
   // refreshToken로 재발급 로직임
 
