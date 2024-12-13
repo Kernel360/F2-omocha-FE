@@ -6,13 +6,13 @@ import getAuthTokens from '@/utils/getAuthTokens';
 function useGetBasicAuctionBidList(id: number) {
   const tokens = getAuthTokens();
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['basicAuctionBidList', id],
     queryFn: () => getBasicAuctionBidList(id, tokens),
     staleTime: 0,
   });
 
-  return { data };
+  return { data, refetch };
 }
 
 export default useGetBasicAuctionBidList;

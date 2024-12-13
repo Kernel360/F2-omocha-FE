@@ -3,10 +3,10 @@ import { useRef, useState } from 'react';
 import { RotateCwIcon } from 'lucide-react';
 
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
+import useGetBasicAuctionBidList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionBidList';
 import useGetBasicAuctionNowPrice from '@/apis/queryHooks/basicAuction/useGetBasicAuctionNowPrice';
 
 import * as S from './AuctionInfo.css';
-import useGetBasicAuctionBidList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionBidList';
 
 interface AuctionPriceSectionProps {
   id: number;
