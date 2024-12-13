@@ -8,6 +8,9 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import logoIcon from '@/assets/png/logo.png';
+import Alarm from '@/components/HeaderSection/components/Alarm';
+import SlideSideNav from '@/components/SlideSideNav';
+import useBooleanState from '@/hooks/useBooleanState';
 import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
@@ -22,6 +25,7 @@ function UserHeader() {
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { value: open, setTrue: setOpen, setFalse: setClose } = useBooleanState(false);
 
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
@@ -81,8 +85,8 @@ function UserHeader() {
               type="button"
               onClick={() => {
                 if (isLoggedIn) {
-                  // setTrue();
-                  // handleMixpanel(category.eventId); // 알림 이벤트ID 버튼 추가 필요
+                  setOpen();
+                  handleMixpanel(category.eventId); // 알림 이벤트ID 버튼 추가 필요
                 } else {
                   router.push(
                     searchParams.size > 0
@@ -117,6 +121,9 @@ function UserHeader() {
           </Link>
         )}
       </div>
+      <SlideSideNav isOpen={open} onClose={setClose} type="right">
+        <Alarm />
+      </SlideSideNav>
     </section>
   );
 }

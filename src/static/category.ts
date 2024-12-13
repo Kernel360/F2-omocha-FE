@@ -9,7 +9,7 @@ export const SUB_CATEGORY = [
     eventId: EVENT_ID.MYPAGE_PROFILE_BUTTON_CLICKED,
   },
   { id: 3, name: '찜', path: '/mypage/heart', eventId: EVENT_ID.MYPAGE_HEART_BUTTON_CLICKED },
-  // { id: 4, name: '알림' },
+  { id: 4, name: '알림', eventId: EVENT_ID.NOTIFICATION_BUTTON_CLICKED },
 ];
 
 export const MAIN_CATEGORY = [
@@ -18,7 +18,7 @@ export const MAIN_CATEGORY = [
     id: 2,
     name: 'Auction',
     path: '/basicauction?page=1',
-    // eventId: EVENT_ID.AUCTION_CREATE_BUTTON_CLICKED,
+    eventId: EVENT_ID.CATEGORY_BUTTON_CLICKED,
   },
   { id: 3, name: 'Upload', path: '/create', eventId: EVENT_ID.AUCTION_CREATE_BUTTON_CLICKED },
   {

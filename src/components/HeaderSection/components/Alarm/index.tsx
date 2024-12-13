@@ -1,10 +1,7 @@
 import * as S from './Alarm.css';
 
-interface AlarmProps {
-  content: string;
-}
-function Alarm({ content }: AlarmProps) {
-  return <div className={S.container}>{content}</div>;
+function Alarm() {
+  return <div className={S.container}>알림</div>;
 }
 
 export default Alarm;

@@ -36,4 +36,5 @@ export const logoutButton = style({
 
 export const TopHeaderUnit = style({
   color: colors.gray11,
+  fontSize: '12px',
 });

@@ -12,7 +12,7 @@ interface SlideSideNavProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  type?: 'normal' | 'mobile';
+  type?: 'normal' | 'mobile' | 'right';
 }
 
 function SlideSideNav(Sample: SlideSideNavProps) {
