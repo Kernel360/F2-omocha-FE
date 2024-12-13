@@ -44,6 +44,7 @@ function CommonImage({
 
   return (
     <div
+      className={S.imageWrapper}
       style={{
         ...(fill
           ? { position: 'relative', width: fillWidth, height: fillHeight }
