@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 import { patchProfileImage } from '@/apis/queryFunctions/User';
-import { Response } from '@/apis/types/common';
+import { FetchError } from '@/apis/types/common';
 import { useToast } from '@/provider/toastProvider';
 import getAuthTokens from '@/utils/getAuthTokens';
 
@@ -18,9 +17,9 @@ function usePatchProfileImage() {
       queryClient.invalidateQueries({ queryKey: ['userInfo'] });
       showToast('success', '프로필 변경에 성공했습니다.');
     },
-    onError: (e: AxiosError<Response<string>>) => {
-      if (e.response) {
-        showToast('error', `${e.response.data.result_msg}`);
+    onError: (e: FetchError) => {
+      if (e) {
+        showToast('error', `${e.resultMsg}`);
       } else {
         showToast('error', '알 수 없는 오류가 발생했습니다. 새로고침을 진행해 주세요.');
       }

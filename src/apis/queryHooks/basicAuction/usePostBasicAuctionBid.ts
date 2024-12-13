@@ -1,9 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 import { postBasicAuctionBid } from '@/apis/queryFunctions/basicAuction';
 import { PostBasicAuctionBidParams } from '@/apis/types/basicAuction';
-import { Response } from '@/apis/types/common';
+import { FetchError } from '@/apis/types/common';
 import mixpanel from '@/lib/mixpanel';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
@@ -30,10 +29,10 @@ function usePostBasicAuctionBid() {
         bid_price: params.params.bid_price,
       });
     },
-    onError: (e: AxiosError<Response<string>>, params) => {
+    onError: (e: FetchError, params) => {
       queryClient.invalidateQueries({ queryKey: ['nowPrice', params.id] });
-      if (e.response) {
-        showToast('error', `${e.response.data.result_msg}`);
+      if (e) {
+        showToast('error', `${e.resultMsg}`);
       } else {
         showToast('error', '알 수 없는 오류가 발생했습니다. 새로고침을 진행해 주세요.');
       }
