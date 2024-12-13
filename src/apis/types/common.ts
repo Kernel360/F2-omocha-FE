@@ -41,3 +41,8 @@ export interface ListParams {
   page?: number;
   size?: number;
 }
+
+export interface FetchError extends Error {
+  resultMsg: string;
+  statusCode: number;
+}

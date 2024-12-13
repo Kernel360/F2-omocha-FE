@@ -3,11 +3,10 @@ import { redirect } from 'next/navigation';
 
 import { deleteToken } from '@/utils/deleteToken';
 
+import { FetchError } from '../types/common';
+
 const refreshAccessToken = async (refreshToken: string | undefined) => {
   // refreshToken로 재발급 로직임
-  if (!refreshToken) {
-    throw new Error('엑세스 토큰이 없음 재로그인 필요');
-  }
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/auth/token-reissue`,
@@ -21,7 +20,7 @@ const refreshAccessToken = async (refreshToken: string | undefined) => {
   ).then(res => res.json());
 
   if (response.status_code !== 200) {
-    throw new Error('엑세스 토큰도 상했음 재로그인 필요');
+    throw response;
   }
 
   const newAccessToken = response.result_data.access_token;
@@ -61,7 +60,7 @@ async function createFetchApiClient<T>({
     const response = await fetch(url, defaultOptions);
 
     if (!response.ok) {
-      if (response.status === 401) {
+      if (response.status === 401 && authorizationToken?.accessToken) {
         const refreshAccessTokenResponse = await refreshAccessToken(
           authorizationToken?.refreshToken,
         );
@@ -87,17 +86,20 @@ async function createFetchApiClient<T>({
           return (await retryResponse.json()) as T;
         }
 
-        throw new Error('Network response was not ok');
+        const errorData = await response.json();
+
+        throw errorData;
       }
 
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Network response was not ok');
+
+      throw errorData;
     }
 
     return (await response.json()) as T;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error);
-    throw error;
+    throw error as FetchError;
   }
 }
 
