@@ -53,7 +53,6 @@ function BasicAuctionClientPage() {
             ))}
           </ListLayout>
         </div>
-        {/* {data.result_data.number_of_elements !== 0 && <Pagination pageInfo={pageInfo} />} */}
       </div>
     );
   }

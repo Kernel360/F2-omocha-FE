@@ -1,14 +1,13 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionList';
 import { AuctionData } from '@/apis/types/basicAuction';
+import CommonImage from '@/components/CommonImage';
+import SkeletonCircle from '@/components/Skeleton/components/SkeletonCircle';
+import SkeletonText from '@/components/Skeleton/components/SkeletonText';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
-
-import SkeletonCircle from '../Skeleton/components/SkeletonCircle';
-import SkeletonText from '../Skeleton/components/SkeletonText';
 
 import * as S from './SpecialSection.css';
 
@@ -61,7 +60,7 @@ function SpecialSectionData() {
           className={S.specialAuctionItem}
           onClick={() => handleMixpanel(index)}
         >
-          <Image
+          <CommonImage
             src={`${process.env.NEXT_PUBLIC_S3_URL}${auction.thumbnail_path}`}
             className={S.specialAuctionImage}
             width={170}

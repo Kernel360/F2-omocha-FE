@@ -9,7 +9,7 @@ interface AuctionButtonSectionProps {
   openInstantBuyConfirmModal: () => void;
   openDeleteConfirmModal: () => void;
   auctionStatus: string;
-  isPrevBuyer: () => boolean;
+  isPrevBuyer: boolean;
   canNotBidForBid: () => string;
   canNotBidForInstantBuy: () => string;
   canDelete: boolean;
@@ -48,9 +48,9 @@ function AuctionButtonSection({
   ) : (
     <div className={S.bidButtonWrapper}>
       <button
-        disabled={isPrevBuyer() || isExpired || !user}
+        disabled={isPrevBuyer || isExpired || !user}
         type="button"
-        className={isPrevBuyer() || isExpired || !user ? S.bidButton.disabled : S.bidButton.default}
+        className={isPrevBuyer || isExpired || !user ? S.bidButton.disabled : S.bidButton.default}
         onClick={openBidConfirmModal}
       >
         입찰하기

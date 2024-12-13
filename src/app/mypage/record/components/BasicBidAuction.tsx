@@ -1,8 +1,8 @@
 import { ChevronRightIcon } from 'lucide-react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { BidAuctionHistoriesData } from '@/apis/types/User';
+import CommonImage from '@/components/CommonImage';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
 
@@ -17,7 +17,7 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
 
   return (
     <li className={S.list} key={bidAuctionHistory.auction_id}>
-      <Image
+      <CommonImage
         className={S.image}
         src={`${process.env.NEXT_PUBLIC_S3_URL}${bidAuctionHistory.thumbnail_path}`}
         width={150}

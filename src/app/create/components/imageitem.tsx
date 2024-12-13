@@ -3,8 +3,8 @@ import React from 'react';
 
 import { Draggable } from '@hello-pangea/dnd';
 import { CircleXIcon } from 'lucide-react';
-import Image from 'next/image';
 
+import CommonImage from '@/components/CommonImage';
 import colors from '@/styles/color';
 
 import * as S from '../Basicauction.css';
@@ -27,11 +27,12 @@ function ImageItem({ imageRequiredId, index, deleteImage, previewImage }: ImageI
           {...draggableProvided.dragHandleProps}
         >
           {index === 0 && <div className={S.thumbnailButton}>대표</div>}
-          <Image
+          <CommonImage
             className={S.image}
-            width={0}
-            height={0}
-            sizes="50vw"
+            fill
+            fillWidth={150}
+            fillHeight={127}
+            sizes="25vw"
             src={previewImage}
             alt={previewImage}
           />

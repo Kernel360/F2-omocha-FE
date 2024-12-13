@@ -1,10 +1,10 @@
 'use client';
 
 import { ChevronRightIcon } from 'lucide-react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import useGetAuctionHistories from '@/apis/queryHooks/User/useGetAuctionHistories';
+import CommonImage from '@/components/CommonImage';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
 
@@ -55,7 +55,7 @@ export default function BasicSold() {
         auctionHistories.content.map(history => (
           <div key={history.auction_id}>
             <li className={S.list}>
-              <Image
+              <CommonImage
                 className={S.image}
                 src={`${process.env.NEXT_PUBLIC_S3_URL}${history.thumbnail_path}`}
                 width={150}
