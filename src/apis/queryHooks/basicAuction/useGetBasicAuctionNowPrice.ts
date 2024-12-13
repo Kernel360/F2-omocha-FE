@@ -6,6 +6,7 @@ function useGetBasicAuctionNowPrice(id: number) {
   const { data, error, refetch } = useQuery({
     queryKey: ['nowPrice', id],
     queryFn: () => getNowPrice(id),
+    staleTime: 0,
   });
 
   return { data, error, refetch };

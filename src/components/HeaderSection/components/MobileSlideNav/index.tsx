@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { UserIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+import CommonImage from '@/components/CommonImage';
 import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
@@ -81,7 +81,7 @@ function MobileSlideNav({
           <div className={S.userSection}>
             <div className={S.userWrapper}>
               {userProfileImage ? (
-                <Image
+                <CommonImage
                   className={S.profileImage}
                   src={`${process.env.NEXT_PUBLIC_S3_URL}${userProfileImage}`}
                   width={100}

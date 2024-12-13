@@ -57,7 +57,7 @@ globalStyle(`${list}:nth-last-child(1)`, {
 
 export const image = style({
   objectFit: 'contain',
-  borderRadius: '4px',
+  borderRadius: '4px !important',
   boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
 
   '@media': {

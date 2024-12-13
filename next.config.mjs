@@ -9,11 +9,17 @@ const nextConfig = {
   swcMinify: true,
   images: {
     remotePatterns: [
+      // {
+      //   protocol: 'https',
+      //   hostname: 's3.ap-northeast-2.amazonaws.com',
+      //   port: '',
+      //   pathname: '/omocha.storages/**',
+      // },
       {
         protocol: 'https',
-        hostname: 's3.ap-northeast-2.amazonaws.com',
+        hostname: 'd3dwom6xle09jw.cloudfront.net',
         port: '',
-        pathname: '/omocha.storages/**',
+        pathname: '/auction/upload/images/**',
       },
     ],
     domains: ['imgstatic.10x10.co.kr', 'via.placeholder.com'], // 허용할 도메인 추가

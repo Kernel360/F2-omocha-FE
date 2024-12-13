@@ -52,7 +52,7 @@ export interface PostBasicAuctionResponseData {
 }
 
 export interface GetBasicAuctionListParams {
-  categoryId?: number;
+  categoryId?: number | null;
   title?: string;
   auctionStatus?: string;
   direction?: string;
@@ -67,8 +67,8 @@ export interface GetBasicAuctionBidInfo {
   buyer_member_id: number;
   bid_price: number;
   created_at: string;
-  email: string;
-  nickname: string;
+  buyer_email: string;
+  buyer_nickname: string;
 }
 
 export interface PostBasicAuctionBidParams {

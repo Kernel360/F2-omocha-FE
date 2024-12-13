@@ -12,6 +12,7 @@ import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
 import HeaderSection from '@/components/HeaderSection';
 import NavigationEvents from '@/components/NavigationEvents';
+import NetworkErrorModal from '@/components/NetworkErrorModal';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
@@ -55,24 +56,26 @@ export default async function RootLayout({
       </Head>
       <body suppressHydrationWarning>
         <ToastProvider>
-          <TanstackProviders>
-            <Suspense fallback={<div>Loading...NavigationEvents</div>}>
-              <NavigationEvents />
-            </Suspense>
-            <AuthProvider isLoggedIn={!!accessToken}>
-              <HydrationBoundary state={dehydrate(queryClient)}>
-                <HeaderSection />
-                <div className={S.container}>
-                  {children}
-                  <ChattingIconButton />
-                  <ScrollToTopButton />
-                </div>
-              </HydrationBoundary>
-            </AuthProvider>
-            <Footer />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </TanstackProviders>
-          <div id="root-portal" />
+          <NetworkErrorModal>
+            <TanstackProviders>
+              <Suspense fallback={<div>Loading...NavigationEvents</div>}>
+                <NavigationEvents />
+              </Suspense>
+              <AuthProvider isLoggedIn={!!accessToken}>
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                  <HeaderSection />
+                  <div className={S.container}>
+                    {children}
+                    <ChattingIconButton />
+                    <ScrollToTopButton />
+                  </div>
+                </HydrationBoundary>
+              </AuthProvider>
+              <Footer />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </TanstackProviders>
+            <div id="root-portal" />
+          </NetworkErrorModal>
         </ToastProvider>
       </body>
     </html>

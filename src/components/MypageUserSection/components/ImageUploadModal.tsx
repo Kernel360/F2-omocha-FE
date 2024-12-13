@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { UserIcon, CirclePlusIcon } from 'lucide-react';
-import Image from 'next/image';
 
 import usePatchProfileImage from '@/apis/queryHooks/User/usePatchProfileImage';
 import CommonButton from '@/components/CommonButton';
+import CommonImage from '@/components/CommonImage';
 import useDebounce from '@/hooks/useDebounce';
 import colors from '@/styles/color';
 
@@ -55,7 +55,7 @@ function ImageUploadModal({ onClose, defaultImage }: ImageUploadModalProps) {
   const imageRender = () => {
     if (previewImage) {
       return (
-        <Image
+        <CommonImage
           className={S.imageProfile}
           src={URL.createObjectURL(previewImage)}
           width={100}
@@ -67,7 +67,7 @@ function ImageUploadModal({ onClose, defaultImage }: ImageUploadModalProps) {
 
     if (defaultImage) {
       return (
-        <Image
+        <CommonImage
           className={S.imageProfile}
           src={`${process.env.NEXT_PUBLIC_S3_URL}${defaultImage}`}
           width={100}

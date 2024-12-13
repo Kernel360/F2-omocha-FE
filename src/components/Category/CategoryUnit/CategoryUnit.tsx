@@ -17,6 +17,7 @@ interface CategoryUnitProps {
 function CategoryUnit({ unit }: CategoryUnitProps) {
   const searchParams = useSearchParams();
   const pickCategory = Number(searchParams.get('categoryId'));
+  const biddingState = searchParams.get('auctionStatus');
 
   const isPick = unit.category_id === pickCategory;
 
@@ -33,7 +34,11 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
           <Collapsible.Trigger asChild>
             <Link
               scroll={false}
-              href={`/basicauction/?categoryId=${unit.category_id}&page=1`}
+              href={
+                biddingState
+                  ? `/basicauction/?categoryId=${unit.category_id}&page=1&auctionStatus=${biddingState}`
+                  : `/basicauction/?categoryId=${unit.category_id}&page=1`
+              }
               onClick={() => handleMixpanel(unit.name)}
             >
               <span className={isPick ? S.pickUnitButtonSpan : S.unitButtonSpan}>{unit.name}</span>
@@ -50,7 +55,11 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
             <Link
               key={sub_category.category_id}
               scroll={false}
-              href={`/basicauction/?categoryId=${sub_category.category_id}&page=1`}
+              href={
+                biddingState
+                  ? `/basicauction/?categoryId=${sub_category.category_id}&page=1&auctionStatus=${biddingState}`
+                  : `/basicauction/?categoryId=${sub_category.category_id}&page=1`
+              }
               onClick={() => handleMixpanel(sub_category.name)}
             >
               <div className={`${S.unitContent} ${S.unitContentForSpan}`}>

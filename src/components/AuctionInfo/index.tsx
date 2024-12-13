@@ -7,8 +7,11 @@ import usePostBasicAuctionBid from '@/apis/queryHooks/basicAuction/usePostBasicA
 import usePostBasicAuctionInstantBuy from '@/apis/queryHooks/basicAuction/usePostBasicAuctionInstantBuy';
 import AuctionBidConfirmModal from '@/components/AuctionInfo/AuctionBidConfirmModal';
 import AuctionBidListModal from '@/components/AuctionInfo/AuctionBidListModal';
+import AuctionButtonSection from '@/components/AuctionInfo/AuctionButtonSection';
 import AuctionCountdown from '@/components/AuctionInfo/AuctionCountdown';
 import AuctionDeleteConfirmModal from '@/components/AuctionInfo/AuctionDeleteConfirmModal';
+import AuctionInstantBuyConfirmModal from '@/components/AuctionInfo/AuctionInstantBuyConfirmModal';
+import AuctionPriceSection from '@/components/AuctionInfo/AuctionPriceSection';
 import { useHandleBidPrice } from '@/components/AuctionInfo/hooks/useHandleBidPrice';
 import { usePermissionBidPrice } from '@/components/AuctionInfo/hooks/usePermissionBidPrice';
 import { Modal } from '@/components/Modal/Modal';
@@ -17,10 +20,7 @@ import useBooleanState from '@/hooks/useBooleanState';
 import useDebounce from '@/hooks/useDebounce';
 import { formatDateToLocal } from '@/utils/dateUtils';
 
-import AuctionButtonSection from './AuctionButtonSection';
 import * as S from './AuctionInfo.css';
-import AuctionInstantBuyConfirmModal from './AuctionInstantBuyConfirmModal';
-import AuctionPriceSection from './AuctionPriceSection';
 
 interface AuctionInfoProps {
   id: number;

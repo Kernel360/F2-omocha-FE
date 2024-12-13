@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
 
-import Image from 'next/image';
+import CommonImage from '../CommonImage';
 
 import * as S from './AuctionImageInfo.css';
 
@@ -33,7 +33,7 @@ function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
             }
             onClick={() => setFocusImage(image)}
           >
-            <Image
+            <CommonImage
               src={`${process.env.NEXT_PUBLIC_S3_URL}${image}`}
               width={60}
               height={60}
@@ -44,7 +44,7 @@ function AuctionImageInfo({ imageList }: AuctionImageInfoProps) {
         ))}
       </div>
       <div className={S.mainImageWrapper}>
-        <Image
+        <CommonImage
           src={`${process.env.NEXT_PUBLIC_S3_URL}${focusImage}`}
           width={440}
           height={440}

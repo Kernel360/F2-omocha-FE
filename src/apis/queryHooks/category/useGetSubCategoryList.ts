@@ -15,10 +15,11 @@ function checkSubCategory(category: Category): { name: string; category_id: numb
   return res;
 }
 
-function useGetSubCategoryList(id: number) {
+function useGetSubCategoryList(id: number | null) {
   const { data } = useQuery({
     queryKey: ['category', id],
-    queryFn: () => getSubCategoryList(id),
+    queryFn: () => getSubCategoryList(id!),
+    enabled: id !== null,
   });
 
   const response = data?.result_data.flatMap(category => checkSubCategory(category));

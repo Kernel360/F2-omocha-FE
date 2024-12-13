@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-throw-literal */
 import { setCookie } from 'cookies-next';
 import { redirect } from 'next/navigation';
 
 import { deleteToken } from '@/utils/deleteToken';
+import normalizeErrorKeys from '@/utils/normalizeErrorKeys';
+
+import { FetchError } from '../types/common';
 
 const refreshAccessToken = async (refreshToken: string | undefined) => {
   // refreshToken로 재발급 로직임
-  if (!refreshToken) {
-    throw new Error('엑세스 토큰이 없음 재로그인 필요');
-  }
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/auth/token-reissue`,
@@ -21,7 +22,7 @@ const refreshAccessToken = async (refreshToken: string | undefined) => {
   ).then(res => res.json());
 
   if (response.status_code !== 200) {
-    throw new Error('엑세스 토큰도 상했음 재로그인 필요');
+    throw normalizeErrorKeys(response);
   }
 
   const newAccessToken = response.result_data.access_token;
@@ -44,7 +45,7 @@ async function createFetchApiClient<T>({
   endpoint,
   options,
   authorizationToken,
-}: CreateFetchApiClientProps): Promise<T> {
+}: CreateFetchApiClientProps) {
   const url = `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api${endpoint}`;
 
   const defaultOptions: RequestInit = {
@@ -61,7 +62,7 @@ async function createFetchApiClient<T>({
     const response = await fetch(url, defaultOptions);
 
     if (!response.ok) {
-      if (response.status === 401) {
+      if (response.status === 401 && authorizationToken?.accessToken) {
         const refreshAccessTokenResponse = await refreshAccessToken(
           authorizationToken?.refreshToken,
         );
@@ -87,17 +88,22 @@ async function createFetchApiClient<T>({
           return (await retryResponse.json()) as T;
         }
 
-        throw new Error('Network response was not ok');
+        const errorData = await response.json();
+
+        throw normalizeErrorKeys(errorData);
       }
 
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Network response was not ok');
+
+      throw normalizeErrorKeys(errorData);
     }
 
     return (await response.json()) as T;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error);
-    throw error;
+    // {status_code: 400, result_msg: '비밀번호가 일치하지 않습니다.', result_data: null}
+
+    throw normalizeErrorKeys(error as FetchError);
   }
 }
 

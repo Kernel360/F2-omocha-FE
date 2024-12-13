@@ -20,11 +20,12 @@ export const userSection = style({ display: 'flex', flexDirection: 'column', gap
 
 export const userWrapper = style({
   display: 'flex',
+  flexDirection: 'column',
   gap: '4px',
 });
 
 export const profileImage = style({
-  borderRadius: '50%',
+  borderRadius: '100% !important',
 });
 
 export const authWrapper = style({

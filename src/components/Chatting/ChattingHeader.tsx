@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import { OpenAuctionInfo } from '@/apis/types/chat';
+import CommonImage from '@/components/CommonImage';
 
 import * as S from './Chatting.css';
 
@@ -32,7 +32,7 @@ function ChattingHeader({ openAuctionInfo }: ChattingHeaderProps) {
       </div>
       <Link href={`/basicauction/${openAuctionInfo.auction_id}`} scroll={false}>
         <div className={S.chatroomInfoSection}>
-          <Image
+          <CommonImage
             src={`${process.env.NEXT_PUBLIC_S3_URL}${openAuctionInfo.thumbnail_path}`}
             alt="상품 이미지"
             width={40}

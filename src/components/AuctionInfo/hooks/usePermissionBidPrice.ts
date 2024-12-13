@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import useGetBasicAuctionBidList from '@/apis/queryHooks/basicAuction/useGetBasicAuctionBidList';
@@ -11,10 +11,10 @@ export function usePermissionBidPrice(auctionId: number, sellerId: number) {
   const [expired, setExpired] = useState('');
   const { data: auctionBidList } = useGetBasicAuctionBidList(auctionId);
 
-  const isPrevBuyer = (): boolean => {
+  const isPrevBuyer = useMemo(() => {
     if (auctionBidList?.result_data.length === 0) return false;
     return auctionBidList?.result_data[0].buyer_member_id === user?.member_id;
-  };
+  }, [auctionBidList]);
 
   const baseConditions = [
     { condition: expired === 'expired', message: '경매 진행 기간이 아닙니다.' },
@@ -34,7 +34,7 @@ export function usePermissionBidPrice(auctionId: number, sellerId: number) {
   };
 
   const canNotBidForBid = () =>
-    getErrorMessage([{ condition: isPrevBuyer(), message: '이미 선두 구매자입니다.' }]);
+    getErrorMessage([{ condition: isPrevBuyer, message: '이미 선두 구매자입니다.' }]);
 
   const canNotBidForInstantBuy = () => getErrorMessage();
 
