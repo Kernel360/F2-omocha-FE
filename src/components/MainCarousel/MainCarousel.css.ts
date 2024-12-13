@@ -8,17 +8,6 @@ export const container = style({
   height: 'auto',
 });
 
-export const imageContainer = style({
-  // display: 'flex',
-  // justifyContent: 'center',
-  // '@media': {
-  //   'screen and (max-width: 972px)': {
-  //     width: '100%',
-  //     height: 'auto',
-  //   },
-  // },
-});
-
 export const dots = style({
   position: 'absolute',
   bottom: '30px',

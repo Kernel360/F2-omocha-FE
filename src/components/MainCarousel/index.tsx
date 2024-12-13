@@ -76,7 +76,7 @@ function MainCarousel() {
         slidesToShow={1}
         slidesToScroll={1}
         autoplay
-        autoplaySpeed={5000}
+        autoplaySpeed={8000}
         arrows={false}
       >
         {CAROUSEL_INFO.map(info => (
