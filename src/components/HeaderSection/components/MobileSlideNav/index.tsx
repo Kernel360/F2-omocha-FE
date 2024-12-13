@@ -1,12 +1,17 @@
+import { useEffect } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
 import { UserIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import useLogout from '@/hooks/useLogout';
 import mixpanel from '@/lib/mixpanel';
+import { useAuth } from '@/provider/authProvider';
+import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
+import { deleteToken } from '@/utils/deleteToken';
 
 import * as S from './MobileSlideNav.css';
 
@@ -27,13 +32,24 @@ function MobileSlideNav({
   userEmail,
   userHeartCount,
 }: MobileSlideNavProps) {
-  const handleLogout = useLogout();
-
   const pathname = usePathname();
+  const router = useRouter();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { showToast } = useToast();
+  const queryClient = useQueryClient();
+
   const searchParams = useSearchParams();
 
-  const logout = () => {
-    handleLogout();
+  useEffect(() => {
+    router.refresh();
+  }, [isLoggedIn]);
+
+  const logout = async () => {
+    await deleteToken();
+    router.push('/');
+    setIsLoggedIn(false);
+    showToast('success', '로그아웃 되었습니다.');
+    queryClient.clear();
     onClose();
     mixpanel.track(EVENT_ID.LOGOUT_BUTTON_CLICKED);
     mixpanel.reset();

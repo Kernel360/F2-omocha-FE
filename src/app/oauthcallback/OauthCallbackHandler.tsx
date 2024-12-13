@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 
+import { setCookie } from 'cookies-next';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -10,21 +11,25 @@ import { useAuth } from '@/provider/authProvider';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
 
-function OauthCallbackHandler() {
+interface OauthCallbackHandlerProps {
+  accessToken: string;
+  refreshToken: string;
+}
+
+function OauthCallbackHandler({ accessToken, refreshToken }: OauthCallbackHandlerProps) {
   const router = useRouter();
   const { showToast } = useToast();
   const { setIsLoggedIn } = useAuth();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const accessToken = searchParams.get('access_token');
-    const refreshToken = searchParams.get('refresh_token');
     const provider = searchParams.get('provider');
 
     const handleLogin = () => {
       if (accessToken && refreshToken) {
-        sessionStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        setCookie('accessToken', accessToken, { maxAge: 60 * 30 });
+        setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 });
+
         setIsLoggedIn(true);
         showToast('success', '로그인 되었습니다.');
         router.push('/');
@@ -32,8 +37,6 @@ function OauthCallbackHandler() {
           login_type: provider,
         });
       } else {
-        localStorage.removeItem('refreshToken');
-        sessionStorage.removeItem('accessToken');
         showToast('error', '로그인에 실패하였습니다.');
         router.push('/login');
       }
@@ -45,11 +48,7 @@ function OauthCallbackHandler() {
     return () => clearTimeout(timer);
   }, [router, searchParams, setIsLoggedIn, showToast]);
 
-  return (
-    <div>
-      <LoadingSpinner />
-    </div>
-  );
+  return <LoadingSpinner />;
 }
 
 export default OauthCallbackHandler;

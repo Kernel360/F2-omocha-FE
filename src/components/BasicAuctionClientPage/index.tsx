@@ -8,7 +8,6 @@ import useGetBasicAuctionList from '@/apis/queryHooks/basicAuction/useGetBasicAu
 import AuctionCard from '@/components/AuctionCard';
 import ListLayout from '@/components/ListLayout';
 import Pagination from '@/components/Pagination';
-import { useAuth } from '@/provider/authProvider';
 import { AUCTIONPARAM_KEY } from '@/static/queryParam';
 
 import SkeletonCard from '../Skeleton/components/SkeletonCard';
@@ -23,8 +22,6 @@ function BasicAuctionClientPage() {
   const currentPage = Number(searchParams.get('page'));
   const router = useRouter();
 
-  const { isLoggedIn } = useAuth();
-
   const { data, pageInfo, isLoading } = useGetBasicAuctionList({
     categoryId: pickCategory || undefined,
     title: searchKeywordParam || undefined,
@@ -33,7 +30,6 @@ function BasicAuctionClientPage() {
     direction: searchParams.get(AUCTIONPARAM_KEY.DIRECTION) || undefined,
     size: 20, // 사이즈 2로 ALL 에서 검토
     page: Math.max(currentPage - 1, 0),
-    isLogin: isLoggedIn,
   });
 
   if (isLoading || !data) {

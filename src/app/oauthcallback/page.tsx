@@ -1,17 +1,12 @@
-'use client';
-
-import { Suspense } from 'react';
+'use server';
 
 import OauthCallbackHandler from './OauthCallbackHandler';
 
-// TODO 로그인을 이미 했다면 로그인 페이지로 못들어가게 하기
+async function Oauthcallback({ searchParams }: { searchParams: { [key: string]: string } }) {
+  const accessToken = searchParams.access_token;
+  const refreshToken = searchParams.refresh_token;
 
-function Oauthcallback() {
-  return (
-    <Suspense fallback="OauthCallbackHandler">
-      <OauthCallbackHandler />
-    </Suspense>
-  );
+  return <OauthCallbackHandler accessToken={accessToken} refreshToken={refreshToken} />;
 }
 
 export default Oauthcallback;

@@ -9,14 +9,11 @@ import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import ListLayout from '@/components/ListLayout';
 import CardListSkeleton from '@/components/Skeleton/CardListSkeleton';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import useRequireAuth from '@/hooks/useRequireAuth';
 import EVENT_ID from '@/static/eventId';
 
 import * as S from './Heart.css';
 
 function Home() {
-  const { isCheckingAuth } = useRequireAuth();
-
   const { data: user } = useGetUser();
   const router = useRouter();
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } = useGetAuctionLikeList(
@@ -29,10 +26,6 @@ function Home() {
     hasNextPage,
     fetchNextPage,
   });
-
-  if (isCheckingAuth) {
-    return null;
-  }
 
   if (isLoading)
     return (

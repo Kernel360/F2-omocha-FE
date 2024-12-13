@@ -5,14 +5,17 @@ import { useRouter } from 'next/navigation';
 import { deleteAuction } from '@/apis/queryFunctions/basicAuction';
 import { Response } from '@/apis/types/common';
 import { useToast } from '@/provider/toastProvider';
+import getAuthTokens from '@/utils/getAuthTokens';
 
 function useDeleteBasicAuction() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { showToast } = useToast();
 
+  const tokens = getAuthTokens();
+
   const { mutate, error } = useMutation({
-    mutationFn: (id: number) => deleteAuction(id),
+    mutationFn: (id: number) => deleteAuction(id, tokens),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
       router.push('/basicauction', { scroll: false });

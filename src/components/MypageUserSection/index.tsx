@@ -7,7 +7,6 @@ import useGetUser from '@/apis/queryHooks/User/useGetUser';
 import { Modal } from '@/components/Modal/Modal';
 import ImageUploadModal from '@/components/MypageUserSection/components/ImageUploadModal';
 import useBooleanState from '@/hooks/useBooleanState';
-import useRequireAuth from '@/hooks/useRequireAuth';
 import colors from '@/styles/color';
 
 import SkeletonCard from '../Skeleton/components/SkeletonCard';
@@ -17,12 +16,6 @@ import * as S from './MypageUserSection.css';
 function MypageUserSection() {
   const { data: user } = useGetUser();
   const { value: isOpenImageUploadModal, toggle: setIsOpenImageUploadModal } = useBooleanState();
-
-  const { isCheckingAuth } = useRequireAuth();
-
-  if (isCheckingAuth) {
-    return null;
-  }
 
   return (
     <div className={S.profile}>

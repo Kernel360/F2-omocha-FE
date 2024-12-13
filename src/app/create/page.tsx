@@ -18,15 +18,12 @@ import MaxLayout from '@/components/MaxLayout';
 import { Modal } from '@/components/Modal/Modal';
 import useBooleanState from '@/hooks/useBooleanState';
 import useDebounce from '@/hooks/useDebounce';
-import useRequireAuth from '@/hooks/useRequireAuth';
 import EVENT_ID from '@/static/eventId';
 import { formatDateToUTC } from '@/utils/dateUtils';
 
 import * as S from './Basicauction.css';
 
 export default function Home() {
-  const { isCheckingAuth } = useRequireAuth();
-
   const methods = useForm<AuctionInputs>();
   const {
     register,
@@ -81,10 +78,6 @@ export default function Home() {
 
     postBasicAuction(formData);
   }, 300);
-
-  if (isCheckingAuth) {
-    return null;
-  }
 
   return (
     <div className={S.backContainer}>

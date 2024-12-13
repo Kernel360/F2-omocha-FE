@@ -10,10 +10,12 @@ interface BreadcrumbSectionProps {
 function BreadcrumbSection({ pickCategoryProps }: BreadcrumbSectionProps) {
   const { data: categoryData } = useGetSubCategoryList(pickCategoryProps);
 
+  if (!categoryData) return null;
+
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="/basicauction?page=1">ALL</Breadcrumb.Item>
-      {categoryData?.map(category => (
+      {categoryData.map(category => (
         <Breadcrumb.Item
           key={category.category_id}
           href={`/basicauction?categoryId=${category.category_id}&page=1`}

@@ -4,22 +4,18 @@ import * as StompJs from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 interface UseSocketParams {
-  access: string | null;
   url: string;
   config: StompJs.StompConfig;
   afterConnect: (client: StompJs.Client) => void;
 }
 
-function useSocket({ access, url, config, afterConnect }: UseSocketParams) {
+function useSocket({ url, config, afterConnect }: UseSocketParams) {
   const client = useRef<StompJs.Client>();
 
   const connect = () => {
     client.current = new StompJs.Client({
       ...config,
       webSocketFactory: () => new SockJS(url),
-      connectHeaders: {
-        Authorization: access!,
-      },
     });
 
     client.current.onConnect = () => {
@@ -37,7 +33,7 @@ function useSocket({ access, url, config, afterConnect }: UseSocketParams) {
   };
 
   useEffect(() => {
-    if (access) connect();
+    connect();
 
     return () => {
       if (client) {

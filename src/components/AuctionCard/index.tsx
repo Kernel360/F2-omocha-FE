@@ -53,7 +53,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     e.preventDefault();
-    postAuctionLike({ auction_id: id });
+    postAuctionLike();
   };
 
   const handleMixpanel = () => {
