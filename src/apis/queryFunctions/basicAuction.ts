@@ -280,9 +280,5 @@ export const postAuctionLike = async (
     authorizationToken,
   });
 
-  if (!response) {
-    throw new Error('Failed to postAuctionLike');
-  }
-
   return response;
 };
