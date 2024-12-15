@@ -1,4 +1,4 @@
-import { style, globalStyle, styleVariants } from '@vanilla-extract/css';
+import { style, globalStyle, styleVariants, keyframes } from '@vanilla-extract/css';
 
 import colors from '@/styles/color';
 
@@ -57,6 +57,8 @@ globalStyle(`${alarmItem}:nth-last-child(1)`, {
   borderBottom: 'none',
 });
 
+// -- AlarmUnit.tsx
+
 export const alarmLink = style({
   textDecoration: 'none',
   color: 'inherit',
@@ -69,6 +71,7 @@ export const image = style({
   objectFit: 'contain',
   borderRadius: '8px',
   boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
+  backgroundColor: 'white',
 });
 
 export const alarmDetails = style({
@@ -85,6 +88,13 @@ export const alarmTitle = style({
   fontWeight: '600',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+});
+
+globalStyle(`${alarmTitle} span:nth-of-type(2)`, {
+  width: 'calc(100% - 51px)',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 });
 
 export const alarmTypes = styleVariants({
@@ -144,5 +154,51 @@ export const deleteButton = style({
   position: 'absolute',
   right: '8px',
   top: '18px',
+  cursor: 'pointer',
+});
+
+// -- AlarmSlide.tsx
+
+const slideIn = keyframes({
+  '0%': {
+    transform: 'translateX(100%)',
+    opacity: '0',
+  },
+  '100%': {
+    transform: 'translateX(0)',
+    opacity: '1',
+  },
+});
+
+const slideOut = keyframes({
+  '0%': {
+    transform: 'translateX(0)',
+    opacity: '1',
+  },
+  '100%': {
+    transform: 'translateX(100%)',
+    opacity: '0',
+  },
+});
+
+export const alarmSlide = style({
+  position: 'fixed',
+  top: '45px',
+  right: '20px',
+  display: 'flex',
+  gap: '10px',
+  backgroundColor: colors.primary2,
+  padding: '15px 10px',
+  borderRadius: '5px',
+  zIndex: 1000,
+  maxWidth: '310px',
+  width: '100%',
+  animation: `${slideIn} 1s ease-out, ${slideOut} 1s 4s forwards`,
+});
+
+export const deleteSlideButton = style({
+  position: 'absolute',
+  right: '5px',
+  top: '5px',
   cursor: 'pointer',
 });

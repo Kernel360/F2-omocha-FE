@@ -11,6 +11,7 @@ import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
 import HeaderSection from '@/components/HeaderSection';
+import AlarmSlide from '@/components/HeaderSection/components/Alarm/components/AlarmSlide';
 import NavigationEvents from '@/components/NavigationEvents';
 import NetworkErrorModal from '@/components/NetworkErrorModal';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
@@ -66,6 +67,7 @@ export default async function RootLayout({
                 <HydrationBoundary state={dehydrate(queryClient)}>
                   <ServerSentEventProvider accessToken={accessToken}>
                     <HeaderSection />
+                    <AlarmSlide />
                     <div className={S.container}>
                       {children}
                       <ChattingIconButton />
