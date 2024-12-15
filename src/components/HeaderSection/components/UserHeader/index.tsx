@@ -13,6 +13,7 @@ import SlideSideNav from '@/components/SlideSideNav';
 import useBooleanState from '@/hooks/useBooleanState';
 import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
+import { useSSE } from '@/provider/sseProvider';
 import { useToast } from '@/provider/toastProvider';
 import { SUB_CATEGORY } from '@/static/category';
 import EVENT_ID from '@/static/eventId';
@@ -30,6 +31,7 @@ function UserHeader() {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
   const queryClient = useQueryClient();
+  const { noticeList } = useSSE();
 
   useEffect(() => {
     // 쿠키 설정 후 router.refresh() 사용
@@ -99,6 +101,7 @@ function UserHeader() {
               }}
             >
               {category.name}
+              {noticeList.length > 0 && <span className={S.noticeCount}>{noticeList.length}</span>}
             </button>
           );
         })}

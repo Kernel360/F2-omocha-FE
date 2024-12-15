@@ -61,7 +61,7 @@ export const titleSection = recipe({
     type: {
       right: {
         gap: '12px',
-        padding: '30px 30px',
+        padding: '16px 16px 16px 16px',
       },
       normal: {
         gap: '12px',

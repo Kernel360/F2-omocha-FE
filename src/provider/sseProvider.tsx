@@ -28,7 +28,8 @@ export interface Notification {
 interface SSEContextType {
   noticeList: Notification[];
   addNotice: (notification: Notification) => void;
-  clearNotice: () => void;
+  removeNotice: (id: number) => void;
+  clearAllNotice: () => void;
 }
 
 interface SSEtProps {
@@ -44,11 +45,14 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
   const [noticeList, setNoticeList] = useState<Notification[]>([]);
 
   const addNotice = (notification: Notification) => {
-    console.log('notification', notification);
     setNoticeList(prev => [...prev, notification]);
   };
 
-  const clearNotice = () => {
+  const removeNotice = (id: number) => {
+    setNoticeList(prev => prev.filter(notification => notification.notification_id !== id));
+  };
+
+  const clearAllNotice = () => {
     setNoticeList([]);
   };
 
@@ -72,11 +76,8 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
 
     eventSourceRef.current.addEventListener('CONNECT', (event: MessageEvent) => {
       const { data } = event;
-      console.log('event', event);
       if (data === 'Connect Success') {
-        console.log('연결 성공', data);
-      } else {
-        console.log(data);
+        console.log('연결 성공');
       }
     });
   };
@@ -88,7 +89,6 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
 
     const handleEvent = (event: MessageEvent) => {
       try {
-        console.log('event', event.data, JSON.parse(event.data));
         const notification: Notification = JSON.parse(event.data);
         addNotice(notification);
       } catch (error) {
@@ -112,7 +112,10 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
     };
   }, [accessToken]);
 
-  const contextValue = useMemo(() => ({ noticeList, addNotice, clearNotice }), [noticeList]);
+  const contextValue = useMemo(
+    () => ({ noticeList, addNotice, removeNotice, clearAllNotice }),
+    [noticeList],
+  );
 
   return <SSEContext.Provider value={contextValue}>{children}</SSEContext.Provider>;
 }
