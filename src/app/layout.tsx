@@ -16,6 +16,7 @@ import NetworkErrorModal from '@/components/NetworkErrorModal';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
+import { ServerSentEventProvider } from '@/provider/sseProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 import { ToastProvider } from '@/provider/toastProvider';
 import getMetadata from '@/utils/getMetadata';
@@ -63,12 +64,14 @@ export default async function RootLayout({
               </Suspense>
               <AuthProvider isLoggedIn={!!accessToken}>
                 <HydrationBoundary state={dehydrate(queryClient)}>
-                  <HeaderSection />
-                  <div className={S.container}>
-                    {children}
-                    <ChattingIconButton />
-                    <ScrollToTopButton />
-                  </div>
+                  <ServerSentEventProvider accessToken={accessToken}>
+                    <HeaderSection />
+                    <div className={S.container}>
+                      {children}
+                      <ChattingIconButton />
+                      <ScrollToTopButton />
+                    </div>
+                  </ServerSentEventProvider>
                 </HydrationBoundary>
               </AuthProvider>
               <Footer />
