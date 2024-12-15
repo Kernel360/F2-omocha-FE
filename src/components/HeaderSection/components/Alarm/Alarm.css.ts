@@ -9,14 +9,20 @@ export const alarmContainer = style({
   borderRadius: '8px',
 });
 
-export const clearAllButton = style({
+export const buttonContainer = style({
   display: 'flex',
   justifyContent: 'flex-end',
+  padding: '10px',
+});
+
+export const clearAllButton = style({
+  display: 'flex',
   alignItems: 'center',
   gap: '5px',
   fontSize: '12px',
   margin: '5px',
   cursor: 'pointer',
+  width: 'fit-content',
 });
 
 export const noListWrapper = style({
@@ -136,7 +142,7 @@ export const valueStyle = styleVariants({
 
 export const deleteButton = style({
   position: 'absolute',
-  right: '10px',
-  top: '55px',
+  right: '8px',
+  top: '18px',
   cursor: 'pointer',
 });

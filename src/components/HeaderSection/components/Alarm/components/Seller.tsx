@@ -1,7 +1,4 @@
-import { XIcon } from 'lucide-react';
-import Link from 'next/link';
-
-import CommonImage from '@/components/CommonImage';
+import AlarmUnit from '@/components/HeaderSection/components/Alarm/components/AlarmUnit';
 import { Notification } from '@/provider/sseProvider';
 
 import * as S from '../Alarm.css';
@@ -29,44 +26,12 @@ function Seller({ noticeList, onRemove }: SellerProps) {
       ) : (
         noticeList.map(notice => (
           <li key={notice.notification_id} className={S.alarmItem}>
-            <Link href={`/basicauction/${notice.data.auction_id}`} className={S.alarmLink}>
-              <CommonImage
-                className={S.image}
-                src={`${process.env.NEXT_PUBLIC_S3_URL}${notice.data.thumbnail_path}`}
-                alt="상품 이미지"
-                width={100}
-                height={100}
-              />
-              <ul className={S.alarmDetails}>
-                <li className={S.alarmTitle}>
-                  <span className={`${S.alarmTypes[notice.notification_code as NotificationCode]}`}>
-                    [{SELLER_NOTICE_CODES[notice.notification_code as NotificationCode]}]
-                  </span>
-                  <span>{notice.data.title}</span>
-                </li>
-                <li className={S.alarmData}>
-                  <span className={S.listName}>현재가</span>
-                  <span className={S.valueStyle.bidding}>{notice.data.now_price}원</span>
-                </li>
-                {notice.data.conclude_price && (
-                  <li className={S.alarmData}>
-                    <span className={S.listName}>낙찰가</span>
-                    <span className={S.valueStyle.concluded}>{notice.data.conclude_price}원</span>
-                  </li>
-                )}
-                <li className={S.alarmData}>
-                  <span className={S.listName}>알림 시간</span>
-                  <span className={S.listValue}>{notice.create_at}</span>
-                </li>
-              </ul>
-            </Link>
-            <button
-              className={S.deleteButton}
-              type="button"
-              onClick={() => onRemove(notice.notification_id)}
-            >
-              <XIcon />
-            </button>
+            <AlarmUnit
+              notice={notice}
+              noticeCodes={SELLER_NOTICE_CODES}
+              alarmTypes={S.alarmTypes}
+              onRemove={onRemove}
+            />
           </li>
         ))
       )}

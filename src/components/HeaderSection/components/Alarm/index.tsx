@@ -38,14 +38,16 @@ function Alarm() {
 
   return (
     <div className={S.alarmContainer}>
-      <button className={S.clearAllButton} type="button" onClick={clearAllNotice}>
-        <CircleCheckIcon
-          fill={noticeList.length > 0 ? '#23a750' : 'gray'}
-          size="15"
-          stroke="white"
-        />
-        모든 알림 삭제
-      </button>
+      <div className={S.buttonContainer}>
+        <button className={S.clearAllButton} type="button" onClick={clearAllNotice}>
+          <CircleCheckIcon
+            fill={noticeList.length > 0 ? '#23a750' : 'gray'}
+            size="15"
+            stroke="white"
+          />
+          모든 알림 삭제
+        </button>
+      </div>
       <section>
         <TabsLayout
           defaultTriggerValue={TABS[0].value}
