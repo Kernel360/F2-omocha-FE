@@ -230,8 +230,8 @@ const slideOut = keyframes({
 
 export const alarmSlide = style({
   position: 'fixed',
-  top: '45px',
-  right: '20px',
+  top: '80px',
+  right: '16px',
   display: 'flex',
   gap: '10px',
   backgroundColor: colors.primary2,
@@ -241,6 +241,18 @@ export const alarmSlide = style({
   maxWidth: '310px',
   width: '100%',
   animation: `${slideIn} 1s ease-out, ${slideOut} 1s 4s forwards`,
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      display: 'block',
+    },
+  },
+});
+
+export const slidDetails = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
 });
 
 export const deleteSlideButton = style({

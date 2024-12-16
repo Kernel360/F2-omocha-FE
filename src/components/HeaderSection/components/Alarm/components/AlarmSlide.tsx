@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import CommonImage from '@/components/CommonImage';
+import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 import { useSSE, Notification } from '@/provider/sseProvider';
 
 import * as S from '../Alarm.css';
@@ -31,6 +32,9 @@ const NOTICE_CODES: Record<NotificationCode, string> = {
 function AlarmSlide() {
   const { noticeList } = useSSE();
 
+  const { viewportWidth } = useResizeViewportWidth();
+  const isVisible = !!(viewportWidth && viewportWidth > 700);
+
   const [showSlide, setShowSlide] = useState(false);
   const [prevNotice, setPrevNotice] = useState<Notification | null>(null);
   const noticeIndex = Math.max(noticeList.length - 1, 0);
@@ -45,7 +49,7 @@ function AlarmSlide() {
 
         setTimeout(() => {
           setShowSlide(false);
-        }, 5000);
+        }, 50000);
       }
     }
   }, [noticeIndex, noticeList, prevNotice]);
@@ -59,42 +63,46 @@ function AlarmSlide() {
           className={S.alarmSlide}
           href={`/basicauction/${noticeList[noticeIndex]?.data.auction_id}?category=${auctionData?.result_data.category_id}`}
         >
-          <CommonImage
-            className={S.image}
-            src={`${process.env.NEXT_PUBLIC_S3_URL}${noticeList[noticeIndex]?.data.thumbnail_path}`}
-            alt="상품 이미지"
-            width={100}
-            height={100}
-          />
-          <ul className={S.alarmDetails}>
+          {isVisible && (
+            <CommonImage
+              className={S.image}
+              src={`${process.env.NEXT_PUBLIC_S3_URL}${noticeList[noticeIndex]?.data.thumbnail_path}`}
+              alt="상품 이미지"
+              width={100}
+              height={100}
+            />
+          )}
+          <ul className={S.slidDetails}>
             <li className={S.alarmTitle}>
               <span
                 className={
-                  S.alarmTypes[noticeList[noticeIndex]?.notification_code as NotificationCode]
+                  S.alarmTypes[noticeList[noticeIndex].notification_code as NotificationCode]
                 }
               >
-                [{NOTICE_CODES[noticeList[noticeIndex]?.notification_code as NotificationCode]}]
+                [{NOTICE_CODES[noticeList[noticeIndex].notification_code as NotificationCode]}]
               </span>
-              <span>{noticeList[noticeIndex].data.title}</span>
+              <span>{noticeList[noticeIndex]?.data.title}</span>
             </li>
             <li className={S.alarmData}>
               <span className={S.listName}>현재가</span>
               <span className={S.valueStyle.bidding}>
-                {noticeList[noticeIndex].data.now_price}원
+                {noticeList[noticeIndex]?.data.now_price}원
               </span>
             </li>
             {noticeList[noticeIndex].data.conclude_price && (
               <li className={S.alarmData}>
                 <span className={S.listName}>낙찰가</span>
                 <span className={S.valueStyle.concluded}>
-                  {noticeList[noticeIndex].data.conclude_price}원
+                  {noticeList[noticeIndex]?.data.conclude_price}원
                 </span>
               </li>
             )}
-            <li className={S.alarmData}>
-              <span className={S.listName}>알림 시간</span>
-              <span className={S.listValue}>{noticeList[noticeIndex].create_at}</span>
-            </li>
+            {isVisible && (
+              <li className={S.alarmData}>
+                <span className={S.listName}>알림 시간</span>
+                <span className={S.listValue}>{noticeList[noticeIndex].create_at}</span>
+              </li>
+            )}
           </ul>
           <button type="button" className={S.deleteSlideButton} onClick={() => setShowSlide(false)}>
             <XIcon size="14" />
