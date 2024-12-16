@@ -38,6 +38,19 @@ export const noListTitle = style({
   fontSize: '16px',
   fontWeight: '500',
   color: colors.gray10,
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      fontSize: '14px',
+    },
+  },
+});
+
+export const alarmList = style({
+  display: 'flex',
+  flexDirection: 'column',
+  height: 'calc(100vh - 143px)',
+  overflowY: 'scroll',
 });
 
 export const alarmItem = style({
@@ -48,8 +61,17 @@ export const alarmItem = style({
   padding: '20px 10px',
   transition: 'background-color 0.3s, transform 0.2s',
   borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-  ':hover': {
+
+  ':active': {
     transform: 'scale(1.02)',
+  },
+
+  '@media': {
+    '(hover: hover) and (pointer: fine)': {
+      ':hover': {
+        transform: 'scale(1.02)',
+      },
+    },
   },
 });
 
@@ -79,6 +101,13 @@ export const alarmDetails = style({
   flexDirection: 'column',
   gap: '10px',
   width: '60%',
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      maxWidth: '190px',
+      width: '100%',
+    },
+  },
 });
 
 export const alarmTitle = style({
@@ -88,6 +117,12 @@ export const alarmTitle = style({
   fontWeight: '600',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      fontSize: '14px',
+    },
+  },
 });
 
 globalStyle(`${alarmTitle} span:nth-of-type(2)`, {
@@ -127,12 +162,24 @@ export const alarmData = style({
 export const listName = style({
   fontSize: '14px',
   fontWeight: '600',
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      fontSize: '12px',
+    },
+  },
 });
 
 export const listValue = style({
   fontSize: '14px',
   fontWeight: '500',
   color: colors.gray10,
+
+  '@media': {
+    'screen and (max-width: 700px)': {
+      fontSize: '12px',
+    },
+  },
 });
 
 export const valueStyle = styleVariants({

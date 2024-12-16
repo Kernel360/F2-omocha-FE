@@ -23,7 +23,6 @@ import * as S from './UserHeader.css';
 
 function UserHeader() {
   const router = useRouter();
-
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { value: open, setTrue: setOpen, setFalse: setClose } = useBooleanState(false);
@@ -96,12 +95,14 @@ function UserHeader() {
                       : `/login?prevUrl=${pathname}`,
                     { scroll: false },
                   );
-                  handleMixpanel(EVENT_ID.LOGIN_BUTTON_CLICKED);
+                  handleMixpanel(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, category.name);
                 }
               }}
             >
               {category.name}
-              {noticeList.length > 0 && <span className={S.noticeCount}>{noticeList.length}</span>}
+              {isLoggedIn && noticeList.length > 0 && (
+                <span className={S.noticeCount}>{noticeList.length}</span>
+              )}
             </button>
           );
         })}

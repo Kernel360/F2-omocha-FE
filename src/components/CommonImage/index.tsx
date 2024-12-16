@@ -47,8 +47,14 @@ function CommonImage({
       className={S.imageWrapper}
       style={{
         ...(fill
-          ? { position: 'relative', width: fillWidth, height: fillHeight }
-          : { width, height }),
+          ? {
+              position: 'relative',
+              width: '100%',
+              maxWidth: fillWidth,
+              height: '100%',
+              maxHeight: fillHeight,
+            }
+          : { width: '100%', maxWidth: width, height: '100%', maxHeight: height }),
       }}
     >
       {status === 'loading' && (

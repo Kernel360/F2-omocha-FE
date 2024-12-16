@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import CommonImage from '@/components/CommonImage';
+import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 import { Notification } from '@/provider/sseProvider';
 
 import * as S from '../Alarm.css';
@@ -16,6 +17,8 @@ interface AlarmUnitProps {
 
 function AlarmUnit({ notice, noticeCodes, alarmTypes, onRemove }: AlarmUnitProps) {
   const { data: auctionData } = useGetBasicAuction(notice.data.auction_id);
+  const { viewportWidth } = useResizeViewportWidth();
+  const imageSize = viewportWidth && viewportWidth > 700 ? 100 : 50;
 
   return (
     <>
@@ -27,8 +30,8 @@ function AlarmUnit({ notice, noticeCodes, alarmTypes, onRemove }: AlarmUnitProps
           className={S.image}
           src={`${process.env.NEXT_PUBLIC_S3_URL}${notice.data.thumbnail_path}`}
           alt="상품 이미지"
-          width={100}
-          height={100}
+          width={imageSize}
+          height={imageSize}
         />
         <ul className={S.alarmDetails}>
           <li className={S.alarmTitle}>
@@ -58,7 +61,7 @@ function AlarmUnit({ notice, noticeCodes, alarmTypes, onRemove }: AlarmUnitProps
         type="button"
         onClick={() => onRemove(notice.notification_id)}
       >
-        <XIcon />
+        <XIcon size="14" />
       </button>
     </>
   );

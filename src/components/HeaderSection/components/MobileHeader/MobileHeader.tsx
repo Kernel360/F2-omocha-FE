@@ -34,7 +34,9 @@ function MobileHeader() {
     <header className={S.stickyHeader}>
       <MaxLayout>
         <div className={S.container}>
-          <MobileUserHeader openNav={openNav} />
+          <Suspense fallback={<>MobileUserHeader</>}>
+            <MobileUserHeader openNav={openNav} />
+          </Suspense>
           <CategoryHeader data={data as Category[]} />
 
           <SlideSideNav isOpen={navState} onClose={closeNav} type="mobile">

@@ -18,7 +18,7 @@ interface BuyerProps {
 
 function Buyer({ noticeList, onRemove }: BuyerProps) {
   return (
-    <ul className={S.alarmContainer}>
+    <ul className={S.alarmList}>
       {noticeList.length === 0 ? (
         <div className={S.noListWrapper}>
           <div className={S.noListTitle}>새로운 알림이 없습니다.</div>

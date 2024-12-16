@@ -23,7 +23,7 @@ const EVENT_ID = {
   LOGOUT_BUTTON_CLICKED: 'logout_button_clicked', // reset()
 
   // 알림
-  NOTIFICATION_BUTTON_CLICKED: 'notification_button_clicked',
+  ALARM_BUTTON_CLICKED: 'alarm_button_clicked',
 
   // 카테고리
   CATEGORY_BUTTON_CLICKED: 'category_button_clicked', // { category_name }

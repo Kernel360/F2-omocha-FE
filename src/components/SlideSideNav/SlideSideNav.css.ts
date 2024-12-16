@@ -45,6 +45,10 @@ export const container = recipe({
         left: '0',
         width: '270px',
       },
+      rightMobile: {
+        right: '0',
+        width: '270px',
+      },
     },
   },
   defaultVariants: {
@@ -68,6 +72,10 @@ export const titleSection = recipe({
         padding: '30px 30px',
       },
       mobile: {
+        gap: '12px',
+        padding: '16px 16px 16px 16px',
+      },
+      rightMobile: {
         gap: '12px',
         padding: '16px 16px 16px 16px',
       },
