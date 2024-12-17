@@ -39,8 +39,10 @@ export const patchProfileImage = async (
     options: {
       method: 'PATCH',
       body: param,
+      headers: {
+        Authorization: `${authorizationToken.accessToken}`,
+      },
     },
-    authorizationToken,
   });
   if (!response) {
     throw new Error('Failed to patchProfileImage');
