@@ -11,6 +11,10 @@ interface UsePrefetchQueriesWithCookieProps<T, TQueryKey extends QueryKey> {
 
 async function usePrefetchQueriesWithCookie<T, TQueryKey extends QueryKey>(
   queries: UsePrefetchQueriesWithCookieProps<T, TQueryKey>[],
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
 ) {
   const queryClient = new QueryClient();
 
@@ -22,6 +26,7 @@ async function usePrefetchQueriesWithCookie<T, TQueryKey extends QueryKey>(
           try {
             const response = await createFetchApiClient<Response<T>>({
               endpoint: api,
+              authorizationToken,
             });
 
             return response;

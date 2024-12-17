@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { getCookies } from 'cookies-next';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import { cookies } from 'next/headers';
@@ -42,12 +41,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookiesTest = await getCookies({ cookies });
-  const { accessToken } = cookiesTest;
+  const accessToken = cookies().get('accessToken')?.value;
+  const refreshToken = cookies().get('refreshToken')?.value;
+  const tokens = { accessToken, refreshToken };
 
-  const queryClient = await usePrefetchQueriesWithCookie([
-    { queryKey: ['category'], api: '/v2/categories' },
-  ]);
+  const queryClient = await usePrefetchQueriesWithCookie(
+    [{ queryKey: ['category'], api: '/v2/categories' }],
+    tokens,
+  );
 
   return (
     <html lang="ko" className={roboto.className}>

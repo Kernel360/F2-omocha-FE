@@ -1,5 +1,6 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 
 import { GetBasicAuctionListParams } from '@/apis/types/basicAuction';
 import AuctionDropDown from '@/app/basicauction/components/auctiondropdown';
@@ -70,13 +71,19 @@ async function Home({
   };
 
   const newParams = filteredParams<GetBasicAuctionListParams>(params);
+  const accessToken = cookies().get('accessToken')?.value;
+  const refreshToken = cookies().get('refreshToken')?.value;
+  const tokens = { accessToken, refreshToken };
 
-  const queryClient = await usePrefetchQueriesWithCookie([
-    {
-      queryKey: ['basicAuctionList', newParams],
-      api: `/v2/auctions?${convertQueryParamsObjectToString<GetBasicAuctionListParams>(newParams)}`,
-    },
-  ]);
+  const queryClient = await usePrefetchQueriesWithCookie(
+    [
+      {
+        queryKey: ['basicAuctionList', newParams],
+        api: `/v2/auctions?${convertQueryParamsObjectToString<GetBasicAuctionListParams>(newParams)}`,
+      },
+    ],
+    tokens,
+  );
 
   return (
     <MaxLayout>

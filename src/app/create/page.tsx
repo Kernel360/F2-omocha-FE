@@ -77,7 +77,7 @@ export default function Home() {
     data.imagesRequired.forEach(image => formData.append('images', image.file));
 
     postBasicAuction(formData);
-  }, 300);
+  }, 1500);
 
   return (
     <div className={S.backContainer}>
