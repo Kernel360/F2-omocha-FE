@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { setCookie } from 'cookies-next';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -15,13 +15,15 @@ import EVENT_ID from '@/static/eventId';
 function useLogin() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
 
   const prevUrl = searchParams.get('prevUrl');
   const { showToast } = useToast();
   const { isLoggedIn, setIsLoggedIn } = useAuth();
 
   useEffect(() => {
-    // 쿠키 설정 후 router.refresh() 사용
+    // 쿠키 설정 후 router.refresh() 사용, basicAuctionList 쿼리 캐시 초기화
+    queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
     router.refresh();
   }, [isLoggedIn]);
 

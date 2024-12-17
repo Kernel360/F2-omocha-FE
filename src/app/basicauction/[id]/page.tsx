@@ -1,5 +1,6 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 
 import { BasicAuctionResponseData } from '@/apis/types/basicAuction';
 import MaxLayout from '@/components/MaxLayout';
@@ -44,12 +45,17 @@ export const generateMetadata = async ({
 };
 
 async function BasicAuctionDetailPage({ params }: BasicAuctionDetailPageProps) {
+  const accessToken = cookies().get('accessToken')?.value;
+  const refreshToken = cookies().get('refreshToken')?.value;
+  const tokens = { accessToken, refreshToken };
+
   const queryClient = await usePrefetchQueryWithCookie<
     BasicAuctionResponseData,
     ['basicAuction', typeof params.id]
   >({
     queryKey: ['basicAuction', params.id],
     api: `/v2/auctions/${params.id}`,
+    authorizationToken: tokens,
   });
 
   return (
