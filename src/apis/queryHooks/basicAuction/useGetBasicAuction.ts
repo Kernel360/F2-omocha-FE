@@ -7,6 +7,7 @@ function useGetBasicAuction(id: number) {
     queryKey: ['basicAuction', id],
     queryFn: () => getBasicAuction(id),
     enabled: !!id,
+    staleTime: 0,
   });
   return { data, refetch };
 }

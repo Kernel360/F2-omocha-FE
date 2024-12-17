@@ -15,7 +15,7 @@ interface AuctionPriceSectionProps {
 }
 
 function AuctionPriceSection({ id, startPrice, instantBuyPrice }: AuctionPriceSectionProps) {
-  const { data: currentPrice, refetch } = useGetBasicAuctionNowPrice(id);
+  const { data: currentPrice, refetch: refetchNowPrice } = useGetBasicAuctionNowPrice(id);
   const { refetch: refetchBasicAuction } = useGetBasicAuction(id);
   const { refetch: refetchBasicAuctionBidList } = useGetBasicAuctionBidList(id);
 
@@ -25,7 +25,7 @@ function AuctionPriceSection({ id, startPrice, instantBuyPrice }: AuctionPriceSe
 
   const refreshCurrentPrice = () => {
     setIsRotating(true);
-    refetch();
+    refetchNowPrice();
     refetchBasicAuction();
     refetchBasicAuctionBidList();
     setTimeout(() => {

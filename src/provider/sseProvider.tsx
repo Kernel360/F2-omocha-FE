@@ -6,10 +6,11 @@ import React, {
   useRef,
   useEffect,
   ReactNode,
-  useMemo,
+  // useMemo,
   useState,
 } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
 
 export interface Notification {
@@ -43,9 +44,19 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
   const EventSource = EventSourcePolyfill || NativeEventSource;
   const eventSourceRef = useRef<EventSource | null>(null);
   const [noticeList, setNoticeList] = useState<Notification[]>([]);
+  const queryClient = useQueryClient();
+
+  console.log(noticeList);
 
   const addNotice = (notification: Notification) => {
     setNoticeList(prev => [...prev, notification]);
+    console.log('notification', notification.data.auction_id);
+
+    console.log('queryClient sse', queryClient);
+    console.log(
+      '가져와 지니??',
+      queryClient.getQueryData(['nowPrice', notification.data.auction_id]),
+    );
   };
 
   const removeNotice = (id: number) => {
@@ -56,6 +67,7 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
     setNoticeList([]);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const startEventSource = () => {
     if (eventSourceRef.current) {
       eventSourceRef.current.close(); // 이전 연결이 있을 경우 닫기
@@ -74,6 +86,9 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
       },
     );
 
+    console.log('연결 확인', eventSourceRef.current);
+
+    // 연결 확인
     eventSourceRef.current.addEventListener('CONNECT', (event: MessageEvent) => {
       const { data } = event;
       if (data === 'Connect Success') {
@@ -91,31 +106,68 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
       try {
         const notification: Notification = JSON.parse(event.data);
         addNotice(notification);
+
+        // queryClient.invalidateQueries({
+        //   queryKey: ['basicAuction', notification.data.auction_id],
+        // });
+        // queryClient.invalidateQueries({
+        //   queryKey: ['basicAuctionBidList', notification.data.auction_id],
+        // });
+        // queryClient.invalidateQueries({
+        //   queryKey: ['nowPrice', notification.data.auction_id],
+        // });
+        // queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
+        // queryClient.invalidateQueries({
+        //   queryKey: ['nowPrice', notification.data.auction_id],
+        // });
       } catch (error) {
         console.error('Failed to parse notification:', error);
       }
     };
 
-    eventSourceRef.current?.addEventListener('BID', handleEvent); // 입찰
-    eventSourceRef.current?.addEventListener('CONCLUDE', handleEvent); // 낙찰
-    eventSourceRef.current?.addEventListener('BID_SELLER', handleEvent); // 판매자 새 입찰 알림
-    eventSourceRef.current?.addEventListener('BID_BUYER', handleEvent); // 구매자 새 입찰 알림
-    eventSourceRef.current?.addEventListener('CONCLUDE_SELLER', handleEvent); // 판매자 낙찰 알림
-    eventSourceRef.current?.addEventListener('CONCLUDE_BUYER', handleEvent); // 구매자 낙찰 알림
-    eventSourceRef.current?.addEventListener('CONCLUDE_OTHER_BUYER', handleEvent); // 구매자 패찰 알림
-    eventSourceRef.current?.addEventListener('CONCLUDE_NO_BIDS', handleEvent); // 판매자 입찰 없이 종료 알림
+    eventSourceRef.current!.addEventListener('BID', e => {
+      const notification: Notification = JSON.parse(e.data);
+      addNotice(notification);
+      // handleEvent(e);
+      // queryClient.invalidateQueries({
+      //   queryKey: ['basicAuction'],
+      // });
+      // queryClient.invalidateQueries({
+      //   queryKey: ['basicAuctionBidList'],
+      // });
+      // queryClient.invalidateQueries({
+      //   queryKey: ['nowPrice', 68],
+      //   refetchType: 'all',
+      // });
+      // queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
+    }); // 입찰
+    eventSourceRef.current!.addEventListener('CONCLUDE', e => {
+      handleEvent(e);
+    }); // 낙찰
 
     // eslint-disable-next-line consistent-return
-    return () => {
-      eventSourceRef.current?.close();
-      console.log('연결 끊기');
-    };
-  }, [accessToken]);
+    // return () => {
+    //   console.log('연결 끊기1', eventSourceRef.current);
+    //   if (eventSourceRef.current) {
+    //     eventSourceRef.current.close();
+    //     console.log('연결 끊기2', eventSourceRef.current);
+    //   } else {
+    //     console.log('없음');
+    //   }
+    //   console.log('연결 끊기3', eventSourceRef.current);
+    // };
+  }, []);
 
-  const contextValue = useMemo(
-    () => ({ noticeList, addNotice, removeNotice, clearAllNotice }),
-    [noticeList],
-  );
+  useEffect(() => {
+    queryClient.invalidateQueries({
+      queryKey: ['nowPrice', 68],
+    });
+
+    console.log('queryClient effect 따로');
+  }, [noticeList, queryClient]);
+
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
+  const contextValue = { noticeList, addNotice, removeNotice, clearAllNotice };
 
   return <SSEContext.Provider value={contextValue}>{children}</SSEContext.Provider>;
 }
