@@ -18,6 +18,7 @@ const refreshAccessToken = async (refreshToken: string | undefined) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ refresh_token: refreshToken }),
+      cache: 'no-store',
     },
   ).then(res => res.json());
 
@@ -54,6 +55,7 @@ async function createFetchApiClient<T>({
       ...(authorizationToken?.accessToken && {
         Authorization: `${authorizationToken.accessToken}`,
       }),
+      cache: 'no-store',
     },
     ...options,
   };
@@ -76,6 +78,7 @@ async function createFetchApiClient<T>({
           defaultOptions.headers = {
             ...defaultOptions.headers,
             Authorization: `${newAccessToken}`,
+            cache: 'no-store',
           };
 
           const retryResponse = await fetch(url, defaultOptions);
