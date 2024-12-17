@@ -76,10 +76,6 @@ async function Home({
       queryKey: ['basicAuctionList', newParams],
       api: `/v2/auctions?${convertQueryParamsObjectToString<GetBasicAuctionListParams>(newParams)}`,
     },
-    {
-      queryKey: ['category', params.categoryId],
-      api: `/v2/categories/${params.categoryId}`,
-    },
   ]);
 
   return (
