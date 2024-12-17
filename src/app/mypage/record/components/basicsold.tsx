@@ -7,7 +7,7 @@ import useGetAuctionHistories from '@/apis/queryHooks/User/useGetAuctionHistorie
 import CommonImage from '@/components/CommonImage';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
-import { formatDateToLocal } from '@/utils/dateUtils';
+import { formatDate } from '@/utils/dateUtils';
 
 import * as S from './BasicSold.css';
 
@@ -108,7 +108,7 @@ export default function BasicSold() {
                 </li>
                 <li className={S.listData}>
                   <span className={S.listName}>종료</span>
-                  <span className={S.listValue}>{formatDateToLocal(history.end_date)}</span>
+                  <span className={S.listValue}>{formatDate(history.end_date)}</span>
                 </li>
               </ul>
             </li>

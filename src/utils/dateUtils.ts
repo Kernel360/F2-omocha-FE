@@ -21,7 +21,7 @@ function calcRemainingTime(endTimeInCountRemainingTime: Date) {
 }
 
 function formatDateToUTC(dateString: string): string {
-  const date = new Date(dateString);
+  const date = new Date(`${dateString}Z`); // 'Z'를 붙여 UTC로 변환
 
   if (Number.isNaN(date.getTime())) {
     throw new Error('Invalid date string');
@@ -38,7 +38,7 @@ function formatDateToUTC(dateString: string): string {
 }
 
 function formatDateToLocal(dateString: string): string {
-  const date = new Date(`${dateString}Z`); // 'Z'를 붙여 UTC로 변환
+  const date = new Date(`${dateString}`); // 'Z'를 붙여 UTC로 변환
 
   if (Number.isNaN(date.getTime())) {
     throw new Error('Invalid date string');
@@ -73,4 +73,30 @@ function formatDateToLocal(dateString: string): string {
   return `${year}-${month}-${day} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`;
 }
 
-export { calcRemainingTime, calculateDDay, formatDateToUTC, formatDateToLocal };
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+
+  const formatter = new Intl.DateTimeFormat('ko-KR', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false, // 24시간 포맷
+  });
+
+  const parts = formatter.formatToParts(date);
+
+  const year = parts.find(part => part.type === 'year')?.value;
+  const month = parts.find(part => part.type === 'month')?.value;
+  const day = parts.find(part => part.type === 'day')?.value;
+  const hour = parts.find(part => part.type === 'hour')?.value;
+  const minute = parts.find(part => part.type === 'minute')?.value;
+  const second = parts.find(part => part.type === 'second')?.value;
+
+  return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+}
+
+export { calcRemainingTime, calculateDDay, formatDateToUTC, formatDateToLocal, formatDate };
