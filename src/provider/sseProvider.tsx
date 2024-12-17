@@ -6,12 +6,15 @@ import React, {
   useRef,
   useEffect,
   ReactNode,
-  // useMemo,
   useState,
+  useMemo,
 } from 'react';
 
-import { useQueryClient } from '@tanstack/react-query';
+// import { useQueryClient } from '@tanstack/react-query';
 import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
+
+import usePostNotice from '@/apis/queryHooks/alarm/usePostNotice';
+import { formatDate } from '@/utils/dateUtils';
 
 export interface Notification {
   notification_id: number;
@@ -24,6 +27,7 @@ export interface Notification {
     now_price: number | null;
   };
   create_at: string;
+  isNew?: boolean;
 }
 
 interface SSEContextType {
@@ -38,29 +42,35 @@ interface SSEtProps {
   accessToken: string | undefined;
 }
 
+const NOW_DATE = formatDate(new Date().toString());
+
 const SSEContext = createContext<SSEContextType | undefined>(undefined);
 
 export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
   const EventSource = EventSourcePolyfill || NativeEventSource;
   const eventSourceRef = useRef<EventSource | null>(null);
   const [noticeList, setNoticeList] = useState<Notification[]>([]);
-  const queryClient = useQueryClient();
-
-  console.log(noticeList);
+  const { mutate: postReadNotice } = usePostNotice();
+  // const queryClient = useQueryClient();
 
   const addNotice = (notification: Notification) => {
-    setNoticeList(prev => [...prev, notification]);
-    console.log('notification', notification.data.auction_id);
-
-    console.log('queryClient sse', queryClient);
-    console.log(
-      '가져와 지니??',
-      queryClient.getQueryData(['nowPrice', notification.data.auction_id]),
-    );
+    const isNew = formatDate(notification.create_at) > NOW_DATE;
+    setNoticeList(prev => [...prev.map(notice => ({ ...notice })), { ...notification, isNew }]);
+    // queryClient.invalidateQueries({
+    //   queryKey: ['basicAuction', notification.data.auction_id],
+    // });
+    // queryClient.invalidateQueries({
+    //   queryKey: ['basicAuctionBidList', notification.data.auction_id],
+    // });
+    // queryClient.invalidateQueries({
+    //   queryKey: ['nowPrice', notification.data.auction_id],
+    // });
+    // queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
   };
 
   const removeNotice = (id: number) => {
     setNoticeList(prev => prev.filter(notification => notification.notification_id !== id));
+    postReadNotice(id);
   };
 
   const clearAllNotice = () => {
@@ -106,68 +116,32 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
       try {
         const notification: Notification = JSON.parse(event.data);
         addNotice(notification);
-
-        // queryClient.invalidateQueries({
-        //   queryKey: ['basicAuction', notification.data.auction_id],
-        // });
-        // queryClient.invalidateQueries({
-        //   queryKey: ['basicAuctionBidList', notification.data.auction_id],
-        // });
-        // queryClient.invalidateQueries({
-        //   queryKey: ['nowPrice', notification.data.auction_id],
-        // });
-        // queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
-        // queryClient.invalidateQueries({
-        //   queryKey: ['nowPrice', notification.data.auction_id],
-        // });
       } catch (error) {
         console.error('Failed to parse notification:', error);
       }
     };
 
-    eventSourceRef.current!.addEventListener('BID', e => {
-      const notification: Notification = JSON.parse(e.data);
-      addNotice(notification);
-      // handleEvent(e);
-      // queryClient.invalidateQueries({
-      //   queryKey: ['basicAuction'],
-      // });
-      // queryClient.invalidateQueries({
-      //   queryKey: ['basicAuctionBidList'],
-      // });
-      // queryClient.invalidateQueries({
-      //   queryKey: ['nowPrice', 68],
-      //   refetchType: 'all',
-      // });
-      // queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
-    }); // 입찰
-    eventSourceRef.current!.addEventListener('CONCLUDE', e => {
-      handleEvent(e);
-    }); // 낙찰
+    eventSourceRef.current!.addEventListener('BID', handleEvent); // 입찰
+    eventSourceRef.current!.addEventListener('CONCLUDE', handleEvent); // 낙찰
 
     // eslint-disable-next-line consistent-return
-    // return () => {
-    //   console.log('연결 끊기1', eventSourceRef.current);
-    //   if (eventSourceRef.current) {
-    //     eventSourceRef.current.close();
-    //     console.log('연결 끊기2', eventSourceRef.current);
-    //   } else {
-    //     console.log('없음');
-    //   }
-    //   console.log('연결 끊기3', eventSourceRef.current);
-    // };
-  }, []);
+    return () => {
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+        console.log('연결 끊기', eventSourceRef.current);
+      }
+    };
+  }, [accessToken]);
 
-  useEffect(() => {
-    queryClient.invalidateQueries({
-      queryKey: ['nowPrice', 68],
-    });
-
-    console.log('queryClient effect 따로');
-  }, [noticeList, queryClient]);
-
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const contextValue = { noticeList, addNotice, removeNotice, clearAllNotice };
+  const contextValue = useMemo(
+    () => ({
+      noticeList,
+      addNotice,
+      removeNotice,
+      clearAllNotice,
+    }),
+    [noticeList],
+  );
 
   return <SSEContext.Provider value={contextValue}>{children}</SSEContext.Provider>;
 }

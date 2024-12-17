@@ -3,15 +3,13 @@
 import { useEffect, useState } from 'react';
 
 import { XIcon } from 'lucide-react';
-// import Link from 'next/link';
 
-import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
+// import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import CommonImage from '@/components/CommonImage';
 import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 import { useSSE, Notification } from '@/provider/sseProvider';
 
 import * as S from '../Alarm.css';
-// import { useQueryClient } from '@tanstack/react-query';
 
 type NotificationCode =
   | 'BID_BUYER'
@@ -39,12 +37,9 @@ function AlarmSlide() {
   const [showSlide, setShowSlide] = useState(false);
   const [prevNotice, setPrevNotice] = useState<Notification | null>(null);
   const noticeIndex = Math.max(noticeList.length - 1, 0);
-  // const queryClient = useQueryClient();
-
-  console.log('noticeList', noticeList);
 
   useEffect(() => {
-    if (noticeList.length > 0) {
+    if (noticeList.length > 0 && noticeList[noticeIndex].isNew) {
       const latestNotice = noticeList[noticeIndex];
 
       if (latestNotice.notification_id !== prevNotice?.notification_id) {
@@ -56,34 +51,30 @@ function AlarmSlide() {
         }, 5000);
       }
     }
-    // if (noticeList[noticeIndex]) {
-    //   queryClient.invalidateQueries({
-    //     queryKey: ['basicAuction', noticeList[noticeIndex].data.auction_id],
-    //   });
-    //   queryClient.invalidateQueries({
-    //     queryKey: ['basicAuctionBidList', noticeList[noticeIndex].data.auction_id],
-    //   });
-    //   queryClient.invalidateQueries({
-    //     queryKey: ['nowPrice', noticeList[noticeIndex].data.auction_id],
-    //   });
-    //   queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
-    //   queryClient.invalidateQueries({
-    //     queryKey: ['nowPrice', noticeList[noticeIndex].data.auction_id],
-    //   });
-    //   console.log('queryClient slide', queryClient);
-    // }
+
+    // queryClient.invalidateQueries({
+    //   queryKey: ['basicAuction', noticeList[noticeIndex].data.auction_id],
+    // });
+    // queryClient.invalidateQueries({
+    //   queryKey: ['basicAuctionBidList', noticeList[noticeIndex].data.auction_id],
+    // });
+    // queryClient.invalidateQueries({
+    //   queryKey: ['nowPrice', noticeList[noticeIndex].data.auction_id],
+    // });
+    // queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
+    // queryClient.invalidateQueries({
+    //   queryKey: ['nowPrice', noticeList[noticeIndex].data.auction_id],
+    // });
   }, [noticeIndex, noticeList, prevNotice]);
 
-  const { data: auctionData } = useGetBasicAuction(noticeList[noticeIndex]?.data.auction_id);
-
-  console.log('noticeList[noticeIndex]', noticeList[noticeIndex]?.create_at);
+  // const { data: auctionData } = useGetBasicAuction(noticeList[noticeIndex]?.data.auction_id);
 
   return (
     <div>
       {showSlide && (
         <a
           className={S.alarmSlide}
-          href={`/basicauction/${noticeList[noticeIndex]?.data.auction_id}?category=${auctionData?.result_data.category_id}&createdAt=${noticeList[noticeIndex]?.create_at}`}
+          href={`/basicauction/${noticeList[noticeIndex]?.data.auction_id}`}
         >
           {isVisible && noticeList[noticeIndex] && (
             <CommonImage
