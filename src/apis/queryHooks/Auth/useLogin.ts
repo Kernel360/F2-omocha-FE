@@ -32,8 +32,8 @@ function useLogin() {
       const accessToken = response.result_data.access_token;
       const refreshToken = response.result_data.refresh_token;
 
-      setCookie('accessToken', accessToken, { maxAge: 60 * 30 });
-      setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 });
+      setCookie('accessToken', accessToken, { maxAge: 60 * 60 * 24 });
+      setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 7 });
 
       setIsLoggedIn(true);
       showToast('success', '로그인 되었습니다.');
