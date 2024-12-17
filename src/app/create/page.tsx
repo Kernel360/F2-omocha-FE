@@ -19,7 +19,7 @@ import { Modal } from '@/components/Modal/Modal';
 import useBooleanState from '@/hooks/useBooleanState';
 import useDebounce from '@/hooks/useDebounce';
 import EVENT_ID from '@/static/eventId';
-import { formatDateToUTC } from '@/utils/dateUtils';
+import { formatDate } from '@/utils/dateUtils';
 
 import * as S from './Basicauction.css';
 
@@ -48,8 +48,8 @@ export default function Home() {
       content: data.contentRequired,
       start_price: data.startPriceRequired,
       bid_unit: data.bidUnitRequired,
-      start_date: formatDateToUTC(new Date().toISOString()),
-      end_date: formatDateToUTC(data.endDateRequired),
+      start_date: formatDate(new Date().toString()),
+      end_date: formatDate(data.endDateRequired),
       instant_buy_price: data.instantBuyPrice,
       category_id: data.categoryIdRequired[0],
     };
@@ -66,8 +66,8 @@ export default function Home() {
       content: data.contentRequired,
       start_price: data.startPriceRequired,
       bid_unit: data.bidUnitRequired,
-      start_date: formatDateToUTC(new Date().toISOString()),
-      end_date: formatDateToUTC(data.endDateRequired),
+      start_date: formatDate(new Date().toString()),
+      end_date: formatDate(data.endDateRequired),
       instant_buy_price: instantBuyPriceValue ? data.instantBuyPrice : null,
       category_id: data.categoryIdRequired[0],
     };

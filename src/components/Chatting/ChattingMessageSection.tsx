@@ -8,6 +8,7 @@ import useGetChatroomList from '@/apis/queryHooks/chat/useGetChatroomList';
 import { Message } from '@/apis/types/chat';
 import useBidirectionalInfiniteScroll from '@/hooks/useBidirectionalInfiniteScroll';
 import useBooleanState from '@/hooks/useBooleanState';
+import { formatDate } from '@/utils/dateUtils';
 import getAuthTokens from '@/utils/getAuthTokens';
 
 import * as S from './Chatting.css';
@@ -171,7 +172,7 @@ function ChattingMessageSection({ lastChat, roomId }: ChattingMessageSectionProp
                       : S.msgDate.opponentMsg
                   }
                 >
-                  {msg.created_at}
+                  {formatDate(msg.created_at)}
                 </p>
               </div>
             );
