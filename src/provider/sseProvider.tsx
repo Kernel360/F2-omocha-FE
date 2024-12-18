@@ -11,9 +11,12 @@ import React, {
 } from 'react';
 
 // import { useQueryClient } from '@tanstack/react-query';
+
+import { useQueryClient } from '@tanstack/react-query';
 import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
 
 import usePostNotice from '@/apis/queryHooks/alarm/usePostNotice';
+import usePostNoticeAll from '@/apis/queryHooks/alarm/usePostNoticeAll';
 import { formatDate } from '@/utils/dateUtils';
 
 export interface Notification {
@@ -51,21 +54,23 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
   const eventSourceRef = useRef<EventSource | null>(null);
   const [noticeList, setNoticeList] = useState<Notification[]>([]);
   const { mutate: postReadNotice } = usePostNotice();
-  // const queryClient = useQueryClient();
+  const { mutate: postReadNoticeAll } = usePostNoticeAll();
+  let eventId = '';
+  const queryClient = useQueryClient();
 
   const addNotice = (notification: Notification) => {
     const isNew = formatDate(notification.create_at) > NOW_DATE;
     setNoticeList(prev => [...prev.map(notice => ({ ...notice })), { ...notification, isNew }]);
-    // queryClient.invalidateQueries({
-    //   queryKey: ['basicAuction', notification.data.auction_id],
-    // });
-    // queryClient.invalidateQueries({
-    //   queryKey: ['basicAuctionBidList', notification.data.auction_id],
-    // });
-    // queryClient.invalidateQueries({
-    //   queryKey: ['nowPrice', notification.data.auction_id],
-    // });
-    // queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
+    queryClient.invalidateQueries({
+      queryKey: ['basicAuction', notification.data.auction_id],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['basicAuctionBidList', notification.data.auction_id],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['nowPrice', notification.data.auction_id],
+    });
+    queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
   };
 
   const removeNotice = (id: number) => {
@@ -75,6 +80,7 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
 
   const clearAllNotice = () => {
     setNoticeList([]);
+    postReadNoticeAll(noticeList.map(notice => notice.notification_id));
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,23 +90,22 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
     }
 
     eventSourceRef.current = new EventSource(
-      `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/notifications/connect`,
+      `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/notifications/connect${eventId ? `?lastEventId=${eventId}` : ''}`,
       {
         headers: {
           Authorization: `${accessToken!}`,
           Connection: 'keep-alive',
-          Accept: 'text/event-stream',
         },
         withCredentials: true,
         heartbeatTimeout: 1800000,
       },
     );
 
-    console.log('연결 확인', eventSourceRef.current);
-
     // 연결 확인
     eventSourceRef.current.addEventListener('CONNECT', (event: MessageEvent) => {
       const { data } = event;
+      eventId = event.lastEventId || '';
+      console.log('연결 확인', event.lastEventId);
       if (data === 'Connect Success') {
         console.log('연결 성공');
       }

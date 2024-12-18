@@ -23,3 +23,26 @@ export const postNotice = async (
 
   return response;
 };
+
+export const postNoticeAll = async (
+  param: number[],
+  authorizationToken: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  },
+) => {
+  const response = await createFetchApiClient<Response<null>>({
+    endpoint: `/v2/notifications/readAll`,
+    options: {
+      method: 'POST',
+      body: JSON.stringify({ notification_id_list: param }),
+    },
+    authorizationToken,
+  });
+
+  if (!response) {
+    throw new Error('Failed to postNoticeAll');
+  }
+
+  return response;
+};
