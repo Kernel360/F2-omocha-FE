@@ -28,7 +28,6 @@ function CategoryHeader({ data }: CategoryHeaderProps) {
             key={category.category_id}
             href={`/basicauction/?categoryId=${category.category_id}&page=1`}
             className={S.buttonStyles}
-            scroll={false}
             onClick={() => handleMixpanel(category.name)}
           >
             {category.name}

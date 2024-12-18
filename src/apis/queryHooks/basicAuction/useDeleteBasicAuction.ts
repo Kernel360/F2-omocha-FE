@@ -17,7 +17,7 @@ function useDeleteBasicAuction() {
     mutationFn: (id: number) => deleteAuction(id, tokens),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['basicAuctionList'] });
-      router.push('/basicauction', { scroll: false });
+      router.push('/basicauction');
       showToast('success', '경매가 성공적으로 삭제되었습니다.');
     },
     onError: (e: FetchError) => {

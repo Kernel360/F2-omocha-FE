@@ -26,7 +26,6 @@ function MypageCategory() {
             className={S.categoryLink}
             href={category.path}
             style={{ color: category.path === pathname ? colors.primary9 : 'black' }}
-            scroll={false}
             onClick={() => handleMixpanel(category.eventId)}
           >
             <span>{category.name}</span>
@@ -41,7 +40,6 @@ function MypageCategory() {
           className={S.categoryLink}
           href={category.path}
           style={{ color: category.path === pathname ? colors.primary9 : 'black' }}
-          scroll={false}
           onClick={() => handleMixpanel(category.eventId)}
         >
           {category.name}

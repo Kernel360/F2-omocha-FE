@@ -44,11 +44,7 @@ export default function BasicSold() {
       {auctionHistories.content.length === 0 ? (
         <div className={S.noListWrapper}>
           <div className={S.noListTitle}>아직 판매한 경매가 없습니다.</div>
-          <button
-            className={S.noListButton}
-            type="button"
-            onClick={() => router.push('/create', { scroll: false })}
-          >
+          <button className={S.noListButton} type="button" onClick={() => router.push('/create')}>
             경매 등록하러 가기
           </button>
         </div>
@@ -70,7 +66,6 @@ export default function BasicSold() {
                     onClick={() => {
                       router.push(
                         `/basicauction/${history.auction_id}?categoryId=${history.category_id}`,
-                        { scroll: false },
                       );
                       mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
                         page_context: 'record_page',

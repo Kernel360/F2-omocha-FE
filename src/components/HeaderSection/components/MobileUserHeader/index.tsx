@@ -78,7 +78,6 @@ function MobileUserHeader({ openNav }: MobileUserHeaderProps) {
                   searchParams.size > 0
                     ? `/login?prevUrl=${pathname}?${searchParams}`
                     : `/login?prevUrl=${pathname}`,
-                  { scroll: false },
                 );
                 handleMixpanel(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, '알림');
               }}
@@ -90,7 +89,6 @@ function MobileUserHeader({ openNav }: MobileUserHeaderProps) {
       </div>
       <Link
         href="/"
-        scroll={false}
         className={S.topHeaderLogo}
         onClick={() => mixpanel.track(EVENT_ID.MAIN_BUTTON_CLICKED)}
       >

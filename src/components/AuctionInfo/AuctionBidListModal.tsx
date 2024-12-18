@@ -20,7 +20,7 @@ function AuctionBidListModal({ id }: AuctionBidListModalProps) {
   const { data } = useGetBasicAuctionBidList(id);
 
   const moveToLogin = () => {
-    router.push(`/login?prevUrl=${pathname}`, { scroll: false });
+    router.push(`/login?prevUrl=${pathname}`);
     mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
       prev_event: '입찰기록보기',
     });

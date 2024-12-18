@@ -60,7 +60,7 @@ function UserHeader() {
 
   return (
     <section className={S.topHeader}>
-      <Link href="/" scroll={false} className={S.topHeaderLogo}>
+      <Link href="/" className={S.topHeaderLogo}>
         <Image src={logoIcon} alt="logo" width={24} height={24} className={S.logo} />
         <div className={S.logo}>OMOCHA</div>
       </Link>
@@ -71,7 +71,6 @@ function UserHeader() {
               <Link
                 key={category.id}
                 href={category.path}
-                scroll={false}
                 className={S.TopHeaderUnit}
                 onClick={() => handleMixpanel(category.eventId, category.name)}
               >
@@ -94,7 +93,6 @@ function UserHeader() {
                     searchParams.size > 0
                       ? `/login?prevUrl=${pathname}?${searchParams}`
                       : `/login?prevUrl=${pathname}`,
-                    { scroll: false },
                   );
                   handleMixpanel(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, category.name);
                 }
@@ -118,7 +116,6 @@ function UserHeader() {
                 ? `/login?prevUrl=${pathname}?${searchParams}`
                 : `/login?prevUrl=${pathname}`
             }
-            scroll={false}
             className={S.TopHeaderUnit}
             onClick={() => mixpanel.track(EVENT_ID.LOGIN_BUTTON_CLICKED)}
           >

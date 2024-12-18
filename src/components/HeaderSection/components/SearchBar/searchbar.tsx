@@ -18,7 +18,7 @@ export default function SearchBar() {
     const formData = new FormData(e.currentTarget);
     const currentSearch = formData.get('searchKeyword') as string;
 
-    router.push(`/basicauction?${AUCTIONPARAM_KEY.Q}=${currentSearch}`, { scroll: false });
+    router.push(`/basicauction?${AUCTIONPARAM_KEY.Q}=${currentSearch}`);
   };
 
   const deleteSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
