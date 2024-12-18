@@ -30,7 +30,7 @@ function UserHeader() {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
   const queryClient = useQueryClient();
-  const { noticeList } = useSSE();
+  const { noticeList, setNoticeList } = useSSE();
 
   useEffect(() => {
     // 쿠키 설정 후 router.refresh() 사용
@@ -45,6 +45,7 @@ function UserHeader() {
     queryClient.clear();
     mixpanel.track(EVENT_ID.LOGOUT_BUTTON_CLICKED);
     mixpanel.reset();
+    setNoticeList([]);
   };
 
   const handleMixpanel = (eventId: string, prevEvent?: string) => {

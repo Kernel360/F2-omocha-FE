@@ -10,9 +10,6 @@ import React, {
   useMemo,
 } from 'react';
 
-// import { useQueryClient } from '@tanstack/react-query';
-
-import { useQueryClient } from '@tanstack/react-query';
 import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
 
 import usePostNotice from '@/apis/queryHooks/alarm/usePostNotice';
@@ -38,6 +35,7 @@ interface SSEContextType {
   addNotice: (notification: Notification) => void;
   removeNotice: (id: number) => void;
   clearAllNotice: () => void;
+  setNoticeList: React.Dispatch<React.SetStateAction<Notification[]>>;
 }
 
 interface SSEtProps {
@@ -55,29 +53,21 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
   const [noticeList, setNoticeList] = useState<Notification[]>([]);
   const { mutate: postReadNotice } = usePostNotice();
   const { mutate: postReadNoticeAll } = usePostNoticeAll();
-  let eventId = '';
-  const queryClient = useQueryClient();
+  const eventIdRef = useRef<string>('');
 
+  // 알림 추가
   const addNotice = (notification: Notification) => {
     const isNew = formatDate(notification.create_at) > NOW_DATE;
     setNoticeList(prev => [...prev.map(notice => ({ ...notice })), { ...notification, isNew }]);
-    queryClient.invalidateQueries({
-      queryKey: ['basicAuction', notification.data.auction_id],
-    });
-    queryClient.invalidateQueries({
-      queryKey: ['basicAuctionBidList', notification.data.auction_id],
-    });
-    queryClient.invalidateQueries({
-      queryKey: ['nowPrice', notification.data.auction_id],
-    });
-    queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
   };
 
+  // 단일 알림 삭제
   const removeNotice = (id: number) => {
     setNoticeList(prev => prev.filter(notification => notification.notification_id !== id));
     postReadNotice(id);
   };
 
+  // 모든 알림 삭제
   const clearAllNotice = () => {
     setNoticeList([]);
     postReadNoticeAll(noticeList.map(notice => notice.notification_id));
@@ -90,7 +80,7 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
     }
 
     eventSourceRef.current = new EventSource(
-      `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/notifications/connect${eventId ? `?lastEventId=${eventId}` : ''}`,
+      `${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/notifications/connect${eventIdRef.current ? `?lastEventId=${eventIdRef.current}` : ''}`,
       {
         headers: {
           Authorization: `${accessToken!}`,
@@ -104,8 +94,7 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
     // 연결 확인
     eventSourceRef.current.addEventListener('CONNECT', (event: MessageEvent) => {
       const { data } = event;
-      eventId = event.lastEventId || '';
-      console.log('연결 확인', event.lastEventId);
+      eventIdRef.current = event.lastEventId || '';
       if (data === 'Connect Success') {
         console.log('연결 성공');
       }
@@ -126,14 +115,15 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
       }
     };
 
-    eventSourceRef.current!.addEventListener('BID', handleEvent); // 입찰
-    eventSourceRef.current!.addEventListener('CONCLUDE', handleEvent); // 낙찰
+    eventSourceRef.current?.addEventListener('BID', handleEvent); // 입찰
+    eventSourceRef.current?.addEventListener('CONCLUDE', handleEvent); // 낙찰
 
     // eslint-disable-next-line consistent-return
     return () => {
       if (eventSourceRef.current) {
         eventSourceRef.current.close();
-        console.log('연결 끊기', eventSourceRef.current);
+        eventIdRef.current = '';
+        console.log('연결 끊기');
       }
     };
   }, [accessToken]);
@@ -141,6 +131,7 @@ export function ServerSentEventProvider({ children, accessToken }: SSEtProps) {
   const contextValue = useMemo(
     () => ({
       noticeList,
+      setNoticeList,
       addNotice,
       removeNotice,
       clearAllNotice,

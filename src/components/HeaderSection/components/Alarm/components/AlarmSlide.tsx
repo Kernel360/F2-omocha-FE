@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { XIcon } from 'lucide-react';
 
-// import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
+import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import CommonImage from '@/components/CommonImage';
 import useResizeViewportWidth from '@/hooks/useResizeViewportWidth';
 import { useSSE, Notification } from '@/provider/sseProvider';
@@ -51,30 +51,16 @@ function AlarmSlide() {
         }, 5000);
       }
     }
-
-    // queryClient.invalidateQueries({
-    //   queryKey: ['basicAuction', noticeList[noticeIndex].data.auction_id],
-    // });
-    // queryClient.invalidateQueries({
-    //   queryKey: ['basicAuctionBidList', noticeList[noticeIndex].data.auction_id],
-    // });
-    // queryClient.invalidateQueries({
-    //   queryKey: ['nowPrice', noticeList[noticeIndex].data.auction_id],
-    // });
-    // queryClient.invalidateQueries({ queryKey: ['bidAuctionHistories'] });
-    // queryClient.invalidateQueries({
-    //   queryKey: ['nowPrice', noticeList[noticeIndex].data.auction_id],
-    // });
   }, [noticeIndex, noticeList, prevNotice]);
 
-  // const { data: auctionData } = useGetBasicAuction(noticeList[noticeIndex]?.data.auction_id);
+  const { data: auctionData } = useGetBasicAuction(noticeList[noticeIndex]?.data.auction_id);
 
   return (
     <div>
       {showSlide && (
         <a
           className={S.alarmSlide}
-          href={`/basicauction/${noticeList[noticeIndex]?.data.auction_id}`}
+          href={`/basicauction/${noticeList[noticeIndex]?.data.auction_id}?categoryId=${auctionData?.result_data.category_id}`}
         >
           {isVisible && noticeList[noticeIndex] && (
             <CommonImage

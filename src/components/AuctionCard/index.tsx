@@ -24,6 +24,7 @@ interface AuctionCardProps {
   auctionStatus?: string;
   instantBuyPrice?: number | null;
   pageContext?: string;
+  category?: number;
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
@@ -37,6 +38,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
     auctionStatus,
     instantBuyPrice,
     pageContext,
+    category,
   } = SAMPLE;
 
   const isExpired = auctionStatus !== 'BIDDING'; // new Date() > new Date(endTime);
@@ -44,7 +46,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   const dDay = calculateDDay(endTime);
   const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);
   const searchParams = useSearchParams();
-  const categoryId = Number(searchParams.get('categoryId'));
+  const categoryId = Number(searchParams.get('categoryId')) || category;
 
   useEffect(() => {
     setIsLike(initialLike);

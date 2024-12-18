@@ -1,5 +1,4 @@
 import { XIcon } from 'lucide-react';
-import Link from 'next/link';
 
 import useGetBasicAuction from '@/apis/queryHooks/basicAuction/useGetBasicAuction';
 import CommonImage from '@/components/CommonImage';
@@ -22,7 +21,7 @@ function AlarmUnit({ notice, noticeCodes, alarmTypes, onRemove }: AlarmUnitProps
 
   return (
     <>
-      <Link
+      <a
         href={`/basicauction/${notice.data.auction_id}?category=${auctionData?.result_data.category_id}`}
         className={S.alarmLink}
       >
@@ -55,7 +54,7 @@ function AlarmUnit({ notice, noticeCodes, alarmTypes, onRemove }: AlarmUnitProps
             <span className={S.listValue}>{notice.create_at}</span>
           </li>
         </ul>
-      </Link>
+      </a>
       <button
         className={S.deleteButton}
         type="button"
