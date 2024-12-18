@@ -24,16 +24,19 @@ function Buyer({ noticeList, onRemove }: BuyerProps) {
           <div className={S.noListTitle}>새로운 알림이 없습니다.</div>
         </div>
       ) : (
-        noticeList.map(notice => (
-          <li key={notice.notification_id} className={S.alarmItem}>
-            <AlarmUnit
-              notice={notice}
-              noticeCodes={BUYER_NOTICE_CODES}
-              alarmTypes={S.alarmTypes}
-              onRemove={onRemove}
-            />
-          </li>
-        ))
+        noticeList
+          .slice()
+          .reverse()
+          .map(notice => (
+            <li key={notice.notification_id} className={S.alarmItem}>
+              <AlarmUnit
+                notice={notice}
+                noticeCodes={BUYER_NOTICE_CODES}
+                alarmTypes={S.alarmTypes}
+                onRemove={onRemove}
+              />
+            </li>
+          ))
       )}
     </ul>
   );
