@@ -74,14 +74,16 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       onClick={handleMixpanel}
     >
       <div className={S.cardContent}>
-        <CommonImage
-          src={`${process.env.NEXT_PUBLIC_S3_URL}${thumbnailImage}`}
-          alt="Auction Image"
-          width={196}
-          height={196}
-          className={S.cardImage}
-          priority
-        />
+        <div className={S.imageContainer}>
+          <CommonImage
+            src={`${process.env.NEXT_PUBLIC_S3_URL}${thumbnailImage}`}
+            alt="Auction Image"
+            width={196}
+            height={196}
+            className={S.cardImage}
+            priority
+          />
+        </div>
         {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
         <button type="button" className={S.heartStyle} onClick={handleLike}>
           <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />
