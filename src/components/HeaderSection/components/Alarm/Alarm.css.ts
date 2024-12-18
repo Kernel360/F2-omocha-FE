@@ -50,7 +50,7 @@ export const alarmList = style({
   display: 'flex',
   flexDirection: 'column',
   height: 'calc(100vh - 143px)',
-  overflowY: 'scroll',
+  overflowY: 'auto',
 });
 
 export const alarmItem = style({
