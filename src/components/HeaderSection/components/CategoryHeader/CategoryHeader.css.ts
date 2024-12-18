@@ -23,7 +23,7 @@ export const bottomHeader = style({
   display: 'flex',
   gap: '27px',
   width: 'calc(100% - 195px)',
-  overflowX: 'scroll',
+  overflowX: 'auto',
 
   '@media': {
     'screen and (max-width: 700px)': {
