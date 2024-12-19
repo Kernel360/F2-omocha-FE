@@ -69,11 +69,7 @@ function BasicAuctionClientPage() {
         {data.result_data.content.length === 0 ? (
           <div className={S.noListWrapper}>
             <div className={S.noListTitle}>아직 등록된 경매가 없습니다.</div>
-            <button
-              className={S.noListButton}
-              type="button"
-              onClick={() => router.push('/create', { scroll: false })}
-            >
+            <button className={S.noListButton} type="button" onClick={() => router.push('/create')}>
               경매 등록하러 가기
             </button>
           </div>
@@ -92,6 +88,7 @@ function BasicAuctionClientPage() {
                 nowPrice={item.now_price}
                 auctionStatus={item.auction_status}
                 instantBuyPrice={item.instant_buy_price}
+                category={item.category_id}
               />
             ))}
           </ListLayout>

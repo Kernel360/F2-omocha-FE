@@ -27,8 +27,8 @@ function OauthCallbackHandler({ accessToken, refreshToken }: OauthCallbackHandle
 
     const handleLogin = () => {
       if (accessToken && refreshToken) {
-        setCookie('accessToken', accessToken, { maxAge: 60 * 30 });
-        setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 });
+        setCookie('accessToken', accessToken, { maxAge: 60 * 60 * 24 });
+        setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 7 });
 
         setIsLoggedIn(true);
         showToast('success', '로그인 되었습니다.');

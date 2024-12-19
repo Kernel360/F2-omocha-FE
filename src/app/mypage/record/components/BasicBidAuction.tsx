@@ -31,7 +31,6 @@ function BasicBidAuction({ bidAuctionHistory }: BasicBidAuctionProps) {
             onClick={e => {
               router.push(
                 `/basicauction/${bidAuctionHistory.auction_id}?categoryId=${bidAuctionHistory.category_id}`,
-                { scroll: false },
               );
               e.stopPropagation();
               mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {

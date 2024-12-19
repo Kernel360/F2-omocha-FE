@@ -42,7 +42,7 @@ Breadcrumb.Item = function BreadcrumbItem({
   return (
     <>
       {href ? (
-        <Link href={href} scroll={false}>
+        <Link href={href}>
           <div className={`${S.breadcrumbItemLink} ${isLast ? S.lastBreadcrumbItem : ''}`}>
             {children}
           </div>

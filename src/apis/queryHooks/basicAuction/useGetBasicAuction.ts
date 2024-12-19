@@ -6,6 +6,8 @@ function useGetBasicAuction(id: number) {
   const { data, refetch } = useQuery({
     queryKey: ['basicAuction', id],
     queryFn: () => getBasicAuction(id),
+    enabled: !!id,
+    staleTime: 0,
   });
   return { data, refetch };
 }

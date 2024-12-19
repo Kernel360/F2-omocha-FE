@@ -30,7 +30,7 @@ function ChattingHeader({ openAuctionInfo }: ChattingHeaderProps) {
           >{`판매자: ${openAuctionInfo.seller_name || openAuctionInfo.seller_id}`}</span> */}
         </div>
       </div>
-      <Link href={`/basicauction/${openAuctionInfo.auction_id}`} scroll={false}>
+      <Link href={`/basicauction/${openAuctionInfo.auction_id}`}>
         <div className={S.chatroomInfoSection}>
           <CommonImage
             src={`${process.env.NEXT_PUBLIC_S3_URL}${openAuctionInfo.thumbnail_path}`}

@@ -33,7 +33,6 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
         <div className={S.unitButton}>
           <Collapsible.Trigger asChild>
             <Link
-              scroll={false}
               href={
                 biddingState
                   ? `/basicauction/?categoryId=${unit.category_id}&page=1&auctionStatus=${biddingState}`
@@ -54,7 +53,6 @@ function CategoryUnit({ unit }: CategoryUnitProps) {
           ) : (
             <Link
               key={sub_category.category_id}
-              scroll={false}
               href={
                 biddingState
                   ? `/basicauction/?categoryId=${sub_category.category_id}&page=1&auctionStatus=${biddingState}`

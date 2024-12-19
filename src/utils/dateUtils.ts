@@ -21,7 +21,7 @@ function calcRemainingTime(endTimeInCountRemainingTime: Date) {
 }
 
 function formatDateToUTC(dateString: string): string {
-  const date = new Date(dateString);
+  const date = new Date(`${dateString}Z`); // 'Z'를 붙여 UTC로 변환
 
   if (Number.isNaN(date.getTime())) {
     throw new Error('Invalid date string');
@@ -38,7 +38,7 @@ function formatDateToUTC(dateString: string): string {
 }
 
 function formatDateToLocal(dateString: string): string {
-  const date = new Date(`${dateString}Z`); // 'Z'를 붙여 UTC로 변환
+  const date = new Date(`${dateString}`); // 'Z'를 붙여 UTC로 변환
 
   if (Number.isNaN(date.getTime())) {
     throw new Error('Invalid date string');

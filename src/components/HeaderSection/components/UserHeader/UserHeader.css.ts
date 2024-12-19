@@ -36,4 +36,15 @@ export const logoutButton = style({
 
 export const TopHeaderUnit = style({
   color: colors.gray11,
+  fontSize: '12px',
+  display: 'flex',
+  gap: '5px',
+});
+
+export const noticeCount = style({
+  backgroundColor: colors.red,
+  color: colors.white,
+  fontSize: '9px',
+  padding: '2px 5px',
+  borderRadius: '50%',
 });

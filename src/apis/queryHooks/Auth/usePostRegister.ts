@@ -16,7 +16,7 @@ function usePostRegister() {
     mutationFn: (param: RegisterParams) => postRegister(param),
     onSuccess: () => {
       showToast('success', '회원가입이 완료되었습니다.🎉');
-      router.push('/login', { scroll: false });
+      router.push('/login');
       mixpanel.track(EVENT_ID.JOIN_SUBMIT_BUTTON_CLICKED);
     },
     onError: (e: FetchError) => {

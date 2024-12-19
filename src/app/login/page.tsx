@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 import useLogin from '@/apis/queryHooks/Auth/useLogin';
 import GoogleIcon from '@/assets/svg/google.svg';
-import NaverIcon from '@/assets/svg/naver.svg';
+// import NaverIcon from '@/assets/svg/naver.svg';
 import ClientSidePageRef from '@/components/ClientPageTrackingPageView';
 import CommonButton from '@/components/CommonButton';
 import CommonInput from '@/components/CommonInput';
@@ -77,7 +77,7 @@ function Home() {
             </div>
           </form>
           <ul className={S.optionSection}>
-            <Link href="join" rel="stylesheet" scroll={false} onClick={handleJoinMixpanel}>
+            <Link href="join" rel="stylesheet" onClick={handleJoinMixpanel}>
               <li className={S.option}>회원가입 하기</li>
             </Link>
           </ul>
@@ -88,11 +88,11 @@ function Home() {
                 <GoogleIcon />
               </div>
             </Link>
-            <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/oauth/authorize/naver`}>
+            {/* <Link href={`${process.env.NEXT_PUBLIC_SERVER_API_URL}/api/v2/oauth/authorize/naver`}>
               <div className={S.snsLoginButton.naver}>
                 <NaverIcon />
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </MaxLayout>

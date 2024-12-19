@@ -14,7 +14,7 @@ export function usePermissionBidPrice(auctionId: number, sellerId: number) {
   const isPrevBuyer = useMemo(() => {
     if (auctionBidList?.result_data.length === 0) return false;
     return auctionBidList?.result_data[0].buyer_member_id === user?.member_id;
-  }, [auctionBidList]);
+  }, [auctionBidList?.result_data, user?.member_id]);
 
   const baseConditions = [
     { condition: expired === 'expired', message: '경매 진행 기간이 아닙니다.' },

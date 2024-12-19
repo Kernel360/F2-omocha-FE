@@ -10,11 +10,13 @@ import * as S from '@/app/globals.css';
 import ChattingIconButton from '@/components/Chatting/ChattingIconButton';
 import Footer from '@/components/Footer';
 import HeaderSection from '@/components/HeaderSection';
+import AlarmSlide from '@/components/HeaderSection/components/Alarm/components/AlarmSlide';
 import NavigationEvents from '@/components/NavigationEvents';
 import NetworkErrorModal from '@/components/NetworkErrorModal';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 import usePrefetchQueriesWithCookie from '@/hooks/usePrefetchQueriesWithCookie';
 import { AuthProvider } from '@/provider/authProvider';
+import { ServerSentEventProvider } from '@/provider/sseProvider';
 import TanstackProviders from '@/provider/tanstackProviders';
 import { ToastProvider } from '@/provider/toastProvider';
 import getMetadata from '@/utils/getMetadata';
@@ -64,12 +66,15 @@ export default async function RootLayout({
               </Suspense>
               <AuthProvider isLoggedIn={!!accessToken}>
                 <HydrationBoundary state={dehydrate(queryClient)}>
-                  <HeaderSection />
-                  <div className={S.container}>
-                    {children}
-                    <ChattingIconButton />
-                    <ScrollToTopButton />
-                  </div>
+                  <ServerSentEventProvider accessToken={accessToken}>
+                    <HeaderSection />
+                    <AlarmSlide />
+                    <div className={S.container}>
+                      {children}
+                      <ChattingIconButton />
+                      <ScrollToTopButton />
+                    </div>
+                  </ServerSentEventProvider>
                 </HydrationBoundary>
               </AuthProvider>
               <Footer />

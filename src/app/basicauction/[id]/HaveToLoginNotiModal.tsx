@@ -13,7 +13,7 @@ function HaveToLoginNotiModal() {
   const pathname = usePathname();
 
   const moveToLogin = () => {
-    router.push(`/login?prevUrl=${pathname}`, { scroll: false });
+    router.push(`/login?prevUrl=${pathname}`);
     mixpanel.track(EVENT_ID.REDIRECT_TO_LOGIN_PAGE_VIEWED, {
       prev_event: 'QnA쓰기',
     });

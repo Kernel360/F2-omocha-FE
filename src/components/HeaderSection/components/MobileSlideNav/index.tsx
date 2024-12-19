@@ -8,6 +8,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import CommonImage from '@/components/CommonImage';
 import mixpanel from '@/lib/mixpanel';
 import { useAuth } from '@/provider/authProvider';
+import { useSSE } from '@/provider/sseProvider';
 import { useToast } from '@/provider/toastProvider';
 import EVENT_ID from '@/static/eventId';
 import colors from '@/styles/color';
@@ -37,6 +38,7 @@ function MobileSlideNav({
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
   const queryClient = useQueryClient();
+  const { setNoticeList } = useSSE();
 
   const searchParams = useSearchParams();
 
@@ -53,6 +55,7 @@ function MobileSlideNav({
     onClose();
     mixpanel.track(EVENT_ID.LOGOUT_BUTTON_CLICKED);
     mixpanel.reset();
+    setNoticeList([]);
   };
 
   const handleMixpanel = (eventId: string, prevEvent: string) => {

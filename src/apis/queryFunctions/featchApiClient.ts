@@ -29,8 +29,8 @@ const refreshAccessToken = async (refreshToken: string | undefined) => {
   const newAccessToken = response.result_data.access_token;
   const newRefreshToken = response.result_data.refresh_token;
 
-  setCookie('accessToken', newAccessToken, { maxAge: 60 * 30 });
-  setCookie('refreshToken', newRefreshToken, { maxAge: 60 * 60 * 24 });
+  setCookie('accessToken', newAccessToken, { maxAge: 60 * 60 * 24 });
+  setCookie('refreshToken', newRefreshToken, { maxAge: 60 * 60 * 24 * 7 });
 
   return response;
 };

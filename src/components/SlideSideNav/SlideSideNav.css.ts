@@ -33,12 +33,20 @@ export const container = recipe({
   },
   variants: {
     type: {
+      right: {
+        width: '400px',
+        right: '0',
+      },
       normal: {
         width: '400px',
-        left: 0,
+        left: '0',
       },
       mobile: {
         left: '0',
+        width: '270px',
+      },
+      rightMobile: {
+        right: '0',
         width: '270px',
       },
     },
@@ -55,11 +63,19 @@ export const titleSection = recipe({
   },
   variants: {
     type: {
+      right: {
+        gap: '12px',
+        padding: '16px 16px 16px 16px',
+      },
       normal: {
         gap: '12px',
         padding: '30px 30px',
       },
       mobile: {
+        gap: '12px',
+        padding: '16px 16px 16px 16px',
+      },
+      rightMobile: {
         gap: '12px',
         padding: '16px 16px 16px 16px',
       },

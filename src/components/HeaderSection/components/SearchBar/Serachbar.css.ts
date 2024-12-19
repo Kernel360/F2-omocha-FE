@@ -13,9 +13,11 @@ export const searchBar = style({
   borderBottom: `1px solid ${colors.gray7}`,
   padding: '0 10px 5px',
   boxSizing: 'border-box',
+
   '@media': {
     'screen and (max-width: 700px)': {
-      maxWidth: '100px',
+      display: 'flex',
+      margin: '0 auto',
       padding: '0 ',
     },
   },
@@ -42,10 +44,4 @@ export const searchInput = style({
   border: 'none',
   outline: 'none',
   background: 'none',
-  '@media': {
-    'screen and (max-width: 700px)': {
-      fontSize: '10px',
-      width: '100%',
-    },
-  },
 });
