@@ -75,7 +75,6 @@ export default function Home() {
     formData.append('auctionRequest', JSON.stringify(auctionRequest));
 
     data.imagesRequired.forEach(image => formData.append('images', image.file));
-
     postBasicAuction(formData);
   }, 1500);
 

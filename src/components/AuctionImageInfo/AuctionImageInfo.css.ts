@@ -5,7 +5,7 @@ import colors from '@/styles/color';
 export const imageSection = style({
   width: '100%',
   display: 'flex',
-  maxHeight: '500px',
+  minHeight: '500px',
   justifyContent: 'center',
 });
 
@@ -15,7 +15,8 @@ export const subImageWrapper = style({
   gap: '10px',
   marginRight: '5px',
   overflowY: 'auto',
-  minWidth: '62px',
+  maxWidth: '62px',
+  width: '100%',
 });
 
 export const subImageWrapperButton = styleVariants({
@@ -26,6 +27,7 @@ export const subImageWrapperButton = styleVariants({
     border: `1px solid ${colors.primary11}`,
     cursor: 'pointer',
     borderSizing: 'border-box',
+    minHeight: '60px',
   },
   nonActive: {
     display: 'flex',
@@ -34,6 +36,7 @@ export const subImageWrapperButton = styleVariants({
     border: 'none',
     cursor: 'pointer',
     borderSizing: 'border-box',
+    minHeight: '60px',
   },
 });
 

@@ -24,6 +24,7 @@ interface AuctionCardProps {
   auctionStatus?: string;
   instantBuyPrice?: number | null;
   pageContext?: string;
+  category?: number;
 }
 
 function AuctionCard(SAMPLE: AuctionCardProps) {
@@ -37,6 +38,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
     auctionStatus,
     instantBuyPrice,
     pageContext,
+    category,
   } = SAMPLE;
 
   const isExpired = auctionStatus !== 'BIDDING'; // new Date() > new Date(endTime);
@@ -44,7 +46,7 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
   const dDay = calculateDDay(endTime);
   const { mutate: postAuctionLike } = usePostAuctionLike(id, isLike);
   const searchParams = useSearchParams();
-  const categoryId = Number(searchParams.get('categoryId'));
+  const categoryId = Number(searchParams.get('categoryId')) || category;
 
   useEffect(() => {
     setIsLike(initialLike);
@@ -72,14 +74,16 @@ function AuctionCard(SAMPLE: AuctionCardProps) {
       onClick={handleMixpanel}
     >
       <div className={S.cardContent}>
-        <CommonImage
-          src={`${process.env.NEXT_PUBLIC_S3_URL}${thumbnailImage}`}
-          alt="Auction Image"
-          width={196}
-          height={196}
-          className={S.cardImage}
-          priority
-        />
+        <div className={S.imageContainer}>
+          <CommonImage
+            src={`${process.env.NEXT_PUBLIC_S3_URL}${thumbnailImage}`}
+            alt="Auction Image"
+            width={196}
+            height={196}
+            className={S.cardImage}
+            priority
+          />
+        </div>
         {isExpired && <div className={S.dim}>종료된 경매입니다.</div>}
         <button type="button" className={S.heartStyle} onClick={handleLike}>
           <HeartIcon size={16} stroke="red" fill={isLike ? '#FF0000' : 'none'} />

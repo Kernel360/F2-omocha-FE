@@ -17,7 +17,7 @@ function useSetSearchParams() {
         params.set(key, value);
       }
 
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+      router.replace(`${pathname}?${params.toString()}`);
     },
     [router, pathname, searchParams],
   );
@@ -34,7 +34,7 @@ function useSetSearchParams() {
         }
       });
 
-      router.replace(`${pathname}?${searchParamsObj.toString()}`, { scroll: false });
+      router.replace(`${pathname}?${searchParamsObj.toString()}`);
     },
     [router, pathname, searchParams],
   );

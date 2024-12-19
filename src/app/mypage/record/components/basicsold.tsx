@@ -7,6 +7,7 @@ import useGetAuctionHistories from '@/apis/queryHooks/User/useGetAuctionHistorie
 import CommonImage from '@/components/CommonImage';
 import mixpanel from '@/lib/mixpanel';
 import EVENT_ID from '@/static/eventId';
+import { formatDate } from '@/utils/dateUtils';
 
 import * as S from './BasicSold.css';
 
@@ -43,11 +44,7 @@ export default function BasicSold() {
       {auctionHistories.content.length === 0 ? (
         <div className={S.noListWrapper}>
           <div className={S.noListTitle}>아직 판매한 경매가 없습니다.</div>
-          <button
-            className={S.noListButton}
-            type="button"
-            onClick={() => router.push('/create', { scroll: false })}
-          >
+          <button className={S.noListButton} type="button" onClick={() => router.push('/create')}>
             경매 등록하러 가기
           </button>
         </div>
@@ -69,7 +66,6 @@ export default function BasicSold() {
                     onClick={() => {
                       router.push(
                         `/basicauction/${history.auction_id}?categoryId=${history.category_id}`,
-                        { scroll: false },
                       );
                       mixpanel.track(EVENT_ID.AUCTION_DETAIL_ITEM_CLICKED, {
                         page_context: 'record_page',
@@ -107,7 +103,7 @@ export default function BasicSold() {
                 </li>
                 <li className={S.listData}>
                   <span className={S.listName}>종료</span>
-                  <span className={S.listValue}>{history.end_date}</span>
+                  <span className={S.listValue}>{formatDate(history.end_date)}</span>
                 </li>
               </ul>
             </li>

@@ -51,7 +51,6 @@ export const cardImage = style({
   fontSize: '18px',
   lineHeight: '24px',
   fontWeight: '24px',
-  objectFit: 'contain',
 });
 
 export const cardContent = style({
@@ -60,6 +59,14 @@ export const cardContent = style({
   flexDirection: 'column',
   gap: '8px',
   minHeight: '290px',
+});
+
+export const imageContainer = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '196px',
+  minWidth: '196px',
 });
 
 export const userIcon = style({

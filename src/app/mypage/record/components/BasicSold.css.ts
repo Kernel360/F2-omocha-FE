@@ -125,6 +125,7 @@ globalStyle(`${bidTitle} span`, {
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   textAlign: 'left',
+  whiteSpace: 'nowrap',
 });
 
 export const listName = style({

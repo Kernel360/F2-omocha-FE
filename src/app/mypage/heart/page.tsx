@@ -44,7 +44,7 @@ function Home() {
           <button
             className={S.noListButton}
             type="button"
-            onClick={() => router.push('/basicauction?page=1', { scroll: false })}
+            onClick={() => router.push('/basicauction?page=1')}
           >
             경매 구경하러 가기
           </button>
@@ -65,6 +65,7 @@ function Home() {
                   startTime={item.start_date}
                   endTime={item.end_date}
                   nowPrice={item.now_price}
+                  category={item.category_id}
                 />
               )),
             )}

@@ -16,6 +16,31 @@ export const IconWrapper = style({
   justifyContent: 'space-between',
 });
 
+export const searchAlarmWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+});
+
+export const alarm = style({
+  position: 'relative',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '5px',
+});
+
+export const alarmDot = style({
+  position: 'absolute',
+  top: '0',
+  right: '-5px',
+  width: '5px',
+  height: '5px',
+  borderRadius: '50%',
+  backgroundColor: colors.primary9,
+  marginLeft: '5px',
+});
+
 export const topHeaderLogo = style({
   position: 'absolute',
   left: '50%',
